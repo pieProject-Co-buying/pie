@@ -1,0 +1,59 @@
+@charset "UTF-8";
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+/*홈페이지 컬러코드 스타일*/
+:root{
+	--red : #c74a35;
+	--lightgray : #e5e5e5;
+	--navy : #0B3654;
+	--darkgray : #505050;
+	--brown : #A7754E;
+}
+
+/*홈페이지 폰트*/
+body{
+	font-family: 'NanumSquare', sans-serif;
+}
+
+/*static style 시트는 모든 html 파일에 공통적으로 적용되는 CSS로 해당 파일에 대해 팀장과 상의 없의 수정을 금합니다.*/
+/*모든 커스텀 스타일 앞에는 pie 접두어가 붙습니다.*/
+
+.pie-bg-red{
+	background-color: var(--red) !important;
+}
+
+.pie-bg-lightgray{
+	background-color: var(--lightgray) !important;
+}
+
+.pie-bg-navy{
+	background-color: var(--navy) !important;
+}
+
+.pie-bg-darkgray{
+	background-color: var(--darkgray) !important;
+}
+
+.pie-bg-brown{
+	background-color: var(--brown) !important;
+}
+
+.pie-c-red{
+	color: var(--red) !important;
+}
+
+.pie-c-lightgray{
+	color: var(--lightgray) !important;
+}
+
+.pie-c-navy{
+	color: var(--navy) !important;
+}
+
+.pie-c-darkgray{
+	color: var(--darkgray) !important;
+}
+
+.pie-c-brown{
+	color: var(--brown) !important;
+}
