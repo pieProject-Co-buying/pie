@@ -3,82 +3,474 @@
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="css/staticStyle.css" />
+<link rel="stylesheet" href="css/owl.carousel.css">
+<link rel="stylesheet" href="css/hjCustom.css" />
 </head>
 <body>
-<!--<h1>Bootstrap 기본설정완료</h1>-->
-
+	<!--<h1>Bootstrap 기본설정완료</h1>-->
 	<div id="wrapper" class="container-fluid p-0">
 		<header>
 			<!--기본 GNB-->
 			<!--메뉴 세부내용이 다르거나 수정이 필요하면 수정해서 개인 브랜치에 커밋후 말해주세요.-->
-			<nav class="navbar navbar-expand-lg navbar-dark pie-bg-red ">
-				<a class="navbar-brand" href="#">
-					<img src="imgs/logo_color_C_white.png" alt="" />
+			<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+				<a class="navbar-brand" href="#"> <img
+					src="imgs/logo_color_C_white.png" alt="" />
 				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-					aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-								aria-expanded="false">
-								동네 공구
-							</a>
+						<li class="nav-item active"><a class="nav-link" href="#">Home
+								<span class="sr-only">(current)</span>
+						</a></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 동네 공구 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">메인</a>
-								<a class="dropdown-item" href="#">공구해요 게시판</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-								aria-expanded="false">
-								대신 사드려요
-							</a>
+								<a class="dropdown-item" href="#">메인</a> <a
+									class="dropdown-item" href="#">공구해요 게시판</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 대신 사드려요 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">메인</a>
-								<a class="dropdown-item" href="#">Best 상품 게시판</a>
-								<a class="dropdown-item" href="#">공구해주세요 게시판</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-								aria-expanded="false">
-								같이써요 서비스
-							</a>
+								<a class="dropdown-item" href="#">메인</a> <a
+									class="dropdown-item" href="#">Best 상품 게시판</a> <a
+									class="dropdown-item" href="#">공구해주세요 게시판</a>
+							</div></li>
+						<li class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 같이써요 서비스 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">메인</a>
-								<a class="dropdown-item" href="#">신청해요 게시판</a>
-								<a class="dropdown-item" href="#">신청중인 서비스 조회</a>
-							</div>
-						</li>
+								<a class="dropdown-item" href="#">메인</a> <a
+									class="dropdown-item" href="#">신청해요 게시판</a> <a
+									class="dropdown-item" href="#">신청중인 서비스 조회</a>
+							</div></li>
 					</ul>
 
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">로그인</a>
+						<li class="nav-item active"><a class="nav-link" href="#">로그인</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">회원가입</a>
-						</li>
+						<li class="nav-item"><a class="nav-link" href="#">회원가입</a></li>
 
 					</ul>
 				</div>
 			</nav>
+
+
+			<div id="headerCarousel"
+				class="carousel slide hyej-h100vh overflow-hidden"
+				data-ride="carousel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="imgs/carouselimg1.png" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="imgs/carouselimg2.png" class="d-block w-100" alt="...">
+					</div>
+					<div class="carousel-item">
+						<img src="imgs/carouselimg3.png" class="d-block w-100" alt="...">
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button"
+					data-target="#headerCarousel" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button"
+					data-target="#headerCarousel" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</button>
+			</div>
+
+
 		</header>
-		
-		<div>
-		test
-		</div>
 	</div>
-	
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+	<!-- ###############################################
+secion1 #sec1 - 우리동네 공동구매 영역
+############################################### -->
+	<section class="py-5">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col">
+					<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+
+					<div class="card-columns">
+						<div class="card">
+							<img src="imgs/img1.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title that wraps to a new line</h5>
+								<p class="card-text">This is a longer card with supporting
+									text below as a natural lead-in to additional content. This
+									content is a little bit longer.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img src="imgs/img2.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img src="imgs/img3.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img src="imgs/img4.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img src="imgs/img5.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+						<div class="card">
+							<img src="imgs/img6.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+								<p class="card-text">
+									<small class="text-muted">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row my-5">
+				<div class="col">
+					<button class="btn btn-block border">
+						<small>더보기</small>
+					</button>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+
+	<!-- ###############################################
+secion2 #sec2 - 대리공구 영역
+############################################### -->
+
+
+	<section id="sec2" class="pie-bg-lightgray">
+
+
+		<!-- ###############################################
+
+    요청사항 및 필요부분
+
+    1. 색상
+
+        배경색 -> 색상 추가 요청 | static color 중 임의로 지정
+        카드색 -> 색상 추가 요청
+
+    2. 카드 안 컨텐츠 요소 협의 필요
+
+        - 글쓴이 이미지 or 상품 이미지
+        - 상품명
+        - 글쓴이
+        - 상품설명
+        - 상품 구매하러 가는 버튼
+        * 	컨텐츠 길이에 따라 카드 크게 변화 없도록 height값 설정 */
+
+
+    3. a 태그 속성 수정하고자 함
+
+        - 호버 전 - 테마 글꼴색과 동일
+        - 호버 시 - bold or 색상변경
+
+
+    ############################################### -->
+
+
+		<div class="container py-5">
+
+
+			<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+
+
+			<div class="row mb-5 row-cols-lg-3 row-cols-md-2">
+
+				<div class="col mb-2 p-0">
+					<div class="card m-3">
+						<img src="imgs/img4.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-3">
+									<img src="imgs/logo_color_C_red.png" alt="" class="img-fluid">
+
+								</div>
+
+								<div class="col-9">
+									<h5 class="card-title">상품명</h5>
+									<h6 class="card-subtitle mb-2 text-muted">글쓴이</h6>
+								</div>
+
+
+							</div>
+
+
+							<p class="card-text">상품설명입니다 너무 많아서 나누고 싶어요</p>
+
+							<a href="#" class="card-link">상품보기</a>
+
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="col mb-2 p-0">
+					<div class="card m-3">
+						<img src="imgs/img5.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+
+
+							<div class="row">
+
+								<div class="col-3">
+									<img src="imgs/logo_color_C_red.png" alt="" class="img-fluid">
+								</div>
+
+								<div class="col-9">
+									<h5 class="card-title">상품명</h5>
+									<h6 class="card-subtitle mb-2 text-muted">글쓴이</h6>
+								</div>
+
+
+							</div>
+
+
+							<p class="card-text">상품설명입니다 너무 많아서 나누고 싶어요</p>
+
+
+							<a href="#" class="card-link">상품보기</a>
+
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="col mb-2 p-0">
+					<div class="card m-3">
+						<img src="imgs/img1.jpg" class="card-img-top" alt="...">
+						<div class="card-body">
+
+
+							<div class="row">
+
+								<div class="col-3">
+									<img src="imgs/logo_color_C_red.png" alt="" class="img-fluid">
+								</div>
+
+								<div class="col-9">
+									<h5 class="card-title">상품명</h5>
+									<h6 class="card-subtitle mb-2 text-muted">글쓴이</h6>
+								</div>
+
+
+							</div>
+
+
+							<p class="card-text">상품설명입니다 너무 많아서 나누고 싶어요</p>
+
+							<a href="#" class="card-link">상품보기</a>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+			<div class="row my-5">
+				<div class="col">
+					<button class="btn btn-block border">
+						<small>더보기</small>
+					</button>
+				</div>
+			</div>
+
+		</div>
+
+
+	</section>
+
+
+	<section class="py-5 overflow-hidden">
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1 class="mb-5 mt-5 text-center text-sm-left">서비스 공유</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="row position-relative hyej-carousel-custom">
+			<div class="col">
+				<div class="owl-carousel owl-theme">
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img1.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img2.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img3.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img4.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img5.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/img6.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+							<img src="imgs/potato.jpg" alt="" class="img-fluid">
+						</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+
+
+	<!-- ###############################################
+footer #footer - footer 영역
+############################################### -->
+
+
+	<footer class=" p-4 pie-c-navy pie-bg-lightgray">
+
+		<div class="container p-0">
+
+
+			<div class="row">
+
+
+				<div class="col text-center text-sm-left">
+
+
+					<h1 class="mb-4">(주) 파이</h1>
+
+
+					<div class="d-md-flex mb-3">
+
+						<ul class="d-flex p-0">
+							<li class="mr-2 list-unstyled"><a href="#"
+								class="pie-c-navy cs-footer-a">이용약관</a></li>
+							<li class="mr-2 list-unstyled"><a href="#"
+								class="pie-c-navy cs-footer-a">개인정보처리방침</a></li>
+							<li class="mr-2 list-unstyled"><a href="#"
+								class="pie-c-navy cs-footer-a">사업자정보확인</a></li>
+							<li class="mr-2 list-unstyled"><a href="#"
+								class="pie-c-navy cs-footer-a">입점문의</a></li>
+						</ul>
+
+					</div>
+
+					<div id="pie_info" class="mb-3">
+
+						<span>회사명 : (주) 파이</span> <span>대표 : 김혜정</span> <span>사업자등록번호
+							: 123-456-78910</span> <span>주소 : 경기 수원시 팔달구 덕영대로 905 아이메카 7층</span> <span>E-MAIL
+							: cs@pie.com</span> <span>개인정보관리책임자 : 김효정, 정지환</span>
+
+					</div>
+
+					<p>&copy;PIE Co., Ltd. All rights reserved</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</footer>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
+	<script src="js/owl.carousel.js"></script>
+	<script>
+		$('.owl-carousel').owlCarousel({
+			loop : true,
+			margin : 10,
+			responsiveClass : true,
+			responsive : {
+				0 : {
+					items : 1
+				},
+				1000 : {
+					items : 3
+				}
+			},
+			nav : true
+		})
+	</script>
 </body>
 </html>
