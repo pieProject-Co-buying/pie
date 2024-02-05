@@ -1,0 +1,10 @@
+#moreBtn{
+    display: inline-block;
+    cursor: pointer;
+}
+.card-body h5{
+    font-size: 18px;
+}
+.card-body p{
+    font-size: 14px;
+}
