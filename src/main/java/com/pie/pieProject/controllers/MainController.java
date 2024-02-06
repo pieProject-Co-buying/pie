@@ -44,4 +44,26 @@ public class MainController {
 	public String townBResultPage() {
 		return "pieContents/townBuySearchResult";
 	}
+	
+	@RequestMapping("/proxyBuyMain")
+	public String proxyBPage() {
+		return "pieContents/proxyBuyMain";
+	}
+	
+	@RequestMapping("/proxyBuyApply")
+	public String proxyBApplyPage() {
+		return "pieContents/proxyBuyApply";
+	}
+	
+	@RequestMapping("/proxyBuyBest")
+	public String proxyBBestPage() {
+		return "pieContents/proxyBuyBest";
+	}
+	
+	@RequestMapping("/proxyBuyProducts")
+	public String proxyBProductsPage() {
+		return "pieContents/proxyBuyProducts";
+	}
+	
+	
 }
