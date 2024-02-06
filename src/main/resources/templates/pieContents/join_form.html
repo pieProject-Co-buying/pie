@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{login/login}">
+	layout:decorate="~{layouts/login}">
 <!-- gnb fragment -->
-<div layout:fragment="membersContent"
-	class="col-xl-5 col-lg-6 p-5 border rounded ">
+<div layout:fragment="membersContent" class="col p-5 border rounded"
+	id="joinForm">
 
 	<h2 class="text-center pb-5">
 		<img src="imgs/logo_pie_color.png" alt="" width="80"
@@ -62,7 +62,8 @@
 			<div class="col-sm-9">
 				<div class="row">
 					<div class="col">
-						<img src="" alt="" class="img-thumbnail" id = "profilePic" onerror="this.onerror=null; this.src='imgs/default.png';"/>
+						<img src="" alt="" class="img-thumbnail" id="profilePic"
+							onerror="this.onerror=null; this.src='imgs/default.png';" />
 					</div>
 				</div>
 				<div class="row pt-1">
@@ -125,8 +126,32 @@
 			<label for="inputPassword3" class="col-sm-3 col-form-label">상세주소</label>
 			<div class="col-sm-9">
 				<input type="text" class="form-control" id="sample6_detailAddress"
-	
 					placeholder="상세주소">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<div class="col">
+			<div class="border rounded p-3" id = "joinTerms">
+				<h6>가입 약관</h6>
+
+				<small>군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 대통령은 헌법과 법률이 정하는 바에 의하여
+					국군을 통수한다. 국회는 국민의 보통·평등·직접·비밀선거에 의하여 선출된 국회의원으로 구성한다. 대통령의 국법상 행위는
+					문서로써 하며, 이 문서에는 국무총리와 관계 국무위원이 부서한다. 군사에 관한 것도 또한 같다.</small>
+					<br /><br />
+				<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
+					거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
+					권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
+						<br /><br />
+				<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
+					거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
+					권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
+						<br /><br />
+				<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
+					거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
+					권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
+
+			</div>
 			</div>
 		</div>
 
@@ -134,8 +159,8 @@
 			<div class="col">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" id="gridCheck1">
-					<label class="form-check-label" for="gridCheck1"> Example
-						checkbox </label>
+					<label class="form-check-label" for="gridCheck1"> 위 약관에
+						동의합니다. </label>
 				</div>
 			</div>
 		</div>
@@ -191,10 +216,6 @@
 							// 커서를 상세주소 필드로 이동한다.
 							document.getElementById("sample6_detailAddress")
 									.focus();
-						},
-						theme : {
-							searchBgColor : "#E6B945", //검색창 배경색
-							queryTextColor : "#3A4056" //검색창 글자색
 						}
 					}).open();
 		}

@@ -20,4 +20,9 @@ public class MainController {
 	public String joinPage() {
 		return "pieContents/join_form";
 	}
+	
+	@RequestMapping("/shareService")
+	public String shareSPage() {
+		return "pieContents/shareServiceMain";
+	}
 }

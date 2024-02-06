@@ -2,9 +2,9 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <!-- gnb fragment -->
 <div th:fragment="gnb">
-	<div class="row fixed-top">
+	<div class="row fixed-top no-gutters">
 		<div class="col">
-			<nav class="navbar navbar-expand-lg navbar-dark pie-bg-red w-100">
+			<nav class="navbar navbar-expand-lg navbar-dark w-100" id="gnb">
 				<a class="navbar-brand" href="/"> <img
 					src="imgs/logo_color_C_white.png" alt="" class="pie-logo-gnb" />
 				</a>
@@ -37,7 +37,7 @@
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 같이써요 서비스 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">메인</a> <a
+								<a class="dropdown-item" href="shareService">메인</a> <a
 									class="dropdown-item" href="#">신청해요 게시판</a> <a
 									class="dropdown-item" href="#">신청중인 서비스 조회</a>
 							</div></li>
