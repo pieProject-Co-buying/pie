@@ -12,14 +12,14 @@
     <!-- owl.carousel -->
     <script src="js/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="css/owl.carousel.css">
+    <!--custum css-->
+    <link rel="stylesheet" href="css/shinchung.css">
+    <link rel="stylesheet" href="css/staticStyle.css">
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     <!-- PortOne SDK -->
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <script src="js/iamport.js"></script>
-    <!--custum css-->
-    <link rel="stylesheet" href="css/shinchung.css">
-    <link rel="stylesheet" href="css/staticStyle.css">
+<script src="js/iamport.js"></script>
 </head>
 <body>
 <div id="wrapper" class="container-fluid p-0">
@@ -102,7 +102,7 @@
         </div><!--row-->
     </div><!--container-->
     <!--------------------------게시물 컨텐츠-------------------------->
-    <div class="container border p-0 mb-5">
+    <div class="container p-0 mb-5">
         <div class="row no-gutters">
             <div class="col-md-6 d-flex align-items-center">
                 <img src="imgs/potato.jpg" alt="감자" class="img-fluid">
@@ -171,21 +171,21 @@
                     </button>
                 </div>
                 <div class="modal-body d-flex justify-content-around text-center">
-                    <div class="m-3" onclick="requestPay1()">
+                    <div class="m-3" onclick="kgPay()">
                         <small class="d-block"><b>kg 이니시스</b></small>
                         <img src="imgs/kg.png" alt="" class="payLogo">
                     </div>
-                    <div class="m-3" onclick="requestPay2()">
+                    <div class="m-3" onclick="kakaoPay()">
                         <small class="d-block"><b>카카오페이</b></small>
                         <img src="imgs/kakaopay.jpg" alt="" class="payLogo">
                     </div>
-                    <div class="m-3" onclick="requestPay3()">
+                    <div class="m-3" onclick="tossPay()">
                         <small class="d-block"><b>토스페이</b></small>
                         <img src="imgs/toss.jpg" alt="" class="payLogo">
                     </div>
-                    <div class="m-3" onclick="requestPay4()">
-                        <small class="d-block"><b>다날</b></small>
-                        <img src="imgs/danal.jpg" alt="" class="payLogo">
+                    <div class="m-3" onclick="paycoPay()">
+                        <small class="d-block"><b>페이코</b></small>
+                        <img src="imgs/payco.jpg" alt="" class="payLogo">
                     </div>
                 </div>
                 <div class="modal-footer">

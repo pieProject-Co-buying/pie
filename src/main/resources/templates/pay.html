@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>결제완료</title>
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+          crossorigin="anonymous"></script>
+  <!--custum css-->
+  <link rel="stylesheet" href="css/shinchung.css">
+  <link rel="stylesheet" href="css/staticStyle.css">
+</head>
+<body>
+<div id="wrapper" class="container-fluid p-0">
+  <header>
+    <!--기본 GNB-->
+    <!--메뉴 세부내용이 다르거나 수정이 필요하면 수정해서 개인 브랜치에 커밋후 말해주세요.-->
+    <nav class="navbar navbar-expand-lg navbar-dark pie-bg-red ">
+      <a class="navbar-brand" href="#">
+        <img src="imgs/logo_color_C_white.png" alt="" />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-expanded="false">
+              동네 공구
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">메인</a>
+              <a class="dropdown-item" href="#">공구해요 게시판</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-expanded="false">
+              대신 사드려요
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">메인</a>
+              <a class="dropdown-item" href="#">Best 상품 게시판</a>
+              <a class="dropdown-item" href="#">공구해주세요 게시판</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+               aria-expanded="false">
+              같이써요 서비스
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">메인</a>
+              <a class="dropdown-item" href="#">신청해요 게시판</a>
+              <a class="dropdown-item" href="">신청중인 서비스 조회</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">회원가입</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-----------------------결제완료 로직----------------------->
+  <div class="container p-0 mb-5 mt-5">
+    <div class="row">
+      <div class="col p-0">
+        <div class="row justify-content-center p-3 border ">
+          <div class="col-md-6 p-0 border d-flex justify-content-center">
+            <img src="imgs/potato.jpg" alt="" class="img-fluid" width="150px" height="150px">
+          </div>
+          <div class="col-md-6 p-3">
+            <p><b>제품 정보</b><br>
+              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, dolore!</small></p>
+            <p><b>구매 일자</b><br>
+              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quos?</small></p>
+          </div>
+        </div><!--row-->
+      </div><!--col-->
+    </div><!--row-->
+  </div><!--container-->
+  <!-- ###############################################
+footer #footer - footer 영역
+############################################### -->
+  <footer class="pie-c-navy pie-bg-lightgray pie-section-py">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col text-center text-sm-left">
+          <h1 class="mb-4">(초코) 파이</h1>
+          <div class="d-md-flex mb-3">
+            <ul class="d-flex p-0">
+              <li class="mr-2 list-unstyled"><a href="#" class="pie-c-navy cs-footer-a">이용약관</a></li>
+              <li class="mr-2 list-unstyled"><a href="#" class="pie-c-navy cs-footer-a">개인정보처리방침</a></li>
+              <li class="mr-2 list-unstyled"><a href="#" class="pie-c-navy cs-footer-a">사업자정보확인</a></li>
+              <li class="mr-2 list-unstyled"><a href="#" class="pie-c-navy cs-footer-a">입점문의</a></li>
+            </ul>
+          </div>
+          <div id="pie_info" class="mb-3">
+            <span>회사명 : (초코) 파이</span>
+            <span>대표 : 김혜정</span>
+            <span>사업자등록번호 : 123-456-78910</span>
+            <span>주소 : 경기 수원시 팔달구 덕영대로 905 아이메카 7층</span>
+            <span>E-MAIL : choco@pie.com</span>
+            <span>개인정보관리책임자 : 김효정, 정지환</span>
+          </div>
+          <p>&copy;PIE Co., Ltd. All rights reserved</p>
+        </div><!--col-->
+      </div><!--row-->
+    </div><!--container-->
+  </footer>
+</div><!--wrapper-->
+</body>
+</html>
