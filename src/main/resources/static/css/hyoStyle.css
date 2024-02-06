@@ -1,0 +1,76 @@
+.hj-bo {
+	border: 1px solid red;
+
+	width: 100%;
+	height: 500px;
+}
+
+
+
+
+
+/* ####################################
+
+우리동네 공구 - 서브 1 -> 검색 / 카테고리 선택 페이지 css
+
+####################################*/
+
+
+/* 프리미엄 회원 공구 card 전체 height 값 */
+.hj-sub1-card-h {
+	height: 400px;
+}
+
+
+.hj-sub1-card-part-h {
+	height: 60%;
+}
+
+
+
+
+
+
+
+
+
+
+/* ####################################
+
+채팅 페이지 css
+
+####################################*/
+
+
+
+/* 미디어 사이즈별 대화상자 이미지 css */
+
+
+.hj-chat-img-lg {
+	width: 100%;
+	height: 100%;
+}
+
+
+.hj-chat-img {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+
+}
+
+
+
+/* 채팅 목록 스크롤 보여주기 위한 css */
+
+.hj-chat-scroll-y {
+	overflow-y: scroll;
+	height: 70vh;
+}
+
+
+
+.hj-chat-scroll-x {
+	overflow-x: auto;
+	width: 100vh;
+}

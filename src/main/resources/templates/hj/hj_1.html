@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<title>Document</title>
+	<script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=dwdwxqofsl"></script>
+
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="css/staticStyle.css">
+	<link rel="stylesheet" href="css/hyoStyle.css">
+
+
+
+</head>
+<body>
+
+
+	<!-- ########################################################
+
+	우리동네 공구 - 메인페이지
+
+	######################################################## -->
+
+
+	<!-- ########################################################
+	
+	[ 수정 예정사항 ]
+	
+	
+	# column 보여질 카드 갯수 조정 가능한지 알아봐야 할듯 (이유 : sm 가기 전 안이쁨 )
+
+
+
+	-----------------------------------------------------------
+
+
+	해결# 지도 카테고리 부분 -> 화면 크기에 따라 변형안되고 글자크기에 맞추기 or 박스 크기 지정하기
+		-> sm 화면에서 쭉 보여지지 않고 width값 차면 아래로 떨어지게 만들기
+	=> flex-wrap flex-lg-column 사용
+
+
+	해결 # 카드 영역 크기 고정 => 크기 지정하지 column 형식 사용
+	=> card-columns 사용
+
+	해결# range 밑에 km 표시 가능할까?
+	=> 밑에 텍스트 넣음
+
+	----------------------------------------------------------
+
+	[ 백엔드 영역 ]
+
+	백# 지도 보여줄 영역 기타 지도 구현 기능들 프론트 완료 후 추가 예정 -> 스프링에서
+
+	백# 하기 동네공구 리스트 기준값 카테고리이므로 카테고리 설정 중요하겠네....
+
+	백# 일정 height만 보여지게하고 더보기 누를시 더보여지게 하는게 될까?
+
+	백# 게시글 => 백 작업시 게시글 갯수 6개 넘어갈 시 [더보기] 버튼 활성화 되도록 
+		-> 더보기 누르면 6개씩 더 나오게 하면 좋을 것 같음
+
+
+
+	######################################################## -->
+
+
+	<div class="container-fluid px-0">
+		
+
+		
+
+		<div class="container mt-5">
+
+			<h1 class="mb-5 text-center text-md-left">우리동네 공구찾기(가제)</h1>
+
+
+			<div class="row mb-5 mx-auto">
+			
+				<div class="col-12 col-lg-2">
+
+
+					<ul class="list-unstyled d-flex flex-wrap flex-lg-column">
+						
+						<li>
+							<!-- 전체 페이지 보여주기 -->
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">우리동네공구</button>
+						</li>
+
+						<li>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">식료품</button>
+						</li>
+	
+						<li>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">생활용품</button>
+						</li>
+	
+						<li>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">의류</button>
+						</li>
+	
+						<li>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">아기</button>
+						</li>
+
+						<li>
+							<!-- 빈자리 1개 남았을 경우 보여질 페이지 -->
+							<button type="button" class="btn btn-outline-secondary m-1 w-100">마감 임박 순</button>
+						</li>
+
+					</ul>
+					
+
+				</div>
+
+
+				<!-- 지도 들어갈 자리 -->
+
+				<div class="col-12 col-lg-10 mt-3 mb-5 mt-lg-0 hj-bo">
+
+					<!-- ############ 인라인스타일 수정해야함!!! 임시로 넣음 ############ -->
+					<div id="map" class="mb-5" style="width:100%;height:400px;">
+					
+
+						<!-- 지도 표시될 영역 -->
+
+					</div>
+					
+
+				</div>
+
+
+
+				<!-- 지도 영역 조절할 bar -->
+
+
+				<div class="col-12 col-lg-2 d-none d-md-block mt-3"></div>
+
+				<div class="col-12 col-lg-10 d-none d-md-block mt-3">
+
+					<h2 for="formControlRange">어디까지 보여드릴까요?</h2>
+					<input type="range" class="form-control-range" id="mapRange" min="1" max="3" value="1" step="1">
+
+					<div class="row mt-2">
+
+
+						<div class="col-1">
+							<p class="strong">1km</p>
+						</div>
+
+						<div class="col-10 text-center">
+							<p class="strong">2km</p>
+						</div>
+
+						<div class="col-1 text-right">
+							<p class="strong">3km</p>
+						</div>
+
+
+				</div>
+
+
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+			<!-- 카테고리 선택되는 값으로 상품 불러오기 -->
+			<!-- 기준값 : 카테고리 -->
+
+			<h1 class="mb-4 mt-5 text-center text-md-left">진행중인 공구들이에요!</h1>
+
+
+
+			<div class="row mb-5">
+
+
+
+					<div class="card-columns">
+
+						<div class="card m-2">
+
+							<img src="imgs/product1.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title that wraps to a new line</h5>
+								<p class="card-text">This is a longer card with supporting
+									text below as a natural lead-in to additional content. This
+									content is a little bit longer.</p>
+
+							    <div class="row">
+							    	
+							    	<!-- (n/n => 참여 사용자 수/글쓴이가 설정한 사용자수 ) -->
+
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+
+
+							</div>
+						</div>
+
+
+						<div class="card m-2">
+							<img src="imgs/product2.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+
+							    <div class="row">
+							    	
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+							</div>
+						</div>
+						<div class="card m-2">
+							<img src="imgs/product3.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+
+							    <div class="row">
+							    	
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+							</div>
+						</div>
+						<div class="card m-2">
+							<img src="imgs/product4.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+
+							    <div class="row">
+							    	
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+							</div>
+						</div>
+						<div class="card m-2">
+							<img src="imgs/product5.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+
+							    <div class="row">
+							    	
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+							</div>
+						</div>
+						<div class="card m-2">
+							<img src="imgs/product6.jpg" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">This card has supporting text below as
+									a natural lead-in to additional content.</p>
+
+							    <div class="row">
+							    	
+							    	<div class="col-6">현재 진행  (1/7)</div>
+							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
+
+							    </div>
+							</div>
+						</div>
+            
+            
+					</div>
+
+
+
+					<!-- 초기 로드될 게시물 6개 / 백 작업시 게시글 갯수 6개 넘어갈 시 활성화 및 더보기 누르면 6개 더 보여주기 or 전체 보여주기 -->
+
+					<div class="row mx-auto m-2 mt-5 w-100">
+						<div class="col">
+							<button class="btn btn-block border">
+								<small>더보기</small>
+							</button>
+						</div>
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+	</div>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+
+	<script>
+
+
+
+
+
+				
+		var mapOptions = {
+		    center: new naver.maps.LatLng(37.3595704, 127.105399), /* 기본 세팅 값 -> 사용자 지정 값으로 불러와야 함! */
+		    zoom: 10
+		};
+
+		var map = new naver.maps.Map('map', mapOptions);
+
+
+		/* 지도 range */
+	    var mapRange = document.getElementById('mapRange');
+
+	    mapRange.addEventListener('input', function() {
+	        var kmValue = parseFloat(mapRange.value); // Get the selected value in kilometers
+	        var zoomLevel = convertKmToZoomLevel(kmValue); // Convert kilometers to zoom level
+	        map.setZoom(zoomLevel);
+	    });
+
+	    function convertKmToZoomLevel(km) {
+	        // Conversion formula, adjust as needed based on your map's behavior
+	        // This is just a simple example
+	        return Math.floor(14 - Math.log(km) / Math.LN2);
+	    }
+		
+
+
+	</script>	
+</body>
+</html>
