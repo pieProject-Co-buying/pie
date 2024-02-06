@@ -1,72 +1,337 @@
 @charset "UTF-8";
-@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
+@import
+	url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css')
+	;
 
 /*홈페이지 컬러코드 스타일*/
-:root{
-	--red : #c74a35;
-	--lightgray : #e5e5e5;
-	--navy : #0B3654;
-	--darkgray : #505050;
-	--brown : #A7754E;
+:root {
+	--red: #c74a35;
+	--red-hover : #AF3323;
+	--red-dis : #c6796f;
+	--lightgray: #e5e5e5;
+	--lightgray-hover : #c6c6c6;
+	--lightgray-dis : #f9f9f9;
+	--navy: #0B3654;
+	--navy-hover : #0B3654;
+	--navy-dis : #435E6D;
+	--darkgray: #505050;
+	--darkgray-hover : #333333;
+	--darkgray-dis : #898989;
+	--brown: #A7754E;
+	--brown-hover: #8C5A38;
+	--brown-dis : #A38D7E;
 }
 
 /*홈페이지 폰트*/
-body{
+body {
 	font-family: 'NanumSquare', sans-serif;
-	overflow-x: hidden}
+	overflow-x: hidden
+}
 
 /*static style 시트는 모든 html 파일에 공통적으로 적용되는 CSS로 해당 파일에 대해 팀장과 상의 없의 수정을 금합니다.*/
 /*모든 커스텀 스타일 앞에는 pie 접두어가 붙습니다.*/
-
-.pie-bg-red{
+.pie-bg-red {
 	background-color: var(--red) !important;
 }
 
-.pie-bg-lightgray{
+.pie-bg-lightgray {
 	background-color: var(--lightgray) !important;
 }
 
-.pie-bg-navy{
+.pie-bg-navy {
 	background-color: var(--navy) !important;
 }
 
-.pie-bg-darkgray{
+.pie-bg-darkgray {
 	background-color: var(--darkgray) !important;
 }
 
-.pie-bg-brown{
+.pie-bg-brown {
 	background-color: var(--brown) !important;
 }
 
-.pie-c-red{
+.pie-c-red {
 	color: var(--red) !important;
 }
 
-.pie-c-lightgray{
+.pie-c-lightgray {
 	color: var(--lightgray) !important;
 }
 
-.pie-c-navy{
+.pie-c-navy {
 	color: var(--navy) !important;
 }
 
-.pie-c-darkgray{
+.pie-c-darkgray {
 	color: var(--darkgray) !important;
 }
 
-.pie-c-brown{
+.pie-c-brown {
 	color: var(--brown) !important;
 }
 
-.pie-logo-gnb{
+.pie-c-red {
+	color: var(--red) !important;
+}
+
+.pie-c-lightgray {
+	color: var(--lightgray) !important;
+}
+
+.pie-c-navy {
+	color: var(--navy) !important;
+}
+
+.pie-c-darkgray {
+	color: var(--darkgray) !important;
+}
+
+.pie-c-brown {
+	color: var(--brown) !important;
+}
+
+.pie-logo-gnb, .pie-logo-footer {
 	width: 120px;
 }
 
-.pie-section-py{
+.pie-section-py {
 	padding: 80px 0 120px;
 }
 
+/* redButton */
 
+.pie-btn-red {
+	color: #fff;
+	background-color: var(--red);
+	border-color: var(--red);
+}
 
+.pie-btn-red:hover {
+	color: #fff;
+	background-color: var(--red-hover);
+	border-color: var(--red-hover);
+}
 
+.pie-btn-red.focus, .pie-btn-red:focus {
+	color: #fff;
+	background-color: var(--red-hover);
+	border-color: var(--red-hover);
+	box-shadow: none;
+}
 
+.pie-btn-red.disabled, .pie-btn-red:disabled {
+	color: #fff;
+	background-color: var(--red-dis);
+	border-color: var(--red-dis);
+}
+
+.pie-btn-red:not(:disabled):not(.disabled).active, .pie-btn-red:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-red.dropdown-toggle {
+	color: #fff;
+	background-color: var(--red-hover);
+	border-color: var(--red-hover);
+}
+
+.pie-btn-red:not(:disabled):not(.disabled).active:focus, .pie-btn-red:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-red.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+.pie-btn-lightgray {
+	color: var(--darkgray);
+	background-color: var(--lightgray);
+	border-color: var(--lightgray);
+}
+
+.pie-btn-lightgray:hover {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+}
+
+.pie-btn-lightgray.focus, .pie-btn-lightgray:focus {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+	box-shadow: none;
+}
+
+.pie-btn-lightgray.disabled, .pie-btn-lightgray:disabled {
+	color: var(--darkgray);
+	background-color: var(--lightgray-dis);
+	border-color: var(--lightgray-dis);
+}
+
+.pie-btn-lightgray:not(:disabled):not(.disabled).active, .pie-btn-lightgray:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-lightgray.dropdown-toggle {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+}
+
+.pie-btn-lightgray:not(:disabled):not(.disabled).active:focus, .pie-btn-lightgray:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-lightgray.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+/* lightGray Button */
+
+.pie-btn-lightgray {
+	color: var(--darkgray);
+	background-color: var(--lightgray);
+	border-color: var(--lightgray);
+}
+
+.pie-btn-lightgray:hover {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+}
+
+.pie-btn-lightgray.focus, .pie-btn-lightgray:focus {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+	box-shadow: none;
+}
+
+.pie-btn-lightgray.disabled, .pie-btn-lightgray:disabled {
+	color: var(--darkgray);
+	background-color: var(--lightgray-dis);
+	border-color: var(--lightgray-dis);
+}
+
+.pie-btn-lightgray:not(:disabled):not(.disabled).active, .pie-btn-lightgray:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-lightgray.dropdown-toggle {
+	color: var(--darkgray);
+	background-color: var(--lightgray-hover);
+	border-color: var(--lightgray-hover);
+}
+
+.pie-btn-lightgray:not(:disabled):not(.disabled).active:focus, .pie-btn-lightgray:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-lightgray.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+/* navy Button */
+
+.pie-btn-navy {
+	color: #fff;
+	background-color: var(--navy);
+	border-color: var(--navy);
+}
+
+.pie-btn-navy:hover {
+	color: #fff;
+	background-color: var(--navy-hover);
+	border-color: var(--navy-hover);
+}
+
+.pie-btn-navy.focus, .pie-btn-navy:focus {
+	color: #fff;
+	background-color: var(--navy-hover);
+	border-color: var(--navy-hover);
+	box-shadow: none;
+}
+
+.pie-btn-navy.disabled, .pie-btn-navy:disabled {
+	color: #fff;
+	background-color: var(--navy-dis);
+	border-color: var(--navy-dis);
+}
+
+.pie-btn-navy:not(:disabled):not(.disabled).active, .pie-btn-navy:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-navy.dropdown-toggle {
+	color: #fff;
+	background-color: var(--navy-hover);
+	border-color: var(--navy-hover);
+}
+
+.pie-btn-navy:not(:disabled):not(.disabled).active:focus, .pie-btn-navy:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-navy.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+/* darkgray Button */
+
+.pie-btn-darkgray {
+	color: #fff;
+	background-color: var(--darkgray);
+	border-color: var(--darkgray);
+}
+
+.pie-btn-darkgray:hover {
+	color: #fff;
+	background-color: var(--darkgray-hover);
+	border-color: var(--darkgray-hover);
+}
+
+.pie-btn-darkgray.focus, .pie-btn-darkgray:focus {
+	color: #fff;
+	background-color: var(--darkgray-hover);
+	border-color: var(--darkgray-hover);
+	box-shadow: none;
+}
+
+.pie-btn-darkgray.disabled, .pie-btn-darkgray:disabled {
+	color: #fff;
+	background-color: var(--darkgray-dis);
+	border-color: var(--darkgray-dis);
+}
+
+.pie-btn-darkgray:not(:disabled):not(.disabled).active, .pie-btn-darkgray:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-darkgray.dropdown-toggle {
+	color: #fff;
+	background-color: var(--darkgray-hover);
+	border-color: var(--darkgray-hover);
+}
+
+.pie-btn-darkgray:not(:disabled):not(.disabled).active:focus, .pie-btn-darkgray:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-darkgray.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+/* brown Button */
+
+.pie-btn-brown {
+	color: #fff;
+	background-color: var(--brown);
+	border-color: var(--brown);
+}
+
+.pie-btn-brown:hover {
+	color: #fff;
+	background-color: var(--brown-hover);
+	border-color: var(--brown-hover);
+}
+
+.pie-btn-brown.focus, .pie-btn-brown:focus {
+	color: #fff;
+	background-color: var(--brown-hover);
+	border-color: var(--brown-hover);
+	box-shadow: none;
+}
+
+.pie-btn-brown.disabled, .pie-btn-brown:disabled {
+	color: #fff;
+	background-color: var(--brown-dis);
+	border-color: var(--brown-dis);
+}
+
+.pie-btn-brown:not(:disabled):not(.disabled).active, .pie-btn-brown:not(:disabled):not(.disabled):active,
+	.show>.pie-btn-brown.dropdown-toggle {
+	color: #fff;
+	background-color: var(--brown-hover);
+	border-color: var(--brown-hover);
+}
+
+.pie-btn-brown:not(:disabled):not(.disabled).active:focus, .pie-btn-brown:not(:disabled):not(.disabled):active:focus,
+	.show>.pie-btn-brown.dropdown-toggle:focus {
+	box-shadow: none;
+}
+
+#profilePic{
+	width: 150px;
+	height: 150px;
+}

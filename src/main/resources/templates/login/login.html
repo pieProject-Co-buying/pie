@@ -8,15 +8,16 @@
 	<div id="wrapper" class="container-fluid p-0">
 		<header>
 			<div th:replace="~{pieFragments/gnb::gnb}" />
-			<main th:replace="~{pieContents/main::mainPageCarousel}" />
 		</header>
 
+		<main>
+			<section class="pie-section-py">
+				<div class="row justify-content-center pt-5 px-4 mt-5 no-gutters">
+					<div layout:fragment="membersContent"></div>
+				</div>
+			</section>
+		</main>
 
-		<main th:replace="~{pieContents/main::mainPageContents}" />
-
-		<!-- ###############################################
-				footer #footer - footer 영역
-		############################################### -->
 
 		<div th:replace="~{pieFragments/footer::footer}" />
 	</div>

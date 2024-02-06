@@ -25,3 +25,11 @@ background: url("../imgs/carouselimg2.png") center / cover no-repeat;
 #headerCarousel .carousel-item:nth-of-type(3){
 background: url("../imgs/carouselimg3.png") center / cover no-repeat;
 }
+
+@media screen and (max-width: 999px){
+	.hyej-carousel-custom{
+	width: 100%;
+	left: 15px;
+	height: 500px;
+}
+} 
