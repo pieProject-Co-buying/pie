@@ -25,4 +25,23 @@ public class MainController {
 	public String shareSPage() {
 		return "pieContents/shareServiceMain";
 	}
+	
+	@RequestMapping("/townBuying")
+	public String townBPage() {
+		return "pieContents/townBuyMain";
+	}
+	
+	@RequestMapping("/townBuySearch")
+	public String townBSearchPage() {
+		return "pieContents/townbuySearch";
+	}
+	
+	@RequestMapping("/townBuyingCategory")
+	public String townBCateogrizePage() {
+		return "pieContents/townBuyingCategory";
+	}
+	@RequestMapping("/townBuySearchResult")
+	public String townBResultPage() {
+		return "pieContents/townBuySearchResult";
+	}
 }
