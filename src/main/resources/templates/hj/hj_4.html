@@ -53,17 +53,17 @@
 
 			<div class="row mb-5">
 				
-				<div class="col-12 col-md-4 mb-3 mb-md-0">
+				<div class="col-12 col-md-3 mb-3 mb-md-0">
 					
 
-					<!-- 건수 불러오기 -->
-					<h1>검색결과 (6건)</h1>
+
+					<h1 class="text-center text-lg-left">검색결과</h1>
 
 
 				</div>
 
 
-				<div class="col-12 col-md-8">
+				<div class="col-12 col-md-9">
 					
 					<div class="form-group">
 						<input type="text" class="form-control" id="search" aria-describedby="emailHelp">
@@ -83,125 +83,253 @@
 
 
 
-					<div class="card-columns">
-
-						<div class="card m-2">
-
-							<img src="img/product1.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title that wraps to a new line</h5>
-								<p class="card-text">This is a longer card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-
-							    <div class="row">
-							    	
-							    	<!-- (n/n => 참여 사용자 수/글쓴이가 설정한 사용자수 ) -->
-
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-
-
-							</div>
-						</div>
-
-
-						<div class="card m-2">
-							<img src="img/product2.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-
-							    <div class="row">
-							    	
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-							</div>
-						</div>
-						<div class="card m-2">
-							<img src="img/product3.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-
-							    <div class="row">
-							    	
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-							</div>
-						</div>
-						<div class="card m-2">
-							<img src="img/product4.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-
-							    <div class="row">
-							    	
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-							</div>
-						</div>
-						<div class="card m-2">
-							<img src="img/product5.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-
-							    <div class="row">
-							    	
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-							</div>
-						</div>
-						<div class="card m-2">
-							<img src="img/product6.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-
-							    <div class="row">
-							    	
-							    	<div class="col-6">현재 진행  (1/7)</div>
-							    	<div class="col-6 text-right"><a href="#" class="">같이 사러가기 &raquo;</a></div>
-
-							    </div>
-							</div>
-						</div>
-            
-            
-					</div>
 
 
 
-					<!-- 초기 로드될 게시물 6개 / 백 작업시 게시글 갯수 6개 넘어갈 시 활성화 및 더보기 누르면 6개 더 보여주기 or 전체 보여주기 -->
+				<!-- 검색결과 카테고리로 색인 가능하도록 -->
 
-					<div class="row mx-auto m-2 mt-5 w-100">
-						<div class="col">
-							<button class="btn btn-block border">
-								<small>더보기</small>
-							</button>
-						</div>
-					</div>
+				<!-- lg 이상 화면 -->
+				<div class="col-12 col-lg-3 border-right text-center text-lg-left mb-5 mb-lg-0 d-none d-lg-block">
+					
+
+					<h3 class="mb-3">카테고리</h3>
+
+
+					<ul class="list-unstyled">
+
+
+
+						<a href="" class="text-dark h5">
+							<!-- 건수 불러오기 이하 동일-->
+							<li class="mb-2">식품 (n건)</li>
+						</a>
+
+
+						<a href="" class="text-dark h5">
+							<li class="mb-2">생필품 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="text-dark h5">
+							<li class="mb-2">아기용품 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="text-dark h5">
+							<li class="mb-2">의류 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="text-dark h5">
+							<li class="mb-2">화장품 (n건)</li>
+						</a>
+
+					</ul>
 
 
 
 				</div>
+
+
+
+				<!-- md 이하 화면 -->
+				<div class="col-12 col-lg-3 border-bottom text-center text-lg-left mb-5 mb-lg-0 d-lg-none">
+					
+
+					<h3 class="mb-3">카테고리</h3>
+
+
+					<ul class="list-unstyled text-dark">
+						
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<!-- 건수 불러오기 이하 동일-->
+							<li class="">식품 (n건)</li>
+						</a>
+
+
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li>생필품 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li>아기용품 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li>의류 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li>화장품 (n건)</li>
+						</a>
+
+					</ul>
+
+
+
+				</div>
+
+
+
+				<!-- 검색결과 보여질 페이지 -->
+				<div class="col-12 col-lg-9 pl-4 pl-lg-5">
+					
+
+					<!-- 건수 불러오기 -->
+					<h3 class="mb-3">n건이 검색됐어요!</h3>
+
+
+
+					<div class="row">
+						
+
+						<div class="col-12 mb-2">
+							
+							<div class="card">
+
+								<div class="row">
+
+									<div class="col-12 col-md-6">
+										
+										<img src="imgs/product1.jpg" alt="" class="img-fluid">
+
+									</div>
+
+									<div class="col-12 col-md-6">
+										
+
+										<div class="card-body">
+											<h3>타이틀</h3>
+											<p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, excepturi.</p>
+
+											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
+										</div>
+
+										
+									</div>									
+									
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+
+						<div class="col-12 mb-2">
+							
+							<div class="card">
+
+								<div class="row">
+
+									<div class="col-12 col-md-6">
+										
+										<img src="imgs/product2.jpg" alt="" class="img-fluid">
+
+									</div>
+
+									<div class="col-12 col-md-6">
+										
+
+										<div class="card-body">
+											<h3>타이틀</h3>
+											<p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, excepturi.</p>
+
+											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
+										</div>
+
+										
+									</div>									
+									
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+
+
+						<div class="col-12 mb-2">
+							
+							<div class="card">
+
+								<div class="row">
+
+									<div class="col-12 col-md-6">
+										
+										<img src="imgs/product3.jpg" alt="" class="img-fluid">
+
+									</div>
+
+									<div class="col-12 col-md-6">
+										
+
+										<div class="card-body">
+											<h3>타이틀</h3>
+											<p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem, excepturi.</p>
+
+											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
+										</div>
+
+										
+									</div>									
+									
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+
+
+
+
+
+					</div>
+
+
+
+					<!-- 일단 더보기 넣습니다! -->
+					<!-- 아니면 페이징 기능 넣어도 될 것 같아요 -->
+
+					<div class="row">
+
+
+						<div class="col mt-3">
+							<button class="btn btn-block border">
+								<small>더보기</small>
+							</button>
+						</div>
+						
+					</div>
+
+
+				</div>
+
+
+
+
+
+
+
+
+
 
 
 			</div>
