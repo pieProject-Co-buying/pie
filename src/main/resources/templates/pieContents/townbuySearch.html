@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/townBuying}">
+
+<div layout:fragment="townBuyContent">
+
+
+	<!-- ########################################################
+
+	우리동네 공구 - 서브 1 -> 검색 / 카테고리 선택 페이지
+	
+	######################################################## -->
+	
+	<!-- #################################################
+	
+	[ 수정 예정사항 ]
+
+	# 카테고리 몇개 나누어 표시할지 생각해야 함
+
+	# 카테고리 디자인 수정 -> 안이쁨
+	
+	완료# 프리미엄 회원 공구 캐로셀 적용
+
+
+	----------------------------------------------------------
+
+	[ 백엔드 영역 ]
+
+
+
+
+	################################################# -->
+
+
+
+	<div class="container-fluid px-0">
+		
+
+		<div class="container">
+			
+			<div class="row mt-5 mb-4">
+
+
+				<div class="col-12">
+					
+					<h1 class="text-center">어떤 공구를 찾으세요?</h1>
+
+				</div>
+
+
+			</div>
+
+		</div>
+
+
+		<!-- 검색창 및 #태그 -->
+
+		<div class="container mb-5">
+					
+				<form action="" class="pie-search">
+					<input type="hidden" />
+					<div class="dropdown" id="selectCategory">
+						<a class="btn dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
+						<div class="dropdown-menu"></div>
+					</div>
+					<input type="text" name="search" id="search" class="flex-fill">
+					<button class=""></button>
+				</form>
+
+
+
+				<div class="row">
+
+
+					<!-- 클릭시 검색어 자동 완성 -->
+					<div class="col text-center">
+							
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#코스트코</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#트레이더스</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#이마트</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#코스트코</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#트레이더스</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#이마트</a>
+						<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#아기용품</a>
+
+					</div>
+
+
+				</div>
+
+
+		</div> <!-- 검색창 및 #태그 -->
+
+
+
+		<!-- 카테고리 -->
+		<!-- 이미지 크기를 어떻게 할지? -->
+
+
+		<div class="container mb-5">
+			
+			<div class="row">
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_best.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">베스트</p>
+					</a>
+				</div>
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_food.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">식품</p>
+					</a>
+				</div>
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_winter.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">생필품</p>
+					</a>
+				</div>
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_kids.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">아기용품</p>
+					</a>
+				</div>
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_innerB.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">의류</p>
+					</a>
+				</div>
+
+				<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="townBuyingCategory" class="text-dark">
+						<img src="imgs/category/ct_cosme.png" class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">화장품</p>
+					</a>
+				</div>
+
+
+			</div>
+
+
+
+
+
+		</div>
+
+
+		<!-- 프리미엄회원 게시글 카테고리별 노출 -->
+		<!-- 요소 크기 맞출 것 => 캐로셀로 변경 -->
+
+		<div class="container mb-5">
+			
+			<h1 class="mb-3 text-center text-md-left">프리미엄 회원 공구</h1>
+			<h3 class="mb-5 text-center text-md-left text-sm-small">프리미엄 회원분들이 진행중인 공구를 보여드려요!</h3>
+
+			<div class="row">
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+					
+					<h2>식품</h2>
+					<hr>
+
+
+
+
+					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+
+
+
+
+					  <div class="carousel-inner">
+
+
+
+					    <div class="carousel-item active">
+
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product1.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+
+					    </div>
+
+
+
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product2.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product3.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					  </div>
+
+
+
+
+
+
+					 <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </button>
+					</div>
+
+
+
+				</div>
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+					
+					<h2>생필품</h2>
+					<hr>
+					
+
+
+
+					<div id="carousel2" class="carousel slide" data-ride="carousel">
+
+
+
+
+					  <div class="carousel-inner">
+
+
+
+					    <div class="carousel-item active">
+
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product2.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+
+					    </div>
+
+
+
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product4.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product2.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					  </div>
+
+
+
+
+
+
+					 <button class="carousel-control-prev" type="button" data-target="#carousel2" data-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-target="#carousel2" data-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </button>
+					</div>
+
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+					
+					<h2>전자</h2>
+					<hr>
+
+
+					<div id="carousel3" class="carousel slide" data-ride="carousel">
+
+
+
+
+					  <div class="carousel-inner">
+
+
+
+					    <div class="carousel-item active">
+
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product4.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+
+					    </div>
+
+
+
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product5.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					    <div class="carousel-item">
+							<div class="card hj-sub1-card-h">
+
+
+							  <img src="imgs/product6.jpg" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+							  <div class="card-body">
+							    <h5 class="card-title">Card title</h5>
+							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+							    <div class="text-right">
+							    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    </div>
+
+
+							  </div>
+
+							</div>
+					    </div>
+
+
+
+
+					  </div>
+
+
+
+
+
+
+					 <button class="carousel-control-prev" type="button" data-target="#carousel3" data-slide="prev">
+					    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Previous</span>
+					  </button>
+					  <button class="carousel-control-next" type="button" data-target="#carousel3" data-slide="next">
+					    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="sr-only">Next</span>
+					  </button>
+					</div>
+
+
+
+
+				</div>
+
+
+
+
+
+
+
+			</div>
+
+
+
+
+		</div>	<!-- 프리미엄회원 게시글 카테고리별 노출 -->
+
+
+ 
+
+
+
+		<div class="container mb-5">
+
+			<h1 class="mb-3">우리동네 공구 리스트</h1>
+
+			<div class="row">
+
+
+
+
+				<div class="col-12 col-lg-6">
+				
+					<div class="card mb-3">
+
+
+					    <div class="card-body">
+
+					    	<div class="row">
+					    		
+					    		<div class="col-4">
+					    			<img src="imgs/product1.jpg" class="card-img-top" alt="...">
+					    		</div>
+
+					    		<div class="col-8">
+							    			
+							    	<h5 class="card-title">Special title treatment</h5>
+							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+								    <div class="text-right">
+								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+								    </div>
+								    
+					    		</div>
+
+
+					    	</div>
+
+
+
+					    </div>
+
+
+					    
+					</div>
+
+
+
+				</div>
+
+
+
+
+				<div class="col-12 col-lg-6">
+				
+					<div class="card mb-3">
+
+					    <div class="card-body">
+
+					    	<div class="row">
+					    		
+					    		<div class="col-4">
+					    			<img src="imgs/product2.jpg" class="card-img-top" alt="...">
+					    		</div>
+
+					    		<div class="col-8">
+							    			
+							    	<h5 class="card-title">Special title treatment</h5>
+							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+								    <div class="text-right">
+								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+								    </div>
+
+					    		</div>
+
+
+					    	</div>
+
+
+
+					    </div>
+
+
+					    
+					</div>
+
+
+				</div>
+
+
+
+				<div class="col-12 col-lg-6">
+
+				
+					<div class="card mb-3">
+
+
+					    <div class="card-body">
+
+					    	<div class="row">
+					    		
+					    		<div class="col-4">
+					    			<img src="imgs/product6.jpg" class="card-img-top" alt="...">
+					    		</div>
+
+					    		<div class="col-8">
+							    			
+							    	<h5 class="card-title">Special title treatment</h5>
+							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+								    <div class="text-right">
+								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+								    </div>
+
+					    		</div>
+
+
+					    	</div>
+
+
+
+					    </div>
+
+					    
+					</div>
+					
+	
+
+				</div>
+
+
+
+				<div class="col-12 col-lg-6">
+				
+					<div class="card mb-3">
+
+
+					    <div class="card-body">
+
+					    	<div class="row">
+					    		
+					    		<div class="col-4">
+					    			<img src="imgs/product5.jpg" class="card-img-top" alt="...">
+					    		</div>
+
+					    		<div class="col-8">
+							    			
+							    	<h5 class="card-title">Special title treatment</h5>
+							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+								    <div class="text-right">
+								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+								    </div>
+
+					    		</div>
+
+
+					    	</div>
+
+
+
+					    </div>
+
+
+					    
+					</div>
+					
+
+
+				</div>
+
+
+
+
+			</div>
+
+		</div>
+
+
+
+
+
+	</div>
+
+</div>

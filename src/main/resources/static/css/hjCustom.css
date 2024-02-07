@@ -46,6 +46,30 @@
 	background-color: var(--lightgray);
 }
 
+.hyej-best-gallery .col-md-6 img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.hyej-best-gallery .col-md-12 img{
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
+	object-position: center;
+}
+.hyej-best-gallery .col-6:nth-of-type(1){
+	overflow: hidden;
+}
+
+.hyej-info-gallery img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
 @media screen and (max-width: 999px) {
 	.hyej-carousel-custom {
 		width: 100%;
