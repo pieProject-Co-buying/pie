@@ -64,6 +64,13 @@ public class MainController {
 	public String proxyBProductsPage() {
 		return "pieContents/proxyBuyProducts";
 	}
-	
-	
+	/*****************같이 씁시다 페이지*****************/
+	@RequestMapping("/sangsae")
+	public String sangsaePage() {
+		return "pieContents/shareServiceSangsae";
+	}
+	@RequestMapping("/finish")
+	public String finishPage() {
+		return "pieContents/shareServiceFinish";
+	}
 }

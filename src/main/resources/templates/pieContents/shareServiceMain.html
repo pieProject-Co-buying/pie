@@ -40,9 +40,9 @@
 			<!--col-->
 		</div>
 		<!--row-->
-		<div class="row">
-			<div class="col-md-4 col-sm-12">
-				<div class="card">
+		<div class="row category">
+			<div class="col-md-4 col-sm-12 movie">
+				<div class="card" onclick="detailPage()" style="cursor: pointer">
 					<img src="imgs/netflix.png" class="card-img-top img-fluid"
 						alt="..." height="300px">
 					<div class="card-body">
@@ -50,7 +50,7 @@
 						<p class="card-text">
 							<small><span class="badge badge-light">#태그1</span><span
 								class="badge badge-light">>#태그2</span><span
-								class="badge badge-light">#태그3</span></small>
+								class="badge badge-light">#태그3</span></small> <a href="./sangsae.html">1</a>
 						</p>
 						<small class="writer"><img src="" alt=""
 							onerror="this.onerror=null; this.src='imgs/default.png';" /><span>작성자</span></small>
@@ -58,9 +58,10 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 game">
 				<div class="card">
-					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid" alt="...">
+					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid"
+						alt="...">
 					<div class="card-body">
 						<h5 class="card-title">1왈왈왈왈왈왈왈왈왈왈</h5>
 						<p class="card-text">
@@ -74,7 +75,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 book">
 				<div class="card">
 					<img src="imgs/milli.jpg" class="card-img-top img-fluid" alt="...">
 					<div class="card-body">
@@ -90,9 +91,10 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 game">
 				<div class="card">
-					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid" alt="...">
+					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid"
+						alt="...">
 					<div class="card-body">
 						<h5 class="card-title">1왈왈왈왈왈왈왈왈왈왈</h5>
 						<p class="card-text">
@@ -106,7 +108,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 movie">
 				<div class="card">
 					<img src="imgs/netflix.png" class="card-img-top img-fluid"
 						alt="...">
@@ -123,7 +125,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 book">
 				<div class="card">
 					<img src="imgs/milli.jpg" class="card-img-top img-fluid" alt="...">
 					<div class="card-body">
@@ -139,7 +141,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 movie">
 				<div class="card">
 					<img src="imgs/netflix.png" class="card-img-top img-fluid"
 						alt="...">
@@ -156,7 +158,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 book">
 				<div class="card">
 					<img src="imgs/milli.jpg" class="card-img-top img-fluid" alt="...">
 					<div class="card-body">
@@ -172,7 +174,7 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 movie">
 				<div class="card">
 					<img src="imgs/netflix.png" class="card-img-top img-fluid"
 						alt="...">
@@ -189,9 +191,10 @@
 				</div>
 			</div>
 			<!--col-4-->
-			<div class="col-md-4 col-sm-12">
+			<div class="col-md-4 col-sm-12 game">
 				<div class="card">
-					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid" alt="...">
+					<img src="imgs/nintendoOnline.jpeg" class="card-img-top img-fluid"
+						alt="...">
 					<div class="card-body">
 						<h5 class="card-title">5왈왈왈왈왈왈왈왈왈왈</h5>
 						<p class="card-text">
@@ -205,45 +208,30 @@
 				</div>
 			</div>
 			<!--col-4-->
+			<!--게시글 row-->
 		</div>
-		<!--게시글 row-->
-	</div>
-	<!--container-->
-	<div class="container text-center mb-3 mt-5">
-		<div class="row">
-			<div class="col-12 btn btn-block border" id="load">
-				<div class="">
-					<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg"
-							width="10" height="10" fill="currentColor"
-							class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+		<!--container-->
+		<div class="container text-center mb-3 mt-5">
+			<div class="row">
+				<div class="col-12 btn btn-block border" id="load">
+					<div class="">
+						<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg"
+								width="10" height="10" fill="currentColor"
+								class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 							<path
-								d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" /></svg>
-					</span>
+									d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" /></svg>
+					</div>
 				</div>
 			</div>
 			<!--더보기 col-->
 		</div>
 		<!--더보기 row-->
 	</div>
-<!--게시글 로직 container-->
-<!--wrapper-->
+	<!--게시글 로직 container-->
+	<!--wrapper-->
 
-<!--더보기 스크립트-->
-<script>
-	$(function(){
-		$(".card").css("display","none");
-	    $(".card").slice(0, 6).show();
-	    $("#load").click(function(e){
-	        e.preventDefault();
-	    if($(".card:hidden").length > 0){
-	    	$(".card:hidden").slice(0, 3).show();
-	    } else if($(".card:hidden").length == 0){
-	            alert("게시물의 끝입니다.");
-	        }
-	    });
-	});
-</script>
-<script>
+	<!--더보기 스크립트-->
+	<script>
 		$(function() {
 			let categories = $(".tab-box ul li");
 			let shaerHeader = $("#shareServiceTitle");
@@ -268,32 +256,79 @@
 			let selectInit = $("#selectCategory .dropdown-toggle");
 			
 			
+			
+			let card = $(".col-md-4");
+			let strCard = ".col-md-4:hidden";
+			
+			card.hide();
+			card.slice(0, 6).show();
+			
+		    
+		    
+			
+			
 			categories.click(function() {
 						let idx = $(this).index();
 						let option = {};
 						dropdown.empty();
 						selectInit.text("카테고리");
+						card.hide();
+						
 						
 						if (idx === 0){
 							option = {
 									"background" : "url(imgs/boong.jpg) center / cover no-repeat"
 								};
+							let card = $(".col-md-4");
+							let strCard = ".col-md-4:hidden";
+							
+							card.hide();
+							card.slice(0, 6).show();
 							list= all;
-						}else if (idx === 1) {
-							option = {
-								"background" : "url(imgs/netflix.png) center / cover no-repeat"
-							};
-							list = movies;
-						} else if (idx === 2) {
-							option = {
-								"background" : "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
-							};
-							list = game;
-						} else if (idx === 3) {
-							option = {
-								"background" : "url(imgs/milli.jpg) center / cover no-repeat"
-							};
-							list = books;
+						}else {
+						
+							
+							if (idx === 1) {
+								option = {
+									"background" : "url(imgs/netflix.png) center / cover no-repeat"
+								};
+								
+								
+								card = $(".movie");
+								strCard = ".movie:hidden";
+								
+								card.hide();
+								card.slice(0, 6).show();
+								
+								selectInit.text("OTT서비스");
+								list = movies;
+							} else if (idx === 2) {
+								option = {
+									"background" : "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
+								};
+								
+								card = $(".game");
+								strCard = ".game:hidden";
+								
+								card.hide();
+								card.slice(0, 6).show();
+								
+								selectInit.text("게임");
+								list = game;
+							} else if (idx === 3) {
+								option = {
+									"background" : "url(imgs/milli.jpg) center / cover no-repeat"
+								};
+								
+								card = $(".book");
+								strCard = ".book:hidden";
+								
+								card.hide();
+								card.slice(0, 6).show();
+								
+								selectInit.text("도서/음악");
+								list = books;
+							}
 						}
 						shaerHeader.addClass("selected").css(option);
 						
@@ -307,7 +342,21 @@
 						selectInit.text($(this).text());
 					}
 				)
+				
+			    $("#load").click(function(e){
+			        e.preventDefault();
+			    if($(strCard).length > 0){
+			    	$(strCard).slice(0, 3).show();
+			    } else if($(strCard).length == 0){
+			            alert("게시물의 끝입니다.");
+			        }
+			    });
 		})
+	</script>
+	<script>
+		function detailPage(){
+			location.href="sangsae";
+		}
 	</script>
 </div>
 </html>
