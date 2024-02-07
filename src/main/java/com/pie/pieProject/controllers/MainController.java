@@ -26,6 +26,11 @@ public class MainController {
 		return "pieContents/shareServiceMain";
 	}
 	
+	@RequestMapping("/shareServiceBoard")
+	public String shareSBoardPage() {
+		return "pieContents/shareServiceBoard";
+	}
+	
 	@RequestMapping("/shareServiceApply")
 	public String shareSApplyPage() {
 		return "pieContents/shareServiceApply";
@@ -50,6 +55,16 @@ public class MainController {
 		return "pieContents/townBuySearchResult";
 	}
 	
+	@RequestMapping("/townBuyResult")
+	public String townBApplyResultPage() {
+		return "pieContents/townBuyResult";
+	}
+	
+	@RequestMapping("/townBuyproduct")
+	public String townBProductPage() {
+		return "pieContents/townBuyproduct";
+	}
+	
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage() {
 		return "pieContents/proxyBuyMain";
@@ -70,12 +85,12 @@ public class MainController {
 		return "pieContents/proxyBuyProducts";
 	}
 	/*****************같이 씁시다 페이지*****************/
-	@RequestMapping("/sangsae")
-	public String sangsaePage() {
-		return "pieContents/shareServiceSangsae";
+	@RequestMapping("/shareServiceProduct")
+	public String shareSProductPage() {
+		return "pieContents/shareServiceProduct";
 	}
 	@RequestMapping("/finish")
-	public String finishPage() {
+	public String shareSFinishPage() {
 		return "pieContents/shareServiceFinish";
 	}
 }
