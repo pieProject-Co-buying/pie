@@ -2,7 +2,7 @@
 	height: 450px;
 	transition: opacity 0.5s;
 	position: relative;
-	background : url(../imgs/potato.jpg) center / cover no-repeat;
+	background : url(../imgs/boong.jpg) center / cover no-repeat;
 }
 
 #shareServiceTitle:after {
@@ -39,4 +39,12 @@
 
 .card-text .badge{
 	margin-right: 7px;
+}
+.card>img{
+	 object-fit : cover;
+	 object-position : center;
+	 height : 200px;
+}
+.col-md-4{
+	margin-bottom:25px;
 }
