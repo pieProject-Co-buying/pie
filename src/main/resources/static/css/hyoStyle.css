@@ -1,12 +1,16 @@
 .hj-bo {
 	border: 1px solid red;
 
-	width: 100%;
-	height: 500px;
 }
 
 
 
+
+/* img 속성 cover 적용 */
+
+.hj-fit-cover {
+	object-fit: cover;
+}
 
 
 /* ####################################
@@ -29,6 +33,20 @@
 
 
 
+
+
+/* ####################################
+
+제품 상세페이지 css
+
+####################################*/
+
+
+.hj-detail-img {
+	width: 100%;
+	height: 350px;
+	object-fit: cover;
+}
 
 
 

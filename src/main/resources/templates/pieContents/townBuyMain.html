@@ -4,6 +4,8 @@
 	layout:decorate="~{layouts/townBuying}">
 
 <div layout:fragment="townBuyContent" class="col">
+
+
 	<div class="container-fluid px-0">
 		
 		<div class="container mt-5">
@@ -16,6 +18,7 @@
 				<div class="col-12 col-lg-2">
 
 
+
 					<ul class="list-unstyled d-flex flex-wrap flex-lg-column">
 						
 						<li>
@@ -24,7 +27,7 @@
 						</li>
 
 						<li>
-							<button type="button" class="btn btn-outline-secondary m-1 w-100">식료품</button>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100" name="food"  onclick="foodMap()">식료품</button>
 						</li>
 	
 						<li>
@@ -36,7 +39,7 @@
 						</li>
 	
 						<li>
-							<button type="button" class="btn btn-outline-secondary m-1 w-100">아기</button>
+							<button type="button" class="btn btn-outline-secondary m-1 w-100" name="baby"  onclick="babyMap()">아기</button>
 						</li>
 
 						<li>
@@ -121,33 +124,192 @@
 		</div>
 
 	</div>
-
+	
+	
+	
 	<script>
+	
+	
+	/*########################################  
+	
+	## 메모
+	
+	# 정보창 안나타는 문제 해결 필요
+	
+	
+	
+	########################################*/
+		
+	
+	
+		/* 초기 load 값 */
 	
 		var mapOptions = {
 		    center: new naver.maps.LatLng(37.3595704, 127.105399), /* 기본 세팅 값 -> 사용자 지정 값으로 불러와야 함! */
-		    zoom: 10
+		    zoom: 18
+		    /* 수치로 zoomLevel 지정 높을수록 줌 ++ */
 		};
-
+	
 		var map = new naver.maps.Map('map', mapOptions);
 
-
+	
 		/* 지도 range */
 	    var mapRange = document.getElementById('mapRange');
-
+	    
+	    
 	    mapRange.addEventListener('input', function() {
-	        var kmValue = parseFloat(mapRange.value); // Get the selected value in kilometers
-	        var zoomLevel = convertKmToZoomLevel(kmValue); // Convert kilometers to zoom level
+	        var kmValue = parseFloat(mapRange.value);
+	        var zoomLevel = convertKmToZoomLevel(kmValue); 
 	        map.setZoom(zoomLevel);
 	    });
-
+	
 	    function convertKmToZoomLevel(km) {
-	        // Conversion formula, adjust as needed based on your map's behavior
-	        // This is just a simple example
-	        return Math.floor(14 - Math.log(km) / Math.LN2);
+	
+	        return Math.floor(18 - Math.log(km) / Math.LN2);
 	    }
 		
-	</script>	
+		
+	    
+	    
+	    
+	    
+	    /*##################################
+	    
+	   	마커
+	   	=> onclick 속성 활용 이걸 사용하면 안되는 느낌이 든다
+	   	
+	    ##################################*/
+	    
+	    
+	    
+		
+	    /* 생각해보고 사용자 프로필로 사진 나와도 좋을 듯, 일단 파이 로고로 설정 */
+	    /* 카테고리는 카테고리 이미지 사용해도 좋을 듯 */
+	    
+	    
+	    
+	    /* 내 위치 마커 */
+		var marker = new naver.maps.Marker({
+		    position: new naver.maps.LatLng(37.3595704, 127.105399),
+		    map: map,
+		    infomation: "내 위치",
+		    icon : {
+		    	url: 'imgs/logo_color_C_red.png',
+		        size: new naver.maps.Size(80, 40),
+		        scaledSize: new naver.maps.Size(80, 40)
+				/* scaledSize 까지 지정해줘야 배율에 맞춰짐 */
+		    }
+		});    
+		    
+	    
+	    
+	    /*##################################
+	    카테고리별 마커들 
+	    ##################################*/
+	    
+	    
+		var markers = []; // markers 배열을 정의
+		var infoWindows = []; // infoWindows 배열을 정의
+		var categoryMarkers = []; // 현재 표시된 마커들을 저장할 배열
+
+		
+	    /*##################################
+	    카테고리별 마커들 배열로 저장
+	    ##################################*/		
+	
+		/* 푸드 카테고리 값에 저장된 배열들 */
+		function foodMap() {
+
+			var category_food = new Array(); //지역 담을 배열(지역명 / 위도경도)
+			
+			category_food.push(
+					
+				/* 지역명, 위도, 경도 */
+				
+				{location: '식품', lat: '37.3595704', lng: '125.105399'},
+				{location: '식품', lat: '37.3595704', lng: '127.105399'},
+				{location: '식품', lat: '37.3595704', lng: '128.105399'},
+				{location: '식품', lat: '37.3595704', lng: '126.105399'}
+				
+			);
+			
+			
+			for(var i=0; i<category_food.length; i++) {
+				var marker = new naver.maps.Marker({
+					map:map,
+					title: category_food[i].location,
+					position: new naver.maps.LatLng(category_food[i].lat, category_food[i].lng)
+				});
+				
+				
+				var infoWindow = new naver.maps.InfoWindow({
+					content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_food[i].location + '</b><br> - 네이버 지도 - </div>'
+				})
+				
+				markers.push(marker)
+			};
+			
+			infoWindows.push(infoWindow);
+		}    
+
+		
+		
+		/* 불러온 마커 지워주는 기능 */
+		
+		
+		
+		
+		
+		/* 아기용품 카테고리 값에 저장된 배열들 */	
+		function babyMap() {
+			
+			var category_baby = new Array(); //지역 담을 배열(지역명 / 위도경도)
+			
+			category_baby.push(
+					
+				/* 지역명, 위도, 경도 */
+				
+				{location: '아기용품', lat: '35.3595704', lng: '125.105399'},
+				{location: '아기용품', lat: '36.3595704', lng: '127.105399'},
+				{location: '아기용품', lat: '39.3595704', lng: '128.105399'},
+				{location: '아기용품', lat: '38.3595704', lng: '126.105399'},
+				{location: '아기용품', lat: '35.3595704', lng: '128.105399'},
+				{location: '아기용품', lat: '36.3595704', lng: '124.105399'},
+				{location: '아기용품', lat: '39.3595704', lng: '126.105399'},
+				{location: '아기용품', lat: '38.3595704', lng: '127.105399'}
+				
+			);
+			
+			
+			for(var i=0; i<category_baby.length; i++) {
+				var marker = new naver.maps.Marker({
+					map:map,
+					title: category_baby[i].location,
+					position: new naver.maps.LatLng(category_baby[i].lat, category_baby[i].lng)
+				});
+				
+				
+				var infoWindow = new naver.maps.InfoWindow({
+					content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_baby[i].location + '</b><br> - 네이버 지도 - </div>'
+				})
+				
+				markers.push(marker)
+			};
+			
+			infoWindows.push(infoWindow);
+		}
+		 
+		
+		
+		
+		
+
+		
+	</script>
+
+
+	
+	
 </div>
 
 </html>
