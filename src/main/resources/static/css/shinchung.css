@@ -1,8 +1,5 @@
-@charset "EUC-KR";
-h1{
-    font-size: 60px;
-    color: white;
-}
+@charset "UTF-8";
+
 .potato{
     width: 100%;
     height: 350px;

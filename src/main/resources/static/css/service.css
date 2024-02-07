@@ -5,7 +5,14 @@
 	background : url(../imgs/potato.jpg) center / cover no-repeat;
 }
 
-#shareServiceTitle:after {
+#townBuyTitle{
+	height: 450px;
+	transition: opacity 0.5s;
+	position: relative;
+	background : url(../imgs/townBuyTitle.jpg) center bottom / cover no-repeat;
+}
+
+#shareServiceTitle:after, #townBuyTitle:after {
 	content: "";
 	position: absolute;
 	width: 100%;
@@ -14,7 +21,7 @@
 	left: 0;
 	background: rgba(0, 0, 0, 0.5);
 }
-#shareServiceTitle div.col{
+#shareServiceTitle div.col, #townBuyTitle div.col{
 	z-index: 999;
 		  text-shadow: 0px 0px 20px black;
 }

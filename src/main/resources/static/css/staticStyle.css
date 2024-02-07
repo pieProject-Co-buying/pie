@@ -26,7 +26,7 @@
 /*홈페이지 폰트*/
 body {
 	font-family: 'NanumSquare', sans-serif;
-	overflow-x: hidden
+	overflow-x: hidden;
 }
 
 /*static style 시트는 모든 html 파일에 공통적으로 적용되는 CSS로 해당 파일에 대해 팀장과 상의 없의 수정을 금합니다.*/
@@ -379,4 +379,8 @@ body {
 
 #gnb{
 	transition : all 0.5s;
+}
+
+.loginSection #gnb {
+	background: var(--red);
 }
