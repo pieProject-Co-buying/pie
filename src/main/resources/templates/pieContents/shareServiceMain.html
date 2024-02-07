@@ -232,126 +232,118 @@
 
 	<!--더보기 스크립트-->
 	<script>
-		$(function() {
-			let categories = $(".tab-box ul li");
-			let shaerHeader = $("#shareServiceTitle");
-			let categorySel = $("#selectCategory");
-			let dropdown = categorySel.find(".dropdown-menu");
-			
-			let movies = ["넷플릭스", "유튜브", "왓챠", "티빙", "디즈니 플러스"];
-			let game = ["닌텐도", "스팀", "xBOX"];
-			let books = ["리디북스", "스포티파이", "yes24", "밀리"];
-			
-			let all = [];
-			
-			all.push(...movies);
-			all.push(...game);
-			all.push(...books);
-			
-			for(i=0; i<all.length; i++){
-				dropdown.append('<a class="dropdown-item">'+all[i]+'</a>')
-			}
-			
-			
-			let selectInit = $("#selectCategory .dropdown-toggle");
-			
-			
-			
-			let card = $(".col-md-4");
-			let strCard = ".col-md-4:hidden";
-			
-			card.hide();
-			card.slice(0, 6).show();
-			
-		    
-		    
-			
-			
-			categories.click(function() {
-						let idx = $(this).index();
-						let option = {};
-						dropdown.empty();
-						selectInit.text("카테고리");
-						card.hide();
-						
-						
-						if (idx === 0){
-							option = {
-									"background" : "url(imgs/boong.jpg) center / cover no-repeat"
-								};
-							let card = $(".col-md-4");
-							let strCard = ".col-md-4:hidden";
-							
-							card.hide();
-							card.slice(0, 6).show();
-							list= all;
-						}else {
-						
-							
-							if (idx === 1) {
-								option = {
-									"background" : "url(imgs/netflix.png) center / cover no-repeat"
-								};
-								
-								
-								card = $(".movie");
-								strCard = ".movie:hidden";
-								
-								card.hide();
-								card.slice(0, 6).show();
-								
-								selectInit.text("OTT서비스");
-								list = movies;
-							} else if (idx === 2) {
-								option = {
-									"background" : "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
-								};
-								
-								card = $(".game");
-								strCard = ".game:hidden";
-								
-								card.hide();
-								card.slice(0, 6).show();
-								
-								selectInit.text("게임");
-								list = game;
-							} else if (idx === 3) {
-								option = {
-									"background" : "url(imgs/milli.jpg) center / cover no-repeat"
-								};
-								
-								card = $(".book");
-								strCard = ".book:hidden";
-								
-								card.hide();
-								card.slice(0, 6).show();
-								
-								selectInit.text("도서/음악");
-								list = books;
-							}
-						}
-						shaerHeader.addClass("selected").css(option);
-						
-						for(i=0; i<list.length; i++){
-							dropdown.append('<a class="dropdown-item">'+list[i]+'</a>')
-						}
-					});
-			
-			$(document).on(
-					"click",".dropdown-item", function(){
-						selectInit.text($(this).text());
-					}
-				)
-				
-			    $("#load").click(function(e){
-			        e.preventDefault();
-			    if($(strCard).length > 0){
-			    	$(strCard).slice(0, 3).show();
-			    } else if($(strCard).length == 0){
-			            alert("게시물의 끝입니다.");
-			        }
-			    });
-		})
+	$(function() {
+        let categories = $(".tab-box ul li");
+        let shaerHeader = $("#shareServiceTitle");
+        let categorySel = $("#selectCategory");
+        let dropdown = categorySel.find(".dropdown-menu");
+        categories.css("cursor","pointer");
+        
+        let movies = ["넷플릭스", "유튜브", "왓챠", "티빙", "디즈니 플러스"];
+        let game = ["닌텐도", "스팀", "xBOX"];
+        let books = ["리디북스", "스포티파이", "yes24", "밀리"];
+        
+        let all = [];
+        
+        all.push(...movies);
+        all.push(...game);
+        all.push(...books);
+        
+        for(i=0; i<all.length; i++){
+           dropdown.append('<a class="dropdown-item">'+all[i]+'</a>')
+        }
+        
+        
+        let selectInit = $("#selectCategory .dropdown-toggle");
+        
+        
+        
+        let card = $(".col-md-4");
+        let strCard = ".col-md-4:hidden";
+        
+        card.hide();
+        card.slice(0, 6).show();
+         
+        
+        categories.click(function() {
+                 let idx = $(this).index();
+                 let option = {};
+                 dropdown.empty();
+                 selectInit.text("카테고리");
+                 
+                 if (idx === 0){
+                    option = {
+                          "background" : "url(imgs/boong.jpg) center / cover no-repeat"
+                       };
+                    card = $(".col-md-4");
+                    strCard = ".col-md-4:hidden";
+                    
+                    card.hide();
+                    card.slice(0, 6).show();
+                    list= all;
+                 }else {
+                    $(".col-md-4").hide();
+                    
+                    if (idx === 1) {
+                       option = {
+                          "background" : "url(imgs/netflix.png) center / cover no-repeat"
+                       };
+                       
+                       card = $(".movie");
+                       strCard = ".movie:hidden";
+                       
+                       card.slice(0, 6).show();
+                       
+                       selectInit.text("OTT서비스");
+                       list = movies;
+                    } else if (idx === 2) {
+                       option = {
+                          "background" : "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
+                       };
+                       
+                       card = $(".game");
+                       strCard = ".game:hidden";
+                       
+                       card.slice(0, 6).show();
+                       
+                       selectInit.text("게임");
+                       list = game;
+                    } else if (idx === 3) {
+                       option = {
+                          "background" : "url(imgs/milli.jpg) center / cover no-repeat"
+                       };
+                       
+                       card = $(".book");
+                       strCard = ".book:hidden";
+                       
+                       card.slice(0, 6).show();
+                       
+                       selectInit.text("도서/음악");
+                       list = books;
+                    }
+                 }
+                 shaerHeader.addClass("selected").css(option);
+                 
+                 for(i=0; i<list.length; i++){
+                    dropdown.append('<a class="dropdown-item">'+list[i]+'</a>')
+                 }
+              });
+        
+        $(document).on(
+              "click",".dropdown-item", function(){
+                 selectInit.text($(this).text());
+              }
+           )
+           
+            $("#load").click(function(e){
+                e.preventDefault();
+            if($(strCard).length > 0){
+               $(strCard).slice(0, 3).show();
+            } else if($(strCard).length == 0){
+                    alert("게시물의 끝입니다.");
+                }
+            });
+     })
 	</script>
 	<script>
 		function detailPage(){

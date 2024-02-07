@@ -77,20 +77,46 @@
   </header>
   <!-----------------------결제완료 로직----------------------->
   <div class="container p-0 mb-5 mt-5">
-    <div class="row">
-      <div class="col p-0">
-        <div class="row justify-content-center p-3 border ">
-          <div class="col-md-6 p-0 border d-flex justify-content-center">
-            <img src="imgs/potato.jpg" alt="" class="img-fluid" width="150px" height="150px">
-          </div>
-          <div class="col-md-6 p-3">
-            <p><b>제품 정보</b><br>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, dolore!</small></p>
-            <p><b>구매 일자</b><br>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, quos?</small></p>
-          </div>
-        </div><!--row-->
+    <div class="row border">
+      <div class="col-12 d-flex justify-content-center border-bottom">
+          <img src="imgs/check.png" alt="" width="40px" height="40px" class="mt-2">
+          <h2 class="mt-2"><b>결제 및 신청 완료</b></h2>
       </div><!--col-->
+      <div class="col-12 text-center mt-3">
+        <h5><b>신청 제품</b></h5>
+      </div>
+      <div class="col-9 m-auto border-bottom">
+        <div class="border d-inline-block mb-3">
+          <img src="imgs/potato.jpg" alt="" class="img-fluid" width="200" height="200">
+        </div>
+        <p>제품명 : 감자</p>
+        <p>신청수량 : 1</p>
+        <p>금액 : 900,000,000 원</p>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <h5><b>결제 내역</b></h5>
+      </div>
+      <div class="col-9 m-auto border-bottom">
+        <p>배송비 : 200,000 원</p>
+        <p>결제금액 : 900,200,000 원 <small>(배송비 포함)</small></p>
+        <p>결제일시 : 2024-02-07 | PM 17:15:43</p>
+        <p>결제수단 : 동전</p>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <h5><b>주문자 정보</b></h5>
+      </div>
+      <div class="col-9 m-auto">
+        <p>주문자명 : 주문자</p>
+        <p>주소 : 강원도 원주시 대성고등학교</p>
+        <p>연락처 : 123-1234-1234</p>
+        <p>이메일 : 1234@mail.com</p>
+      </div>
+      <div class="col-12 mt-3 mb-3 d-flex justify-content-center">
+        <form action="">
+          <button type="button" class="custom-btn">주문내역</button>
+          <button type="button" class="custom-btn2">신청취소</button>
+        </form>
+      </div>
     </div><!--row-->
   </div><!--container-->
   <!-- ###############################################
@@ -123,5 +149,10 @@ footer #footer - footer 영역
     </div><!--container-->
   </footer>
 </div><!--wrapper-->
+<script>
+  function main(){
+    location.href="sangsae.html";
+  }
+</script>
 </body>
 </html>
