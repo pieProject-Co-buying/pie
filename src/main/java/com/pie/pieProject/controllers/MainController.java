@@ -26,6 +26,11 @@ public class MainController {
 		return "pieContents/shareServiceMain";
 	}
 	
+	@RequestMapping("/shareServiceApply")
+	public String shareSApplyPage() {
+		return "pieContents/shareServiceApply";
+	}
+	
 	@RequestMapping("/townBuying")
 	public String townBPage() {
 		return "pieContents/townBuyMain";

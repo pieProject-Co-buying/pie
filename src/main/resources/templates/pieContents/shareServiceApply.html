@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/shareService}">
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="shareServiceContent">
+   
+ 
+    <!--------------------------최신/오래된 순-------------------------->
+    <div class="container p-0 mt-5">
+        <div class="row">
+            <div class="col-12 mb-1 d-flex justify-content-end">
+                <span>최신 순&nbsp;</span>
+                <span> | </span>
+                <span>&nbsp;오래된 순</span>
+            </div>
+        </div><!--row-->
+    </div><!--container-->
+    <!--------------------------컨텐츠-------------------------->
+    <div class="container border">
+        <div class="row p-3">
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="imgs/potato.jpg" alt="..." class="img-fluid">
+                        </div><!--col-->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Potato title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <span class="mt-5" style="position: absolute">작성일 : </span>
+                            </div>
+                            <div class="col d-flex justify-content-end content-div mt-4">
+                                <form action="">
+                                    <button class="btn btn-primary">수정</button>
+                                    <button class="btn btn-danger">삭제</button>
+                                </form>
+                            </div>
+                        </div><!--col-->
+                    </div><!--카드 컨텐츠 row-->
+                </div>
+            </div><!--col-->
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="imgs/potato.jpg" alt="..." class="img-fluid">
+                        </div><!--col-->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Potato title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <span class="mt-5" style="position: absolute">작성일 : </span>
+                            </div>
+                            <div class="col d-flex justify-content-end content-div mt-4">
+                                <form action="">
+                                    <button class="btn btn-primary">수정</button>
+                                    <button class="btn btn-danger">삭제</button>
+                                </form>
+                            </div>
+                        </div><!--col-->
+                    </div><!--카드 컨텐츠 row-->
+                </div>
+            </div><!--col-->
+            <div class="col-12">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="imgs/potato.jpg" alt="..." class="img-fluid">
+                        </div><!--col-->
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Potato title</h5>
+                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                <span class="mt-5" style="position: absolute">작성일 : </span>
+                            </div>
+                            <div class="col d-flex justify-content-end content-div mt-4">
+                                <form action="">
+                                    <button class="btn btn-primary">수정</button>
+                                    <button class="btn btn-danger">삭제</button>
+                                </form>
+                            </div>
+                        </div><!--col-->
+                    </div><!--카드 컨텐츠 row-->
+                </div>
+            </div><!--col-->
+        </div><!--카드 row-->
+    </div><!--카드 container-->
+</div><!--wrapper-->
+</body>
+</html>
