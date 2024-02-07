@@ -11,18 +11,18 @@
 			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">로그인</span>
 	</h2>
 
-	<form class="needs-validation" novalidate>
+	<form class="needs-validation" novalidate action = "/loginAction" method="post">
 		<div class="form-row">
 			<div class="col mb-3">
 				<label for="validationCustom01">아이디</label> <input type="text"
-					class="form-control" id="validationCustom01" required>
+					class="form-control" id="id" name="id" required>
 				<div class="invalid-feedback">아이디를 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col mb-3">
 				<label for="validationCustom02">비밀번호</label> <input type="text"
-					class="form-control" id="validationCustom02" required>
+					class="form-control" id="password" name="password" required>
 				<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 			</div>
 		</div>
