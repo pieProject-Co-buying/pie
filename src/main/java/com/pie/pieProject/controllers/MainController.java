@@ -1,7 +1,11 @@
 package com.pie.pieProject.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -26,10 +30,10 @@ public class MainController {
 		return "pieContents/shareServiceMain";
 	}
 	
-	@RequestMapping("/shareServiceBoard")
-	public String shareSBoardPage() {
-		return "pieContents/shareServiceBoard";
-	}
+	/*
+	 * @RequestMapping("/shareServiceBoard") public String shareSBoardPage() {
+	 * return "pieContents/shareServiceBoard"; }
+	 */
 	
 	@RequestMapping("/shareServiceApply")
 	public String shareSApplyPage() {

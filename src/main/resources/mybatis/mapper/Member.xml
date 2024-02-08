@@ -5,3 +5,4 @@
 		select count (*) from member_user where id = #{param1} and password = #{param2}
 	</select>
 </mapper>
+

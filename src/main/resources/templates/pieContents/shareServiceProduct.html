@@ -3,7 +3,7 @@
 	layout:decorate="~{layouts/shareService}">
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
-<div layout:fragment="shareServiceContent">
+<div layout:fragment="shareServiceContent" class="col">
     
     <!--------------------------타이틀 아래 텍스트-------------------------->
     <div class="container mt-5 mb-5">
@@ -17,21 +17,32 @@
     <div class="container p-0 mb-5">
         <div class="row no-gutters">
             <div class="col-md-6 d-flex align-items-center">
-                <img src="imgs/potato.jpg" alt="감자" class="img-fluid">
+                <img src="imgs/netflix.png" alt="감자" class="img-fluid">
             </div><!--col-md-6-->
             <div class="col-md-6 p-3">
-                <div class="row"><!--img-box-->
+                <div class="row">
                     <div class="col"><!--text-box-->
-                        <h4 class="text-center"><b>감자 132kg</b></h4>
-                        <h4 class="border-bottom mt-3 pb-3">가격 : 1,300 원</h4>
-                        <p><small><b>내용</b> : Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci esse quas repudiandae, sapiente temporibus velit vero!Lorem ipsum dolor sit amet velit.</small></p>
-                        <p><small><b>모집인원</b> : 8 / 12 명</small></p>
-                        <p><small><b>모집마감</b> : 1999/05/02</small></p>
-                        <p><small><b>조회수</b> : 62 억</small></p>
+                        <h4 class="text-center">
+                        	<b th:text="${board.getSh_title()}"></b></h4>
+                        <h4 class="border-bottom mt-3 pb-3 text-right" th:text="${board.getSh_price()+' 원'}"></h4>
+                        <p class="text-center border-bottom">
+                        	<small><b th:text="${board.getSh_content()}"></b></small></p>
+                        <p><b>작성자 : </b>
+                        	<small th:text="${board.getSh_nickname()}"></small></p>
+                        <p><b>모집인원 : </b>
+                        	<small th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small></p> 
+                        <p><b>진행현황 : </b>
+                        	<small class="badge badge-success" th:text="${board.getSh_process()}"></small></p>
+                        <p><b>모집시작일 : </b>
+                        	<small th:text="${board.getSh_registDay()}"></small></p>
+                        <p><b>모집마감일 : </b>
+                        	<small th:text="${board.getSh_DeadLine()}"></small></p>
+                        <p><b>카테고리 : </b>
+                        	<small th:text="${board.getSh_category()}"></small></p>
                     </div>
                 </div>
-                <div class="row mt-5">
-                    <div class="col">
+                <div class="row">
+                    <div class="col d-flex justify-content-center align-items-center">
                         <form action="">
                             <button type="button" class="custom-btn" data-toggle="modal" data-target="#exampleModal"><b>신청
                                 및 결제</b></button>
