@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -58,7 +60,7 @@
 
 		<div class="container mb-5">
 					
-				<form action="" class="pie-search mb-4">
+				<form action="townBuyDetail" class="pie-search mb-4">
 					<input type="hidden" />
 					<div class="dropdown" id="selectCategory">
 						<a class="btn dropdown-toggle" href="#" role="button"
@@ -195,11 +197,12 @@
 
 
 							  <div class="card-body">
-							    <h5 class="card-title">Card title</h5>
-							    <p class="card-text text-truncate">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+							  
+							    <h5 class="card-title" th:text="${list.get(1).getTo_title()}">Card title</h5>
+							    <p class="card-text text-truncate" th:text="${list.get(1).getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
 							    <div class="text-right">
-							    	<a href="townBuyproduct" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+							    	<a href="townBuyproduct" class="btn btn-outline-secondary"  th:href="@{'townBuyproduct?id=' + ${list.get(1).getTo_num()}}" >같이 사러가기 &raquo;</a>
 							    </div>
 
 
@@ -208,8 +211,6 @@
 							</div>
 
 					    </div>
-
-
 
 
 
@@ -549,6 +550,23 @@
 			<h1 class="mb-3">우리동네 공구 리스트</h1>
 
 			<div class="row">
+
+
+				<!-- 여기 -->
+				
+				
+<!--				
+				<tr th:each="itemDto, status:${itemDtoList}">
+					<td th:text="${status.index}+1"></td>
+					<td th:if="${status.even}" th:text="|인기 제품|"></td>
+					<td th:if="${status.odd}" th:text="'핫 신상제품'"></td>
+
+-->				
+					<!-- th:tex0t 문법에서 공백있으면 에러 -> 외따옴표로 감싼다 or || 로 감싼다-->
+				
+				
+<!-- 				</tr> -->				
+				
 
 
 
