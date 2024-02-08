@@ -4,5 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IMemberDao {
-	public int login(String id, String password); 
+	public int login(String id, String password);
+	
+	
 }
