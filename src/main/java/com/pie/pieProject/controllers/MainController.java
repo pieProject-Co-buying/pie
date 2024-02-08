@@ -1,7 +1,11 @@
 package com.pie.pieProject.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -26,6 +30,16 @@ public class MainController {
 		return "pieContents/shareServiceMain";
 	}
 	
+	/*
+	 * @RequestMapping("/shareServiceBoard") public String shareSBoardPage() {
+	 * return "pieContents/shareServiceBoard"; }
+	 */
+	
+	@RequestMapping("/shareServiceApply")
+	public String shareSApplyPage() {
+		return "pieContents/shareServiceApply";
+	}
+	
 	@RequestMapping("/townBuying")
 	public String townBPage() {
 		return "pieContents/townBuyMain";
@@ -43,6 +57,16 @@ public class MainController {
 	@RequestMapping("/townBuySearchResult")
 	public String townBResultPage() {
 		return "pieContents/townBuySearchResult";
+	}
+	
+	@RequestMapping("/townBuyResult")
+	public String townBApplyResultPage() {
+		return "pieContents/townBuyResult";
+	}
+	
+	@RequestMapping("/townBuyproduct")
+	public String townBProductPage() {
+		return "pieContents/townBuyproduct";
 	}
 	
 	@RequestMapping("/proxyBuyMain")
@@ -65,12 +89,12 @@ public class MainController {
 		return "pieContents/proxyBuyProducts";
 	}
 	/*****************같이 씁시다 페이지*****************/
-	@RequestMapping("/sangsae")
-	public String sangsaePage() {
-		return "pieContents/shareServiceSangsae";
+	@RequestMapping("/shareServiceProduct")
+	public String shareSProductPage() {
+		return "pieContents/shareServiceProduct";
 	}
 	@RequestMapping("/finish")
-	public String finishPage() {
+	public String shareSFinishPage() {
 		return "pieContents/shareServiceFinish";
 	}
 }

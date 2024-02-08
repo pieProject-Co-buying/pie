@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/proxyBuying}">
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
-<div layout:fragment="proxyBuyContent" class="col">
+<div layout:fragment="proxyBuyContent" class="col p-0">
 	<!--------------------------------게시글 타이틀-------------------------------->
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
@@ -11,21 +12,27 @@
 		<div class="row mb-5">
 			<div class="col text-center">
 				<h1>Best 상품 5!</h1>
-				<p>
-					파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요! 
-				</p>
+				<p>파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요!</p>
 			</div>
 		</div>
 		<div class="row hyej-best-gallery">
 			<div class="col-md-6 mb-3 mb-md-2">
-				<img src="imgs/img1.jpg" alt=""/>
+				<img src="imgs/img1.jpg" alt="" />
 			</div>
 			<div class="col-md-6 pl-md-0">
 				<div class="row no-gutters">
-					<div class="col-md-12 col-3 mb-2"><img src="imgs/img2.jpg" alt=""/></div>
-					<div class="col-md-12 col-3 mb-2"><img src="imgs/img3.jpg" alt=""/></div>
-					<div class="col-md-12 col-3 mb-2"><img src="imgs/img4.jpg" alt=""/></div>
-					<div class="col-md-12 col-3 mb-2"><img src="imgs/img5.jpg" alt=""/></div>
+					<div class="col-md-12 col-3 mb-2">
+						<img src="imgs/img2.jpg" alt="" />
+					</div>
+					<div class="col-md-12 col-3 mb-2">
+						<img src="imgs/img3.jpg" alt="" />
+					</div>
+					<div class="col-md-12 col-3 mb-2">
+						<img src="imgs/img4.jpg" alt="" />
+					</div>
+					<div class="col-md-12 col-3 mb-2">
+						<img src="imgs/img5.jpg" alt="" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -34,7 +41,7 @@
 				<a href="proxyBuyProducts" class="btn border px-5"> 더보기 </a>
 			</div>
 		</div>
-		
+
 		<div class="row my-5">
 			<div class="col text-center mt-5">
 				<h1>원하는 상품이 없으세요?</h1>
@@ -42,27 +49,15 @@
 			</div>
 		</div>
 		<div class="row text-center">
-			<div class="col-lg-4">
-				<div class="border btn p-4 mb-2 w-100">
-					지금 진행하는 공구 보기
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="border btn p-4 mb-2 w-100">
-					입점 원하는 물품 신청하러가기
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="border btn p-4 mb-2 w-100">
-					직접 공구 모집하기
-				</div>
-			</div>
+			<a class="col-lg-4" href="proxyBuyProducts"> <span
+				class="border btn p-4 mb-2 w-100"> 지금 진행하는 공구 보기 </span>
+			</a> <a class="col-lg-4" href="proxyBuyApply"> <span
+				class="border btn p-4 mb-2 w-100"> 입점 원하는 물품 신청하러가기 </span>
+			</a> <a class="col-lg-4" href="townBuying"> <span
+				class="border btn p-4 mb-2 w-100"> 직접 공구 모집하기 </span>
+			</a>
 		</div>
-		
 	</div>
-	<!--게시글 로직 container-->
-	<!--wrapper-->
-
 </div>
 
 </html>

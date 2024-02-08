@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pie.pieProject.DAO.IShareServiceDao">
+	<select id="getBoardList" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard
+	</select>
+	<select id="selectBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where sh_numID=#{param1}
+	</select>
+</mapper>

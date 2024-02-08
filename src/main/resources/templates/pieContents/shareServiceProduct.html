@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/shareService}">
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="shareServiceContent" class="col">
+    
+    <!--------------------------타이틀 아래 텍스트-------------------------->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-12 border-bottom">
+                <h5><b>게시물 정보</b></h5>
+            </div><!--col-12-->
+        </div><!--row-->
+    </div><!--container-->
+    <!--------------------------게시물 컨텐츠-------------------------->
+    <div class="container p-0 mb-5">
+        <div class="row no-gutters">
+            <div class="col-md-6 d-flex align-items-center">
+                <img src="imgs/netflix.png" alt="감자" class="img-fluid">
+            </div><!--col-md-6-->
+            <div class="col-md-6 p-3">
+                <div class="row">
+                    <div class="col"><!--text-box-->
+                        <h4 class="text-center">
+                        	<b th:text="${board.getSh_title()}"></b></h4>
+                        <h4 class="border-bottom mt-3 pb-3 text-right" th:text="${board.getSh_price()+' 원'}"></h4>
+                        <p class="text-center border-bottom">
+                        	<small><b th:text="${board.getSh_content()}"></b></small></p>
+                        <p><b>작성자 : </b>
+                        	<small th:text="${board.getSh_nickname()}"></small></p>
+                        <p><b>모집인원 : </b>
+                        	<small th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small></p> 
+                        <p><b>진행현황 : </b>
+                        	<small class="badge badge-success" th:text="${board.getSh_process()}"></small></p>
+                        <p><b>모집시작일 : </b>
+                        	<small th:text="${board.getSh_registDay()}"></small></p>
+                        <p><b>모집마감일 : </b>
+                        	<small th:text="${board.getSh_DeadLine()}"></small></p>
+                        <p><b>카테고리 : </b>
+                        	<small th:text="${board.getSh_category()}"></small></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <form action="">
+                            <button type="button" class="custom-btn" data-toggle="modal" data-target="#exampleModal"><b>신청
+                                및 결제</b></button>
+                            <button type="button" class="custom-btn2" onclick="history.go(-1)"><b>목록으로</b></button>
+                        </form>
+                    </div><!--col-->
+                </div><!--row-->
+            </div><!--col-md-6-->
+        </div><!--row-->
+    </div><!--container-->
+    <!--------------------------다른 상품-------------------------->
+    <div class="container border-bottom">
+        <div class="row">
+            <div class="col-12">
+                <h6 class="d-inline-block"><b>다른 상품</b></h6>
+            </div>
+        </div>
+    </div>
+    <div class="container border mt-3 p-0">
+        <div class="row">
+            <div class="col-12">
+                <div class="owl-carousel owl-theme owl-loaded loop">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage">
+                            <div class="owl-item">
+                                <a href="#" class=""><img src="imgs/potato.jpg" class="img-fluid"></a>
+                            </div>
+                            <div class="owl-item">
+                                <a href="#" class=""><img src="imgs/potato.jpg" class="img-fluid"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--col-12-->
+        </div><!--row-->
+    </div><!--container-->
+    <div class="text-center mt-2 mb-5">
+        <button class="customPrevBtn">&laquo;이전</button>
+        <button class="customNextBtn">다음&raquo;</button>
+    </div>
+    <!--------------------------결제 모달-------------------------->
+    <div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>결제 수단 선택</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex justify-content-around text-center">
+                    <div class="m-3" onclick="kgPay()">
+                        <small class="d-block"><b>kg 이니시스</b></small>
+                        <img src="imgs/kg.png" alt="" class="payLogo">
+                    </div>
+                    <div class="m-3" onclick="kakaoPay()">
+                        <small class="d-block"><b>카카오페이</b></small>
+                        <img src="imgs/kakaopay.jpg" alt="" class="payLogo">
+                    </div>
+                    <div class="m-3" onclick="tossPay()">
+                        <small class="d-block"><b>토스페이</b></small>
+                        <img src="imgs/toss.jpg" alt="" class="payLogo">
+                    </div>
+                    <div class="m-3" onclick="paycoPay()">
+                        <small class="d-block"><b>페이코</b></small>
+                        <img src="imgs/payco.jpg" alt="" class="payLogo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="custom-btn" data-dismiss="modal" style="background-color: grey">닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+<script>
+    $('.loop').owlCarousel({
+        center: true,
+        items: 5,
+        loop: true,
+        smartSpeed: 1300,
+        margin: 10,
+        responsive: {
+            1000: {
+                items: 4
+            }
+        }
+    });
+    var owl = $('.owl-carousel');
+    owl.owlCarousel();
+    $('.customNextBtn').click(function () {
+        owl.trigger('next.owl.carousel');
+    })
+    $('.customPrevBtn').click(function () {
+        owl.trigger('prev.owl.carousel');
+    })
+</script>
+</div>
+</html>
