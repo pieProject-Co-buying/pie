@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 
 
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller 
@@ -29,9 +30,6 @@ public class TownBuyController {
 		
 	
 	}
-	
- 
-
 	
 	
 }
