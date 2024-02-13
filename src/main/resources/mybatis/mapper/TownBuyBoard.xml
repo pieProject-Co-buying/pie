@@ -9,12 +9,10 @@
 
 	<select id="listDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 	
-	
-	
-	
 		select * from townBuyBoard order by to_num desc
 		
 	</select>
+	
 
 	
 	<select id="viewDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
@@ -23,5 +21,19 @@
 		
 	</select>
 	
+	
+	
+	<update id="updateDao">
+	
+		update townBuyBoard set to_title = #{param1}, to_content = #{param2} where to_num = #{param3}
+		
+	</update>	
+	
+
+	<delete id="deleteDao">
+	
+		delete townBuyBoard where to_num = #{param1}
+		
+	</delete>
 	
 </mapper>
