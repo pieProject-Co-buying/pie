@@ -5,7 +5,8 @@
 		select count (*) from member_user where id = #{param1} and password = #{param2}
 	</select>
 	<insert id="join">
-		insert into member_user values (mem_seq.nextval,
+		insert into member_user
+values (mem_seq.nextval,
         #{id},
         #{password},
         #{name},
