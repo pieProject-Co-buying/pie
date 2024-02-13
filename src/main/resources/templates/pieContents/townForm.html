@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/boardForm}">
+<head>
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+</head>
+
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="formContent" class="col">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form action="joinAction" enctype="multipart/form-data"
+					method="post" name="joinForm">
+					<div class="form-group"><input
+							type="text" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="제목">
+					</div>
+					<textarea id="summernote" name="editordata"></textarea>
+					<div class="form-group row justify-content-center mt-5">
+						<div class="col-sm-9">
+							<button type="button" class="btn btn-block pie-btn-red"
+								id="joinBtn">등록</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--게시글 로직 container-->
+	<!--wrapper-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote();
+		});
+	</script>
+</div>
+
+</html>
