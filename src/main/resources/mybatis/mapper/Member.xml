@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IMemberDao">
+	<select id="getSalt" resultType="string">
+		select salt from member_user where id = #{param1}
+	</select>
 	<select id="login" resultType="_int">
 		select count (*) from member_user
 		where id = #{param1} and password = #{param2}
@@ -9,6 +12,7 @@
 		insert into member_user values (mem_seq.nextval,
 		#{id},
 		#{password},
+		#{salt},
 		#{name},
 		#{nickname},
 		#{gender},
@@ -21,9 +25,6 @@
 		#{agreement},
 		null
 		)
-	</insert>
-	<insert id="test">
-		insert into testDB values (#{param1}, #{param2})
 	</insert>
 </mapper>
 
