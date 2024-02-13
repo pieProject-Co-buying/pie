@@ -1,116 +1,116 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/townBuying}">
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/townBuying}">
 
 <div layout:fragment="townBuyContent" class="col">
 
 
-	<div class="container-fluid px-0">
+   <div class="container-fluid px-0">
 
 
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col text-center">
-					<h1>우리 동네 공구찾기!</h1>
-					<p>우리 동네에서 지금 진행하는 공동구매 게시글을 찾아볼까요?</p>
-				</div>
-			</div>
+      <div class="container">
+         <div class="row mb-5">
+            <div class="col text-center">
+               <h1>우리 동네 공구찾기!</h1>
+               <p>우리 동네에서 지금 진행하는 공동구매 게시글을 찾아볼까요?</p>
+            </div>
+         </div>
 
 
 
-			<div class="row mb-5 mx-auto">
+         <div class="row mb-5 mx-auto">
 
-				<div class="col-12 col-lg-2">
+            <div class="col-12 col-lg-2">
 
 
 
-					<ul class="list-unstyled d-flex flex-wrap flex-lg-column">
+               <ul class="list-unstyled d-flex flex-wrap flex-lg-column">
 
-						<li class="mr-1 mb-1">
-							<!-- 전체 페이지 보여주기 -->
-							<button type="button" class="btn btn-outline-secondary w-100">우리동네공구</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <!-- 전체 페이지 보여주기 -->
+                     <button type="button" class="btn btn-outline-secondary w-100" name="showAllBtn"  onclick="showAll()">우리동네공구</button>
+                  </li>
 
-						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100" name="food"  onclick="foodMap()">식료품</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <button type="button" class="btn btn-outline-secondary w-100" name="food"  onclick="foodMap()">식료품</button>
+                  </li>
 
-						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100">생활용품</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <button type="button" class="btn btn-outline-secondary w-100">생활용품</button>
+                  </li>
 
-						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100">의류</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <button type="button" class="btn btn-outline-secondary w-100">의류</button>
+                  </li>
 
-						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100" name="baby"  onclick="babyMap()">아기</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <button type="button" class="btn btn-outline-secondary w-100" name="baby"  onclick="babyMap()">아기</button>
+                  </li>
 
-						<li class="mr-1 mb-1">
-							<!-- 빈자리 1개 남았을 경우 보여질 페이지 -->
-							<button type="button" class="btn btn-outline-secondary w-100">마감
-								임박 순</button>
-						</li>
+                  <li class="mr-1 mb-1">
+                     <!-- 빈자리 1개 남았을 경우 보여질 페이지 -->
+                     <button type="button" class="btn btn-outline-secondary w-100">마감
+                        임박 순</button>
+                  </li>
 
-					</ul>
+               </ul>
 
 
-				</div>
+            </div>
 
 
-				<!-- 지도 들어갈 자리 -->
+            <!-- 지도 들어갈 자리 -->
 
-				<div class="col-12 col-lg-10 mt-3 mb-5 mt-lg-0">
+            <div class="col-12 col-lg-10 mt-3 mb-5 mt-lg-0">
 
-					<!-- ############ 인라인스타일 수정해야함!!! 임시로 넣음 ############ -->
-					<div id="map" class="mb-5" style="width: 100%; height: 400px;">
+               <!-- ############ 인라인스타일 수정해야함!!! 임시로 넣음 ############ -->
+               <div id="map" class="mb-5" style="width: 100%; height: 400px;">
 
 
-						<!-- 지도 표시될 영역 -->
+                  <!-- 지도 표시될 영역 -->
 
-					</div>
+               </div>
 
 
-				</div>
+            </div>
 
 
 
-				<!-- 지도 영역 조절할 bar -->
+            <!-- 지도 영역 조절할 bar -->
 
 
-				<div class="col-12 col-lg-2 d-none d-md-block mt-3"></div>
+            <div class="col-12 col-lg-2 d-none d-md-block mt-3"></div>
 
-				<div class="col-12 col-lg-10 d-none d-md-block mt-3">
+            <div class="col-12 col-lg-10 d-none d-md-block mt-3">
 
-					<h2 for="formControlRange">어디까지 보여드릴까요?</h2>
-					<input type="range" class="form-control-range" id="mapRange"
-						min="1" max="3" value="1" step="1">
+               <h2 for="formControlRange">어디까지 보여드릴까요?</h2>
+               <input type="range" class="form-control-range" id="mapRange"
+                  min="1" max="3" value="1" step="1">
 
-					<div class="row mt-2">
+               <div class="row mt-2">
 
 
-						<div class="col-1">
-							<p class="strong">1km</p>
-						</div>
+                  <div class="col-1">
+                     <p class="strong">1km</p>
+                  </div>
 
-						<div class="col-10 text-center">
-							<p class="strong">2km</p>
-						</div>
+                  <div class="col-10 text-center">
+                     <p class="strong">2km</p>
+                  </div>
 
-						<div class="col-1 text-right">
-							<p class="strong">3km</p>
-						</div>
+                  <div class="col-1 text-right">
+                     <p class="strong">3km</p>
+                  </div>
 
 
-					</div>
+               </div>
 
 
 
 
 
-				</div>
+            </div>
 
 
 
@@ -119,225 +119,256 @@
 
 
 
-				<!-- 카테고리 선택되는 값으로 상품 불러오기 -->
-				<!-- 기준값 : 카테고리 -->
+            <!-- 카테고리 선택되는 값으로 상품 불러오기 -->
+            <!-- 기준값 : 카테고리 -->
 
 
 
 
 
 
-			</div>
+         </div>
 
 
 
-			<div class="row my-5">
-				<div class="col text-center mt-5">
-					<h1>지금 바로 시작해볼까요?</h1>
-					<p>파이와 함께 즐거운 공구를 즐기세요!</p>
-				</div>
-			</div>
+         <div class="row my-5">
+            <div class="col text-center mt-5">
+               <h1>지금 바로 시작해볼까요?</h1>
+               <p>파이와 함께 즐거운 공구를 즐기세요!</p>
+            </div>
+         </div>
 
 
-			<div class="row mb-5">
-				<div class="col-md-6">
-					<a href="townBuySearch" class="btn pie-btn-red w-100 p-5 mb-3">
-						<span class="h2 d-block ">공구글 모두보기</span> <span>바로가기</span>
-					</a>
-				</div>
-
-				<div class="col-md-6">
-					<a href="#" class="btn border pie-btn-brown w-100 p-5 mb-3"> <span
-						class="h2 d-block">내 상품 공구하기</span> <span>바로가기</span>
-					</a>
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-	
-	
-	
-	<script>
-
-	
-	
-	/*########################################  
-	
-	## 메모
-	
-	# 정보창 안나타는 문제 해결 필요
-	
-	
-	
-	########################################*/
-		
-	
-	
-		/* 초기 load 값 */
-	
-
-		var mapOptions = {
-
-		    center: new naver.maps.LatLng(37.3595704, 127.105399), /* 기본 세팅 값 -> 사용자 지정 값으로 불러와야 함! */
-		    zoom: 18
-		    /* 수치로 zoomLevel 지정 높을수록 줌 ++ */
-
-		};
-	
-		var map = new naver.maps.Map('map', mapOptions);
-
-
-		/* 지도 range */
-
-	    var mapRange = document.getElementById('mapRange');
-	    
-	    
-	    mapRange.addEventListener('input', function() {
-	        var kmValue = parseFloat(mapRange.value);
-	        var zoomLevel = convertKmToZoomLevel(kmValue); 
-	        map.setZoom(zoomLevel);
-	    });
-	
-	    function convertKmToZoomLevel(km) {
-	
-	        return Math.floor(18 - Math.log(km) / Math.LN2);
-	    }
-		
-		
-	    
-	    
-	    
-	    
-	    /*##################################
-	    
-	   	마커
-	   	=> onclick 속성 활용 이걸 사용하면 안되는 느낌이 든다
-	   	
-	    ##################################*/
-	    
-	    
-	    
-		
-	    /* 생각해보고 사용자 프로필로 사진 나와도 좋을 듯, 일단 파이 로고로 설정 */
-	    /* 카테고리는 카테고리 이미지 사용해도 좋을 듯 */
-	    
-	    
-	    
-	    /* 내 위치 마커 */
-		var marker = new naver.maps.Marker({
-		    position: new naver.maps.LatLng(37.3595704, 127.105399),
-		    map: map,
-		    infomation: "내 위치",
-		    icon : {
-		    	url: 'imgs/logo_color_C_red.png',
-		        size: new naver.maps.Size(80, 40),
-		        scaledSize: new naver.maps.Size(80, 40)
-				/* scaledSize 까지 지정해줘야 배율에 맞춰짐 */
-		    }
-		});    
-		    
-	    
-	    
-	    /*##################################
-	    카테고리별 마커들 
-	    ##################################*/
-	    
-	    
-		var markers = []; // markers 배열을 정의
-		var infoWindows = []; // infoWindows 배열을 정의
-		var categoryMarkers = []; // 현재 표시된 마커들을 저장할 배열
-
-		
-	    /*##################################
-	    카테고리별 마커들 배열로 저장
-	    ##################################*/		
-	
-		/* 푸드 카테고리 값에 저장된 배열들 */
-		function foodMap() {
-
-			var category_food = new Array(); //지역 담을 배열(지역명 / 위도경도)
-			
-			category_food.push(
-					
-				/* 지역명, 위도, 경도 */
-				
-				{location: '식품', lat: '37.3595704', lng: '125.105399'},
-				{location: '식품', lat: '37.3595704', lng: '127.105399'},
-				{location: '식품', lat: '37.3595704', lng: '128.105399'},
-				{location: '식품', lat: '37.3595704', lng: '126.105399'}
-				
-			);
-			
-			
-			for(var i=0; i<category_food.length; i++) {
-				var marker = new naver.maps.Marker({
-					map:map,
-					title: category_food[i].location,
-					position: new naver.maps.LatLng(category_food[i].lat, category_food[i].lng)
-				});
-				
-				
-				var infoWindow = new naver.maps.InfoWindow({
-					content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_food[i].location + '</b><br> - 네이버 지도 - </div>'
-				})
-				
-				markers.push(marker)
-			};
-			
-			infoWindows.push(infoWindow);
-		}    
-
-		
-		
-		/* 불러온 마커 지워주는 기능 */
-		
-		
-		
-		
-		
-		/* 아기용품 카테고리 값에 저장된 배열들 */	
-		function babyMap() {
-			
-			var category_baby = new Array(); //지역 담을 배열(지역명 / 위도경도)
-			
-			category_baby.push(
-					
-				/* 지역명, 위도, 경도 */
-				
-				{location: '아기용품', lat: '35.3595704', lng: '125.105399'},
-				{location: '아기용품', lat: '36.3595704', lng: '127.105399'},
-				{location: '아기용품', lat: '39.3595704', lng: '128.105399'},
-				{location: '아기용품', lat: '38.3595704', lng: '126.105399'},
-				{location: '아기용품', lat: '35.3595704', lng: '128.105399'},
-				{location: '아기용품', lat: '36.3595704', lng: '124.105399'},
-				{location: '아기용품', lat: '39.3595704', lng: '126.105399'},
-				{location: '아기용품', lat: '38.3595704', lng: '127.105399'}
-				
-			);
-			
-			
-			for(var i=0; i<category_baby.length; i++) {
-				var marker = new naver.maps.Marker({
-					map:map,
-					title: category_baby[i].location,
-					position: new naver.maps.LatLng(category_baby[i].lat, category_baby[i].lng)
-				});
-				
-				
-				var infoWindow = new naver.maps.InfoWindow({
-					content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_baby[i].location + '</b><br> - 네이버 지도 - </div>'
-				})
-				
-				markers.push(marker)
-			};
-			
-			infoWindows.push(infoWindow);
-		}
-		 
-		
-	</script>
+         <div class="row mb-5">
+            <div class="col-md-6">
+               <a href="townBuySearch" class="btn pie-btn-red w-100 p-5 mb-3">
+                  <span class="h2 d-block ">공구글 모두보기</span> <span>바로가기</span>
+               </a>
+            </div>
+
+            <div class="col-md-6">
+               <a href="#" class="btn border pie-btn-brown w-100 p-5 mb-3"> <span
+                  class="h2 d-block">내 상품 공구하기</span> <span>바로가기</span>
+               </a>
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+   
+   
+   
+   <script>
+
+   
+   
+   /*########################################  
+   
+   ## 메모
+   
+   # 정보창 안나타는 문제 해결 필요
+   
+   
+   
+   ########################################*/
+      
+   
+   
+      /* 초기 load 값 */
+   
+
+      var mapOptions = {
+
+          center: new naver.maps.LatLng(37.3595704, 127.105399), /* 기본 세팅 값 -> 사용자 지정 값으로 불러와야 함! */
+          zoom: 18,
+          /* 수치로 zoomLevel 지정 높을수록 줌 ++ */
+          
+          
+          /* 마우스 휠 제어 */
+          enableWheelZoom : false
+
+      };
+   
+      var map = new naver.maps.Map('map', mapOptions);
+
+
+      /* 지도 range */
+
+       var mapRange = document.getElementById('mapRange');
+       
+       
+       mapRange.addEventListener('input', function() {
+           var kmValue = parseFloat(mapRange.value);
+           var zoomLevel = convertKmToZoomLevel(kmValue); 
+           map.setZoom(zoomLevel);
+       });
+   
+       function convertKmToZoomLevel(km) {
+   
+           return Math.floor(18 - Math.log(km) / Math.LN2);
+       }
+      
+      
+       
+       
+       
+       
+       /*##################################
+       
+         마커
+         => onclick 속성 활용 이걸 사용하면 안되는 느낌이 든다
+         
+       ##################################*/
+       
+       
+       
+      
+       /* 생각해보고 사용자 프로필로 사진 나와도 좋을 듯, 일단 파이 로고로 설정 */
+       /* 카테고리는 카테고리 이미지 사용해도 좋을 듯 */
+       
+       
+       
+       /* 내 위치 마커 */
+      var marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(37.3595704, 127.105399),
+          map: map,
+          infomation: "내 위치",
+          icon : {
+             url: 'imgs/logo_color_C_red.png',
+              size: new naver.maps.Size(80, 40),
+              scaledSize: new naver.maps.Size(80, 40)
+            /* scaledSize 까지 지정해줘야 배율에 맞춰짐 */
+          }
+      });    
+          
+       
+       
+       /*##################################
+       카테고리별 마커들 
+       ##################################*/
+       
+       
+      var markers = []; // markers 배열을 정의
+      var infoWindows = []; // infoWindows 배열을 정의
+      var categoryMarkers = []; // 현재 표시된 마커들을 저장할 배열
+   
+
+       /*##################################
+       카테고리별 마커들 배열로 저장
+       ##################################*/      
+
+
+         
+      
+      /* 푸드 카테고리 값에 저장된 배열들 */
+      function foodMap() {
+         
+          hideAllMarkers(); // 기존 표시 마커 숨기기
+      
+          var category_food = [
+              /* 지역명, 위도, 경도 */
+              {location: '식품', lat: '37.3595704', lng: '125.105399'},
+              {location: '식품', lat: '37.3595704', lng: '127.105399'},
+              {location: '식품', lat: '37.3595704', lng: '128.105399'},
+              {location: '식품', lat: '37.3595704', lng: '126.105399'}
+          ];
+      
+          for (var i = 0; i < category_food.length; i++) {
+              var marker = new naver.maps.Marker({
+                  map: map,
+                  title: category_food[i].location,
+                  position: new naver.maps.LatLng(category_food[i].lat, category_food[i].lng)
+              });
+      
+              var infoWindow = new naver.maps.InfoWindow({
+                  content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_food[i].location + '</b><br> - 네이버 지도 - </div>'
+              });
+      
+              markers.push(marker);
+              infoWindows.push(infoWindow);
+          }
+      }
+      
+      /* 아기용품 카테고리 값에 저장된 배열들 */
+      function babyMap() {
+         
+          hideAllMarkers(); // 기존 표시 마커 숨기기
+      
+          var category_baby = [
+              /* 지역명, 위도, 경도 */
+              {location: '아기용품', lat: '35.3595704', lng: '125.105399'},
+              {location: '아기용품', lat: '36.3595704', lng: '127.105399'},
+              {location: '아기용품', lat: '39.3595704', lng: '128.105399'},
+              {location: '아기용품', lat: '38.3595704', lng: '126.105399'},
+              {location: '아기용품', lat: '35.3595704', lng: '128.105399'},
+              {location: '아기용품', lat: '36.3595704', lng: '124.105399'},
+              {location: '아기용품', lat: '39.3595704', lng: '126.105399'},
+              {location: '아기용품', lat: '38.3595704', lng: '127.105399'}
+          ];
+      
+          for (var i = 0; i < category_baby.length; i++) {
+              var marker = new naver.maps.Marker({
+                  map: map,
+                  title: category_baby[i].location,
+                  position: new naver.maps.LatLng(category_baby[i].lat, category_baby[i].lng)
+              });
+      
+              var infoWindow = new naver.maps.InfoWindow({
+                  content: '<div style="width:200px;text-align:center;padding:10px;"><b>' + category_baby[i].location + '</b><br> - 네이버 지도 - </div>'
+              });
+      
+              markers.push(marker);
+              infoWindows.push(infoWindow);
+          }
+      }
+      
+      
+      
+      
+      /*##################################
+      카테고리 선택되는 값으로 상품 불러오기
+      ##################################*/
+
+      /* 우리동네공구 버튼 클릭 시 모든 카테고리 보여짐*/
+      document.querySelector('button[name="showAllBtn"]').addEventListener('click', function() {
+          showAll(); 
+      });
+
+
+
+      /* 푸드 카테고리 버튼 클릭 시 */
+      document.querySelector('button[name="food"]').addEventListener('click', function() {
+          foodMap();
+      });
+      
+      /* 아기용품 카테고리 버튼 클릭 시 */
+      document.querySelector('button[name="baby"]').addEventListener('click', function() {
+          babyMap();
+      });
+      
+      /* 모든 마커 숨기는 함수 */
+      function hideAllMarkers() {
+          for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(null);
+          }
+      }
+      
+      
+      /* 모든 마커 표시하는 함수 */
+      function showAll() {
+          for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+          }
+      }
+      
+
+
+   </script>
+
+
+
+
 
 </div>
 
