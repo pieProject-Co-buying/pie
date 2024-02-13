@@ -36,10 +36,11 @@ public class MemberController {
 		String password = request.getParameter("password");
 		String password_salt = SHA256.encrypt(password, salt);
 		
-
-		int su = dao.login(id, password_salt);
-		if (su > 0) {
+		MemberDto dto = null;
+		dto = dao.login(id, password_salt);
+		if (dto != null) {
 			HttpSession session = request.getSession(true);
+			session.setAttribute("pic", dto.getProfile_pic());
 			session.setAttribute("userId", id);
 			return "redirect:/";
 		} else {

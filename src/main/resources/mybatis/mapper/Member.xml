@@ -4,8 +4,8 @@
 	<select id="getSalt" resultType="string">
 		select salt from member_user where id = #{param1}
 	</select>
-	<select id="login" resultType="_int">
-		select count (*) from member_user
+	<select id="login" resultType="com.pie.pieProject.DTO.MemberDto">
+		select * from member_user
 		where id = #{param1} and password = #{param2}
 	</select>
 	<insert id="join">
