@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+a{
+	text-decoration:none;
+}
 .potato{
     width: 100%;
     height: 350px;
@@ -14,8 +16,8 @@
 .custom-btn{
     width: 120px;
     height: 50px;
-    line-height: 50px;
-    background-color: orange;
+    line-height: 40px;
+    background-color: dodgerblue;
     color: white;
     border: orange;
     font-weight: bolder;
@@ -24,8 +26,18 @@
 .custom-btn2{
     width: 120px;
     height: 50px;
-    line-height: 50px;
+    line-height: 40px;
     background-color: indianred;
+    color: white;
+    border: indianred;
+    font-weight: bolder;
+    font-size: 18px;
+}
+.custom-btn3{
+    width: 120px;
+    height: 50px;
+    line-height: 40px;
+    background-color: orange;
     color: white;
     border: indianred;
     font-weight: bolder;

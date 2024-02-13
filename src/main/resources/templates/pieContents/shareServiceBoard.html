@@ -41,7 +41,7 @@
 		<!--row-->
 		<div class="row category">
 			<!--col-4-->
-			<div th:each="board:${list}"class="col-md-4 col-sm-12 movie" style="cursor:pointer">
+			<div th:each="board:${list}" class="col-md-4 col-sm-12 movie" style="cursor:pointer">
 				<a th:href="'boardList?sh_numID='+${board.getSh_numID()}" class="card" style="cursor:pointer">
 					<img src="imgs/netflix.png" class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
@@ -77,7 +77,11 @@
 		</div>
 		<!--더보기 row-->
 	</div>
-	<!--게시글 로직 container-->
+	<div class="container">
+		<form action="writePost">
+			<button class="btn custom-btn">글작성</button>
+		</form>
+	</div><!--container-->
 	<!--wrapper-->
 
 	<!--더보기 스크립트-->
