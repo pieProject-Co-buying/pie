@@ -97,4 +97,8 @@ public class MainController {
 	public String shareSFinishPage() {
 		return "pieContents/shareServiceFinish";
 	}
+	@RequestMapping("/townForm")
+	public String townFormPage() {
+		return "pieContents/townForm";
+	}
 }
