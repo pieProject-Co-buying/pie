@@ -4,5 +4,22 @@
 	<select id="login" resultType="_int">
 		select count (*) from member_user where id = #{param1} and password = #{param2}
 	</select>
+	<insert id="join">
+		insert into member_user values (mem_seq.nextval,
+        #{id},
+        #{password},
+        #{name},
+        #{nickname},
+        #{gender},
+        #{profile_pic},
+        #{email},
+        #{phone},
+        #{postCode},
+        #{address_main},
+        #{address_sub},
+        #{agreement},
+        null
+        )
+	</insert>
 </mapper>
 
