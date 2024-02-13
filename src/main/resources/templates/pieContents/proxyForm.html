@@ -2,6 +2,12 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/boardForm}">
+<head>
+<!-- include summernote css/js -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+	rel="stylesheet">
+</head>
+
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
 <div layout:fragment="formContent" class="col">
@@ -9,186 +15,32 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		<div class="row mb-5">
-			<div class="col text-center">
-				<h1>나누고 싶은 상품을 신청해주세요!</h1>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col">
-				<form action="joinAction" enctype="multipart/form-data"
-					method="post" name="joinForm">
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label">이름</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputEmail3"
-								name="name">
-						</div>
+				<form action="test" enctype="multipart/form-data" method="post"
+					name="joinForm" onsubmit="getQuill()">
+					<div class="form-group">
+						<input type="text" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="제목" name="title">
 					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label">닉네임</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputEmail3"
-								name="nickname">
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label">아이디</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputEmail3"
-								name="id">
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">비밀번호</label>
-						<div class="col-sm-6">
-							<input type="password" class="form-control" id="inputPassword3"
-								name="password">
-						</div>
-					</div>
-					<fieldset class="form-group row">
-						<legend class="col-form-label col-sm-3 float-sm-left pt-0">성별</legend>
-						<div class="col-sm-9 d-flex justify-content-start">
-							<div class="form-check pr-2">
-								<input class="form-check-input" type="radio" name="gender"
-									id="gridRadios1" value="option1" checked> <label
-									class="form-check-label" for="gridRadios1"> 남성 </label>
-							</div>
-							<div class="form-check pr-2">
-								<input class="form-check-input" type="radio" name="gender"
-									id="gridRadios2" value="option2"> <label
-									class="form-check-label" for="gridRadios2"> 여성 </label>
-							</div>
-							<div class="form-check pr-2">
-								<input class="form-check-input" type="radio" name="gender"
-									id="gridRadios3" value="option3"> <label
-									class="form-check-label" for="gridRadios3"> 선택안함 </label>
-							</div>
-						</div>
-					</fieldset>
-
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">프로필사진</label>
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col">
-									<img src="" alt="" class="img-thumbnail" id="profilePic"
-										onerror="this.onerror=null; this.src='imgs/default.png';" />
-								</div>
-							</div>
-							<div class="row pt-1">
-								<div class="col">
-									<input type="file" class="form-control-file"
-										id="exampleFormControlFile1" name="profile_pic"
-										onchange="setThumbnail(event)">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputEmail3" class="col-sm-3 col-form-label">전화번호</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="inputEmail3"
-								name="phone">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">이메일</label>
-						<input type="hidden" name="email" id="emailCom" />
-						<div class="col-sm-9">
-							<div class="row">
-								<div class="col-6 pr-1">
-									<label for="formGroupExampleInput" class="sr-only">이메일
-										선택</label>
-									<div class="input-group">
-										<input type="text" class="form-control" id="email1"
-											placeholder="이메일">
-										<div class="input-group-append">
-											<div class="input-group-text">@</div>
-										</div>
-									</div>
-								</div>
-								<div class="form-group col-6 pl-0">
-									<label for="exampleFormControlSelect2" class="sr-only">Example
-										multiple select</label> <select class="form-control px-0"
-										id="exampleFormControlSelect2">
-										<option>gmail.com</option>
-										<option>naver.com</option>
-										<option>daum.net</option>
-										<option>hotmail.com</option>
-										<option>직접입력</option>
-									</select> <input type="text" class="form-control" id="emailAddressInput"
-										placeholder="직접 입력" />
-								</div>
-							</div>
-
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">우편번호</label>
-						<div class="col-sm-9 d-flex justify-content-between">
-							<input type="text" class="form-control mr-1"
-								id="sample6_postcode" placeholder="우편번호" name="postCode">
-							<input type="button" onclick="sample6_execDaumPostcode()"
-								value="우편번호 찾기" class="btn pie-btn-red">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">주소</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="sample6_address"
-								placeholder="주소" name="address_main">
-						</div>
-					</div>
-					<div class="form-group row">
-						<label for="inputPassword3" class="col-sm-3 col-form-label">상세주소</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control"
-								id="sample6_detailAddress" placeholder="상세주소" name="address_sub">
-						</div>
-					</div>
-
+					<textarea rows="" cols="" class="d-none" id="quill_html"></textarea>
 					<div class="form-group row">
 						<div class="col">
-							<div class="border rounded p-3" id="joinTerms">
-								<h6>가입 약관</h6>
-
-								<small>군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 대통령은 헌법과 법률이
-									정하는 바에 의하여 국군을 통수한다. 국회는 국민의 보통·평등·직접·비밀선거에 의하여 선출된 국회의원으로
-									구성한다. 대통령의 국법상 행위는 문서로써 하며, 이 문서에는 국무총리와 관계 국무위원이 부서한다. 군사에 관한
-									것도 또한 같다.</small> <br />
-								<br /> <small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로
-									소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체
-									또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을
-									알선할 수 없다.</small> <br />
-								<br /> <small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로
-									소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체
-									또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을
-									알선할 수 없다.</small> <br />
-								<br /> <small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로
-									소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체
-									또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을
-									알선할 수 없다.</small>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<div class="col">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="gridCheck1"
-									name="agreement"> <label class="form-check-label"
-									for="gridCheck1"> 위 약관에 동의합니다. </label>
+							<div id="editor">
+								<p>Hello World!</p>
+								<p>
+									Some initial <strong>bold</strong> text
+								</p>
+								<p>
+									<br>
+								</p>
 							</div>
 						</div>
 					</div>
 					<div class="form-group row justify-content-center mt-5">
 						<div class="col-sm-9">
 							<button type="button" class="btn btn-block pie-btn-red"
-								id="joinBtn">가입</button>
+								id="joinBtn">등록</button>
 						</div>
 					</div>
 				</form>
@@ -197,7 +49,166 @@
 	</div>
 	<!--게시글 로직 container-->
 	<!--wrapper-->
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
+	<!-- Initialize Quill editor -->
+	<!-- <script>
+		let toolbarOptions = [ [ {
+			'header' : [ 1, 2, 3, 4, 5, 6, false ]
+		} ], [ {
+			'font' : []
+		} ], [ {
+			'align' : []
+		} ], [ {
+			'indent' : '-1'
+		}, {
+			'indent' : '+1'
+		} ], [ 'bold', 'italic', 'underline', 'strike' ], // toggled buttons
+		[ {
+			'color' : []
+		}, {
+			'background' : []
+		} ], // dropdown with defaults from theme
+		[ {
+			'list' : 'ordered'
+		}, {
+			'list' : 'bullet'
+		} ], [ 'link', 'image' ], [ 'blockquote', 'code-block' ], ];
+
+		let quill = new Quill('#editor', {
+			modules : {
+				toolbar : toolbarOptions
+			},
+			theme : 'snow'
+		});
+		
+		quill.getModule('toolbar').addHandler('image', function () {
+	        selectLocalImage();
+	    });
+
+
+		function selectLocalImage() {
+		    const fileInput = document.createElement('input');
+		    fileInput.setAttribute('type', 'file');
+		    console.log("input.type " + fileInput.type);
+
+		    fileInput.click();
+
+		    fileInput.addEventListener("change", function () {  // change 이벤트로 input 값이 바뀌면 실행
+		        const formData = new FormData();
+		        const file = fileInput.files[0];
+		        formData.append('uploadFile', file);
+
+		        $.ajax({
+		            type: 'post',
+		            enctype: 'multipart/form-data',
+		            url: 'imageUpload',
+		            data: formData,
+		            processData: false,
+		            contentType: false,
+		            dataType: 'json',
+		            success: function (data) {
+		                const range = quill.getSelection(); // 사용자가 선택한 에디터 범위
+		                // uploadPath에 역슬래시(\) 때문에 경로가 제대로 인식되지 않는 것을 슬래시(/)로 변환
+		                data.uploadPath = data.uploadPath.replace(/\\/g, '/');
+
+		                quill.insertEmbed(range.index, 'image', "/board/display?fileName=" + data.uploadPath +"/"+ data.uuid +"_"+ data.fileName);
+		                console.log("통신성공");
+		            },
+		            error: function (err) {
+		                console.log(err);
+		            }
+		        });
+
+		    });
+		}
+
+		$("#joinBtn").click(function() {
+			getQuill();
+		})
+
+		function getQuill() {
+			let quillContent = $("#editor .ql-editor").html();
+			$("#content").html(quillContent);
+			console.log(quillContent);
+			return true;
+		}
+	</script> -->
+
+	<script>
+		function quilljsediterInit() {
+			var option = {
+				modules : {
+					toolbar : [ [ {
+						header : [ 1, 2, false ]
+					} ], [ 'bold', 'italic', 'underline' ],
+							[ 'image', 'code-block' ], [ {
+								list : 'ordered'
+							}, {
+								list : 'bullet'
+							} ] ]
+				},
+				placeholder : '자세한 내용을 입력해 주세요!',
+				theme : 'snow'
+			};
+
+			quill = new Quill('#editor', option);
+			quill
+					.on(
+							'text-change',
+							function() {
+								document.getElementById("quill_html").value = quill.root.innerHTML;
+							});
+
+			quill.getModule('toolbar').addHandler('image', function() {
+				selectLocalImage();
+			});
+		}
+
+		/* 이미지 콜백 함수 */
+
+		function selectLocalImage() {
+			const fileInput = document.createElement('input');
+			fileInput.setAttribute('type', 'file');
+			fileInput.setAttribute('name', 'boardImage');
+			console.log("input.type " + fileInput.type);
+
+			fileInput.click();
+
+			fileInput.addEventListener("change", function() { // change 이벤트로 input 값이 바뀌면 실행
+				const formData = new FormData();
+				const file = fileInput.files[0];
+				formData.append('uploadFile', file);
+
+				$.ajax({
+					type : 'post',
+					enctype : 'multipart/form-data',
+					url : 'imageUpload',
+					data : formData,
+					processData : false,
+					contentType : false,
+					dataType : 'json',
+					success : function(data) {
+						const range = quill.getSelection(); // 사용자가 선택한 에디터 범위
+						data.uploadPath = data.uploadPath.replace(/\\/g, '/');
+						quill
+								.insertEmbed(range.index, 'image',
+										"display?fileName="
+												+ data.uploadPath + "/"
+												+ data.uuid + "_"
+												+ data.fileName);
+
+					},
+					error : function(err) {
+						console.log(err);
+					}
+				});
+
+			});
+		}
+
+		quilljsediterInit();
+	</script>
 </div>
 
 </html>

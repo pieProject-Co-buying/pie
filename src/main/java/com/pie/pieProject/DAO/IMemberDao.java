@@ -8,4 +8,5 @@ import com.pie.pieProject.DTO.MemberDto;
 public interface IMemberDao {
 	public int login(String id, String password);
 	public int join(MemberDto mem);
+	public void test(String title, String content);
 }
