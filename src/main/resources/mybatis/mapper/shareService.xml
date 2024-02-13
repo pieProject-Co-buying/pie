@@ -7,4 +7,10 @@
 	<select id="selectBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard where sh_numID=#{param1}
 	</select>
+	<update id="updateBoard" parameterType="com.pie.pieProject.DTO.ShareServiceDto">
+		update shareServiceBoard set sh_title=#{sh_title}, sh_content=#{sh_content}, sh_price=#{sh_price}, sh_personnelMax=#{sh_personnelMax}, sh_DeadLine=#{sh_DeadLine} where sh_numID=#{sh_numID}
+	</update>
+	<delete id="deleteBoard" parameterType="_int">
+		delete shareServiceBoard where sh_numID=#{param1}
+	</delete>
 </mapper>

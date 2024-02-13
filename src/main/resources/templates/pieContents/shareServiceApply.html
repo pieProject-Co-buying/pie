@@ -20,8 +20,8 @@
     <!--------------------------컨텐츠-------------------------->
     <div class="container border">
         <div class="row p-3">
-            <div class="col-12">
-                <div class="card mb-3">
+            <div th:each="board:${list}" class="col-12" style="cursor:pointer">
+                <a th:href="'boardList?sh_numID='+${board.getSh_numID()}" class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-4">
                             <img src="imgs/potato.jpg" alt="..." class="img-fluid">
@@ -33,58 +33,10 @@
                                 <span class="mt-5" style="position: absolute">작성일 : </span>
                             </div>
                             <div class="col d-flex justify-content-end content-div mt-4">
-                                <form action="">
-                                    <button class="btn btn-primary">수정</button>
-                                    <button class="btn btn-danger">삭제</button>
-                                </form>
                             </div>
                         </div><!--col-->
                     </div><!--카드 컨텐츠 row-->
-                </div>
-            </div><!--col-->
-            <div class="col-12">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="imgs/potato.jpg" alt="..." class="img-fluid">
-                        </div><!--col-->
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Potato title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <span class="mt-5" style="position: absolute">작성일 : </span>
-                            </div>
-                            <div class="col d-flex justify-content-end content-div mt-4">
-                                <form action="">
-                                    <button class="btn btn-primary">수정</button>
-                                    <button class="btn btn-danger">삭제</button>
-                                </form>
-                            </div>
-                        </div><!--col-->
-                    </div><!--카드 컨텐츠 row-->
-                </div>
-            </div><!--col-->
-            <div class="col-12">
-                <div class="card mb-3">
-                    <div class="row no-gutters">
-                        <div class="col-md-4">
-                            <img src="imgs/potato.jpg" alt="..." class="img-fluid">
-                        </div><!--col-->
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Potato title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <span class="mt-5" style="position: absolute">작성일 : </span>
-                            </div>
-                            <div class="col d-flex justify-content-end content-div mt-4">
-                                <form action="">
-                                    <button class="btn btn-primary">수정</button>
-                                    <button class="btn btn-danger">삭제</button>
-                                </form>
-                            </div>
-                        </div><!--col-->
-                    </div><!--카드 컨텐츠 row-->
-                </div>
+                </a>
             </div><!--col-->
         </div><!--카드 row-->
     </div><!--카드 container-->

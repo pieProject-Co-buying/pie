@@ -43,10 +43,11 @@
                 </div>
                 <div class="row">
                     <div class="col d-flex justify-content-center align-items-center">
-                        <form action="">
-                            <button type="button" class="custom-btn" data-toggle="modal" data-target="#exampleModal"><b>신청
+                        <form action="#">
+                            <button type="button" class="btn custom-btn" data-toggle="modal" data-target="#exampleModal"><b>신청
                                 및 결제</b></button>
-                            <button type="button" class="custom-btn2" onclick="history.go(-1)"><b>목록으로</b></button>
+                            <a th:href="'modifyForm?sh_numID='+${board.getSh_numID()}" type="button" class="btn custom-btn3"><b>게시글 수정</b></a>
+                            <button type="button" class="btn custom-btn2" onclick="history.go(-1)"><b>목록으로</b></button>
                         </form>
                     </div><!--col-->
                 </div><!--row-->
@@ -141,6 +142,10 @@
     $('.customPrevBtn').click(function () {
         owl.trigger('prev.owl.carousel');
     })
+    
+    function modify(){
+    	location.href="'modifyForm?sh_numID='+${board.getSh_numID()}"
+    }
 </script>
 </div>
 </html>
