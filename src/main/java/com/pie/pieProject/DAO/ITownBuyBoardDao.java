@@ -18,6 +18,13 @@ public interface ITownBuyBoardDao {
 	//TownBuyBoardDto 값을 list 타입으로 리턴
 	
 	// 상세페이지
-	public TownBuyBoardDto viewDao(int id);
+	public TownBuyBoardDto viewDao(String sId);
+	
+	//삭제
+	public int deleteDao(String sId);
+	
+	//수정
+	public int updateDao(String to_title, String to_content, String sId);
+	
 	
 }

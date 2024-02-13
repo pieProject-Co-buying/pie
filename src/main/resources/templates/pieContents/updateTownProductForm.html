@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/townBuying}">
+
+<div layout:fragment="townBuyContent" class="col">
+
+
+
+	<form action="updateTownProduct" method="get">
+	
+	<input type="hidden" th:value="${list.getTo_nickname()}" name="to_nickname"/>
+	<input type="hidden" th:value="${list.getTo_num()}" name="id"/>
+	
+	<table border="1">
+
+			<tr>
+				<td>제목</td>
+				<td><input type="text" name="to_title" th:value="${list.getTo_title()}"/></td>
+			</tr>
+			
+			
+			<tr>
+				<td>내용</td>
+				<td><input type="text" name="to_content" th:value="${list.getTo_content()}"/></td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan="2">
+					<input type="submit" value="수정"/>
+
+				</td>
+			</tr>
+			
+			
+		
+	</table>
+	</form>
+	
+	
+	
+</div>
+</html>

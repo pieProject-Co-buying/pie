@@ -64,10 +64,10 @@ public class MainController {
 		return "pieContents/townBuyResult";
 	}
 	
-	@RequestMapping("/townBuyproduct")
-	public String townBProductPage() {
-		return "pieContents/townBuyproduct";
-	}
+	/*
+	 * @RequestMapping("/townBuyproduct") public String townBProductPage() { return
+	 * "pieContents/townBuyproduct"; }
+	 */
 	
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage() {
@@ -96,5 +96,9 @@ public class MainController {
 	@RequestMapping("/finish")
 	public String shareSFinishPage() {
 		return "pieContents/shareServiceFinish";
+	}
+	@RequestMapping("/townForm")
+	public String townFormPage() {
+		return "pieContents/townForm";
 	}
 }

@@ -203,7 +203,7 @@
 							    <p class="card-text text-truncate" th:text="${list.get(1).getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
 							    <div class="text-right">
-							    	<a href="townBuyproduct" class="btn btn-outline-secondary"  th:href="@{'townBuyproduct?id=' + ${list.get(1).getTo_num()}}" >같이 사러가기 &raquo;</a>
+							    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?id=' + ${list.get(1).getTo_num()}}" >같이 사러가기 &raquo;</a>
 							    </div>
 
 
@@ -543,6 +543,8 @@
 
 
  
+ 
+ 
 
 
 
@@ -555,24 +557,10 @@
 
 				<!-- 여기 -->
 				
-				
-<!--				
-				<tr th:each="itemDto, status:${itemDtoList}">
-					<td th:text="${status.index}+1"></td>
-					<td th:if="${status.even}" th:text="|인기 제품|"></td>
-					<td th:if="${status.odd}" th:text="'핫 신상제품'"></td>
-
--->				
-					<!-- th:tex0t 문법에서 공백있으면 에러 -> 외따옴표로 감싼다 or || 로 감싼다-->
-				
-				
-<!-- 				</tr> -->				
-				
 
 
 
-
-				<div class="col-12 col-lg-6">
+				<div class="col-12 col-lg-6" th:each = "list:${list}">
 				
 					<div class="card mb-3">
 
@@ -582,15 +570,18 @@
 					    	<div class="row">
 					    		
 					    		<div class="col-4">
-					    			<img src="imgs/product1.jpg" class="card-img-top" alt="...">
+					    			<!-- <img src="imgs/product1.jpg" class="card-img-top" alt="..."> -->
+					    			<img th:src="@{'/imgs/' + ${list.getTo_productImg()}}" class="card-img-top" alt="...">
+					    			
+					    			<!--  th:src="${list.getTo_productImg()}" -->
 					    		</div>
 
 					    		<div class="col-8">
 							    			
-							    	<h5 class="card-title">Special title treatment</h5>
-							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							    	<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
+							    	<p class="card-text" th:text="${list.getTo_content()}"></p>
 								    <div class="text-right">
-								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+								    	<a th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
 								    </div>
 								    
 					    		</div>
@@ -612,122 +603,6 @@
 
 
 
-
-				<div class="col-12 col-lg-6">
-				
-					<div class="card mb-3">
-
-					    <div class="card-body">
-
-					    	<div class="row">
-					    		
-					    		<div class="col-4">
-					    			<img src="imgs/product2.jpg" class="card-img-top" alt="...">
-					    		</div>
-
-					    		<div class="col-8">
-							    			
-							    	<h5 class="card-title">Special title treatment</h5>
-							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								    <div class="text-right">
-								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
-								    </div>
-
-					    		</div>
-
-
-					    	</div>
-
-
-
-					    </div>
-
-
-					    
-					</div>
-
-
-				</div>
-
-
-
-				<div class="col-12 col-lg-6">
-
-				
-					<div class="card mb-3">
-
-
-					    <div class="card-body">
-
-					    	<div class="row">
-					    		
-					    		<div class="col-4">
-					    			<img src="imgs/product6.jpg" class="card-img-top" alt="...">
-					    		</div>
-
-					    		<div class="col-8">
-							    			
-							    	<h5 class="card-title">Special title treatment</h5>
-							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								    <div class="text-right">
-								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
-								    </div>
-
-					    		</div>
-
-
-					    	</div>
-
-
-
-					    </div>
-
-					    
-					</div>
-					
-	
-
-				</div>
-
-
-
-				<div class="col-12 col-lg-6">
-				
-					<div class="card mb-3">
-
-
-					    <div class="card-body">
-
-					    	<div class="row">
-					    		
-					    		<div class="col-4">
-					    			<img src="imgs/product5.jpg" class="card-img-top" alt="...">
-					    		</div>
-
-					    		<div class="col-8">
-							    			
-							    	<h5 class="card-title">Special title treatment</h5>
-							    	<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-								    <div class="text-right">
-								    	<a href="#" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
-								    </div>
-
-					    		</div>
-
-
-					    	</div>
-
-
-
-					    </div>
-
-
-					    
-					</div>
-					
-
-
-				</div>
 
 
 

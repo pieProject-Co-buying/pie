@@ -28,6 +28,8 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8'
+	
+	implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 }
 
 tasks.named('test') {

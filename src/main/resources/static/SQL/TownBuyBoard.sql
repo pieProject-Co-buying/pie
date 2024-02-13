@@ -1,30 +1,27 @@
 
 -- townBoard 생성         
                    
-
-public class TownBuyBoardDto {
-	
-	private String to_num;
-	private String to_id;
-	private String to_nickname;
-	private String to_premium;
-	private String to_category;
-	private String to_title;
-	private String to_content;
-	private String to_profileImg;
-	private String to_productImg;
-	private Integer to_hit;
-	private String to_tag;
-	private String to_address;
-	private String to_process;
-	private String to_registDay;
-	private String to_updateDay;
-	private Integer to_deadString;
-	private Integer to_personnelMax;
-	private String to_personnelNow;
-	private String to_ip;
-	
-}
+create table townBuyBoard (
+    to_num integer unique not null, -- 게시글 번호
+    to_id varchar2(16) not null,
+    to_nickname  varchar2(30) not null,
+    to_category varchar2(30) not null, -- 물품 카테고리
+    to_premium char(1), -- 프리미엄 회원 여부
+    to_title varchar2(150) not null,
+    to_content varchar2(3000) not null,
+    to_profileImg varchar2(50), -- 이미지 추가
+    to_productImg varchar2(50), -- 이미지 추가
+    to_hit number, -- 조회수 추가
+    to_tag varchar2(50),
+    to_address varchar2(150),
+    to_process char(1),
+    to_registDay date default sysdate,
+    to_updateDay date default sysdate,
+    to_deadLine date,
+    to_personnelMax integer not null,
+    to_personnelNow integer,
+    to_ip varchar2(32)
+);
 
 
 

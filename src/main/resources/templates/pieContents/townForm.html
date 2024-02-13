@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/boardForm}">
+<head>
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+</head>
+
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="formContent" class="col">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form action="test" enctype="multipart/form-data" method="post"
+					name="townForm">
+					<div class="form-group">
+					<div class="dropdown">
+						<button class="btn btn-block dropdown-toggle text-left bg-transparent border" type="button"
+							data-toggle="dropdown" aria-expanded="false"> 카테고리 </button>
+						<div class="dropdown-menu w-100">
+							<a class="dropdown-item" href="#">Action</a> <a
+								class="dropdown-item" href="#">Another action</a> <a
+								class="dropdown-item" href="#">Something else here</a>
+						</div>
+					</div>
+					</div>
+					<div class="form-group d-flex align-items-center">
+						<img src="" alt="" class="rounded-circle" width="30" height="30" onerror="this.onerror=null; this.src='imgs/default.png';"/><input type="text" class="pl-2 form-control-plaintext"
+							id="exampleInputEmail1" name="to_nickname" value="닉네임 넣어주세요">
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" placeholder="제목" name="to_title">
+					</div>
+					<textarea id="summernote" name="editordata"></textarea>
+					<div class="form-group pt-3">
+						<input type="number" class="form-control" id="exampleInputEmail1" placeholder="모집인원" name="to_title">
+					</div>
+					<div class="form-group">
+						<input type="date" class="form-control" id="exampleInputEmail1" name="to_title">
+					</div>
+					<div class="form-group row justify-content-center mt-5">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-block pie-btn-red"
+								id="joinBtn">등록</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--게시글 로직 container-->
+	<!--wrapper-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				minHeight: 500,             // 최소 높이
+	            maxHeight: null,             // 최대 높이
+	            focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+	            lang: "ko-KR",					// 한글 설정
+	            spellCheck: false,
+	            callbacks: {	//이미지 첨부하는 부분
+	               onImageUpload : function(files) {
+	                    uploadSummernoteImageFile(files[0],this);
+	                }
+	            }
+			});
+
+			function uploadSummernoteImageFile(file, editor) {
+				var resultUrl;
+				
+				data = new FormData();
+				data.append("file", file);
+				
+				new Promise((succ, fail)=>{
+				
+				$.ajax({
+					data : data,
+					type : "POST",
+					url : "/uploadSummernoteImageFile",
+					contentType : false,
+					processData : false,
+					success : function(data) {
+						$(editor).summernote('insertImage', data.url);
+					}
+				});
+				})
+				
+			}
+
+		});
+	</script>
+</div>
+
+</html>
