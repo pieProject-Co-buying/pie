@@ -357,6 +357,9 @@ body {
 .pie-profilePic {
 	width: 30px;
 	height: 30px;
+	-webkit-border-radius: 50rem;
+	-moz-border-radius: 50rem;
+	border-radius: 50rem;
 }
 
 #joinForm {
@@ -444,6 +447,10 @@ body {
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 	margin-right: 10px;
+}
+
+input[readonly]:focus{
+	outline: none;
 }
 
 #shareServiceTitle {

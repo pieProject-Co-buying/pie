@@ -1,5 +1,7 @@
 package com.pie.pieProject.DTO;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,4 +26,7 @@ public class MemberDto {
 	private String address_sub;
 	private boolean agreement;
 	private String friends;
+	private String premium;
+	private Date preDate;
+	private Date preEndDate;
 }

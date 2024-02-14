@@ -46,10 +46,10 @@
 						<li class="nav-item active">
 							<div>
 								<th:block th:if="${session.userId!=null}">
-									<a class="nav-link" href="#"><img th:src="@{'imgs/profiles/'+${session.pic}}" alt="" class="pie-profilePic mr-2"/><span th:text="|${session.userId} 로그인중|" class=""></span></a>
+									<a class="nav-link" href="updateForm"><img th:src="@{'imgs/profiles/'+${session.pic}}" alt="" class="pie-profilePic mr-2" onerror="this.onerror=null; this.src='imgs/default.png';"/><span th:text="|${session.nickName}님 로그인중|" class=""></span></a>
 								</th:block>
 								<th:block th:if="${session.userId==null}">
-									<div><a class="nav-link" href="login">로그인</a>
+									<a class="nav-link" href="login">로그인</a>
 								</th:block>
 							</div>
 
