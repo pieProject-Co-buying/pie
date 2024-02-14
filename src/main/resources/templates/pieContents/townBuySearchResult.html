@@ -45,14 +45,27 @@
 				</div>
 
 
-				<div class="col-12 col-lg-9 ">
+				<div class="col-12 col-lg-9">
 
 					<form action="" class="pie-search">
 	
 						<div class="dropdown" id="selectCategory">
 							<a class="btn dropdown-toggle" href="#" role="button"
 								data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
-							<div class="dropdown-menu"></div>
+							<div class="dropdown-menu">
+							
+							
+							
+								<a class="dropdown-item" role="button">식품</a>
+								<a class="dropdown-item" role="button">육아</a>
+								<a class="dropdown-item" role="button">뷰티/패션</a>							
+								<a class="dropdown-item" role="button">반려동물</a>
+								<a class="dropdown-item" role="button">생활</a>
+								<a class="dropdown-item" role="button">기타</a>									
+							
+							
+							
+							</div>
 						</div>
 						<input type="text" name="search" id="search" class="flex-fill">
 						<button class=""></button>
@@ -175,7 +188,7 @@
 					<div class="row">
 
 
-						<div class="col-12 mb-2">
+						<div class="col-12 mb-2" th:each = "list:${list}">
 
 							<div class="card">
 
@@ -183,7 +196,7 @@
 
 									<div class="col-12 col-md-6">
 
-										<img src="imgs/product1.jpg" alt="" class="img-fluid">
+										<img th:src="@{'/imgs/' + ${list.getTo_productImg()}}" alt="" class="img-fluid">
 
 									</div>
 
@@ -191,11 +204,10 @@
 
 
 										<div class="card-body">
-											<h3>타이틀</h3>
-											<p class="">Lorem ipsum dolor sit amet consectetur
-												adipisicing elit. Rem, excepturi.</p>
+											<h3 th:text="${list.getTo_title()}"></h3>
+											<p class="" th:text="${list.getTo_content()}">.</p>
 
-											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
+											<a href="" class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
 										</div>
 
 
@@ -209,101 +221,6 @@
 
 						</div>
 
-
-
-						<div class="col-12 mb-2">
-
-							<div class="card">
-
-								<div class="row">
-
-									<div class="col-12 col-md-6">
-
-										<img src="imgs/product2.jpg" alt="" class="img-fluid">
-
-									</div>
-
-									<div class="col-12 col-md-6">
-
-
-										<div class="card-body">
-											<h3>타이틀</h3>
-											<p class="">Lorem ipsum dolor sit amet consectetur
-												adipisicing elit. Rem, excepturi.</p>
-
-											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
-										</div>
-
-
-									</div>
-
-
-								</div>
-
-
-							</div>
-
-						</div>
-
-
-
-
-						<div class="col-12 mb-2">
-
-							<div class="card">
-
-								<div class="row">
-
-									<div class="col-12 col-md-6">
-
-										<img src="imgs/product3.jpg" alt="" class="img-fluid">
-
-									</div>
-
-									<div class="col-12 col-md-6">
-
-
-										<div class="card-body">
-											<h3>타이틀</h3>
-											<p class="">Lorem ipsum dolor sit amet consectetur
-												adipisicing elit. Rem, excepturi.</p>
-
-											<a href="" class="text-dark">같이 사러가기 &raquo;</a>
-										</div>
-
-
-									</div>
-
-
-								</div>
-
-
-							</div>
-
-						</div>
-
-
-
-
-
-
-					</div>
-
-
-
-					<!-- 일단 더보기 넣습니다! -->
-					<!-- 아니면 페이징 기능 넣어도 될 것 같아요 -->
-
-					<div class="row">
-
-
-						<div class="col mt-3">
-							<button class="btn btn-block border">
-								<small>더보기</small>
-							</button>
-						</div>
-
-					</div>
 
 
 				</div>
@@ -325,5 +242,24 @@
 
 
 		</div>
+		
+	<script>
+	
+	// 선택한 카테고리 보여지게 하는 기능
+    $(document).on('click', '.dropdown-menu .dropdown-item', function(){
+        let selectedCategory = $(this).text();
+        $(this).closest('.dropdown').find('.dropdown-toggle').text(selectedCategory);
+    });		
+		
+	
+	</script>
+			
+		
+		
+		
+		
 	</div>
+	
+	
+
 </html>

@@ -29,4 +29,6 @@ public class MemberDto {
 	private String premium;
 	private Date preDate;
 	private Date preEndDate;
+
 }
+

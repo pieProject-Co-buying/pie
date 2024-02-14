@@ -14,4 +14,5 @@ public interface IMemberDao {
 	public void deleteMember(String id);
 	public void updateMember(MemberDto mem);
 	public void unSub(String id);
+
 }
