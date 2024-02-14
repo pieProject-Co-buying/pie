@@ -42,11 +42,11 @@
 						</li>
 					</ul>
 
-					<ul class="navbar-nav ml-auto">
+					<ul class="navbar-nav ml-auto align-items-lg-center">
 						<li class="nav-item active">
 							<div>
 								<th:block th:if="${session.userId!=null}">
-									<a th:text="|${session.userId} 로그인중|" class="nav-link" href="#"></a>
+									<a class="nav-link" href="#"><img th:src="@{'imgs/profiles/'+${session.pic}}" alt="" class="pie-profilePic mr-2"/><span th:text="|${session.userId} 로그인중|" class=""></span></a>
 								</th:block>
 								<th:block th:if="${session.userId==null}">
 									<div><a class="nav-link" href="login">로그인</a>
@@ -64,13 +64,7 @@
 								</th:block>
 							</div>
 							</th:block>
-
-
-
-
-
 						</li>
-
 					</ul>
 				</div>
 			</nav>

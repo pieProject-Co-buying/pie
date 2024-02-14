@@ -12,6 +12,7 @@ public class MemberDto {
 	private String mem_num;
 	private String id;
 	private String password;
+	private String salt;
 	private String name;
 	private String nickname;
 	private String gender;

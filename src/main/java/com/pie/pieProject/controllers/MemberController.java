@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.Secure.SHA256;
 import com.pie.pieProject.DTO.MemberDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,11 +31,16 @@ public class MemberController {
 	@PostMapping("/loginAction")
 	public String loginProcess(HttpServletRequest request, Model model) {
 		String id = request.getParameter("id");
+		String salt = dao.getSalt(id);
+		
 		String password = request.getParameter("password");
-
-		int su = dao.login(id, password);
-		if (su > 0) {
+		String password_salt = SHA256.encrypt(password, salt);
+		
+		MemberDto dto = null;
+		dto = dao.login(id, password_salt);
+		if (dto != null) {
 			HttpSession session = request.getSession(true);
+			session.setAttribute("pic", dto.getProfile_pic());
 			session.setAttribute("userId", id);
 			return "redirect:/";
 		} else {
@@ -70,10 +76,14 @@ public class MemberController {
 		 * System.out.println(address_sub); System.out.println(agreement);
 		 */
 		
+		String salt = SHA256.createSalt(password);
+		String password_salt = SHA256.encrypt(password, salt);
+		
 		MemberDto dto = new MemberDto();
 		
 		dto.setId(id);
-		dto.setPassword(password);
+		dto.setPassword(password_salt);
+		dto.setSalt(salt);
 		dto.setName(name);
 		dto.setNickname(nickname);
 		dto.setGender(gender);
