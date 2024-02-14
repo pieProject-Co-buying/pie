@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/proxyBuying}">
+
+<div layout:fragment="proxyBuyContent" class="col">
+
+
+	<div class="container">
+
+
+		<div class="row">
+
+
+			<div class="col-12 col-lg-6 p-0">
+
+
+				<img th:src="@{'/imgs/' + ${board.getPr_productImg()}}" alt=""
+					class="img-fluid hj-detail-img ">
+
+			</div>
+
+
+
+
+
+			<div class="col-12 col-lg-6 mt-5 mt-lg-0 mb-5">
+
+
+				<h1 class="mb-3 mt-1 mx-0 mx-lg-3" th:text="${board.getPr_title()}">타이틀
+					자리</h1>
+
+				<div class="row mb-3 mx-0 mx-lg-3">
+
+
+
+
+					<div class="col d-flex">
+
+
+						<img th:src="@{'/imgs/' + ${board.getPr_profileImg()}}" alt=""
+							class="img-fluid hj-chat-img">
+
+						<h4 class="ml-3 mt-3" th:text="${board.getPr_nickname()}">김혼자</h4>
+
+					</div>
+
+				</div>
+
+
+
+				<hr class=" mx-0 mx-lg-3">
+
+
+
+
+				<div class="row mx-0 mx-lg-3">
+
+					<div class="col-8">
+
+
+
+
+						<h5 class="mb-3">
+							함께하면 : <span th:text="${board.getPr_price()}"></span>원
+						</h5>
+
+						<h5 class="mb-3">
+							모집인원 : <span th:text="${board.getPr_personnelMax()}"></span>명
+						</h5>
+
+						<h5>
+							진행현황 : <span th:text="${board.getPr_personnelNow()}"></span>명 참여중
+						</h5>
+						<!-- 공구 참여한 사람들 프로필 이미지 불러오기 -->
+
+						<div class="">
+
+							<img src="imgs/person2.jpg" alt="" class="img-fluid hj-chat-img">
+							<img src="imgs/person3.jpg" alt="" class="img-fluid hj-chat-img">
+
+						</div>
+
+
+
+					</div>
+
+
+
+
+					<div class="col-4 d-flex align-items-end justify-content-end">
+
+						<!-- 모달 동작 버튼 -->
+						<button type="button" class="btn btn-outline-secondary"
+							data-toggle="modal" data-target="#staticBackdrop">
+							<small>참여하기</small>
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="staticBackdrop" data-backdrop="static"
+							data-keyboard="false" tabindex="-1"
+							aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+							<div class="modal-dialog">
+
+
+								<div class="modal-content">
+
+
+									<div class="modal-header">
+
+
+										<!-- 모달 title -->
+										<h5 class="modal-title" id="staticBackdropLabel">함께 하실래요?</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+
+
+									</div>
+
+
+
+
+									<!-- 모달에 표시될 제품내용 -->
+									<div class="modal-body">
+										<img src="imgs/product3.jpg" alt="" class="img-fluid">
+										<h5 class="mb-3 mt-5 text-center">함께하면 4000원에 구매할 수 있어요
+											😘</h5>
+									</div>
+
+
+
+									<div class="modal-footer">
+										<button type="button" class="btn btn-outline-secondary"
+											data-dismiss="modal" onclick="window.open('townBuyResult')">좋아요!
+											함께해요</button>
+										<button type="button" class="btn btn-outline-secondary"
+											data-dismiss="modal">다시생각해볼게요</button>
+									</div>
+
+
+
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+					</div>
+
+
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+
+
+
+		<!-- 수정 / 삭제 -->
+
+
+		<div class="row">
+			<div class="col">
+				<a class="btn btn-outline-secondary"
+					th:href="@{'updateTownProductForm?id=' + ${board.getPr_num()}}">수정</a>
+				<a class="btn btn-outline-secondary"
+					th:href="@{'deleteTownProduct?id=' + ${board.getPr_num()}}">삭제</a>
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+	<div class="container">
+
+		<div class="row mt-5 border">
+			<div class="col">
+				<div th:utext="${board.getPr_content}"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+</div>
+</html>

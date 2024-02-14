@@ -10,11 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
+
 
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.Secure.SHA256;
@@ -64,6 +62,12 @@ public class MemberController {
 		System.out.println(file);
 
 		try {
+			
+			String profile_pic;
+			if(file!=null && file.isEmpty()) {
+				System.out.println("test");
+				profile_pic = "default.png";
+			}else {
 			StringBuilder fileNames = new StringBuilder();
 			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
 			// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
@@ -71,7 +75,8 @@ public class MemberController {
 			byte[] fileSize = file.getBytes();
 			Files.write(fileNameAndPath, fileSize);
 
-			String profile_pic = fileNames.toString();
+			profile_pic = fileNames.toString();
+			}
 
 			boolean agreement = (agreementChk != null);
 
