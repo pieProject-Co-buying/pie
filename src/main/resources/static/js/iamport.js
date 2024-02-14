@@ -47,7 +47,7 @@ function kakaoPay() {
         {
             pg: "kakaopay",
             pay_method: "card",
-            merchant_uid: "57008833-3300697",
+            merchant_uid: "57008833-33006667",
             name: "감자 132kg",
             amount: 1300,
             buyer_email: "Iamport@chai.finance",

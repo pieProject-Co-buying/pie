@@ -35,10 +35,10 @@ public class MainController {
 	 * return "pieContents/shareServiceBoard"; }
 	 */
 	
-	@RequestMapping("/shareServiceApply")
-	public String shareSApplyPage() {
-		return "pieContents/shareServiceApply";
-	}
+	/*
+	 * @RequestMapping("/shareServiceApply") public String shareSApplyPage() {
+	 * return "pieContents/shareServiceApply"; }
+	 */
 	
 	@RequestMapping("/townBuying")
 	public String townBPage() {
