@@ -81,7 +81,6 @@
 				data = new FormData();
 				data.append("file", file);
 				
-				new Promise((succ, fail)=>{
 				
 				$.ajax({
 					data : data,
@@ -93,7 +92,6 @@
 						$(editor).summernote('insertImage', data.url);
 					}
 				});
-				})
 				
 			}
 

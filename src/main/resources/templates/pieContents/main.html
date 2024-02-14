@@ -2,8 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="mainPageCarousel">
-	<div id="headerCarousel"
-		class="carousel slide overflow-hidden"
+	<div id="headerCarousel" class="carousel slide overflow-hidden"
 		data-ride="carousel">
 		<div class="carousel-inner">
 			<div class="carousel-item hyej-h100vh active"></div>
@@ -33,7 +32,13 @@ secion1 #sec1 - 우리동네 공동구매 영역
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+					<div
+						class="d-flex align-items-center justify-content-between w-100">
+						<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+						<button class="btn border">
+							<small>더보기</small>
+						</button>
+					</div>
 
 					<div class="card-columns">
 						<div class="card">
@@ -106,13 +111,6 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					</div>
 				</div>
 			</div>
-			<div class="row my-5">
-				<div class="col">
-					<button class="btn btn-block border">
-						<small>더보기</small>
-					</button>
-				</div>
-			</div>
 		</div>
 
 	</section>
@@ -127,8 +125,14 @@ secion2 #sec2 - 대리공구 영역
 
 		<div class="container ">
 
+			<div class="d-flex align-items-center justify-content-between w-100">
+				<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+				<button class="btn border">
+					<small>더보기</small>
+				</button>
+			</div>
 
-			<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
+			
 
 
 			<div class="row mb-5">
