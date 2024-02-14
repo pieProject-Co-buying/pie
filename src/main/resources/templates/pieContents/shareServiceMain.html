@@ -19,23 +19,23 @@
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eos molestiae omnis sunt tempore.
 					Inventore ipsum magnam quod sed sunt!</p>
 			</div>
-			<div class="col-11 mb-5" style="background-color: orange; border-radius: 0 0 0 20px">
+			<div class="col-11 mb-5" style="background-color: orange; border-radius: 0 0 0 20px"0>
 				<div class="row mt-3 justify-content-around p-3">
-					<div class="col-sm-4 p-2" style="border-radius: 15px">
+					<div class="col-sm-4 p-2" style="border-radius: 15px" onclick="ott()">
 						<img src="imgs/netflix.png" alt="" class="img-fluid mb-3" style="border-radius: 15px">
 						<h5 class="text-center"><b>OTT 둘러보기</b>
 							<img src="imgs/circleArrows.png" alt="" width="25" height="25">
 						</h5>
 						<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, assumenda.</p>
 					</div>
-					<div class="col-sm-4 p-2" style="border-radius: 15px">
+					<div class="col-sm-4 p-2" style="border-radius: 15px" onclick="game()">
 						<img src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid mb-3" style="border-radius: 15px">
 						<h5 class="text-center"><b>게임 둘러보기</b>
 							<img src="imgs/circleArrows.png" alt="" width="25" height="25">
 						</h5>
 						<p class="mt-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, assumenda.</p>
 					</div>
-					<div class="col-sm-4 p-2" style="border-radius: 15px">
+					<div class="col-sm-4 p-2" style="border-radius: 15px" onclick="book()">
 						<img src="imgs/milli.jpg" alt="" class="img-fluid mb-3" style="border-radius: 15px">
 						<h5 class="text-center"><b>도서/음악 둘러보기</b>
 							<img src="imgs/circleArrows.png" alt="" width="25" height="25">
@@ -68,6 +68,18 @@
 		$('.customPrevBtn').click(function () {
 			owl.trigger('prev.owl.carousel');
 		})
+	</script>
+	<script>
+		$(".col-sm-4").css("cursor","pointer")
+		function ott(){
+			location.href="shareServiceBoard?num=1"
+		}
+		function game(){
+			location.href="shareServiceBoard?num=2"
+		}
+		function book(){
+			location.href="shareServiceBoard?num=3"
+		}
 	</script>
 </div>
 </html>
