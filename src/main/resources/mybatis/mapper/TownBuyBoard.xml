@@ -12,7 +12,20 @@
 		select * from townBuyBoard order by to_num desc
 		
 	</select>
+
+
 	
+	
+	
+	<!-- 프리미엄 목록 가져올 쿼리문 -->
+	<select id="listPremiumDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	
+		select * from townBuyBoard where to_premium = #{param1}
+		
+	</select>
+	
+	
+		
 
 	
 	<select id="viewDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
@@ -35,5 +48,28 @@
 		delete townBuyBoard where to_num = #{param1}
 		
 	</delete>
+	
+	
+	<select id="searchDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	    select * from townBuyBoard where to_title like '%${param1}%' or to_content like '%${param1}%'
+	</select>
+		
+	
+	
+	<select id="categoryDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	    select * from townBuyBoard where to_category = #{param1}
+	</select>
+	
+	
+	<insert id="writeDao">
+	
+		insert into townBuyBoard (to_num, to_category, to_title, to_content, to_price, to_personnelMax, to_deadLine) values(mem_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, TO_DATE(#{param6}, 'YYYY-MM-DD'))
+
+	</insert>
+		
+	 	
+	
+	
+	
 	
 </mapper>
