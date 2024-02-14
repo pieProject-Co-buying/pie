@@ -17,12 +17,12 @@ public class MainController {
 	
 	@RequestMapping("/login")
 	public String loginPage() {
-		return "pieContents/login_form";
+		return "pieContents/members/login_form";
 	}
 	
 	@RequestMapping("/join")
 	public String joinPage() {
-		return "pieContents/join_form";
+		return "pieContents/members/join_form";
 	}
 	
 	@RequestMapping("/shareService")

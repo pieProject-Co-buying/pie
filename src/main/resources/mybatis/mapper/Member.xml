@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IMemberDao">
-	<select id="login" resultType="_int">
-		select count (*) from member_user
-		where id = #{param1} and password = #{param2}
+	<select id="getSalt" resultType="string">
+		select salt from member_user
+		where id = #{param1}
+	</select>
+	<select id="login" resultType="com.pie.pieProject.DTO.MemberDto">
+		select * from member_user
+		where id
+		= #{param1} and password = #{param2}
 	</select>
 	<insert id="join">
 		insert into member_user values (mem_seq.nextval,
 		#{id},
 		#{password},
+		#{salt},
 		#{name},
 		#{nickname},
 		#{gender},
@@ -19,11 +25,26 @@
 		#{address_main},
 		#{address_sub},
 		#{agreement},
-		null
+		null,
+		'none',
+		TO_DATE('19000101', 'YYYYMMDD'),
+		TO_DATE('19000101', 'YYYYMMDD')
 		)
 	</insert>
-	<insert id="test">
-		insert into testDB values (#{param1}, #{param2})
-	</insert>
+	<select id="find" resultType="com.pie.pieProject.DTO.MemberDto">
+		select * from member_user where id = #{param1}
+	</select>
+	<update id="sub">
+	update member_user set premium='pro', preDate = sysdate, preEndDate = sysdate + 30 where id = #{param1}
+	</update>
+	<delete id="deleteMember">
+	delete member_user where id = #{param1}
+	</delete>
+	<update id="updateMember">
+	update member_user set name=#{name}, nickname=#{nickname}, gender=#{gender}, profile_pic=#{profile_pic}, email=#{email}, phone=#{phone}, postCode=#{postCode}, address_main=#{address_main}, address_sub=#{address_sub} where id = #{id}
+	</update>
+	<update id="unSub">
+	update member_user set premium='none' where id = #{param1}
+	</update>
 </mapper>
 

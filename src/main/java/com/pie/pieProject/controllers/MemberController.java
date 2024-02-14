@@ -215,5 +215,4 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		return (String) session.getAttribute(key);
 	}
-
 }
