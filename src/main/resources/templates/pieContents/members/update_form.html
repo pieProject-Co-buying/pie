@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/login}">
+<!-- gnb fragment -->
+<div layout:fragment="membersContent" class="col p-5 border rounded"
+	id="joinForm">
+
+	<h2 class="text-center pb-5">
+		<img src="imgs/logo_pie_color.png" alt="" width="80"
+			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">회원정보</span>
+	</h2>
+
+	<form action="updateAction" enctype="multipart/form-data" method="post"
+		name="updateForm">
+		<div class="form-group row">
+			<label for="inputEmail3" class="col-sm-3 col-form-label">이름</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="name" name="name"
+					th:value="${mem.getName()}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputEmail3" class="col-sm-3 col-form-label">닉네임</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="nickname"
+					name="nickname" th:value="${mem.getNickname()}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputEmail3" class="col-sm-3 col-form-label">아이디</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control-plaintext" id="id" name="id"
+					th:value="${mem.getId()}" readonly>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">비밀번호</label>
+			<div class="col-sm-6">
+				<input type="password" class="form-control" id="password"
+					name="password">
+			</div>
+		</div>
+		<fieldset class="form-group row">
+			<legend class="col-form-label col-sm-3 float-sm-left pt-0">성별</legend>
+			<div class="col-sm-9 d-flex justify-content-start">
+
+				<div class="form-check pr-2">
+					<th:block th:if="${mem.getGender().equals('male')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="male" value="male" checked>
+					</th:block>
+					<th:block th:unless="${mem.getGender().equals('male')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="male" value="male">
+					</th:block>
+					<label class="form-check-label" for="male"> 남성 </label>
+				</div>
+				<div class="form-check pr-2">
+					<th:block th:if="${mem.getGender().equals('female')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="female" value="female" checked>
+					</th:block>
+					<th:block th:unless="${mem.getGender().equals('female')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="female" value="female">
+					</th:block>
+					<label class="form-check-label" for="female"> 여성 </label>
+				</div>
+				<div class="form-check pr-2">
+					<th:block th:if="${mem.getGender().equals('none')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="none" value="none" checked>
+					</th:block>
+					<th:block th:unless="${mem.getGender().equals('female')}">
+						<input class="form-check-input" type="radio" name="gender"
+							id="none" value="none">
+					</th:block>
+					<label class="form-check-label" for="none"> 선택안함 </label>
+				</div>
+
+			</div>
+		</fieldset>
+
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">프로필사진</label>
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col">
+						<img th:src="@{'imgs/profiles/'+${mem.getProfile_pic()}}" alt=""
+							class="img-thumbnail" id="profilePic"
+							onerror="this.onerror=null; this.src='imgs/default.png';" />
+					</div>
+				</div>
+				<div class="row pt-1">
+					<div class="col">
+						<input type="file" class="form-control-file" id="profile_pic"
+							name="profile_pic" onchange="setThumbnail(event)">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputEmail3" class="col-sm-3 col-form-label">전화번호</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="phone" name="phone"
+					th:value="${mem.getPhone()}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">이메일</label>
+			<input type="hidden" name="email" id="emailCom" />
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-6 pr-1">
+						<label for="formGroupExampleInput" class="sr-only">이메일 선택</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="email1"
+								placeholder="이메일"
+								th:value="${mem.getEmail().substring(0,mem.getEmail().indexOf('@'))}">
+							<div class="input-group-append">
+								<div class="input-group-text">@</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group col-6 pl-0">
+						<label for="email2" class="sr-only">Example
+							multiple select</label> <select class="form-control px-0" id="email2">
+							<option>gmail.com</option>
+							<option>naver.com</option>
+							<option>daum.net</option>
+							<option>hotmail.com</option>
+							<option>직접입력</option>
+						</select> <input type="text" class="form-control" id="emailAddressInput"
+							placeholder="직접 입력" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">우편번호</label>
+			<div class="col-sm-9 d-flex justify-content-between">
+				<input type="text" class="form-control mr-1" id="sample6_postcode"
+					placeholder="우편번호" name="postCode" th:value="${mem.getPostCode()}">
+				<input type="button" onclick="sample6_execDaumPostcode()"
+					value="우편번호 찾기" class="btn pie-btn-red">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">주소</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="sample6_address"
+					placeholder="주소" name="address_main"
+					th:value="${mem.getAddress_main()}">
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">상세주소</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="sample6_detailAddress"
+					placeholder="상세주소" name="address_sub"
+					th:value="${mem.getAddress_sub()}">
+			</div>
+		</div>
+
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">Premium
+				구독</label>
+			<div class="col-sm-9 d-flex align-items-center">
+				<th:block th:if="${mem.getPremium().equals('none')}">
+					<button type="button" class="btn btn-primary flex-shrink-0 mr-2" data-toggle="modal"
+						data-target="#exampleModal">구독하기</button>
+				</th:block>
+				<th:block th:if="${mem.getPreEndDate()>#dates.createNow()}">
+					<input type="text" class="form-control-plaintext" id="preEndDate"
+						name="preEndDate" readOnly th:value="|~${#dates.format(mem.getPreEndDate(),'yyyy-MM-dd')}까지|">
+					<small th:if="${mem.getPremium().equals('pro')}" class="flex-shrink-0" onclick="confirmUnSub()">구독취소</small>
+				</th:block>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">파이의 더 많은 기능을
+							함께 해주세요!</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-6">
+								<h3>일반회원</h3>
+								<ul>
+									<li>혜택1</li>
+									<li>혜택2</li>
+									<li>혜택3</li>
+									<li>혜택4</li>
+								</ul>
+							</div>
+							<div class="col-6 border-left">
+								<h3>구독회원</h3>
+								<ul>
+									<li>혜택1</li>
+									<li>혜택2</li>
+									<li>혜택3</li>
+									<li>혜택4</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<a type="button" class="btn btn-primary" href="subScribe">구독하기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="inputPassword3" class="col-sm-3 col-form-label">회원 탈퇴</label>
+			<div class="col-sm-9">
+				<button type="button" class="btn border" onclick="confirmDelete()">회원탈퇴</button>
+			</div>
+		</div>
+		
+
+		<div class="form-group row justify-content-center mt-5">
+			<div class="col-sm-9">
+				<button type="button" class="btn btn-block pie-btn-red"
+					id="updateBtn">수정하기</button>
+			</div>
+		</div>
+		
+	</form>
+
+
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function sample6_execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+							var extraAddr = ''; // 참고항목 변수
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
+
+							// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+							if (data.userSelectedType === 'R') {
+								// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+								// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								// 건물명이 있고, 공동주택일 경우 추가한다.
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+							}
+
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('sample6_postcode').value = data.zonecode;
+							document.getElementById("sample6_address").value = addr;
+							// 커서를 상세주소 필드로 이동한다.
+							document.getElementById("sample6_detailAddress")
+									.focus();
+						}
+					}).open();
+		}
+	</script>
+
+
+	<script>
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+			'use strict';
+			window.addEventListener('load',
+					function() {
+						// Fetch all the forms we want to apply custom Bootstrap validation styles to
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						// Loop over them and prevent submission
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+		})();
+	</script>
+
+	<script>
+		$(function() {
+			let emailSelect = $("#email2");
+			let emailInput = $("#emailAddressInput");
+
+			emailInput.hide();
+
+			emailSelect.change(function() {
+				if (emailSelect.val() === "직접입력") {
+					$(this).hide();
+					emailInput.show();
+				} else {
+					$(this).show();
+					emailInput.hide();
+				}
+			})
+
+			if (emailInput.val() != "") {
+				emailSelect.val(emailInput.val());
+			}
+
+			let email = $("#emailCom");
+			let emailId = $("#email1");
+			let emailIdVal;
+
+			emailId.blur(function() {
+				emailIdVal = emailId.val();
+			})
+
+			let updateBtn = $("#updateBtn");
+
+			updateBtn.click(function() {
+				email.val(emailIdVal + "@" + emailSelect.val());
+				document.updateForm.submit();
+			})
+		})
+	</script>
+	<script>
+		function setThumbnail(event) {
+			var reader = new FileReader();
+
+			reader.onload = function(event) {
+				let img = document.querySelector("#profilePic");
+				img.setAttribute("src", event.target.result);
+			};
+
+			reader.readAsDataURL(event.target.files[0]);
+		}
+	</script>
+	
+	<script>
+	function confirmDelete(){
+		if(confirm("서비스를 정말 탈퇴하시나요?")){
+			location.href="outMember";
+		}else{
+			return false;
+		}
+	}
+	function confirmUnSub(){
+		if(confirm("구독을 취소하시겠습니까? 지금 구독을 취소해도 남은 기간 동안 혜택을 이용할 수 있습니다.")){
+			location.href="deleteSubScribe";
+		}else{
+			return false;
+		}
+	}
+	</script>
+</div>
+
+</html>
