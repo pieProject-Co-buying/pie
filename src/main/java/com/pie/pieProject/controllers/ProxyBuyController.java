@@ -1,9 +1,13 @@
 package com.pie.pieProject.controllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -15,11 +19,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProxyBuyController {
 	@Autowired
 	IProxyBuyDao dao;
+	public static String UPLOAD_DIRECTORY2 = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\imgs\\test";
+
 	
 	@GetMapping("/proxyBuyProducts")
 	public String getList(Model model) {
@@ -62,8 +69,37 @@ public class ProxyBuyController {
 	}
 	
 	@PostMapping("/testUpload")
-	public String proxyWriteAction(@RequestParam("pr_title") String title, @RequestParam("pr_content") String content) {
-		dao.insertProxyBoard(title, content);
+	public ResponseEntity<String> proxyuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
+		
+		StringBuilder fileData = new StringBuilder();
+		 try {
+			 for (MultipartFile file : files) {
+		            System.out.println("Uploaded File Name: " + file.getOriginalFilename());
+		            StringBuilder fileNames = new StringBuilder();
+					Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, file.getOriginalFilename());
+					// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
+					fileNames.append(file.getOriginalFilename());
+					byte[] fileSize = file.getBytes();
+					Files.write(fileNameAndPath, fileSize);
+					System.out.println(fileNames+"업로드완료");
+					
+					fileData.append(file.getOriginalFilename());
+					fileData.append("/");
+		        }
+		 }catch(Exception e) {
+			 e.getStackTrace();
+		 }
+		
+		return ResponseEntity.ok(fileData.toString());
+	}
+	
+	@PostMapping("/uploadAction")
+	public String proxyuploadAction(@RequestParam("pr_title") String title, @RequestParam("pr_content") String content, @RequestParam("pr_files") String pictures) {
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println(pictures);
+		
+		dao.insertProxyBoard(title,content);
 		return "redirect:/proxyBuyProducts";
 	}
 
