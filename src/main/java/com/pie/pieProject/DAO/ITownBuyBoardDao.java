@@ -32,7 +32,8 @@ public interface ITownBuyBoardDao {
 	public int deleteDao(String sId);
 	
 	//수정
-	public int updateDao(String to_title, String to_content, String sId);
+
+	public int updateDao(TownBuyBoardDto dto);
 	
 	
 	//검색
@@ -44,7 +45,12 @@ public interface ITownBuyBoardDao {
 	
 	
 	//글쓰기
-	public int writeDao(String to_category, String to_title, String to_content, String to_price, String to_personnelMax, String to_deadline);
+	/*
+	 * public int writeDao(String to_category, String to_title, String to_content,
+	 * String to_price, String to_personnelMax, String to_deadline);
+	 */
 	
+	
+	public int writeDao(TownBuyBoardDto dto);
 	
 }

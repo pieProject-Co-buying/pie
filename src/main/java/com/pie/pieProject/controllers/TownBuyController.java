@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
+import com.pie.pieProject.DTO.MemberDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -49,15 +52,39 @@ public class TownBuyController {
 	@RequestMapping("/updateTownProduct")
 
 	public String update(HttpServletRequest request) {
+		
 
-		String sId = request.getParameter("id");
-
-		dao.updateDao(request.getParameter("to_title"), request.getParameter("to_content"), sId);
+	    
+	    
+		TownBuyBoardDto dto = new TownBuyBoardDto();
+		
+		System.out.println(request.getParameter("to_category"));
 		System.out.println(request.getParameter("to_title"));
 		System.out.println(request.getParameter("to_content"));
-		System.out.println(sId);
+		System.out.println(request.getParameter("to_price"));
+		System.out.println(request.getParameter("to_personnelMax"));
+		System.out.println(request.getParameter("to_deadLine"));
+		System.out.println(request.getParameter("id"));
 
-		return "redirect:/townBuyproduct?id=" + sId;
+		
+		dto.setTo_category(request.getParameter("to_category"));
+		dto.setTo_title(request.getParameter("to_title"));
+		dto.setTo_content(request.getParameter("to_content"));
+		dto.setTo_price(request.getParameter("to_price"));
+		dto.setTo_num(Integer.parseInt(request.getParameter("id")));
+		/* dto.setTo_num(request.getParameter("id")); */
+		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
+		dto.setTo_deadLine(request.getParameter("to_deadLine"));
+
+		
+		
+		
+		dao.updateDao(dto);
+		
+	
+
+
+		return "redirect:/townBuyproduct?id=" + request.getParameter("id");
 
 		// return "redirect:/townBuyproduct?id="+sId;
 		// 리턴시 어떤 id를 갖고 있는 페이지로 갈건지 지정해주지 않아서 에러
@@ -73,7 +100,10 @@ public class TownBuyController {
 		return "pieContents/updateTownProductForm";
 
 	}
+	
+	
 
+	
 	@RequestMapping("/deleteTownProduct")
 	public String delete(HttpServletRequest request) {
 
@@ -106,23 +136,38 @@ public class TownBuyController {
 		return "pieContents/townBuyingCategory";
 
 	}
+	
+	
 
 	@RequestMapping("/writeTownBoard")
-
 	public String write(HttpServletRequest request, Model model) {
-		System.out.println(request.getParameter("to_deadLine"));
-		System.out.println(request.getParameter("to_category"));
-		System.out.println(request.getParameter("to_title"));
-		System.out.println(request.getParameter("to_content"));
-		System.out.println(request.getParameter("to_price"));
-		System.out.println(request.getParameter("to_personnelMax"));
 
-		dao.writeDao(request.getParameter("to_category"), request.getParameter("to_title"),
-				request.getParameter("to_content"), request.getParameter("to_price"),
-				request.getParameter("to_personnelMax"), request.getParameter("to_deadLine"));
+
+		
+
+		
+		TownBuyBoardDto dto = new TownBuyBoardDto();
+		
+
+		
+
+		dto.setTo_category(request.getParameter("to_category"));
+		dto.setTo_title(request.getParameter("to_title"));
+		dto.setTo_content(request.getParameter("to_content"));
+		dto.setTo_price(request.getParameter("to_price"));
+		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
+		dto.setTo_deadLine(request.getParameter("to_deadLine"));
+		
+		
+
+		dao.writeDao(dto);
 
 		return "redirect:/townBuySearch";
 
+		
+
 	}
 
+	
+	
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 
 public class TownBuyBoardDto {
 	
-	private String to_num;
+	private Integer to_num;
 	private String to_id;
 	private String to_nickname;
 	private String to_premium;
