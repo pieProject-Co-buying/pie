@@ -194,7 +194,6 @@ public class MemberController {
 		dao.sub(getSession(request, "userId"));
 		MemberDto dto = new MemberDto();
 		dto = dao.find(getSession(request, "userId"));
-		System.out.println(dto.getPreEndDate());
 
 		if (dto.getPremium().equals("pro")) {
 			model.addAttribute("msg", 1);
@@ -203,6 +202,21 @@ public class MemberController {
 		}
 		return "redirect:/updateForm";
 	}
+	
+	@GetMapping("/reSubScribe")
+	public String resubScribe(HttpServletRequest request, Model model) {
+		dao.resub(getSession(request, "userId"));
+		MemberDto dto = new MemberDto();
+		dto = dao.find(getSession(request, "userId"));
+
+		if (dto.getPremium().equals("pro")) {
+			model.addAttribute("msg", 1);
+		} else {
+			model.addAttribute("msg", 2);
+		}
+		return "redirect:/updateForm";
+	}
+	
 	
 	@GetMapping("/deleteSubScribe")
 	public String deleteSubScribe(HttpServletRequest request, Model model) {
