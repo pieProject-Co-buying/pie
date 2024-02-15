@@ -36,11 +36,24 @@
 	
 	
 	
+	
+	
 	<update id="updateDao">
 	
-		update townBuyBoard set to_title = #{param1}, to_content = #{param2} where to_num = #{param3}
-		
+
+	
+	    update townBuyBoard 
+	    set to_category = #{to_category},
+	        to_title = #{to_title},
+	        to_content = #{to_content},
+	        to_price =  #{to_price},
+	        to_personnelMax =  #{to_personnelMax}, 
+	        to_deadLine = TO_DATE(#{to_deadLine}, 'YYYY-MM-DD') 
+	    where to_num = #{to_num}
+    
+    		
 	</update>	
+	
 	
 
 	<delete id="deleteDao">
@@ -63,7 +76,11 @@
 	
 	<insert id="writeDao">
 	
-		insert into townBuyBoard (to_num, to_category, to_title, to_content, to_price, to_personnelMax, to_deadLine) values(mem_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, TO_DATE(#{param6}, 'YYYY-MM-DD'))
+		insert into townBuyBoard (to_num, to_category, to_title, to_content, to_price, to_personnelMax, to_deadLine) 
+		values(to_num.nextval, #{to_category}, #{to_title}, #{to_content}, #{to_price}, #{to_personnelMax}, TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'))
+
+
+
 
 	</insert>
 		

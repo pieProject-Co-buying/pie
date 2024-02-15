@@ -149,6 +149,9 @@
 
 
 				</div>
+				
+				
+
 
 
 			</div>
@@ -173,10 +176,18 @@
 
 
 
-		<div class="container">
+		<div class="container mt-5 border">
 			
 			<!-- 상세 페이지 부분 일단 생략하겠습니다. summernote -->
-
+			
+			<div class="row">
+				<div class="col">
+					<div th:utext="${list.getTo_content()}"></div>
+				
+				
+				
+				</div>
+			</div>
 		</div>
 
 

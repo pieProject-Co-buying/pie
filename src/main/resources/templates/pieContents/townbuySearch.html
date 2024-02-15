@@ -200,7 +200,7 @@
 	
 	
 	
-						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+						<div id="carousel1" class="carousel slide" data-ride="carousel">
 	
 	
 	
@@ -209,7 +209,7 @@
 	
 	
 	
-						    <div class="carousel-item active" th:each = "list:${list}">
+						    <div class="carousel-item" th:each = "list:${list}">
 	
 								<div class="card hj-sub1-card-h">
 	
@@ -221,7 +221,7 @@
 								  <div class="card-body">
 								  
 								    <h5 class="card-title" th:text="${list.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:text="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <p class="card-text text-truncate" th:utext="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 	
 								    <div class="text-right">
 								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}" >같이 사러가기 &raquo;</a>
@@ -242,11 +242,11 @@
 	
 	
 	
-						 <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+						 <button class="carousel-control-prev" type="button" data-target="#carousel1" data-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 						    <span class="sr-only">Previous</span>
 						  </button>
-						  <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+						  <button class="carousel-control-next" type="button" data-target="#carousel1" data-slide="next">
 						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 						    <span class="sr-only">Next</span>
 						  </button>
@@ -271,14 +271,14 @@
 	
 	
 	
-						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel2">
+						<div id="carousel2" class="carousel slide" data-ride="carousel2">
 	
 
 						  <div class="carousel-inner">
 	
 	
 	
-						    <div class="carousel-item active" th:each = "list:${list}">
+						    <div class="carousel-item" th:each = "list:${list}">
 	
 								<div class="card hj-sub1-card-h">
 	
@@ -290,7 +290,7 @@
 								  <div class="card-body">
 								  
 								    <h5 class="card-title" th:text="${list.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:text="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <p class="card-text text-truncate" th:utext="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 	
 								    <div class="text-right">
 								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}" >같이 사러가기 &raquo;</a>
@@ -329,7 +329,7 @@
 						<hr>
 	
 
-						<div id="carouselExampleControls" class="carousel slide" data-ride="carousel3">
+						<div id="carousel3" class="carousel slide" data-ride="carousel3">
 	
 	
 	
@@ -338,7 +338,7 @@
 	
 	
 	
-						    <div class="carousel-item active" th:each = "list:${list}">
+						    <div class="carousel-item" th:each = "list:${list}">
 	
 								<div class="card hj-sub1-card-h">
 	
@@ -350,7 +350,7 @@
 								  <div class="card-body">
 								  
 								    <h5 class="card-title" th:text="${list.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:text="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+								    <p class="card-text text-truncate" th:utext="${list.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 	
 								    <div class="text-right">
 								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}" >같이 사러가기 &raquo;</a>
@@ -426,7 +426,7 @@
 						    		<div class="col-8">
 								    			
 								    	<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
-								    	<p class="card-text" th:text="${list.getTo_content()}"></p>
+								    	<p class="card-text" th:utext="${list.getTo_content()}"></p>
 									    <div class="text-right">
 									    	<a th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
 									    </div>
@@ -457,19 +457,10 @@
 						<div id="cardContainer"></div>
 					</div>
 				</div>
-								
-				
-	
+
 			</div>
-	
-	
-	
-	
-	
+
 		</div>
-
-
-
 
 
 
@@ -533,6 +524,16 @@
 	
 	</script>
 
+	<script>
+		
+	/* 캐로셀 첫 index active 적용하는 js */
+		
+		$(function(){
+			$("#carousel1").find(".carousel-item").eq(0).addClass("active");      
+			$("#carousel2").find(".carousel-item").eq(0).addClass("active");      
+			$("#carousel3").find(".carousel-item").eq(0).addClass("active");   
+		})
+	</script>
 
 	
 	</div>

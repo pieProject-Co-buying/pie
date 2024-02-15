@@ -1,45 +1,147 @@
 <!DOCTYPE html>
-
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/townBuying}">
+	layout:decorate="~{layouts/boardForm}">
+<head>
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+</head>
 
-<div layout:fragment="townBuyContent" class="col">
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="formContent" class="col">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<form action="updateTownProduct" enctype="multipart/form-data" method="post" name="townForm">
+					
+					<div class="form-group">
 
 
+						<input type="hidden" th:value="${list.getTo_nickname()}" name="to_nickname"/>
+						<input type="hidden" id="num" th:value="${list.getTo_num()}" name="id"/>
+						
+						
 
-	<form action="updateTownProduct" method="get">
-	
-	<input type="hidden" th:value="${list.getTo_nickname()}" name="to_nickname"/>
-	<input type="hidden" th:value="${list.getTo_num()}" name="id"/>
-	
-	<table border="1">
+						<select class="form-control" name="to_category"  th:value="${list.getTo_category()}">
+						
+						  <option selected disabled>카테고리를 선택해주세요</option>
+						  <option value="food" th:selected="${list.getTo_category() == 'food'}">식품</option>
+						  <option value="baby" th:selected="${list.getTo_category() == 'baby'}">육아</option>
+						  <option value="beautyAndFashion" th:selected="${list.getTo_category() == 'beautyAndFashion'}">뷰티/패션</option>
+						  <option value="pet" th:selected="${list.getTo_category() == 'pet'}">반려동물</option>
+						  <option value="life" th:selected="${list.getTo_category() == 'life'}">생활</option>
+						  <option value="etc" th:selected="${list.getTo_category() == 'etc'}">기타</option>
+						  
+						</select>
+											    
+					</div>
+					
+					<div class="form-group d-flex align-items-center">
+						<img src="" alt="" class="rounded-circle" width="30" height="30" onerror="this.onerror=null; this.src='imgs/default.png';"/>
+						<input type="text" class="pl-2 form-control-plaintext" id="exampleInputEmail1" name="to_nickname" value="닉네임 넣어주세요">
+					</div>
+					
+					
+					<div class="form-group">
+						<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="제목" name="to_title" th:value="${list.getTo_title()}"/>
+					</div>
+					
+					
+					<div class="form-group">
+						<input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="대표사진" name="to_productImg">
+					</div>
+					
+					<textarea id="summernote" name="to_content" th:utext="${list.getTo_content()}"/></textarea>
 
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="to_title" th:value="${list.getTo_title()}"/></td>
-			</tr>
-			
-			
-			<tr>
-				<td>내용</td>
-				<td><input type="text" name="to_content" th:value="${list.getTo_content()}"/></td>
-			</tr>
-			
-			
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="수정"/>
 
-				</td>
-			</tr>
+					<div class="form-group pt-3">
+						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="가격" name="to_price" th:value="${list.getTo_price()}"/>
+					</div>					
+					
+					<div class="form-group">
+						<input type="number" class="form-control" id="exampleInputEmail1" placeholder="모집인원" name="to_personnelMax" th:value="${list.getTo_personnelMax()}"/>
+					</div>
+					
+					
+					<div class="form-group">
+						<input type="date" class="form-control" id="to_deadLine" name="to_deadLine"/>
+					</div>
+					
+					
+					<div class="form-group row justify-content-center mt-5">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-block pie-btn-red"
+								id="joinBtn">등록</button>
+						</div>
+					</div>
+					
+					
+				</form>
+				
+				
+			</div>
 			
-			
+		</div>
 		
-	</table>
-	</form>
+	</div>
 	
-	
-	
+	<!--게시글 로직 container-->
+	<!--wrapper-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote({
+				minHeight: 500,             // 최소 높이
+	            maxHeight: null,             // 최대 높이
+	            focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+	            lang: "ko-KR",					// 한글 설정
+	            spellCheck: false,
+	            callbacks: {	//이미지 첨부하는 부분
+	               onImageUpload : function(files) {
+	                    uploadSummernoteImageFile(files[0],this);
+	                }
+	            }
+			});
+
+			function uploadSummernoteImageFile(file, editor) {
+				var resultUrl;
+				
+				data = new FormData();
+				data.append("file", file);
+				
+				new Promise((succ, fail)=>{
+				
+				$.ajax({
+					data : data,
+					type : "POST",
+					url : "/uploadSummernoteImageFile",
+					contentType : false,
+					processData : false,
+					success : function(data) {
+						$(editor).summernote('insertImage', data.url);
+					}
+				});
+				})
+				
+			}
+
+		});
+		
+
+	</script>
+	<script>
+	$("#to_deadLine").change(function(){
+		console.log($("#to_deadLine").val());
+	})
+	console.log($("#num").val());
+	</script>
 </div>
+
 </html>
