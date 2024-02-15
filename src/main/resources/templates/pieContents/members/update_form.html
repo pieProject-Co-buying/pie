@@ -72,7 +72,7 @@
 						<input class="form-check-input" type="radio" name="gender"
 							id="none" value="none" checked>
 					</th:block>
-					<th:block th:unless="${mem.getGender().equals('female')}">
+					<th:block th:unless="${mem.getGender().equals('none')}">
 						<input class="form-check-input" type="radio" name="gender"
 							id="none" value="none">
 					</th:block>
@@ -170,9 +170,13 @@
 			<label for="inputPassword3" class="col-sm-3 col-form-label">Premium
 				구독</label>
 			<div class="col-sm-9 d-flex align-items-center">
-				<th:block th:if="${mem.getPremium().equals('none')}">
-					<button type="button" class="btn btn-primary flex-shrink-0 mr-2" data-toggle="modal"
-						data-target="#exampleModal">구독하기</button>
+				<th:block th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()<#dates.createNow()}">
+					<button type="button" class="btn btn-primary flex-shrink-0 mr-2 " data-toggle="modal"
+						data-target="#subscribe">구독하기</button>
+				</th:block>
+				<th:block th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()>#dates.createNow()}">
+					<button type="button" class="btn btn-primary flex-shrink-0 mr-2 " data-toggle="modal"
+						data-target="#resubscribe">구독 재시작하기</button>
 				</th:block>
 				<th:block th:if="${mem.getPreEndDate()>#dates.createNow()}">
 					<input type="text" class="form-control-plaintext" id="preEndDate"
@@ -183,12 +187,12 @@
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="subscribe" tabindex="-1"
+			aria-labelledby="subscribeLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">파이의 더 많은 기능을
+						<h5 class="modal-title" id="subscribeLabel">파이의 더 많은 기능을
 							함께 해주세요!</h5>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
@@ -226,6 +230,51 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="resubscribe" tabindex="-1"
+			aria-labelledby="resubscribeLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="resubscribeLabel">구독을 재시작할까요?</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-6">
+								<h3>일반회원</h3>
+								<ul>
+									<li>혜택1</li>
+									<li>혜택2</li>
+									<li>혜택3</li>
+									<li>혜택4</li>
+								</ul>
+							</div>
+							<div class="col-6 border-left">
+								<h3>구독회원</h3>
+								<ul>
+									<li>혜택1</li>
+									<li>혜택2</li>
+									<li>혜택3</li>
+									<li>혜택4</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<a type="button" class="btn btn-primary" href="reSubScribe">구독하기</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		<div class="form-group row">
 			<label for="inputPassword3" class="col-sm-3 col-form-label">회원 탈퇴</label>
 			<div class="col-sm-9">
@@ -342,16 +391,12 @@
 
 			let email = $("#emailCom");
 			let emailId = $("#email1");
-			let emailIdVal;
-
-			emailId.blur(function() {
-				emailIdVal = emailId.val();
-			})
 
 			let updateBtn = $("#updateBtn");
 
 			updateBtn.click(function() {
-				email.val(emailIdVal + "@" + emailSelect.val());
+				
+				email.val(emailId.val() + "@" + emailSelect.val());
 				document.updateForm.submit();
 			})
 		})

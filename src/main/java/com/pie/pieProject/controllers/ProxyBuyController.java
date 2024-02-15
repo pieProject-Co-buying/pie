@@ -25,16 +25,27 @@ public class ProxyBuyController {
 	public String getList(Model model) {
 		List<ProxyBuyBoardDto> list1 = new ArrayList<>();
 		List<ProxyBuyBoardDto> list2 = new ArrayList<>();
-		for(int i=0; i<3; i++) {
-			list1.add(dao.listDaoByNewer().get(i));
+		
+		int max1 = 3;
+		int max2 = 3;
+		
+		if(list1.size()<3) {
+			max1=dao.listDaoByNewer().size();
+			max2=dao.listDaoByCategory("육아").size();
 		}
 		
-		for(int i=0; i<3; i++) {
+		
+		for(int i=0; i<max1; i++) {
+			list1.add(dao.listDaoByNewer().get(i));
+		}
+	
+		
+		for(int i=0; i<max2; i++) {
 			list2.add(dao.listDaoByCategory("육아").get(i));
 		}
 		
 		model.addAttribute("list1", list1);
-		model.addAttribute("list2", list1);
+		model.addAttribute("list2", list2);
 		model.addAttribute("allList",dao.listDao());
 		return "pieContents/proxyBuyProducts"; 
 	}

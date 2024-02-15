@@ -11,8 +11,10 @@ public interface IMemberDao {
 	public int join(MemberDto mem);
 	public MemberDto find(String id);
 	public void sub(String id);
+	public void resub(String id);
 	public void deleteMember(String id);
 	public void updateMember(MemberDto mem);
 	public void unSub(String id);
+	public void expireSub();
 
 }

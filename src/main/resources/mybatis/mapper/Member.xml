@@ -37,6 +37,9 @@
 	<update id="sub">
 	update member_user set premium='pro', preDate = sysdate, preEndDate = sysdate + 30 where id = #{param1}
 	</update>
+	<update id="resub">
+	update member_user set premium='pro' where id = #{param1}
+	</update>
 	<delete id="deleteMember">
 	delete member_user where id = #{param1}
 	</delete>
@@ -45,6 +48,9 @@
 	</update>
 	<update id="unSub">
 	update member_user set premium='none' where id = #{param1}
+	</update>
+	<update id="expireSub">
+	update member_user set premium='none' where preEndDate <![CDATA[ < ]]>  sysdate
 	</update>
 </mapper>
 

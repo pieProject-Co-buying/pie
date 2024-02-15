@@ -9,7 +9,7 @@
 	</select>
 	<select id="listDaoByNewer"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from proxyBuyBoard order by pr_updateDay desc
+		select * from proxyBuyBoard order by pr_registDay desc
 	</select>
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">

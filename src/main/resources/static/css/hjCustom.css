@@ -5,8 +5,6 @@
 	height: 100vh;
 }
 
-
-
 /*캐로셀 관련 커스텀-Main*/
 .hyej-carousel-custom {
 	width: 150%;
@@ -14,7 +12,7 @@
 	height: 500px;
 }
 
-.hyej-carousel-custom .owl-item{
+.hyej-carousel-custom .owl-item {
 	height: 500px;
 	border-radius: 50px;
 }
@@ -55,11 +53,11 @@
 }
 
 /*베스트 상품 갤러리 - proxyBuyContent*/
-.hyej-best-gallery>[class*=col-]{
+.hyej-best-gallery>[class*=col-] {
 	position: relative;
 }
 
-.hyej-best-gallery .col-md-6 img{
+.hyej-best-gallery .col-md-6 img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
@@ -70,11 +68,13 @@
 	position: relative;
 }
 
-.hyej-best-gallery .col-md-12 img{
+.hyej-best-gallery .col-md-12 img {
 	height: 120px;
 }
-.hyej-best-gallery .col-md-12:after, .hyej-best-gallery .col-md-6:nth-of-type(1):hover:after{
-	content : "베스트 상품";
+
+.hyej-best-gallery .col-md-12:after, .hyej-best-gallery .col-md-6:nth-of-type(1):hover:after
+	{
+	content: "베스트 상품";
 	padding: 20px;
 	color: #fff;
 	position: absolute;
@@ -82,23 +82,61 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-		-webkit-border-radius: 30px;
+	-webkit-border-radius: 30px;
 	-moz-border-radius: 30px;
 	border-radius: 30px;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0, 0, 0, 0.5);
 }
 
-.hyej-best-gallery .col-md-6:nth-of-type(1):hover:after{
+.hyej-best-gallery .col-md-6:nth-of-type(1):hover:after {
 	width: calc(100% - 30px);
-	left:15px;
+	left: 15px;
 }
 
 /*대리구매 메인 갤러리 - proxyBuy메인*/
-.hyej-info-gallery img{
+.hyej-info-gallery img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
+}
+
+.hyej-proxytitle {
+	width: 100%;
+	height: 320px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	position: relative;
+}
+
+.hyej-info-gallery .col-6:nth-of-type(1) .hyej-proxytitle {
+	background: url(../imgs/proxy_title1-01.png) center/100% auto no-repeat;
+}
+.hyej-info-gallery .col-6:nth-of-type(2) .hyej-proxytitle {
+	background: url(../imgs/proxy_title2-01.png) center/100% auto no-repeat;
+}
+
+.hyej-proxytitle h2 {
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	font-size: 3rem;
+}
+
+.hyej-proxytitle .btn {
+	color: #fff;
+	border: 1px solid white;
+}
+
+.hyej-info-gallery .col-6:nth-of-type(1) .hyej-proxytitle:hover .btn {
+	color: var(--red);
+	background: #fff;
+}
+
+.hyej-info-gallery .col-6:nth-of-type(2) .hyej-proxytitle:hover .btn{
+	color: #f7941d;
+	background: #fff;
 }
 
 @media screen and (max-width: 999px) {
