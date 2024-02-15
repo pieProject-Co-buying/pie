@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/proxyBuying}">
+
 
 <div layout:fragment="proxyBuyContent" class="col">
 
@@ -16,19 +16,17 @@
 					<div class="col">
 						<div class="card border-0">
 							<img th:src="@{'imgs/profiles/'+${session.pic}}"
-								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center"
-								alt=>
+								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center" alt=>
 							<div class="card-body">
 								<h5 class="card-title" th:text="${session.nickName}">Card
 									title</h5>
 								<p class="card-text">자기 소개글</p>
 								<p class="text-right">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-hand-thumbs-up"
-										viewBox="0 0 16 16">
-  <path
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+										class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+										<path
 											d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
-</svg>
+									</svg>
 								</p>
 							</div>
 						</div>
@@ -43,8 +41,8 @@
 						</p>
 						<p>
 
-							<small class="font-weight-bold">진행현황</small><br /> <small
-								class="badge badge-success" th:text="${board.getPr_process()}"></small>
+							<small class="font-weight-bold">진행현황</small><br /> <small class="badge badge-success"
+								th:text="${board.getPr_process()}"></small>
 						</p>
 
 						<p>
@@ -61,11 +59,9 @@
 
 			</div>
 			<div class="col-lg-9 border pie-view-box">
-				<div
-					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
+				<div class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
 					<img th:src="@{'imgs/profiles/'+${session.pic}}"
-						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center"
-						alt=>
+						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center" alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
 						<small class="m-0 font-weight-bold" th:text="${session.nickName}"></small>
 						<small class="pie-introduceself w-100 pie-omitted">자기 소개글
@@ -73,31 +69,42 @@
 							소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기 </small>
 					</div>
 					<div class="pl-3">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-							fill="currentColor" class="bi bi-hand-thumbs-up"
-							viewBox="0 0 16 16">
-  <path
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+							class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+							<path
 								d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
-</svg>
+						</svg>
 					</div>
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<img th:src="@{'/imgs/' + ${board.getPr_productImg()}}" alt=""
-							class="img-fluid hj-detail-img">
+						<img th:src="@{'/imgs/' + ${board.getPr_productImg()}}" alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
 							<h5 th:text="${board.getPr_category()}"></h5>
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 class="mb-0 pie-omitted display-5"
-									th:text="${board.getPr_title()}">타이틀 자리</h2>
+								<h2 class="mb-0 pie-omitted display-5" th:text="${board.getPr_title()}">타이틀 자리</h2>
 							</div>
 							<div class="col-12 pie-c-red p-0">
 								<h5 class="mb-0">인/50,000원</h5>
 							</div>
 
 						</div>
+					</div>
+					<div class="d-flex justify-content-center p-2 fancyBox-container mx-auto">
+						<a class="d-block mx-1" data-fancybox="gallery" data-src="https://lipsum.app/id/2/1600x1200"
+							data-caption="Optional caption,&lt;br /&gt;that can contain &lt;em&gt;HTML&lt;/em&gt; code">
+							<img src="https://lipsum.app/id/2/200x150" width="100" height="100" alt="" />
+						</a>
+
+						<a class="d-block mx-1" data-fancybox="gallery" data-src="https://lipsum.app/id/3/1600x1200">
+							<img src="https://lipsum.app/id/3/200x150" width="100" height="100" alt="" />
+						</a>
+
+						<a class="d-block mx-1" data-fancybox="gallery" data-src="https://lipsum.app/id/4/1600x1200">
+							<img src="https://lipsum.app/id/4/200x150" width="100" height="100" alt="" />
+						</a>
 					</div>
 
 					<div class="col-12 px-5 my-5">
@@ -114,8 +121,7 @@
 										<p>
 
 											<small class="font-weight-bold">진행현황</small><br /> <small
-												class="badge badge-success"
-												th:text="${board.getPr_process()}"></small>
+												class="badge badge-success" th:text="${board.getPr_process()}"></small>
 										</p>
 									</div>
 									<div class="col-6">
@@ -137,26 +143,23 @@
 
 							<a class="btn btn-outline-secondary btn-sm"
 								th:href="@{'updateTownProductForm?id=' + ${board.getPr_num()}}"><svg
-									xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-									fill="currentColor" class="bi bi-pencil-fill"
-									viewBox="0 0 16 16">
-  <path
+									xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									class="bi bi-pencil-fill" viewBox="0 0 16 16">
+									<path
 										d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-</svg></a> <a class="btn btn-outline-secondary btn-sm"
+								</svg></a> <a class="btn btn-outline-secondary btn-sm"
 								th:href="@{'deleteTownProduct?id=' + ${board.getPr_num()}}"><svg
-									xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-									fill="currentColor" class="bi bi-trash-fill"
-									viewBox="0 0 16 16">
-  <path
+									xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									class="bi bi-trash-fill" viewBox="0 0 16 16">
+									<path
 										d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-</svg></a>
+								</svg></a>
 
 						</div>
 						<div class="w-100 py-5" th:utext="${board.getPr_content()}"></div>
 						<div class="">
 							<small> <span class="badge badge-light">#태그1</span> <span
-								class="badge badge-light">>#태그2</span> <span
-								class="badge badge-light">#태그3</span>
+									class="badge badge-light">>#태그2</span> <span class="badge badge-light">#태그3</span>
 							</small>
 						</div>
 						<div class="text-right">
@@ -164,20 +167,19 @@
 							<span class="pie-heart-icon pie-icons"></span>
 							<span class="pie-share-icon pie-icons mx-2"></span>
 							<span class="pie-chat-icon pie-icons"></span>
-							</div>
+						</div>
 						<hr>
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button type="button" class="btn pie-btn-red btn-block"
-								data-toggle="modal" data-target="#staticBackdrop">
+							<button type="button" class="btn pie-btn-red btn-block" data-toggle="modal"
+								data-target="#staticBackdrop">
 								<small>참여하기</small>
 							</button>
 
 							<!-- Modal -->
-							<div class="modal fade" id="staticBackdrop"
-								data-backdrop="static" data-keyboard="false" tabindex="-1"
-								aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+								tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
 								<div class="modal-dialog">
 
@@ -191,8 +193,7 @@
 											<!-- 모달 title -->
 											<h5 class="modal-title" id="staticBackdropLabel">함께
 												하실래요?</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
 
@@ -209,8 +210,8 @@
 
 
 										<div class="modal-footer">
-											<button type="button" class="btn btn-outline-secondary"
-												data-dismiss="modal" onclick="window.open('townBuyResult')">좋아요!
+											<button type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+												onclick="window.open('townBuyResult')">좋아요!
 												함께해요</button>
 											<button type="button" class="btn btn-outline-secondary"
 												data-dismiss="modal">다시생각해볼게요</button>
@@ -250,8 +251,11 @@
 
 
 	<script>
-
+		Fancybox.bind('[data-fancybox]', {
+			//
+		});    
 	</script>
 
 </div>
+
 </html>
