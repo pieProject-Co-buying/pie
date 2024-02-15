@@ -10,8 +10,11 @@
 	<select id="searchTitle" resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard where sh_title like '%${param1}%' or sh_content like '%${param1}%'
 	</select>
+	<select id="myBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where sh_id=#{param1}
+	</select>
 	<insert id="insertBoard">
-		insert into shareServiceBoard (sh_id,sh_nickname,sh_title,sh_content,sh_price,sh_personnelMax,sh_DeadLine) values (#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+    	insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelMax,sh_filename) values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 'YYYY-MM-DD'),#{sh_personnelMax},#{sh_filename})
 	</insert>
 	<update id="updateBoard" parameterType="com.pie.pieProject.DTO.ShareServiceDto">
 		update shareServiceBoard set sh_title=#{sh_title}, sh_content=#{sh_content}, sh_price=#{sh_price}, sh_personnelMax=#{sh_personnelMax}, sh_DeadLine=#{sh_DeadLine} where sh_numID=#{sh_numID}
