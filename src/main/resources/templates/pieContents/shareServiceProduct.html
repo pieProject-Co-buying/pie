@@ -17,7 +17,7 @@
     <div class="container p-0 mb-5">
         <div class="row no-gutters">
             <div class="col-md-6 d-flex align-items-center">
-                <img src="imgs/netflix.png" alt="감자" class="img-fluid">
+                <img th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}" alt="감자" class="img-fluid">
             </div><!--col-md-6-->
             <div class="col-md-6 p-3">
                 <div class="row">
@@ -25,14 +25,18 @@
                         <h4 class="text-center">
                         	<b th:text="${board.getSh_title()}"></b></h4>
                         <h4 class="border-bottom mt-3 pb-3 text-right" th:text="${board.getSh_price()+' 원'}"></h4>
-                        <p class="text-center border-bottom">
-                        	<small><b th:text="${board.getSh_content()}"></b></small></p>
+                       
                         <p><b>작성자 : </b>
                         	<small th:text="${board.getSh_nickname()}"></small></p>
                         <p><b>모집인원 : </b>
                         	<small th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small></p> 
                         <p><b>진행현황 : </b>
-                        	<small class="badge badge-success" th:text="${board.getSh_process()}"></small></p>
+                        	<th:block th:if="${board.getSh_process()}=='on'">
+                        		<small class="badge badge-success" th:text="진행중"></small>                       	
+                        	</th:block>
+                        	<th:block th:if="${board.getSh_process()}=='off'">
+                        		<small class="badge badge-danger" th:text="진행마감"></small></p>                        	
+                        	</th:block>
                         <p><b>모집시작일 : </b>
                         	<small th:text="${board.getSh_registDay()}"></small></p>
                         <p><b>모집마감일 : </b>
@@ -46,7 +50,9 @@
                         <form action="#">
                             <button type="button" class="btn custom-btn" data-toggle="modal" data-target="#exampleModal"><b>신청
                                 및 결제</b></button>
-                            <a th:href="'modifyForm?sh_numID='+${board.getSh_numID()}" type="button" class="btn custom-btn3"><b>게시글 수정</b></a>
+                            <th:block th:if="${session.userId}==${board.getSh_id()}">
+								<a th:href="'modifyForm?sh_numID='+${board.getSh_numID()}" type="button" class="btn custom-btn3"><b>게시글 수정</b></a>
+							</th:block>
                             <button type="button" class="btn custom-btn2" onclick="history.go(-1)"><b>목록으로</b></button>
                         </form>
                     </div><!--col-->
@@ -54,6 +60,13 @@
             </div><!--col-md-6-->
         </div><!--row-->
     </div><!--container-->
+    <div class="container border">
+			<div class="row">
+				<div class="col">
+					<p th:utext="${board.getSh_content()}"></p>
+				</div>
+			</div>
+		</div>
     <!--------------------------다른 상품-------------------------->
     <div class="container border-bottom">
         <div class="row">

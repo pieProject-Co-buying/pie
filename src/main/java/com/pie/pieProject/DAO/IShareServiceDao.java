@@ -15,4 +15,5 @@ public interface IShareServiceDao {
 	public int deleteBoard(int num);
 	public ArrayList<ShareServiceDto> searchTitle(String keyword);
 	public void insertBoard(ShareServiceDto dto);
+	public ArrayList<ShareServiceDto> myBoard(String keyword);
 }

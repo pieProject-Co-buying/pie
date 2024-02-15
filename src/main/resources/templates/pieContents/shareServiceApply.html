@@ -23,18 +23,18 @@
 	</div>
 	<!--container-->
 	<!--------------------------컨텐츠-------------------------->
-	<div class="container p-0">
-		<div class="row p-3">
-			<div class="col-12 mt-3 border" th:each="board:${list}">
+	<div class="container p-0 mt-5">
+		<div class="row">
+			<div th:if="${not #lists.isEmpty(list)}" class="col-12 mb-3 border" th:each="board:${list}">
 				<div class="row no-gutters">
-					<div class="col-md-4">
-						<img src="imgs/potato.jpg" alt="..." class="img-fluid">
+					<div class="col-md-4 mt-2">
+						<img th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}" alt="..." class="img-fluid">
 					</div>
 					<!--col-->
 					<div class="col-md-8">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${board.getSh_title}"></h5>
-							<p class="card-text" th:text="${board.getSh_content}"></p>
+							<p class="card-text" th:utext="${board.getSh_content}"></p>
 							<span class="mt-5" th:text="${board.getSh_registDay}"></span>
 							 <a th:href="'boardList?sh_numID='+${board.getSh_numID()}"
 								class="btn custom-btn3 mt-3 d-block">상세보기</a>
@@ -49,9 +49,31 @@
 			<!--col-->
 		</div>
 		<!--카드 row-->
+		<div class="container" th:if="${#lists.isEmpty(list)}">
+			<div class="row">
+				<div class="col-12 p-5 alert-danger text-center">
+					<h2>아직 작성한 게시물이 없습니다 !</h2>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!--카드 container-->
+	<div class="container p-0 text-center mt-3 mb-3">
+			<div class="row">
+				<div class="col-12 btn btn-block border" id="load">
+					<div class="">
+						<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+								class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+								<path
+									d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+							</svg>
+					</div>
+				</div>
+			</div>
+			<!--더보기 col-->
+		</div>
 </div>
 <!--wrapper-->
+<!--더보기 스크립트-->
 </body>
 </html>

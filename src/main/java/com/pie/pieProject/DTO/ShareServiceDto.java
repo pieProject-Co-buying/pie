@@ -14,6 +14,7 @@ public class ShareServiceDto {
 	private String sh_nickname;
 	private String sh_title;
 	private String sh_content;
+	private String sh_filename;
 	private int sh_price;
 	private String sh_category;
 	private String sh_process;

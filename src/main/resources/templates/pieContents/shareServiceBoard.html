@@ -32,7 +32,7 @@
 							aria-expanded="false"> 카테고리 </a>
 						<div class="dropdown-menu"></div>
 					</div>
-					<input type="text" name="search" id="search" class="flex-fill" placeholder="관련 검색어를 입력해주세요.">
+					<input type="text" name="search" id="search" class="flex-fill" placeholder="검색">
 					<button type="submit"></button>
 				</form>
 			</div>
@@ -41,26 +41,38 @@
 		<!--row-->
 		<div class="row category jh-cards">
 			<!--col-4-->
-			<div th:each="board:${list}" th:attr="data-category=${board.getSh_category()}" class="col-md-4 col-sm-12 movie" style="cursor:pointer">
-				<a th:href="'boardList?sh_numID='+${board.getSh_numID()}" class="card" style="cursor:pointer">
-					<img src="imgs/netflix.png" class="card-img-top img-fluid" alt="..." height="300px">
+			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}" th:attr="data-category=${board.getSh_category()}" class="col-md-4 col-sm-12 movie" style="cursor: pointer">
+				
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?sh_numID='+${board.getSh_numID()}"
+					class="card" style="cursor: pointer; text-decoration:none; color:black"> <img
+					th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}"
+					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<h5 class="card-title" th:text="${board.getSh_title()}"></h5> 
+						<h5 class="card-title" th:text="${board.getSh_title()}"></h5>
 						<p class="card-text">
-							<small>
-								<span class="badge badge-light">#태그1</span>
-								<span class="badge badge-light">>#태그2</span>
-								<span class="badge badge-light">#태그3</span>
+							<small> <span class="badge badge-light">#태그1</span> <span
+								class="badge badge-light">>#태그2</span> <span
+								class="badge badge-light">#태그3</span>
 							</small>
 						</p>
-						<small class="pie-writer">
-							<img src="" alt="" onerror="this.onerror=null; this.src='imgs/default.png';" />
-							<span th:text="${board.getSh_nickname()}"></span>
+						<small th:text="${board.getSh_category()}"></small>
+						<small class="pie-writer"> <img src="" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" /> <span
+							th:text="${board.getSh_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
 			<!--col-4-->
+		</div>
+		<!-- 등록된 게시물이 없을 경우 -->
+		<div class="container" th:if="${#lists.isEmpty(list)}">
+			<div class="row">
+				<div class="col-12 p-5 alert-danger text-center">
+					<h2>아직 등록된 게시물이 없습니다 !</h2>
+				</div>
+			</div>
 		</div>
 		<!--게시글 row-->
 		<div class="container text-center mb-3 mt-5">
