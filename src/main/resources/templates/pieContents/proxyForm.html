@@ -1,33 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/boardForm}">
 
 <head>
-	<!-- include summernote css/js -->
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-	<style>
-		.btn-upload {
-			width: 120px;
-			height: 120px;
-			border: 3px dotted var(--lightgray);
-			border-radius: 10px;
-			font-weight: 500;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			color: var(--lightgray);
-		}
-
-		.btn-upload:hover {
-			background: var(--lightgray);
-			color: #fff;
-		}
-
-		#file {
-			display: none;
-		}
-	</style>
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<style>
+</style>
 </head>
 
 
@@ -39,53 +21,97 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<form action="uploadAction" method="post" name="proxyForm" enctype="multipart/form-data">
+				<form action="uploadAction" method="post" name="proxyForm"
+					enctype="multipart/form-data">
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
-							onerror="this.onerror=null; this.src='imgs/default.png';" /><input type="text"
-							class="pl-2 form-control-plaintext" id="exampleInputEmail1" name="to_nickname"
+							onerror="this.onerror=null; this.src='imgs/default.png';" /><input
+							type="text" class="pl-2 form-control-plaintext"
+							id="exampleInputEmail1" name="to_nickname"
 							th:value="${session.nickName}" readonly>
 					</div>
-					<div class="form-group">
-						<div class="dropdown">
-							<button class="btn btn-block dropdown-toggle text-left bg-transparent border" type="button"
-								data-toggle="dropdown" aria-expanded="false"> 카테고리 </button>
+					<div class="form-group row">
+
+						<input type="hidden" name="pr_category" id="pr_category"
+							value="test" />
+						<div class="dropdown col-md-6">
+							<button
+								class="btn btn-block dropdown-toggle text-left bg-transparent border"
+								type="button" data-toggle="dropdown" aria-expanded="false">
+								카테고리</button>
 							<div class="dropdown-menu w-100">
-								<a class="dropdown-item" href="#">Action</a> <a class="dropdown-item" href="#">Another
-									action</a> <a class="dropdown-item" href="#">Something else here</a>
+								<a class="dropdown-item" href="#">Action</a> <a
+									class="dropdown-item" href="#">Another action</a> <a
+									class="dropdown-item" href="#">Something else here</a>
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="제목"
-							name="pr_title">
+						<input type="text" class="form-control" id="exampleInputEmail1"
+							placeholder="제목" name="pr_title">
 					</div>
 					<div class="form-group d-flex">
 						<label for="file">
 							<div class="btn-upload">
-								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-									class="bi bi-plus-circle" viewBox="0 0 16 16">
-									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+									fill="currentColor" class="bi bi-plus-circle"
+									viewBox="0 0 16 16">
+									<path
+										d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
 									<path
 										d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
 								</svg>
 							</div>
 						</label>
 						<div class="file-uploadGroup"></div>
-						<input type="file" name="pr_pic[]" id="file" multiple onchange="addFile(event)">
-					<input type="hidden" name="pr_files" id="pr_files"/>
+						<input type="file" name="pr_pic[]" id="file" multiple
+							onchange="addFile(event)"> <input type="hidden"
+							name="pr_files" id="pr_files" />
 					</div>
 					<textarea id="summernote" name="pr_content"></textarea>
 
-					<div class="form-group pt-3">
-						<input type="number" class="form-control" id="exampleInputEmail1" placeholder="모집인원">
+					<div class="form-group row pt-3">
+						<div class="col-md-6 pt-3">
+							<label for=""><small class="pl-1">모집인원</small></label><input
+								type="number" class="form-control" id="pr_personnelMax"
+								name="pr_personnelMax" min="1" max="300" value="1">
+						</div>
+						<div class="col-md-6 pt-3">
+							<label for=""><small class="pl-1">모집마감일</small></label> <input
+								type="date" class="form-control" id="pr_deadLine"
+								name="pr_deadLine">
+
+						</div>
 					</div>
+
+					<div class="form-group row">
+						<div class="col-md-6 pt-3">
+							<label for=""><small class="pl-1">모집 가격(총합)</small></label> <input
+								type="text" class="form-control" id="price_total"
+								name="price_total">
+						</div>
+						<div class="col-md-6 pt-3">
+							<label for=""><small class="pl-1">모집 가격(인당)</small></label> <input
+								type="text" class="form-control" id="price_per" name="price_per">
+
+						</div>
+					</div>
+
 					<div class="form-group">
-						<input type="date" class="form-control" id="exampleInputEmail1">
+						<label for=""><small class="pl-1">태그</small></label>
+						<div class="form-control d-flex overflow-hidden">
+							<div id="tagGroup" class="d-flex align-items-center"></div>
+							<input type="hidden" readonly name="pie_tagsOutput"
+								id="pie_tagsOutput" /> <input type="text"
+								class="border-0 flex-fill" id="pie_tags_input"
+								placeholder="태그는 최대 5개 등록가능하며, 스페이스바/엔터로 구분합니다. (특수문자 사용불가)">
+						</div>
 					</div>
+
 					<div class="form-group row justify-content-center mt-5">
 						<div class="col-sm-9">
-							<button type="button" class="btn btn-block pie-btn-red" id="uploadBtn">등록</button>
+							<button type="button" class="btn btn-block pie-btn-red"
+								id="uploadBtn">등록</button>
 						</div>
 					</div>
 				</form>
@@ -94,7 +120,125 @@
 	</div>
 	<!--게시글 로직 container-->
 	<!--wrapper-->
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script>
+	const slider = document.querySelector('.file-uploadGroup');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
+	
+	slider.addEventListener('mousedown', e => {
+	  isDown = true;
+	  slider.classList.add('active');
+	  startX = e.pageX - slider.offsetLeft;
+	  scrollLeft = slider.scrollLeft;
+	});
+	
+	slider.addEventListener('mouseleave', () => {
+	  isDown = false;
+	  slider.classList.remove('active');
+	});
+	
+	slider.addEventListener('mouseup', () => {
+	  isDown = false;
+	  slider.classList.remove('active');
+	});
+	
+	slider.addEventListener('mousemove', e => {
+	  if (!isDown) return; 
+	  e.preventDefault();
+	  const x = e.pageX - slider.offsetLeft;
+	  const walk = x - startX;
+	  slider.scrollLeft = scrollLeft - walk;
+	});
+	</script>
+
+	<script>
+	let pie_tags_input = $("#pie_tags_input");
+	let tagGroup = $("#tagGroup");
+	let tags_str = '';
+	let pie_tagsOutput = $("#pie_tagsOutput");
+	
+	
+	pie_tags_input.keyup(function(key){
+		if(key.keyCode==13||key.keyCode==32){
+			let tag = $(this).val(); 
+			tag = tag.replace(" ","");
+			tag = tag.replace(/[^\w\s가-힣ㄱ-ㅎㅏ-ㅣ]/g, '');
+			if(tag==""){
+				alert("입력된 값이 없습니다.(특수문자는 태그에 포함할 수 없습니다.)")
+				return;
+			}
+			console.tag
+			tagGroup.append('<span class="badge badge-info badge-pill d-flex align-items-center p-2 mr-2">#'+ tag +'<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-circle-fill ml-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></span>');
+			tags_str += "#"+tag;
+			pie_tagsOutput.val(tags_str);
+			
+			$(this).val('');
+			console.log(tags_str);
+			
+			let tagNum = $("#tagGroup .badge").length;
+			if(tagNum==5){
+				pie_tags_input.hide();
+			}
+		}
+		})
+		
+			$(document).on("click","span.badge",function(event){
+			let removedtag = $(this).text();
+			tags_str = tags_str.replace(removedtag,'');
+			pie_tagsOutput.val(tags_str);
+
+			$(this).remove(); 
+			
+			let tagNum = $("#tagGroup .badge").length;
+			
+			if(tagNum<5){
+				pie_tags_input.show();
+			}
+		})
+		
+	</script>
+	<script>
+	$(function(){
+		
+		let price_total = $("#price_total");
+		let price_per = $("#price_per");
+		let personNum = $("#pr_personnelMax");
+		
+		
+		price_total.change(function(){
+			console.log(personNum.val());
+				if(isNaN($(this).val())||$(this).val()<0){
+					price_total.val(0)
+				}
+				price_per.val(Math.floor(price_total.val() / personNum.val()));
+			})
+			
+			
+			price_per.change(function(){
+				console.log(price_total.val());
+				if(isNaN($(this).val())||$(this).val()<0){
+					price_per.val(0)
+				}
+				price_total.val(Math.floor(price_per.val() * personNum.val()));
+			})
+			
+			personNum.change(function(){
+				
+				console.log(price_total.val());
+				console.log(price_per.val());
+				if(isNaN(price_total.val())||isNaN(price_per.val())||price_total.val()<0||price_per.val()<0){
+					price_total.val(0)
+					price_per.val(0)
+				}
+				price_per.val(Math.floor(price_total.val() / personNum.val()));
+				price_total.val(Math.floor(price_per.val() * personNum.val()));
+			})
+		
+	})
+		</script>
 	<script>
 		$(document).ready(function () {
 			$('#summernote').summernote({
@@ -148,10 +292,10 @@
 
 		/* 첨부파일 추가 */
 		function addFile(event) {
-			var maxFileCnt = 5;
-			var attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
-			var remainFileCnt = maxFileCnt - attFileCnt;
-			var curFileCnt = event.target.files.length;
+			let maxFileCnt = 5;
+			let attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
+			let remainFileCnt = maxFileCnt - attFileCnt;
+			let curFileCnt = event.target.files.length;
 
 
 			if (curFileCnt > remainFileCnt) {
@@ -171,16 +315,22 @@
 							reader.readAsDataURL(file);
 						}).then(function (result) {
 							filesArr.push(file);
-							let htmlData = "<img src =" + result + " onclick = 'deleteFile(" + i + ")' id='file" + fileNo + "' class='pie-img-viewsThumbs'>";
+							let htmlData = "<figure onclick = 'deleteFile(" + i + ")'><img src ='" + result + "' id='file" + fileNo + "' class='pie-img-viewsThumbs'><figcaption></figcaption><figure>";
 							$('.file-uploadGroup').append(htmlData);
 							fileNo++;
 						});
 					}
 				}
 				document.querySelector("input[type=file]").value = "";
+				
+				attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
+				remainFileCnt = maxFileCnt - attFileCnt;
+				if(remainFileCnt==0){
+					$(".btn-upload").hide();
+				}
 			}
-
 			processFiles();
+			
 		}
 
 		/* 첨부파일 검증 */
@@ -204,13 +354,23 @@
 		}
 
 		/* 첨부파일 삭제 */
-		function deleteFile(num) {
+		function deleteFile(num) {			
 			document.querySelector("#file" + num).remove();
 			filesArr[num].is_delete = true;
+			
+			let maxFileCnt = 5;
+			let attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
+			let remainFileCnt = maxFileCnt - attFileCnt;
+			
+			if(remainFileCnt>0){
+				$(".btn-upload").show();
+			}
+			
 		}
 
 		/* 폼 전송 */
 		function submitForm() {
+			
 			// 폼데이터 담기
 			var form = document.proxyForm;
 			var formData = new FormData(form);

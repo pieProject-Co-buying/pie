@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class ProxyBuyBoardDto {
-	
 	private String pr_num;
 	private String pr_id;
 	private String pr_nickname;
@@ -19,16 +18,21 @@ public class ProxyBuyBoardDto {
 	private String pr_content;
 	private String pr_price;
 	private String pr_profileImg;
+	private String[] pr_productImgs;
 	private String pr_productImg;
-	private Integer pr_hit;
+	private int pr_hit;
 	private String pr_tag;
+	private String[] pr_tags;
 	private String pr_address;
 	private String pr_process;
 	private String pr_registDay;
 	private String pr_updateDay;
 	private String pr_deadLine;
-	private Integer pr_personnelMax;
+	private int pr_personnelMax;
 	private String pr_personnelNow;
+	private int pr_priceTotal;
+	private int pr_pricePer;
 	private String pr_ip;
-	
+	private int pr_like;
 }
+
