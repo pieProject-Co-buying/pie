@@ -9,11 +9,20 @@ import com.pie.pieProject.DTO.ShareServiceDto;
 @Mapper
 public interface IShareServiceDao {
 	
+	// 전체 게시물 조회
 	public ArrayList<ShareServiceDto> getBoardList();
+	// 해당 게시물 조회, 해당 게시물 수정 페이지 이동
 	public ShareServiceDto selectBoard(int num);
+	// 해당 게시물 수정
 	public void updateBoard(ShareServiceDto dto);
+	// 해당 게시물 삭제
 	public int deleteBoard(int num);
+	// 제목,내용 기반 검색
 	public ArrayList<ShareServiceDto> searchTitle(String keyword);
+	// 게시물 작성
 	public void insertBoard(ShareServiceDto dto);
+	// 내가 쓴 게시물 조회
 	public ArrayList<ShareServiceDto> myBoard(String keyword);
+	// 게시판 순서 정렬
+	public ArrayList<ShareServiceDto> completePay(int num);
 }

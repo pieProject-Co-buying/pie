@@ -1,5 +1,6 @@
 create table shareServiceBoard(
     sh_numID number primary key,
+    sh_product number,
     sh_id varchar2(100) not null,--
     sh_nickname varchar2(100) not null,
     sh_title varchar2(100) not null,
@@ -24,18 +25,24 @@ commit;
 -----시퀀스 생성 및 삭제-----
 create sequence sh_numID nocycle nocache;
 drop sequence sh_numID;
+create sequence sh_product nocycle nocache;
+drop sequence sh_product;
 -----insert-----
-insert into shareServiceBoard values (sh_numID.nextval,'admin','admin','test 공구 모집','넷플릭스 공구 모집합니다.','OTT',90000,'potato.png','진행중',TO_DATE('2024-02-08', 'YYYY-MM-DD'),sysdate,TO_DATE('2024-02-25', 'YYYY-MM-DD'),12,10,'486.486.486.6');
+insert into shareServiceBoard values (sh_numID.nextval,'admin','admin','test 공구 모집','넷플릭스 공구 모집합니다.','OTT',90000,'potato.png','진행중',TO_DATE('2024-02-08', 'YYYY-MM-DD'),sysdate,TO_DATE('2024-02-25', 'YYYY-MM-DD'),12,10,'486.486.486.6',sh_product.nextval);
 insert into shareServiceBoard values (sh_numID.nextval,'admin2','닉네임2','게임 공구 모집','게임 공구 모집합니다.','게임',80000,'potato.png','진행중',TO_DATE('2024-02-03', 'YYYY-MM-DD'),sysdate,TO_DATE('2024-02-25', 'YYYY-MM-DD'),12,1,'486.486.486.6');
 insert into shareServiceBoard values (sh_numID.nextval,'admin3','닉네임3','쿠팡플레이 공구 모집','쿠팡플레이 공구 모집합니다.','OTT',70000,'potato.png','진행중',TO_DATE('2024-02-05', 'YYYY-MM-DD'),sysdate,TO_DATE('2024-02-25', 'YYYY-MM-DD'),12,3,'486.486.486.6');
 insert into shareServiceBoard values (sh_numID.nextval,'admin4','닉네임4','음악책 공구 모집','음악책 공구 모집합니다.','도서/음악',130000,'potato.png','진행중',TO_DATE('2024-02-06', 'YYYY-MM-DD'),sysdate,TO_DATE('2024-02-25', 'YYYY-MM-DD'),12,8,'486.486.486.6');
-insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelMax,sh_filename) values (sh_numID.nextval,'id','nickname','title','content','category',100,'진행중',TO_DATE('2024-02-19', 'YYYY-MM-DD'),10,'potato.png');
+insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelMax,sh_filename,sh_product) values (sh_numID.nextval,'id','nickname','title','content','category',100,'진행중',TO_DATE('2024-02-19', 'YYYY-MM-DD'),10,'potato.png',sh_product.nextval);
 -----select-----
 select * from shareServiceBoard where sh_numID=1;
 select * from shareServiceBoard where sh_id=123;
+select * from shareServiceBoard order by sh_numID desc;
+select * from shareServiceBoard ORDER BY sh_numID ASC;
+select sh_process from shareServiceBoard where sh_process = 'on';
+select count(sh_personnelNow) from shareServiceBoard where sh_numID=4;
 -----update-----
 update shareServiceBoard set sh_title='타이틀',sh_content='내용',sh_price='3000',sh_personnelMax=10,sh_DeadLine=TO_DATE('2024-02-05', 'YYYY-MM-DD') where sh_id='admin';
 delete shareServiceBoard where sh_id='admin';
+update shareServiceBoard set sh_personnelNow = sh_personnelNow + 1 where sh_numID = 9;
 -----select-----
 select * from shareServiceBoard where sh_title like '%음%';
--------------------------------------------------
