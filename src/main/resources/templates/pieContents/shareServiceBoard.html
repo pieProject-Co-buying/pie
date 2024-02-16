@@ -49,7 +49,9 @@
 					th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<h5 class="card-title" th:text="${board.getSh_title()}"></h5>
+						<h5 class="card-title">
+							<b th:text="${board.getSh_title()}"></b>
+						</h5>
 						<p class="card-text">
 							<small> <span class="badge badge-light">#태그1</span> <span
 								class="badge badge-light">>#태그2</span> <span
@@ -255,21 +257,24 @@
 		$("#load").click(function (e) {
             e.preventDefault();
             if (numValue === '1') {
-                $(".col-md-4:not([data-category='OTT']):visible").hide(); // OTT 이외의 카테고리 숨김
+            	 // OTT 이외의 카테고리 숨김
+                $(".col-md-4:not([data-category='OTT']):visible").hide();
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){
                 	alert("마지막 게시물입니다.")
                 }
             } else if (numValue === '2') {
-                $(".col-md-4:not([data-category='게임']):visible").hide(); // 게임 이외의 카테고리 숨김
+            	 // 게임 이외의 카테고리 숨김
+                $(".col-md-4:not([data-category='게임']):visible").hide();
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){
                 	alert("마지막 게시물입니다.")
                 }
             } else if (numValue === '3') {
-                $(".col-md-4:not([data-category='도서/음악']):visible").hide(); // 도서/음악 이외의 카테고리 숨김
+            	 // 도서/음악 이외의 카테고리 숨김
+                $(".col-md-4:not([data-category='도서/음악']):visible").hide();
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){

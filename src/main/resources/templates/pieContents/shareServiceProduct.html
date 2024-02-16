@@ -21,11 +21,11 @@
             </div><!--col-md-6-->
             <div class="col-md-6 p-3">
                 <div class="row">
-                    <div class="col"><!--text-box-->
+                    <div class="col pie-product"><!--text-box-->
                         <h4 class="text-center">
-                        	<b th:text="${board.getSh_title()}"></b></h4>
-                        <h4 class="border-bottom mt-3 pb-3 text-right" th:text="${board.getSh_price()+' 원'}"></h4>
-                       
+                        	<b th:attr = "data-title=${board.getSh_title}" th:text="${board.getSh_title()}"></b></h4>
+                        <h4 class="border-bottom mt-3 pb-3 text-right" th:attr = "data-price=${board.getSh_price}" th:text="${board.getSh_price()+' 원'}"></h4>
+                       <p class="d-none" th:attr = "data-numID=${board.getSh_numID}"></p>
                         <p><b>작성자 : </b>
                         	<small th:text="${board.getSh_nickname()}"></small></p>
                         <p><b>모집인원 : </b>
@@ -38,11 +38,12 @@
                         		<small class="badge badge-danger" th:text="진행마감"></small></p>                        	
                         	</th:block>
                         <p><b>모집시작일 : </b>
-                        	<small th:text="${board.getSh_registDay()}"></small></p>
+                        	<small th:attr = "data-registDay=${board.getSh_registDay}" th:text="${board.getSh_registDay()}"></small></p>
                         <p><b>모집마감일 : </b>
-                        	<small th:text="${board.getSh_DeadLine()}"></small></p>
+                        	<small th:attr = "data-DeadLine=${board.getSh_DeadLine}" th:text="${board.getSh_DeadLine()}"></small></p>
                         <p><b>카테고리 : </b>
-                        	<small th:text="${board.getSh_category()}"></small></p>
+                        	<small th:attr = "data-category=${board.getSh_category}" th:text="${board.getSh_category()}"></small></p>
+                        <input type="hidden" th:attr = "data-title=${board.getSh_product}"/>
                     </div>
                 </div>
                 <div class="row">
@@ -53,7 +54,7 @@
                             <th:block th:if="${session.userId}==${board.getSh_id()}">
 								<a th:href="'modifyForm?sh_numID='+${board.getSh_numID()}" type="button" class="btn custom-btn3"><b>게시글 수정</b></a>
 							</th:block>
-                            <button type="button" class="btn custom-btn2" onclick="history.go(-1)"><b>목록으로</b></button>
+                            <button type="button" class="btn custom-btn2" onclick="listBack()"><b>목록으로</b></button>
                         </form>
                     </div><!--col-->
                 </div><!--row-->
@@ -155,9 +156,13 @@
     $('.customPrevBtn').click(function () {
         owl.trigger('prev.owl.carousel');
     })
-    
+    /**************수정 화면으로 가기**************/
     function modify(){
-    	location.href="'modifyForm?sh_numID='+${board.getSh_numID()}"
+    	location.href="'modifyForm?sh_numID='+${board.getSh_numID()}";
+    }
+    /**************목록으로 가기**************/
+    function listBack(){
+    	location.href="shareServiceBoard";
     }
 </script>
 </div>
