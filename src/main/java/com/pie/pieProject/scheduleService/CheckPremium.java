@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.pie.pieProject.DAO.IMemberDao;
 
-
 @Component
 public class CheckPremium {
 	@Autowired
@@ -16,6 +15,4 @@ public class CheckPremium {
 	public void checkPre() {
 		dao.expireSub();
 	}
-	
-
 }

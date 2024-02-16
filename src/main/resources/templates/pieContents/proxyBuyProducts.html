@@ -36,7 +36,7 @@
 							<div class="col-4">
 								<a class="card"
 									th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-									src="imgs/product1.jpg" class="card-img-top" alt="...">
+									th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}" class="card-img-top" alt="...">
 									<div class="card-body">
 										<p class="card-text" th:text="${board.getPr_title()}"></p>
 									</div>
@@ -68,7 +68,7 @@
 						<th:block th:each="board:${list2}">
 							<div class="col-4">
 								<div class="card">
-									<img src="imgs/product1.jpg" class="card-img-top" alt="...">
+									<img th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}" class="card-img-top" alt="...">
 									<div class="card-body">
 										<p class="card-text" th:text="${board.getPr_title()}"></p>
 									</div>
@@ -96,7 +96,7 @@
 				<div class="card-columns">
 					<th:block th:each="board:${allList}">
 						<div class="card">
-							<img src="imgs/img1.jpg" class="card-img-top" alt="...">
+							<img th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}" class="card-img-top" alt="...">
 							<div class="card-body">
 								<h5 class="card-title" th:text="${board.getPr_title()}">Card
 									title that wraps to a new line</h5>
