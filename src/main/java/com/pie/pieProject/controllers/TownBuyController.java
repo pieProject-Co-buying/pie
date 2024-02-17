@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,39 +14,64 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pie.pieProject.DAO.ILikeDao;
+import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TownBuyController {
 
 	@Autowired
 	ITownBuyBoardDao dao;
+	@Autowired
+	ILikeDao ldao;
+	@Autowired
+	IMemberDao mdao;
 
 	@RequestMapping("/townBuySearch")
 	public String toBoardList(HttpServletRequest request, Model model) {
 
 		model.addAttribute("list", dao.listDao());
+		model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
+		model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
+		model.addAttribute("lifeList", dao.categoryDaoNum("life", 4));
 
 		/*
 		 * String sP = request.getParameter("to_premium");
 		 * model.addAttribute("premiumList", dao.listPremiumDao());
 		 */
 
-		return "pieContents/townBuySearch";
+		return "pieContents/townBuying/townBuySearch";
 
 	}
 
 	@RequestMapping("/townBuyproduct")
 	public String toBoardView(HttpServletRequest request, Model model) {
+		
+			String sId = request.getParameter("id");
+			
+			
+			TownBuyBoardDto dto = dao.viewDao(sId);
 
-		String sId = request.getParameter("id");
-		model.addAttribute("list", dao.viewDao(sId));
+			dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
+			dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+			/* dao.updateHit(sId); */
+			
+			String table = "townBuyBoard";
+			if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+				model.addAttribute("like", true);
+			} else {
+				model.addAttribute("like", false);
+			}
+			
+		model.addAttribute("board", dto);
 
-		return "pieContents/townBuyproduct";
+		return "pieContents/townBuying/townBuyproduct";
 
 	}
 
@@ -66,7 +92,6 @@ public class TownBuyController {
 		System.out.println(request.getParameter("to_deadLine"));
 		System.out.println(request.getParameter("id"));
 
-		
 		dto.setTo_category(request.getParameter("to_category"));
 		dto.setTo_title(request.getParameter("to_title"));
 		dto.setTo_content(request.getParameter("to_content"));
@@ -97,7 +122,7 @@ public class TownBuyController {
 
 		model.addAttribute("list", dao.viewDao(sId));
 
-		return "pieContents/updateTownProductForm";
+		return "pieContents/townBuying/updateTownProductForm";
 
 	}
 	
@@ -118,10 +143,34 @@ public class TownBuyController {
 
 	public String search(HttpServletRequest request, Model model) {
 		String townKeyword = request.getParameter("townKeyword");
+		
+		List<TownBuyBoardDto> list = dao.searchDao(townKeyword);
+		int food = 0;
+		int baby = 0;
+		int beautyAndFashion = 0;
+		int pet = 0;
+		int life= 0;
+		int etc = 0;
+		
+		for(TownBuyBoardDto b : list) {
+			String c= b.getTo_category();
+			if(c.equals("food")) food++;
+			else if(c.equals("baby")) baby++;
+			else if(c.equals("beautyAndFashion")) beautyAndFashion++;
+			else if(c.equals("pet")) pet++;
+			else if(c.equals("life")) life++;
+			else if(c.equals("etc")) etc++;
+		}
 
-		model.addAttribute("list", dao.searchDao(townKeyword));
+		model.addAttribute("list", list);
+		model.addAttribute("food", food);
+		model.addAttribute("baby", baby);
+		model.addAttribute("beautyAndFashion", beautyAndFashion);
+		model.addAttribute("pet", pet);
+		model.addAttribute("life", life);
+		model.addAttribute("etc", etc);
 
-		return "pieContents/townBuySearchResult";
+		return "pieContents/townBuying/townBuySearchResult";
 
 	}
 
@@ -133,7 +182,7 @@ public class TownBuyController {
 
 		model.addAttribute("list", dao.categoryDao(category));
 
-		return "pieContents/townBuyingCategory";
+		return "pieContents/townBuying/townBuyingCategory";
 
 	}
 	
@@ -142,24 +191,32 @@ public class TownBuyController {
 	@RequestMapping("/writeTownBoard")
 	public String write(HttpServletRequest request, Model model) {
 
-
-		
-
-		
 		TownBuyBoardDto dto = new TownBuyBoardDto();
-		
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
-		
-
+		dto.setTo_id(getSession(request, "userId"));
 		dto.setTo_category(request.getParameter("to_category"));
+		
+		if (mdto.getPremium().equals("pro")) {
+			dto.setTo_premium("1");
+		} else {
+			dto.setTo_premium("0");
+		}
+		
+		dto.setTo_nickname(getSession(request,"nickName"));
 		dto.setTo_title(request.getParameter("to_title"));
 		dto.setTo_content(request.getParameter("to_content"));
-		dto.setTo_price(request.getParameter("to_price"));
+		dto.setTo_profileImg(getSession(request, "pic"));
+		dto.setTo_productImg(request.getParameter("to_files"));
+		dto.setTo_tag(request.getParameter("pie_tagsOutput"));
+		dto.setTo_address(mdto.getAddress_main());
 		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
+		dto.setTo_pricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setTo_priceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setTo_ip(request.getRemoteAddr());
 		dto.setTo_deadLine(request.getParameter("to_deadLine"));
 		
 		
-
 		dao.writeDao(dto);
 
 		return "redirect:/townBuySearch";
@@ -167,7 +224,18 @@ public class TownBuyController {
 		
 
 	}
-
 	
+	private String[] setArraysData(String key, String wallWord) {
+		String[] str_imgs = key.split(wallWord);
+		for (String s : str_imgs) {
+			s.replace(wallWord, "");
+		}
+		return str_imgs;
+	}
+
+	private String getSession(HttpServletRequest request, String key) {
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(key);
+	}
 	
 }

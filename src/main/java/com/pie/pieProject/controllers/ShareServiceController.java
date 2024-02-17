@@ -29,7 +29,7 @@ public class ShareServiceController {
 	@RequestMapping("/shareServiceBoard")
 	public String showBoardList(Model model) {
 		model.addAttribute("list", dao.getBoardList());
-		return "pieContents/shareServiceBoard";
+		return "pieContents/shareService/shareServiceBoard";
 	}
 	
 	/********** 게시물 상세 페이지 **********/
@@ -37,7 +37,7 @@ public class ShareServiceController {
 	public String showBoard(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("sh_numID");
 		model.addAttribute("board", dao.selectBoard(Integer.parseInt(sId)));
-		return "pieContents/shareServiceProduct";
+		return "pieContents/shareService/shareServiceProduct";
 	}
 
 	/********** 해당 게시물 수정 페이지 이동 **********/
@@ -45,7 +45,7 @@ public class ShareServiceController {
 	public String modify(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("sh_numID");
 		model.addAttribute("board", dao.selectBoard(Integer.parseInt(sId)));
-		return "pieContents/shareServiceModify";
+		return "pieContents/shareService/shareServiceModify";
 	}
 	
 	/********** 해당 게시물 수정 **********/
@@ -87,13 +87,13 @@ public class ShareServiceController {
 	public String search(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("search");
 		model.addAttribute("list", dao.searchTitle(sId));
-		return "pieContents/shareServiceBoard";
+		return "pieContents/shareService/shareServiceBoard";
 	}
 
 	/********** 게시판 작성 페이지 이동 **********/
 	@RequestMapping("/writePost")
 	public String witePost() {
-		return "pieContents/shareForm";
+		return "pieContents/shareService/shareForm";
 	}
 
 	/********** 게시판 작성 **********/
@@ -160,7 +160,7 @@ public class ShareServiceController {
 
 		System.out.println(dao.myBoard(sId));
 		// 뷰 이름 반환
-		return "pieContents/shareServiceApply";
+		return "pieContents/shareService/shareServiceApply";
 	}
 	
 	/********** 결제완료 페이지 이동 **********/
@@ -173,7 +173,7 @@ public class ShareServiceController {
 		
 		model.addAttribute("find", mdao.find(uId));
 		model.addAttribute("list", dao.completePay(Integer.parseInt(nid)));
-		return "pieContents/shareServiceFinish";
+		return "pieContents/shareService/shareServiceFinish";
 	}
 
 }

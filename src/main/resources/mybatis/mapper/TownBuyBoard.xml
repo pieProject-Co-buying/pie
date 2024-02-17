@@ -73,15 +73,35 @@
 	    select * from townBuyBoard where to_category = #{param1}
 	</select>
 	
+	<select id="categoryDaoNum" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	    select * from (select * from townBuyBoard where to_category = #{param1}) where ROWNUM <![CDATA[ <= ]]> #{param2}
+	</select>
 	
 	<insert id="writeDao">
-	
-		insert into townBuyBoard (to_num, to_category, to_title, to_content, to_price, to_personnelMax, to_deadLine) 
-		values(to_num.nextval, #{to_category}, #{to_title}, #{to_content}, #{to_price}, #{to_personnelMax}, TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'))
-
-
-
-
+insert into townBuyBoard values(
+		to_num.nextval,
+		#{to_id},
+		#{to_nickname},
+		#{to_category},
+		#{to_premium},
+		#{to_title},
+		#{to_content},
+		#{to_profileImg},
+		#{to_productImg},
+		0,
+		#{to_tag},
+		#{to_address},
+		'1',
+		sysdate,
+		sysdate,
+		TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'),
+		#{to_personnelMax},
+		1,
+		#{to_priceTotal},
+		#{to_pricePer},
+		#{to_ip},
+		0
+		)
 	</insert>
 		
 	 	

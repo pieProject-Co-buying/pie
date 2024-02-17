@@ -15,11 +15,11 @@
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
-							<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg}}"
+							<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center"
 								alt=>
 							<div class="card-body">
-								<h5 class="card-title" th:text="${board.getPr_nickname}">Card
+								<h5 class="card-title" th:text="${board.getPr_nickname()}">Card
 									title</h5>
 								<p class="card-text">자기 소개글</p>
 								<p class="text-right">
@@ -66,12 +66,12 @@
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg}}"
+					<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}"
 						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
 						<small class="m-0 font-weight-bold"
-							th:text="${board.getPr_nickname}"></small> <small
+							th:text="${board.getPr_nickname()}"></small> <small
 							class="pie-introduceself w-100 pie-omitted">자기 소개글 엄청길게
 							쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글
 							엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기 </small>
@@ -98,7 +98,7 @@
 									th:text="${board.getPr_title()}">타이틀 자리</h2>
 							</div>
 							<div class="col-12 pie-c-red p-0">
-								<h5 class="mb-0">인/50,000원</h5>
+								<h5 class="mb-0" th:text="|인/${board.getPr_pricePer()}원|"></h5>
 							</div>
 
 						</div>

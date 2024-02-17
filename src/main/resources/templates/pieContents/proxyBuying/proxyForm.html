@@ -66,14 +66,14 @@
 						<div class="file-uploadGroup"></div>
 						<input type="file" name="pr_pic[]" id="file" multiple
 							onchange="addFile(event)"> <input type="hidden"
-							name="pr_files" id="pr_files" />
+							name="pr_files" id="files" />
 					</div>
 					<textarea id="summernote" name="pr_content"></textarea>
 
 					<div class="form-group row pt-3">
 						<div class="col-md-6 pt-3">
 							<label for=""><small class="pl-1">모집인원</small></label><input
-								type="number" class="form-control" id="pr_personnelMax"
+								type="number" class="form-control" id="personnelMax"
 								name="pr_personnelMax" min="1" max="300" value="1">
 						</div>
 						<div class="col-md-6 pt-3">
@@ -205,7 +205,7 @@
 		
 		let price_total = $("#price_total");
 		let price_per = $("#price_per");
-		let personNum = $("#pr_personnelMax");
+		let personNum = $("#personnelMax");
 		
 		
 		price_total.change(function(){
@@ -382,13 +382,13 @@
 			}
 			$.ajax({
 				method: 'POST',
-				url: '/testUpload',
+				url: '/imageUploading',
 				data: formData,
 				contentType: false,
 				processData: false,
 				success: function (response) {
 					console.log('전송 성공', response);
-					$("#pr_files").val(response);
+					$("#files").val(response);
 					document.proxyForm.submit();
 				},
 				error: function (xhr, desc, err) {

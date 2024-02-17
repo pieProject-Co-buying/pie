@@ -115,3 +115,13 @@
 		max-width: 75%;
 		}
 		
+		
+		
+		.roomContainer{
+			height: 500px;
+			overflow: auto;
+		}
+		
+		
+		
+		

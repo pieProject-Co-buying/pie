@@ -2,9 +2,9 @@
 
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/townBuying}">
+	layout:decorate="~{layouts/chatting}">
 
-<div layout:fragment="townBuyContent" class="col">
+<div layout:fragment="chatContent" class="col">
 	
 
 
@@ -27,7 +27,7 @@
 					
 						<div class="col">
 						
-							<input type="hidden" id="sessionId" value="">
+							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<div id="chating" class="chating border py-2 px-2"></div>							
 						
 						</div>
@@ -40,15 +40,16 @@
 
 
 						<div class="inputTable col-9">
-
-							<input type="text" name="userName" id="userName" placeholder="" class="form-control" >
+								
+							<!-- 대화명은 세션 아이디로 시작 -->
+							<input type="text" name="userName" id="userName" placeholder="" class="form-control"  th:value="${session.nickName}"  readonly >
 
 
 						</div>
 						
 						<div class="inputTable col-3">
 						
-							<button onclick="chatName()" id="startBtn" class="btn btn-outline-secondary w-100">시작</button>
+							<button onclick="chatName()" id="startBtn" class="btn btn-outline-secondary w-100" >시작</button>
 
 						</div>
 	
@@ -64,7 +65,7 @@
 					
 						<div class="inputTable col-9">
 
-							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control">
+							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control" name="messages">
 
 						</div>
 						
@@ -82,7 +83,16 @@
 							
 						
 	
+		<!-- 메모 
 		
+		채팅창 옆에 대화목록 보여지게 해야함... 레이아웃에서 수정..?
+		레이아웃에 
+		
+		파라미터  roomName은 대화할 상대로 받을 것
+		
+		
+		
+		-->
 		
 		
 		
@@ -145,7 +155,7 @@
 							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-2 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
 							
 						} else {
-							$("#chating").append("<div class='others text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-nfo py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
+							$("#chating").append("<div class='others text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
 						}
 							
 					} else{
