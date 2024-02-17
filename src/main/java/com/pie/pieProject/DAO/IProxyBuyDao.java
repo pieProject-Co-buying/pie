@@ -10,7 +10,9 @@ import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 public interface IProxyBuyDao {
 	public List<ProxyBuyBoardDto> listDao();
 	public List<ProxyBuyBoardDto> listDaoByNewer();
+	public List<ProxyBuyBoardDto> listDaoByNewerNumber(int num);
 	public List<ProxyBuyBoardDto> listDaoByCategory(String category);
+	public List<ProxyBuyBoardDto> listDaoByCategoryNumber(String category, int num);
 	public ProxyBuyBoardDto getView(String num);
 	public void insertProxyBoard(ProxyBuyBoardDto dto);
 	public void updateHit(String num);
