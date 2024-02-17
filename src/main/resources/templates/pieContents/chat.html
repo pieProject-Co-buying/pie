@@ -1,39 +1,11 @@
 <!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<meta charset="UTF-8">
 
-	<title>Chating</title>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/townBuying}">
+
+<div layout:fragment="townBuyContent" class="col">
 	
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-	
-	<style>
-
-
-
-		.chating{
-			height: 500px;
-			overflow: auto;
-		}
-		
-		
-		#yourMsg{
-			display: none;
-		}
-		
-		.chatBallon{
-		max-width: 75%;
-		}
-		
-		
-	</style>
-	
-	
-</head>
-
-
-<body>
 
 
 
@@ -43,17 +15,13 @@
 		
 			<div class="col">
 			
-						
-						
-			
-			
-			
+
 			
 				<div id="container" class="container">
 				
 				
-				
-					<h1 class="my-5 text-center text-md-left">함께해요 파이채팅</h1>
+					
+					<h1 class="mb-5 text-center text-md-left">함께해요 파이채팅</h1>
 					
 					<div class="row mb-3">
 					
@@ -174,10 +142,10 @@
 					} else if(d.type == "message"){
 						
 						if(d.sessionId == $("#sessionId").val()){
-							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-4 px-5 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
+							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-2 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
 							
 						} else {
-							$("#chating").append("<div class='others text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-4 px-5 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
+							$("#chating").append("<div class='others text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-nfo py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
 						}
 							
 					} else{
@@ -225,5 +193,5 @@
 	</script>
 		
 	
-</body>
+
 </html>
