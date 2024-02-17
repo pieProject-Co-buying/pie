@@ -3,6 +3,7 @@ package com.pie.pieProject.controllers;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
+import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -24,11 +28,26 @@ public class ShareServiceController {
 	IShareServiceDao dao;
 	@Autowired
 	IMemberDao mdao;
+	@Autowired
+	ILikeDao ldao;
 
 	/********** 전체 게시물 조회 **********/
 	@RequestMapping("/shareServiceBoard")
 	public String showBoardList(Model model) {
-		model.addAttribute("list", dao.getBoardList());
+		List<ShareServiceDto> list = dao.getBoardList();
+		for(ShareServiceDto d : list) {
+			d.setSh_tags(setArraysData(d.getSh_tag(), "#"));
+			String c = d.getSh_category();
+			if(c.equals("OTT")) {
+				d.setSh_category("OTT");
+			}else if(c.equals("game")) {
+				d.setSh_category("게임");
+			}else if(c.equals("bookAndMusic")) {
+				d.setSh_category("도서/음악");
+			}
+		}
+		
+		model.addAttribute("list", list);
 		return "pieContents/shareService/shareServiceBoard";
 	}
 	
@@ -36,7 +55,20 @@ public class ShareServiceController {
 	@RequestMapping("/boardList")
 	public String showBoard(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("sh_numID");
-		model.addAttribute("board", dao.selectBoard(Integer.parseInt(sId)));
+		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
+		
+		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
+		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		/* dao.updateHit(sId); */
+		
+		String table = "shareServiceBoard";
+		if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+			model.addAttribute("like", true);
+		} else {
+			model.addAttribute("like", false);
+		}
+		
+		model.addAttribute("board", dto);
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
@@ -61,12 +93,12 @@ public class ShareServiceController {
 
 		int tempNumId = Integer.parseInt(sh_numID);
 
-		dto.setSh_numID(tempNumId);
+		dto.setSh_num(tempNumId);
 		dto.setSh_title(sh_title);
 		dto.setSh_content(sh_content);
 		dto.setSh_price(Integer.parseInt(sh_price));
 		dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
-		dto.setSh_DeadLine(sh_DeadLine);
+		dto.setSh_deadLine(sh_DeadLine);
 
 		dao.updateBoard(dto);
 
@@ -98,49 +130,66 @@ public class ShareServiceController {
 
 	/********** 게시판 작성 **********/
 	@RequestMapping("/insertBoard")
-	public String insert(HttpServletRequest request, Model model, @RequestParam("sh_filename") MultipartFile shImg) {
+	public String insert(HttpServletRequest request, Model model) {
 		// 다른 파라미터들 처리
+		/*
+		 * ShareServiceDto dto = new ShareServiceDto(); String sh_category =
+		 * request.getParameter("sh_category"); String sh_nickname =
+		 * request.getParameter("sh_nickname"); String sh_id =
+		 * request.getParameter("sh_id"); String sh_title =
+		 * request.getParameter("sh_title"); String sh_content =
+		 * request.getParameter("sh_content"); String sh_price =
+		 * request.getParameter("sh_price"); String sh_process =
+		 * request.getParameter("sh_process"); String sh_personnelMax =
+		 * request.getParameter("sh_personnelMax"); int sh_personnelNow = 0; String
+		 * sh_DeadLine = request.getParameter("sh_DeadLine");
+		 * 
+		 * // 파일 업로드 처리 if (!shImg.isEmpty()) { try { byte[] bytes = shImg.getBytes();
+		 * String fileName = shImg.getOriginalFilename(); // 파일 저장 경로 String filePath =
+		 * "src/main/resources/static/imgs/test/" + fileName; // 파일 저장
+		 * Files.write(Paths.get(filePath), bytes); // 저장된 파일 DTO에 설정
+		 * dto.setSh_filename(fileName); } catch (IOException e) { e.printStackTrace();
+		 * } }
+		 * 
+		 * dto.setSh_category(sh_category); dto.setSh_nickname(sh_nickname);
+		 * dto.setSh_id(sh_id); dto.setSh_title(sh_title);
+		 * dto.setSh_content(sh_content); dto.setSh_price(Integer.parseInt(sh_price));
+		 * dto.setSh_process(sh_process); dto.setSh_personnelNow(sh_personnelNow);
+		 * dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
+		 * dto.setSh_DeadLine(sh_DeadLine);
+		 * 
+		 * dao.insertBoard(dto);
+		 */
+		
 		ShareServiceDto dto = new ShareServiceDto();
-		String sh_category = request.getParameter("sh_category");
-		String sh_nickname = request.getParameter("sh_nickname");
-		String sh_id = request.getParameter("sh_id");
-		String sh_title = request.getParameter("sh_title");
-		String sh_content = request.getParameter("sh_content");
-		String sh_price = request.getParameter("sh_price");
-		String sh_process = request.getParameter("sh_process");
-		String sh_personnelMax = request.getParameter("sh_personnelMax");
-		int sh_personnelNow = 0;
-		String sh_DeadLine = request.getParameter("sh_DeadLine");
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
-		// 파일 업로드 처리
-		if (!shImg.isEmpty()) {
-			try {
-				byte[] bytes = shImg.getBytes();
-				String fileName = shImg.getOriginalFilename();
-				// 파일 저장 경로
-				String filePath = "src/main/resources/static/imgs/test/" + fileName;
-				// 파일 저장
-				Files.write(Paths.get(filePath), bytes);
-				// 저장된 파일 DTO에 설정
-				dto.setSh_filename(fileName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		dto.setSh_id(getSession(request, "userId"));
+		
+		System.out.println(request.getParameter("sh_category"));
+		dto.setSh_category(request.getParameter("sh_category"));
+		
+		if (mdto.getPremium().equals("pro")) {
+			dto.setSh_premium("1");
+		} else {
+			dto.setSh_premium("0");
 		}
-
-		dto.setSh_category(sh_category);
-		dto.setSh_nickname(sh_nickname);
-		dto.setSh_id(sh_id);
-		dto.setSh_title(sh_title);
-		dto.setSh_content(sh_content);
-		dto.setSh_price(Integer.parseInt(sh_price));
-		dto.setSh_process(sh_process);
-		dto.setSh_personnelNow(sh_personnelNow);
-		dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
-		dto.setSh_DeadLine(sh_DeadLine);
-
+		
+		dto.setSh_nickname(getSession(request,"nickName"));
+		dto.setSh_title(request.getParameter("sh_title"));
+		dto.setSh_content(request.getParameter("sh_content"));
+		dto.setSh_profileImg(getSession(request, "pic"));
+		dto.setSh_productImg(request.getParameter("sh_files"));
+		dto.setSh_tag(request.getParameter("pie_tagsOutput"));
+		dto.setSh_personnelMax(Integer.parseInt(request.getParameter("sh_personnelMax")));
+		dto.setSh_pricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setSh_priceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setSh_ip(request.getRemoteAddr());
+		dto.setSh_deadLine(request.getParameter("sh_deadLine"));
+		
+		
 		dao.insertBoard(dto);
-
+		
 		return "redirect:/shareServiceBoard";
 	}
 
@@ -174,6 +223,19 @@ public class ShareServiceController {
 		model.addAttribute("find", mdao.find(uId));
 		model.addAttribute("list", dao.completePay(Integer.parseInt(nid)));
 		return "pieContents/shareService/shareServiceFinish";
+	}
+	
+	private String getSession(HttpServletRequest request, String key) {
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(key);
+	}
+	
+	private String[] setArraysData(String key, String wallWord) {
+		String[] str_imgs = key.split(wallWord);
+		for (String s : str_imgs) {
+			s.replace(wallWord, "");
+		}
+		return str_imgs;
 	}
 
 }

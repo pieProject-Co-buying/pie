@@ -4,7 +4,7 @@
 	layout:decorate="~{layouts/shareService}">
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
-<div layout:fragment="shareServiceContent">
+<div layout:fragment="shareServiceContent" class="col">
 
 
 	<!--------------------------최신/오래된 순-------------------------->
@@ -30,7 +30,7 @@
 				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getSh_process}">
 					<div class="row no-gutters">
 						<div class="col-md-4 mt-2">
-							<img th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}" alt="..." class="img-fluid">
+							<img th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}" alt="..." class="img-fluid">
 						</div>
 						<!--col-->
 						<div class="col-md-8">
@@ -44,7 +44,7 @@
                         			<small class="badge badge-danger" th:text="진행마감"></small></p>                        	
                         		</th:block>
 								<span class="d-block" th:text="${board.getSh_registDay}"></span>
-								<a th:href="'boardList?sh_numID='+${board.getSh_numID()}"
+								<a th:href="'boardList?sh_numID='+${board.getSh_num()}"
 									class="btn custom-btn3 mt-3 d-block">상세보기</a>
 							</div>
 							<div class="col d-flex justify-content-end content-div mt-4">
