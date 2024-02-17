@@ -1,6 +1,6 @@
 package com.pie.pieProject.DTO;
 
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,5 +33,11 @@ public class TownBuyBoardDto {
 	private Integer to_personnelMax;
 	private String to_personnelNow;
 	private String to_ip;
+	
+	private int to_priceTotal;
+	private int to_pricePer;
+	private String[] to_productImgs;
+	private String[] to_tags;
+	private int to_like;
 	
 }

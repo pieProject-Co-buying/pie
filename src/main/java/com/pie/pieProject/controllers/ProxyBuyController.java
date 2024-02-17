@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DTO.MemberDto;
@@ -30,6 +31,8 @@ public class ProxyBuyController {
 	IProxyBuyDao dao;
 	@Autowired
 	IMemberDao mdao;
+	@Autowired
+	ILikeDao ldao;
 
 	public static String UPLOAD_DIRECTORY2 = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\test";
@@ -54,7 +57,7 @@ public class ProxyBuyController {
 		dao.updateHit(num);
 
 		String table = "proxyBuyBoard";
-		if (dao.checkLike(getSession(request, "userId"), num, table) > 0) {
+		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
 			model.addAttribute("like", true);
 		} else {
 			model.addAttribute("like", false);
@@ -67,30 +70,6 @@ public class ProxyBuyController {
 	@GetMapping("/proxyWriteForm")
 	public String proxyWriteForm() {
 		return "pieContents/proxyBuying/proxyForm";
-	}
-
-	@PostMapping("/updateHeart")
-	public ResponseEntity<Integer> updateHeartAction(@RequestParam("num") String num,
-			@RequestParam("tableName") String tableName, HttpServletRequest request) {
-		System.out.println(num);
-
-		String table = null;
-
-		if (tableName.equals("p")) {
-			table = "proxyBuyBoard";
-		}
-
-		if (dao.checkLike(getSession(request, "userId"), num, table) > 0) {
-			dao.LikeMinus(getSession(request, "userId"), num, table);
-		} else {
-			dao.LikePlus(getSession(request, "userId"), num, table);
-		}
-		dao.countLike(num, table);
-		System.out.println(table);
-		System.out.println(getSession(request, "userId"));
-		System.out.println(dao.getView(num).getPr_like());
-
-		return ResponseEntity.ok(dao.getView(num).getPr_like());
 	}
 
 	@PostMapping("/uploadAction")

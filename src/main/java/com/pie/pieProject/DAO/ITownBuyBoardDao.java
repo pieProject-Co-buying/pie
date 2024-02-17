@@ -43,6 +43,8 @@ public interface ITownBuyBoardDao {
 	//카테고리 선택
 	public List<TownBuyBoardDto> categoryDao(String category);
 	
+	public List<TownBuyBoardDto> categoryDaoNum(String category, int num);
+	
 	
 	//글쓰기
 	/*
