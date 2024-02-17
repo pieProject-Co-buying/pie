@@ -100,30 +100,34 @@
 
 
 						<a href="" class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
-							<li class="mb-2">식품 (n건)</li>
+							<li class="mb-2" th:text="|식품(${food}건)|">식품 (n건)</li>
 						</a>
 
 
 						<a href="" class="text-dark h5">
-							<li class="mb-2">생필품 (n건)</li>
-						</a>
-
-
-
-						<a href="" class="text-dark h5">
-							<li class="mb-2">아기용품 (n건)</li>
+							<li class="mb-2" th:text="|육아(${baby}건)|">생필품 (n건)</li>
 						</a>
 
 
 
 						<a href="" class="text-dark h5">
-							<li class="mb-2">의류 (n건)</li>
+							<li class="mb-2" th:text="|뷰티/패션(${beautyAndFashion}건)|">아기용품 (n건)</li>
 						</a>
 
 
 
 						<a href="" class="text-dark h5">
-							<li class="mb-2">화장품 (n건)</li>
+							<li class="mb-2" th:text="|반려동물(${pet}건)|">의류 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="text-dark h5">
+							<li class="mb-2" th:text="|생활(${life}건)|">화장품 (n건)</li>
+						</a>
+						
+						<a href="" class="text-dark h5">
+							<li class="mb-2" th:text="|기타(${etc}건)|">화장품 (n건)</li>
 						</a>
 
 					</ul>
@@ -142,30 +146,33 @@
 					<ul class="list-unstyled text-dark">
 
 						<a href="" class="badge badge-pill badge-light p-2 m-1"> <!-- 건수 불러오기 이하 동일-->
-							<li class="">식품 (n건)</li>
+							<li th:text="|식품(${food}건)|">식품 (n건)</li>
 						</a>
 
 
 						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li>생필품 (n건)</li>
+							<li th:text="|육아(${baby}건)|">생필품 (n건)</li>
 						</a>
 
 
-
 						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li>아기용품 (n건)</li>
-						</a>
-
-
-
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li>의류 (n건)</li>
+							<li th:text="|뷰티/패션(${beautyAndFashion}건)|">아기용품 (n건)</li>
 						</a>
 
 
 
 						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li>화장품 (n건)</li>
+							<li th:text="|반려동물(${pet}건)|">의류 (n건)</li>
+						</a>
+
+
+
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li th:text="|생활(${life}건)|">화장품 (n건)</li>
+						</a>
+						
+						<a href="" class="badge badge-pill badge-light p-2 m-1">
+							<li th:text="|기타(${etc}건)|">화장품 (n건)</li>
 						</a>
 
 					</ul>
@@ -181,14 +188,14 @@
 
 
 					<!-- 건수 불러오기 -->
-					<h3 class="mb-3">n건이 검색됐어요!</h3>
+					<h3 class="mb-3" th:text="|${list.size()}건이 검색됐어요!|"></h3>
 
 
 
 					<div class="row">
 
 
-						<div class="col-12 mb-2" th:each = "list:${list}">
+						<div class="col-12 mb-2" th:each = "board:${list}">
 
 							<div class="card">
 
@@ -196,16 +203,15 @@
 
 									<div class="col-12 col-md-6">
 
-										<img th:src="@{'/imgs/' + ${list.getTo_productImg()}}" alt="" class="img-fluid">
+										<img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" alt="" class="img-fluid">
 
 									</div>
 
 									<div class="col-12 col-md-6">
 
-
 										<div class="card-body">
-											<h3 th:text="${list.getTo_title()}"></h3>
-											<p class="" th:utext="${list.getTo_content()}">.</p>
+											<h3 th:text="${board.getTo_title()}"></h3>
+											<p class="" th:utext="${board.getTo_content()}">.</p>
 
 											<a href="" class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
 										</div>
