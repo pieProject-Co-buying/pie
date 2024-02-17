@@ -55,4 +55,6 @@ public interface ITownBuyBoardDao {
 	
 	public int writeDao(TownBuyBoardDto dto);
 	
+	public List<TownBuyBoardDto> listLocal(String local);
+	
 }

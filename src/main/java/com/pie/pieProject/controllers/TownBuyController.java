@@ -53,7 +53,7 @@ public class TownBuyController {
 	@RequestMapping("/townBuyproduct")
 	public String toBoardView(HttpServletRequest request, Model model) {
 		
-			String sId = request.getParameter("id");
+			String sId = request.getParameter("num");
 			
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);
@@ -78,8 +78,6 @@ public class TownBuyController {
 	@RequestMapping("/updateTownProduct")
 
 	public String update(HttpServletRequest request) {
-		
-
 	    
 	    
 		TownBuyBoardDto dto = new TownBuyBoardDto();
@@ -95,7 +93,6 @@ public class TownBuyController {
 		dto.setTo_category(request.getParameter("to_category"));
 		dto.setTo_title(request.getParameter("to_title"));
 		dto.setTo_content(request.getParameter("to_content"));
-		dto.setTo_price(request.getParameter("to_price"));
 		dto.setTo_num(Integer.parseInt(request.getParameter("id")));
 		/* dto.setTo_num(request.getParameter("id")); */
 		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
@@ -221,9 +218,21 @@ public class TownBuyController {
 
 		return "redirect:/townBuySearch";
 
-		
-
 	}
+	
+	@RequestMapping("/townBuying")
+	public String townBPage(HttpServletRequest request, Model model) {
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		String addr = mdto.getAddress_main().substring(0,6);
+
+		List<TownBuyBoardDto> list = dao.listLocal(addr);
+		model.addAttribute("list", list);
+		model.addAttribute("now",mdto.getAddress_main());
+		
+		return "pieContents/townBuying/townBuyMain";
+	}
+	
+	
 	
 	private String[] setArraysData(String key, String wallWord) {
 		String[] str_imgs = key.split(wallWord);

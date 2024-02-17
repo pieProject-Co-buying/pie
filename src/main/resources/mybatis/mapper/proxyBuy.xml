@@ -17,8 +17,7 @@
 	</select>
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from proxyBuyBoard where pr_category=#{param1}
-		order by pr_updateDay desc
+		select * from proxyBuyBoard where pr_category=#{param1} order by pr_updateDay desc
 	</select>
 	<select id="listDaoByCategoryNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
@@ -33,14 +32,12 @@
 		#{pr_id},
 		#{pr_nickname},
 		#{pr_category},
-		#{pr_premium},
 		#{pr_title},
 		#{pr_content},
 		#{pr_profileImg},
 		#{pr_productImg},
 		0,
 		#{pr_tag},
-		'서울시 중구',
 		'1',
 		sysdate,
 		sysdate,

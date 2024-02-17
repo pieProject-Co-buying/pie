@@ -40,10 +40,11 @@ public class MainController {
 	 * return "pieContents/shareServiceApply"; }
 	 */
 	
-	@RequestMapping("/townBuying")
-	public String townBPage() {
-		return "pieContents/townBuying/townBuyMain";
-	}
+	/*
+	 * @RequestMapping("/townBuying") public String townBPage() { return
+	 * "pieContents/townBuying/townBuyMain"; }
+	 */
+	
 	/*
 	 * @RequestMapping("/townBuySearch") public String townBSearchPage() { return
 	 * "pieContents/townbuySearch"; }

@@ -69,11 +69,14 @@ public class ImageUploadController {
 	public ResponseEntity<String> proxyuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
 
 		StringBuilder fileData = new StringBuilder();
+		UUID uuidOne = UUID.randomUUID();
+
+		
 		try {
 			for (MultipartFile file : files) {
 				System.out.println("Uploaded File Name: " + file.getOriginalFilename());
 				StringBuilder fileNames = new StringBuilder();
-				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, file.getOriginalFilename());
+				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, uuidOne + file.getOriginalFilename());
 				// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
 				fileNames.append(file.getOriginalFilename());
 				byte[] fileSize = file.getBytes();

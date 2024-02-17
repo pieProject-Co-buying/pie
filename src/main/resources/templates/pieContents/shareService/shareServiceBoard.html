@@ -3,7 +3,7 @@
 	layout:decorate="~{layouts/shareService}">
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
-<div layout:fragment="shareServiceContent">
+<div layout:fragment="shareServiceContent" class="col">
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
@@ -44,22 +44,24 @@
 			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}" th:attr="data-category=${board.getSh_category()}" class="col-md-4 col-sm-12 movie" style="cursor: pointer">
 				
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?sh_numID='+${board.getSh_numID()}"
+				<a th:href="'boardList?sh_numID='+${board.getSh_num()}"
 					class="card" style="cursor: pointer; text-decoration:none; color:black"> <img
-					th:src="@{imgs/test/{filename}(filename=${board.sh_filename})}"
+					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
 						<h5 class="card-title">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
-							<small> <span class="badge badge-light">#태그1</span> <span
-								class="badge badge-light">>#태그2</span> <span
-								class="badge badge-light">#태그3</span>
+							<small> <th:block
+									th:each="i : ${#numbers.sequence(1,board.getSh_tags().length-1)}">
+									<span class="badge badge-light"
+										th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+								</th:block>
 							</small>
 						</p>
 						<small th:text="${board.getSh_category()}"></small>
-						<small class="pie-writer"> <img src="" alt=""
+						<small class="pie-writer"> <img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
 							onerror="this.onerror=null; this.src='imgs/default.png';" /> <span
 							th:text="${board.getSh_nickname()}"></span>
 						</small>
@@ -94,9 +96,7 @@
 		<!--더보기 row-->
 	</div>
 	<div class="container">
-		<form action="writePost">
-			<button class="btn custom-btn">글작성</button>
-		</form>
+			<a href="writePost" class="btn custom-btn">글작성</a>
 	</div><!--container-->
 	<!--wrapper-->
 

@@ -15,10 +15,7 @@
 	<update id="countLike">
 	update ${param2} set ${param3} = (select count(*) from likeTable where boardNum = #{param1}) where ${param4} = #{param1}
 	</update>
-	<select id="getP" resultType="_int">
-		select pr_like from proxyBuyBoard where pr_num = #{param1}
-	</select>
-	<select id="getT" resultType="_int">
-		select to_like from townBuyBoard where to_num = #{param1}
+	<select id="getLike" resultType="_int">
+		select ${param1} from ${param2} where ${param3} = #{param4}
 	</select>
 </mapper>

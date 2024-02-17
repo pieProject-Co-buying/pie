@@ -29,6 +29,9 @@ public class LikeController {
 		}else if(tableName.equals("t")) {
 			table = "townBuyBoard";
 			prefix = "to_";
+		}else if(tableName.equals("s")) {
+			table = "shareServiceBoard";
+			prefix = "sh_";
 		}
 
 		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
@@ -38,12 +41,7 @@ public class LikeController {
 		}
 		ldao.countLike(num, table, prefix+"like", prefix+"num");
 		
-		int result = 0;
-		if(table.equals("proxyBuyBoard")) {
-			result = ldao.getP(num);
-		}else if(table.equals("townBuyBoard")){
-			result = ldao.getT(num);
-		}
+		int result = ldao.getLike(prefix+"like", table, prefix+"num", num);
 		
 		return ResponseEntity.ok(result);
 	}
