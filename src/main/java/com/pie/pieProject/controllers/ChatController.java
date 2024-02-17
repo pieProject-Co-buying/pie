@@ -29,7 +29,7 @@ public class ChatController {
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("pieContents/chat");
+		mv.setViewName("pieContents/chatting/chat");
 		return mv;
 	}
 	
@@ -40,7 +40,7 @@ public class ChatController {
 	@RequestMapping("/room")
 	public ModelAndView room() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("pieContents/room");
+		mv.setViewName("pieContents/chatting/room");
 		return mv;
 	}
 	
@@ -89,11 +89,11 @@ public class ChatController {
 			mv.addObject("roomName", params.get("roomName")); 
 			mv.addObject("roomNumber", params.get("roomNumber"));
 			
-			mv.setViewName("pieContents/chat");
+			mv.setViewName("pieContents/chatting/chat");
 			
 		}else {
 			
-			mv.setViewName("pieContents/room");
+			mv.setViewName("pieContents/chatting/room");
 		}
 		
 		return mv;

@@ -11,9 +11,18 @@
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard order by pr_registDay desc
 	</select>
+	<select id="listDaoByNewerNumber"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard where ROWNUM <![CDATA[ <= ]]> #{param1} order by pr_registDay desc
+	</select>
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard where pr_category=#{param1}
+		order by pr_updateDay desc
+	</select>
+	<select id="listDaoByCategoryNumber"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard where pr_category=#{param1} and ROWNUM <![CDATA[ <= ]]> #{param2}
 		order by pr_updateDay desc
 	</select>
 	<select id="getView">

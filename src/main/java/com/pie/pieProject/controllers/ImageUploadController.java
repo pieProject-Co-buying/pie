@@ -1,6 +1,5 @@
 package com.pie.pieProject.controllers;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.json.simple.JSONObject;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,21 +17,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ImageUploadController {
-	public static String UPLOAD_DIRECTORY2 = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\imgs\\test";
+	public static String UPLOAD_DIRECTORY2 = System.getProperty("user.dir")
+			+ "\\src\\main\\resources\\static\\imgs\\test";
 
 	@PostMapping("/uploadSummernoteImageFile")
 	@ResponseBody
-	public JSONObject uploadImage(Model model, @RequestParam("file") MultipartFile file, Object msg) throws IOException {
+	public JSONObject uploadImage(Model model, @RequestParam("file") MultipartFile file, Object msg)
+			throws IOException {
 		JSONObject obj = new JSONObject();
 //		System.out.println(UPLOAD_DIRECTORY_Edit);
 		StringBuilder fileNames = null;
-		  UUID uuidOne = UUID.randomUUID();
+		UUID uuidOne = UUID.randomUUID();
 
 		try {
 			fileNames = new StringBuilder();
-			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, uuidOne+file.getOriginalFilename());
+			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, uuidOne + file.getOriginalFilename());
 			// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
-			fileNames.append(uuidOne+file.getOriginalFilename());
+			fileNames.append(uuidOne + file.getOriginalFilename());
 			byte[] fileSize = file.getBytes();
 
 			Files.write(fileNameAndPath, fileSize);
@@ -44,7 +45,7 @@ public class ImageUploadController {
 			System.out.println("==============================================");
 			obj.put("success", true);
 			obj.put("업로드 결과", "성공");
-			obj.put("url", "imgs/test/"+fileNames.toString());
+			obj.put("url", "imgs/test/" + fileNames.toString());
 			obj.put("파일 저장명", fileNameAndPath);
 			obj.put("파일 용량", fileSize.length + "byte");
 			model.addAttribute("fileName", fileNames);
@@ -59,9 +60,34 @@ public class ImageUploadController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} // 이미지 폴더 새로고침 시간용 딜레이
-		
+
 		return obj;
 //		return obj.toJSONString();
+	}
+
+	@PostMapping("/imageUploading")
+	public ResponseEntity<String> proxyuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
+
+		StringBuilder fileData = new StringBuilder();
+		try {
+			for (MultipartFile file : files) {
+				System.out.println("Uploaded File Name: " + file.getOriginalFilename());
+				StringBuilder fileNames = new StringBuilder();
+				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, file.getOriginalFilename());
+				// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
+				fileNames.append(file.getOriginalFilename());
+				byte[] fileSize = file.getBytes();
+				Files.write(fileNameAndPath, fileSize);
+				System.out.println(fileNames + "업로드완료");
+
+				fileData.append(file.getOriginalFilename());
+				fileData.append("/");
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return ResponseEntity.ok(fileData.toString());
 	}
 
 }
@@ -112,7 +138,7 @@ public class ImageUploadController {
  * null 반환
  * 
  * file.toPath() -> file 객체를 Path객체로 변환
- *   
+ * 
  * 
  * header.add("Content-type", Files.probeContentType(file.toPath()));
  * 

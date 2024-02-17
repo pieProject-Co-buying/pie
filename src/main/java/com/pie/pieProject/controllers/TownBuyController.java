@@ -35,7 +35,7 @@ public class TownBuyController {
 		 * model.addAttribute("premiumList", dao.listPremiumDao());
 		 */
 
-		return "pieContents/townBuySearch";
+		return "pieContents/townBuying/townBuySearch";
 
 	}
 
@@ -45,7 +45,7 @@ public class TownBuyController {
 		String sId = request.getParameter("id");
 		model.addAttribute("list", dao.viewDao(sId));
 
-		return "pieContents/townBuyproduct";
+		return "pieContents/townBuying/townBuyproduct";
 
 	}
 
@@ -97,7 +97,7 @@ public class TownBuyController {
 
 		model.addAttribute("list", dao.viewDao(sId));
 
-		return "pieContents/updateTownProductForm";
+		return "pieContents/townBuying/updateTownProductForm";
 
 	}
 	
@@ -121,7 +121,7 @@ public class TownBuyController {
 
 		model.addAttribute("list", dao.searchDao(townKeyword));
 
-		return "pieContents/townBuySearchResult";
+		return "pieContents/townBuying/townBuySearchResult";
 
 	}
 
@@ -133,7 +133,7 @@ public class TownBuyController {
 
 		model.addAttribute("list", dao.categoryDao(category));
 
-		return "pieContents/townBuyingCategory";
+		return "pieContents/townBuying/townBuyingCategory";
 
 	}
 	

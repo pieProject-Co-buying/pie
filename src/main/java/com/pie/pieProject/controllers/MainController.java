@@ -27,7 +27,7 @@ public class MainController {
 	
 	@RequestMapping("/shareService")
 	public String shareSPage() {
-		return "pieContents/shareServiceMain";
+		return "pieContents/shareService/shareServiceMain";
 	}
 	
 	/*
@@ -42,7 +42,7 @@ public class MainController {
 	
 	@RequestMapping("/townBuying")
 	public String townBPage() {
-		return "pieContents/townBuyMain";
+		return "pieContents/townBuying/townBuyMain";
 	}
 	/*
 	 * @RequestMapping("/townBuySearch") public String townBSearchPage() { return
@@ -51,17 +51,17 @@ public class MainController {
 	
 	@RequestMapping("/townBuyingCategory")
 	public String townBCateogrizePage() {
-		return "pieContents/townBuyingCategory";
+		return "pieContents/townBuying/townBuyingCategory";
 	}
 	
 	@RequestMapping("/townBuySearchResult")
 	public String townBResultPage() {
-		return "pieContents/townBuySearchResult";
+		return "pieContents/townBuying/townBuySearchResult";
 	}
 	
 	@RequestMapping("/townBuyResult")
 	public String townBApplyResultPage() {
-		return "pieContents/townBuyResult";
+		return "pieContents/townBuying/townBuyResult";
 	}
 	
 	/*
@@ -71,34 +71,34 @@ public class MainController {
 	
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage() {
-		return "pieContents/proxyBuyMain";
+		return "pieContents/proxyBuying/proxyBuyMain";
 	}
 	
 	@RequestMapping("/proxyBuyApply")
 	public String proxyBApplyPage() {
-		return "pieContents/proxyBuyApply";
+		return "pieContents/proxyBuying/proxyBuyApply";
 	}
 	
 	@RequestMapping("/proxyBuyBest")
 	public String proxyBBestPage() {
-		return "pieContents/proxyBuyBest";
+		return "pieContents/proxyBuying/proxyBuyBest";
 	}
 	
-	@RequestMapping("/proxyBuyProducts")
-	public String proxyBProductsPage() {
-		return "pieContents/proxyBuyProducts";
-	}
+	/*
+	 * @RequestMapping("/proxyBuyProducts") public String proxyBProductsPage() {
+	 * return "pieContents/proxyBuying/proxyBuyProducts"; }
+	 */
 	/*****************같이 씁시다 페이지*****************/
 	@RequestMapping("/shareServiceProduct")
 	public String shareSProductPage() {
-		return "pieContents/shareServiceProduct";
+		return "pieContents/shareService/shareServiceProduct";
 	}
 	@RequestMapping("/finish")
 	public String shareSFinishPage() {
-		return "pieContents/shareServiceFinish";
+		return "pieContents/shareService/shareServiceFinish";
 	}
 	@RequestMapping("/townForm")
 	public String townFormPage() {
-		return "pieContents/townForm";
+		return "pieContents/townBuying/townForm";
 	}
 }
