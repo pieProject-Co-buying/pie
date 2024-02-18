@@ -32,8 +32,8 @@ slider.addEventListener('mousemove', e => {
 //태그 작성
 let pie_tags_input = $("#pie_tags_input");
 let tagGroup = $("#tagGroup");
-let tags_str = '';
 let pie_tagsOutput = $("#pie_tagsOutput");
+let tags_str = pie_tagsOutput.val();
 
 
 pie_tags_input.keyup(function(key) {
@@ -60,12 +60,19 @@ pie_tags_input.keyup(function(key) {
 	}
 })
 
+let originalfileArray = $("#ori_files").val();
+
 $(document).on("click", "span.badge", function(event) {
-	let removedtag = $(this).text();
+	let removedtag = $(this).find("span").text();
 	tags_str = tags_str.replace(removedtag, '');
+
+	console.log(removedtag);
+	console.log(tags_str);
+
 	pie_tagsOutput.val(tags_str);
 
 	$(this).remove();
+
 
 	let tagNum = $("#tagGroup .badge").length;
 
@@ -74,9 +81,33 @@ $(document).on("click", "span.badge", function(event) {
 	}
 })
 
+function deleteFileNum(num) {
+	document.querySelector("#file" + num).remove();
+	filesArr[num].is_delete = true;
+
+	let maxFileCnt = 5;
+	let attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
+	let remainFileCnt = maxFileCnt - attFileCnt;
+
+	if (remainFileCnt > 0) {
+		$(".btn-upload").show();
+	}
+
+}
+
 // 이미지 파일 삽입하기
-var fileNo = 0;
 var filesArr = new Array();
+/*첨부되어있는 파일 load 해오기*/
+let loadFiles = $("#files").val().split("/")
+let idx = loadFiles.indexOf("");
+let removed = loadFiles.splice(idx, 1);
+var fileNo = 0;
+
+let originFile = $("#files").val();
+
+console.log(idx);
+console.log(loadFiles);
+
 
 /* 첨부파일 추가 */
 function addFile(event) {
@@ -103,7 +134,7 @@ function addFile(event) {
 					reader.readAsDataURL(file);
 				}).then(function(result) {
 					filesArr.push(file);
-					let htmlData = "<figure onclick = 'deleteFile(" + fileNo + ")'><img src ='" + result + "' id='file" + fileNo + "' class='pie-img-viewsThumbs'><figcaption></figcaption><figure>";
+					let htmlData = "<figure onclick = 'deleteFileNum(" + fileNo + ")'><img src ='" + result + "' id='file" + fileNo + "' class='pie-img-viewsThumbs'><figcaption></figcaption><figure>";
 					$('.file-uploadGroup').append(htmlData);
 					fileNo++;
 				});
@@ -142,23 +173,27 @@ function validation(obj) {
 }
 
 /* 첨부파일 삭제 */
-function deleteFile(num) {
-	document.querySelector("#file" + num).remove();
-	filesArr[num].is_delete = true;
+function deleteFile(obj) {
+	var parent = obj.parentNode;
+	parent.removeChild(obj);
+	let deletedOrignFileStr;
+	let deletedOrignFile = obj.getAttribute('data-originFile');
+	deletedOrignFileStr = originalfileArray.replace(deletedOrignFile+"/", '');
+	console.log(deletedOrignFileStr);
+	originalfileArray = deletedOrignFileStr;
 
 	let maxFileCnt = 5;
 	let attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
 	let remainFileCnt = maxFileCnt - attFileCnt;
-
+	
 	if (remainFileCnt > 0) {
 		$(".btn-upload").show();
 	}
-
+	
 }
 
 /* 폼 전송 */
 function submitForm() {
-
 	// 폼데이터 담기
 	var form = document.proxyForm;
 	var formData = new FormData(form);
@@ -168,81 +203,31 @@ function submitForm() {
 			formData.append("attach_file", filesArr[i]);
 		}
 	}
+	formData.append("original", originalfileArray)
+	
 	$.ajax({
 		method: 'POST',
-		url: '/imageUploading',
+		url: '/imageUpdating',
 		data: formData,
 		contentType: false,
 		processData: false,
 		success: function(response) {
 			console.log('전송 성공', response);
 			$("#files").val(response);
-			
+
 			let url = window.location.href;
-			var str = url.substring(url.lastIndexOf('/') + 1);
+			var str = url.substring(url.lastIndexOf('/') + 1,url.indexOf('?'));
 			console.log(str);
-			
-			if(str=='townForm') document.townForm.submit();
-			else if(str=='proxyWriteForm') document.proxyForm.submit();
-			else if(str=='writePost') document.shareForm.submit();
+
+			if (str == 'updateTownProductForm') document.townUpdateForm.submit();
+			else if (str == 'updateProxyForm') document.proxyUpdateForm.submit();
+			else if (str == 'writePost') document.shareForm.submit();
 		},
 		error: function(xhr, desc, err) {
 			console.error('전송 실패', err);
 		}
 	});
 }
-
-/*var sel_files = [];
-	
-$(function(){
-	$("#file").on("change", handleImgFileSelect);
-});
-	
-function fileUploadAction(e){
-	console.log("fileUploadAction")
-	$("#file").trigger('click');
-}
-	
-function handleImgFileSelect(e){
-	sel_files = [];
-	$(".file-uploadGroup").empty();
-	
-	let files = e.target.files;
-	let filesArr = Array.prototype.slice.call(files);
-	
-	let i = 0;
-	filesArr.forEach(function(event){
-		if(!event.type.match("image.*")){
-			alert("확장자는 이미지 확장자만 가능합니다.");
-			return;
-		}
-		
-		sel_files.push(event);
-		
-		var reader = new FileReader();
-		reader.onload = function(e){
-			let html = "<img src ="+e.target.result +">";
-			$(".file-uploadGroup").append(html);
-			i++;
-		}
-		reader.readAsDataURL(event);
-	})
-}*/
-
-/*function imageChange(event) {
-	let i = event.target.files.length - 1;
-	for (let image of event.target.files) {
-		const reader = new FileReader();
-		reader.onload = function (event) {
-			let img = document.createElement("img");
-			img.setAttribute("src", event.target.result);
-			img.setAttribute("width", 120);
-			img.setAttribute("height", 120);
-			document.querySelector(".file-uploadGroup").appendChild(img);
-		}
-		reader.readAsDataURL(event.target.files[i--]);
-	}
-} 감지가 느림*/
 
 $(function() {
 	// 가격 계산하기
@@ -303,24 +288,6 @@ $(function() {
 		disableDragAndDrop: true
 	});
 
-	/*function uploadSummernoteImageFile(file, editor) {
-		var resultUrl;
-
-		data = new FormData();
-		data.append("file", file);
-
-		$.ajax({
-			data: data,
-			type: "POST",
-			url: "/uploadSummernoteImageFile",
-			contentType: false,
-			processData: false,
-			success: function (data) {
-				$(editor).summernote('insertImage', data.url);
-			}
-		});
-
-	}*/
 
 	$("#uploadBtn").on('click', submitForm);
 
@@ -329,23 +296,20 @@ $(function() {
 	let input = $("#h-input");
 	let selectCategory = $(".dropdown button")
 
+	let c = selectCategory.attr("data-category");
+	let ctext;
+
+	if (c == 'food') ctext = '식품';
+	else if (c == 'baby') ctext = '육아';
+	else if (c == 'beautyAndFashion') ctext = '뷰티/패션';
+	else if (c == 'pet') ctext = '반려동물';
+	else if (c == 'life') ctext = '생활';
+	else if (c == 'etc') ctext = '기타';
+
+	selectCategory.text(ctext);
+	input.val(c);
+
 	category.click(function() {
-		/*let idx = $(this).index();
-
-		if (idx === 0) {
-			input.val("OTT");
-			$("#h-input").val("OTT");
-			selectCategory.text("OTT");
-		} else if (idx === 1) {
-			input.val("게임");
-			$("#h-input").val("게임");
-			selectCategory.text("게임");
-		} else if (idx === 2) {
-			input.val("도서/음악");
-			$("#h-input").val("도서/음악");
-			selectCategory.text("도서/음악");
-		}*/
-
 		selectCategory.text($(this).text());
 		input.val($(this).attr("data-category"))
 		console.log(input.val());
