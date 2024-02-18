@@ -1,20 +1,14 @@
 package com.pie.pieProject.controllers;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
-import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +17,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProxyBuyController {
@@ -50,9 +43,12 @@ public class ProxyBuyController {
 
 	@GetMapping("/viewProxyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
+		System.out.println(num);
 		dao.updateHit(num);
+		System.out.println("chkpoint1");
 		
 		ProxyBuyBoardDto dto = dao.getView(num);
+		System.out.println("chkpoint2");
 		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
 		dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
 
@@ -62,6 +58,7 @@ public class ProxyBuyController {
 		} else {
 			model.addAttribute("like", false);
 		}
+		System.out.println("chkpoint3");
 
 		model.addAttribute("board", dto);
 		return "pieContents/proxyBuying/proxyBuyProduct";
@@ -96,6 +93,45 @@ public class ProxyBuyController {
 		dto.setPr_ip(request.getRemoteAddr());
 		dao.insertProxyBoard(dto);
 
+		return "redirect:/proxyBuyProducts";
+	}
+	
+	@GetMapping("/updateProxyForm")
+	public String proxyUpdateForm(@RequestParam("num") String num, Model model) {
+		System.out.println(num);
+		ProxyBuyBoardDto dto = dao.getView(num);
+		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
+		dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+		model.addAttribute("board",dto);
+		return "/pieContents/proxyBuying/proxyupdateForm";
+	}
+	
+	@PostMapping("/updateProxyAction")
+	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("pr_title") String title, @RequestParam("pr_content") String content,
+			@RequestParam("pr_files") String pictures, @RequestParam("pie_tagsOutput") String tags,
+			@RequestParam("pr_deadLine") String deadLine, @RequestParam("pr_personnelMax") String pr_personnelMax,
+			@RequestParam("price_total") String pr_priceTotal, @RequestParam("price_per") String pr_pricePer,
+			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
+		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
+
+		dto.setPr_num(num);
+		dto.setPr_category(pr_category);
+		dto.setPr_title(title);
+		dto.setPr_content(content);
+		dto.setPr_productImg(pictures);
+		dto.setPr_tag(tags);
+		dto.setPr_deadLine(deadLine);
+		dto.setPr_personnelMax(Integer.parseInt(pr_personnelMax));
+		dto.setPr_priceTotal(Integer.parseInt(pr_priceTotal));
+		dto.setPr_pricePer(Integer.parseInt(pr_pricePer));
+		dto.setPr_ip(request.getRemoteAddr());
+		dao.updateProxyBoard(dto);
+
+		return "redirect:/viewProxyBoard?num="+num;
+	}
+	@GetMapping("/deleteProxyAction")
+	public String proxyDeleteForm(@RequestParam("num") String num, Model model){
+		dao.deleteProxyBoard(num);
 		return "redirect:/proxyBuyProducts";
 	}
 

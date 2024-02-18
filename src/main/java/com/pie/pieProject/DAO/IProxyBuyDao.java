@@ -23,4 +23,8 @@ public interface IProxyBuyDao {
 	public void insertProxyBoard(ProxyBuyBoardDto dto);
 
 	public void updateHit(String num);
+	
+	public void updateProxyBoard(ProxyBuyBoardDto dto);
+	
+	public void deleteProxyBoard(String num);
 }

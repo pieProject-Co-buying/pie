@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head th:replace="~{pieFragments/head::head}" />
+
+<body>
+	<!--<h1>Bootstrap 기본설정완료</h1>-->
+	<div id="wrapper" class="container-fluid p-0">
+		<header>
+			<div th:replace="~{pieFragments/gnb::gnb}" />
+			<div class="container-fluid p-0">
+				<div class="row pie-title" id="shareServiceTitle">
+					<div class="col p-0 d-flex justify-content-center align-items-center">
+						<div class="text-center mt-5 pt-3 text-white">
+							<h1 class="font-weight-bold">나누면 배가 되는 즐거움!</h1>
+							<p>
+								<small>혼자 사용하기 부담스러웠던 서비스가 있다면 나눠보세요!</small><br /> <small>부담은
+									더욱 작게! 즐거움은 더욱 크게!</small>
+							</p>
+						</div>
+					</div>
+				</div>
+				<!--row-->
+			</div>
+		</header>
+
+		<main>
+			<section class="pie-section-py">
+				<div class="row justify-content-center px-4 mt-5 no-gutters">
+					<div layout:fragment="formContent"></div>
+				</div>
+			</section>
+		</main>
+		<!-- ###############################################
+				footer #footer - footer 영역
+		############################################### -->
+
+		<div th:replace="~{pieFragments/footer::footer}" />
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+	<script src="js/updateform.js"></script>
+</body>
+
+</html>

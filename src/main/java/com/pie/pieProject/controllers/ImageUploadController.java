@@ -66,17 +66,16 @@ public class ImageUploadController {
 	}
 
 	@PostMapping("/imageUploading")
-	public ResponseEntity<String> proxyuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
+	public ResponseEntity<String> imageuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
 
 		StringBuilder fileData = new StringBuilder();
 		UUID uuidOne = UUID.randomUUID();
 
-		
 		try {
 			for (MultipartFile file : files) {
 				System.out.println("Uploaded File Name: " + file.getOriginalFilename());
 				StringBuilder fileNames = new StringBuilder();
-				
+
 				String newFileName = uuidOne + file.getOriginalFilename();
 				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, newFileName);
 				// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
@@ -93,6 +92,47 @@ public class ImageUploadController {
 		}
 
 		return ResponseEntity.ok(fileData.toString());
+	}
+
+	@PostMapping("/imageUpdating")
+	public ResponseEntity<String> imageupdateAction(@RequestParam(name = "attach_file", required = false) MultipartFile[] files,
+			@RequestParam("original") String orinalFile) {
+
+		StringBuilder fileData = new StringBuilder();
+		UUID uuidOne = UUID.randomUUID();
+
+		try {
+			if (files!=null) {
+				for (MultipartFile file : files) {
+					System.out.println("Uploaded File Name: " + file.getOriginalFilename());
+					StringBuilder fileNames = new StringBuilder();
+
+					String newFileName = uuidOne + file.getOriginalFilename();
+					Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, newFileName);
+					// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
+					fileNames.append(file.getOriginalFilename());
+					byte[] fileSize = file.getBytes();
+					Files.write(fileNameAndPath, fileSize);
+					System.out.println(fileNames + "업로드완료");
+
+					fileData.append(newFileName);
+					fileData.append("/");
+				}
+			}
+			fileData.insert(0, orinalFile);
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+		return ResponseEntity.ok(fileData.toString());
+	}
+
+	private String[] setArraysData(String key, String wallWord) {
+		String[] str_imgs = key.split(wallWord);
+		for (String s : str_imgs) {
+			s.replace(wallWord, "");
+		}
+		return str_imgs;
 	}
 
 }

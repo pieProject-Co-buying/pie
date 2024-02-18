@@ -18,6 +18,7 @@ import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
+import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -81,6 +82,7 @@ public class TownBuyController {
 	    
 	    
 		TownBuyBoardDto dto = new TownBuyBoardDto();
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
 		
 		System.out.println(request.getParameter("to_category"));
 		System.out.println(request.getParameter("to_title"));
@@ -88,25 +90,28 @@ public class TownBuyController {
 		System.out.println(request.getParameter("to_price"));
 		System.out.println(request.getParameter("to_personnelMax"));
 		System.out.println(request.getParameter("to_deadLine"));
-		System.out.println(request.getParameter("id"));
+		System.out.println(request.getParameter("num"));
 
 		dto.setTo_category(request.getParameter("to_category"));
 		dto.setTo_title(request.getParameter("to_title"));
 		dto.setTo_content(request.getParameter("to_content"));
-		dto.setTo_num(Integer.parseInt(request.getParameter("id")));
+		dto.setTo_num(Integer.parseInt(request.getParameter("num")));
 		/* dto.setTo_num(request.getParameter("id")); */
 		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
 		dto.setTo_deadLine(request.getParameter("to_deadLine"));
-
+		dto.setTo_productImg(request.getParameter("to_files"));
+		dto.setTo_tag(request.getParameter("pie_tagsOutput"));
 		
+		dto.setTo_address(mdto.getAddress_main());
+		dto.setTo_pricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setTo_priceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setTo_ip(request.getRemoteAddr());
 		
 		
 		dao.updateDao(dto);
 		
-	
 
-
-		return "redirect:/townBuyproduct?id=" + request.getParameter("id");
+		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
 
 		// return "redirect:/townBuyproduct?id="+sId;
 		// 리턴시 어떤 id를 갖고 있는 페이지로 갈건지 지정해주지 않아서 에러
@@ -114,16 +119,15 @@ public class TownBuyController {
 
 	@RequestMapping("/updateTownProductForm")
 	public String updateForm(HttpServletRequest request, Model model) {
-
-		String sId = request.getParameter("id");
-
-		model.addAttribute("list", dao.viewDao(sId));
-
+		String sId = request.getParameter("num");
+		
+		TownBuyBoardDto dto = dao.viewDao(sId);
+		dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
+		dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+		model.addAttribute("board", dto);
 		return "pieContents/townBuying/updateTownProductForm";
 
 	}
-	
-	
 
 	
 	@RequestMapping("/deleteTownProduct")
