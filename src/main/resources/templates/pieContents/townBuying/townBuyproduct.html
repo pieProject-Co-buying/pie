@@ -168,14 +168,22 @@
 								<th:block th:if="${like}">
 									<span class="pie-heart-icon pie-icons mx-2 active"></span>
 								</th:block>
+								
+								
+								<!-- 버튼 클릭시 chat으로 이동-->								
 								<th:block th:if="${!like}">
 									<span class="pie-heart-icon pie-icons mx-2"></span>
 								</th:block>
 
-								<small id="likeCount" th:text="${board.getTo_like()}">12</small> <span
-									class="pie-share-icon pie-icons mx-3"></span> <span
-									class="pie-chat-icon pie-icons"></span>
+
+								<small id="likeCount" th:text="${board.getTo_like()}">12</small>
+									<span class="pie-share-icon pie-icons mx-3"></span>
+									
+									
+									<!-- 버튼 클릭시 chat으로 이동되도록 추가-->	
+									<a class="pie-chat-icon pie-icons"  th:href="chat"></a>
 							</div>
+							
 						</div>
 						<hr>
 						<div class="d-flex align-items-end justify-content-between">
