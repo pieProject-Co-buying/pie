@@ -35,85 +35,114 @@ public class ShareServiceController {
 	@RequestMapping("/shareServiceBoard")
 	public String showBoardList(Model model) {
 		List<ShareServiceDto> list = dao.getBoardList();
-		for(ShareServiceDto d : list) {
+		for (ShareServiceDto d : list) {
 			d.setSh_tags(setArraysData(d.getSh_tag(), "#"));
 			String c = d.getSh_category();
-			if(c.equals("OTT")) {
+			if (c.equals("OTT")) {
 				d.setSh_category("OTT");
-			}else if(c.equals("game")) {
+			} else if (c.equals("game")) {
 				d.setSh_category("게임");
-			}else if(c.equals("bookAndMusic")) {
+			} else if (c.equals("bookAndMusic")) {
 				d.setSh_category("도서/음악");
 			}
 		}
-		
+
 		model.addAttribute("list", list);
 		return "pieContents/shareService/shareServiceBoard";
 	}
-	
+
 	/********** 게시물 상세 페이지 **********/
 	@RequestMapping("/boardList")
 	public String showBoard(HttpServletRequest request, Model model) {
-		String sId = request.getParameter("sh_numID");
+		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
-		
+
 		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
 		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
 		/* dao.updateHit(sId); */
-		
+
 		String table = "shareServiceBoard";
 		if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
 			model.addAttribute("like", true);
 		} else {
 			model.addAttribute("like", false);
 		}
-		
+
 		model.addAttribute("board", dto);
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
 	/********** 해당 게시물 수정 페이지 이동 **********/
-	@RequestMapping("/modifyForm")
+	@RequestMapping("/updateShareBoardForm")
 	public String modify(HttpServletRequest request, Model model) {
-		String sId = request.getParameter("sh_numID");
-		model.addAttribute("board", dao.selectBoard(Integer.parseInt(sId)));
-		return "pieContents/shareService/shareServiceModify";
+		String sId = request.getParameter("num");
+
+		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
+
+		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
+		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		/* dao.updateHit(sId); */
+
+		String table = "shareServiceBoard";
+		if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+			model.addAttribute("like", true);
+		} else {
+			model.addAttribute("like", false);
+		}
+
+		model.addAttribute("board", dto);
+
+		return "pieContents/shareService/shareServiceUpdate";
 	}
-	
+
 	/********** 해당 게시물 수정 **********/
-	@RequestMapping("/updateBoard")
+	@RequestMapping("/updateShareBoard")
 	public String update(HttpServletRequest request, Model model) {
 		ShareServiceDto dto = new ShareServiceDto();
-		String sh_numID = request.getParameter("sh_numID");
+		String sh_numID = request.getParameter("num");
 		String sh_title = request.getParameter("sh_title");
 		String sh_content = request.getParameter("sh_content");
-		String sh_price = request.getParameter("sh_price");
 		String sh_personnelMax = request.getParameter("sh_personnelMax");
-		String sh_DeadLine = request.getParameter("sh_DeadLine");
+		String sh_DeadLine = request.getParameter("sh_deadLine");
 
 		int tempNumId = Integer.parseInt(sh_numID);
+		
+		System.out.println(sh_numID);
+		System.out.println(sh_title);
+		System.out.println(sh_content);
+		System.out.println(sh_personnelMax);
+		System.out.println(sh_DeadLine);
+		System.out.println(request.getParameter("price_per"));
+		System.out.println(request.getParameter("price_total"));
+		System.out.println(request.getParameter("sh_files"));
+		System.out.println(request.getParameter("pie_tagsOutput"));
 
 		dto.setSh_num(tempNumId);
 		dto.setSh_title(sh_title);
 		dto.setSh_content(sh_content);
-		dto.setSh_price(Integer.parseInt(sh_price));
+		dto.setSh_pricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setSh_priceTotal(Integer.parseInt(request.getParameter("price_total")));
 		dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
+		dto.setSh_productImg(request.getParameter("sh_files"));
+		dto.setSh_category(request.getParameter("sh_category"));
+		dto.setSh_tag(request.getParameter("pie_tagsOutput"));
+		dto.setSh_ip(request.getRemoteAddr());
 		dto.setSh_deadLine(sh_DeadLine);
 
 		dao.updateBoard(dto);
 
-		return "redirect:/boardList?sh_numID=" + sh_numID;
+		return "redirect:/boardList?num=" + sh_numID;
 	}
-	
+
 	/********** 해당 게시물 삭제 **********/
-	@RequestMapping("/delete")
+	@RequestMapping("/deleteShareService")
 	public String delete(HttpServletRequest request, Model model) {
-		String sId = request.getParameter("sh_numID");
+		String sId = request.getParameter("num");
 		int id = Integer.parseInt(sId);
 		dao.deleteBoard(id);
 		return "redirect:/shareServiceBoard";
 	}
-	
+
 	/********** 제목, 내용 기반 검색 **********/
 	@RequestMapping("/searchTitle")
 	public String search(HttpServletRequest request, Model model) {
@@ -160,22 +189,22 @@ public class ShareServiceController {
 		 * 
 		 * dao.insertBoard(dto);
 		 */
-		
+
 		ShareServiceDto dto = new ShareServiceDto();
 		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
 		dto.setSh_id(getSession(request, "userId"));
-		
+
 		System.out.println(request.getParameter("sh_category"));
 		dto.setSh_category(request.getParameter("sh_category"));
-		
+
 		if (mdto.getPremium().equals("pro")) {
 			dto.setSh_premium("1");
 		} else {
 			dto.setSh_premium("0");
 		}
-		
-		dto.setSh_nickname(getSession(request,"nickName"));
+
+		dto.setSh_nickname(getSession(request, "nickName"));
 		dto.setSh_title(request.getParameter("sh_title"));
 		dto.setSh_content(request.getParameter("sh_content"));
 		dto.setSh_profileImg(getSession(request, "pic"));
@@ -186,10 +215,9 @@ public class ShareServiceController {
 		dto.setSh_priceTotal(Integer.parseInt(request.getParameter("price_total")));
 		dto.setSh_ip(request.getRemoteAddr());
 		dto.setSh_deadLine(request.getParameter("sh_deadLine"));
-		
-		
+
 		dao.insertBoard(dto);
-		
+
 		return "redirect:/shareServiceBoard";
 	}
 
@@ -211,25 +239,25 @@ public class ShareServiceController {
 		// 뷰 이름 반환
 		return "pieContents/shareService/shareServiceApply";
 	}
-	
+
 	/********** 결제완료 페이지 이동 **********/
 	@RequestMapping("/shareServiceFinish")
 	public String goFinish(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 
 		String uId = (String) session.getAttribute("userId");
-		String nid=request.getParameter("sh_numID");
-		
+		String nid = request.getParameter("sh_numID");
+
 		model.addAttribute("find", mdao.find(uId));
 		model.addAttribute("list", dao.completePay(Integer.parseInt(nid)));
 		return "pieContents/shareService/shareServiceFinish";
 	}
-	
+
 	private String getSession(HttpServletRequest request, String key) {
 		HttpSession session = request.getSession();
 		return (String) session.getAttribute(key);
 	}
-	
+
 	private String[] setArraysData(String key, String wallWord) {
 		String[] str_imgs = key.split(wallWord);
 		for (String s : str_imgs) {
