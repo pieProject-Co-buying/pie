@@ -28,7 +28,7 @@
 						<div class="col">
 						
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
-							<div id="chating" class="chating border py-2 px-2"></div>							
+							<div id="chating" class="chating border py-2 px-2 rounded shadow"></div>							
 						
 						</div>
 					
@@ -49,7 +49,7 @@
 						
 						<div class="inputTable col-3">
 						
-							<button onclick="chatName()" id="startBtn" class="btn btn-outline-secondary w-100" >시작</button>
+							<button onclick="chatName()" id="startBtn" class="btn pie-btn-red w-100" >시작</button>
 
 						</div>
 	
@@ -71,7 +71,7 @@
 						
 						<div class="inputTable col-3">
 						
-							<button onclick="send()" id="sendBtn" class="btn btn-outline-secondary w-100">전송</button>
+							<button onclick="send()" id="sendBtn" class="btn pie-btn-red w-100">전송</button>
 
 						</div>
 						
@@ -152,10 +152,10 @@
 					} else if(d.type == "message"){
 						
 						if(d.sessionId == $("#sessionId").val()){
-							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-2 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
+							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
 							
 						} else {
-							$("#chating").append("<div class='others text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
+							$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
 						}
 							
 					} else{
@@ -176,7 +176,7 @@
 			var userName = $("#userName").val();
 			
 			if(userName == null || userName.trim() == ""){
-				alert("사용자 이름을 입력해주세요.");
+				alert("로그인해주세요");
 				$("#userName").focus();
 				
 			} else {
