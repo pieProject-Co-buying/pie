@@ -133,7 +133,7 @@ public class TownBuyController {
 	@RequestMapping("/deleteTownProduct")
 	public String delete(HttpServletRequest request) {
 
-		String sId = request.getParameter("id");
+		String sId = request.getParameter("num");
 		dao.deleteDao(sId);
 
 		return "redirect:/townBuySearch";

@@ -63,7 +63,7 @@ pie_tags_input.keyup(function(key) {
 let originalfileArray = $("#ori_files").val();
 
 $(document).on("click", "span.badge", function(event) {
-	let removedtag = $(this).find("span").text();
+	let removedtag = "#"+$(this).find("span").text();
 	tags_str = tags_str.replace(removedtag, '');
 
 	console.log(removedtag);
@@ -221,7 +221,7 @@ function submitForm() {
 
 			if (str == 'updateTownProductForm') document.townUpdateForm.submit();
 			else if (str == 'updateProxyForm') document.proxyUpdateForm.submit();
-			else if (str == 'writePost') document.shareForm.submit();
+			else if (str == 'updateShareBoardForm') document.shareUpdateForm.submit();
 		},
 		error: function(xhr, desc, err) {
 			console.error('전송 실패', err);
@@ -305,6 +305,10 @@ $(function() {
 	else if (c == 'pet') ctext = '반려동물';
 	else if (c == 'life') ctext = '생활';
 	else if (c == 'etc') ctext = '기타';
+	else if( c == 'OTT') ctext = 'OTT';
+	else if( c == 'game') ctext = '게임';
+	else if( c == 'bookAndMusic') ctext = '도서/음악';
+	
 
 	selectCategory.text(ctext);
 	input.val(c);

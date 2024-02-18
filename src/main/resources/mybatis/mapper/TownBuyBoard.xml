@@ -44,7 +44,9 @@
 		to_deadLine=TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'),
 		to_personnelMax=#{to_personnelMax}, to_priceTotal=#{to_priceTotal},
 		to_pricePer=#{to_pricePer}, to_ip=#{to_ip}, to_updateDay=sysdate, to_address = #{to_address} where
-		to_num=#{to_num} </update>
+		to_num=#{to_num} 
+		
+		</update>
 
 
 	<delete id="deleteDao">

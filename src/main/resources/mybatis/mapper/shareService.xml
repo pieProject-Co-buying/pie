@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IShareServiceDao">
 	<!--게시판 리스트 불러오기-->
-	<select id="getBoardList" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+	<select id="getBoardList"
+		resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard
 	</select>
 	<!--해당 게시물 상세 페이지-->
@@ -11,7 +12,8 @@
 	</select>
 	<!--게시판 검색-->
 	<select id="searchTitle" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_title like '%${param1}%' or sh_content like '%${param1}%'
+		select * from shareServiceBoard where sh_title like '%${param1}%' or
+		sh_content like '%${param1}%'
 	</select>
 	<!--내가 쓴 게시글-->
 	<select id="myBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
@@ -23,36 +25,28 @@
 	</select>
 	<!--게시글 작성-->
 	<insert id="insertBoard">
-    	<!--insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelNow,sh_personnelMax,sh_filename,sh_product) values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 'YYYY-MM-DD'),#{sh_personnelNow},#{sh_personnelMax},#{sh_filename},sh_product.nextval)
--->	
-insert into shareServiceBoard values(
-		sh_num.nextval,
-		#{sh_id},
-		#{sh_nickname},
-		#{sh_category},
-		#{sh_premium},
-		#{sh_title},
-		#{sh_content},
-		#{sh_profileImg},
-		#{sh_productImg},
-		0,
-		#{sh_tag},
-		'1',
-		sysdate,
-		sysdate,
-		TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
-		#{sh_personnelMax},
-		1,
-		#{sh_priceTotal},
-		#{sh_pricePer},
-		#{sh_ip},
-		0,
-		'001'
-		)
-</insert>
+		<!--insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelNow,sh_personnelMax,sh_filename,sh_product) values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 'YYYY-MM-DD'),#{sh_personnelNow},#{sh_personnelMax},#{sh_filename},sh_product.nextval)
+--> insert into shareServiceBoard values(
+		sh_num.nextval, #{sh_id}, #{sh_nickname}, #{sh_category}, #{sh_premium},
+		#{sh_title}, #{sh_content}, #{sh_profileImg}, #{sh_productImg}, 0,
+		#{sh_tag}, '1', sysdate, sysdate, TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
+		#{sh_personnelMax}, 1, #{sh_priceTotal}, #{sh_pricePer}, #{sh_ip}, 0,
+		'001' ) </insert>
 	<!--게시글 수정-->
-	<update id="updateBoard" parameterType="com.pie.pieProject.DTO.ShareServiceDto">
-		update shareServiceBoard set sh_title=#{sh_title}, sh_content=#{sh_content}, sh_price=#{sh_price}, sh_personnelMax=#{sh_personnelMax}, sh_deadLine=#{sh_DeadLine} where sh_num=#{sh_numID}
+	<update id="updateBoard">
+		update shareServiceBoard set
+		sh_category=#{sh_category},
+		sh_title=#{sh_title},
+		sh_content=#{sh_content},
+		sh_productImg=#{sh_productImg},
+		sh_tag=#{sh_tag},
+		sh_deadLine=TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
+		sh_personnelMax=#{sh_personnelMax},
+		sh_priceTotal=#{sh_priceTotal},
+		sh_pricePer=#{sh_pricePer},
+		sh_ip=#{sh_ip},
+		sh_updateDay=sysdate where sh_num=#{sh_num}
+
 	</update>
 	<!--게시글 삭제-->
 	<delete id="deleteBoard" parameterType="_int">
@@ -60,6 +54,7 @@ insert into shareServiceBoard values(
 	</delete>
 	<!--현재 신청자 카운트-->
 	<update id="updatePersonnelNow" parameterType="int">
-        update shareServiceBoard set personnel_now = personnel_now + 1 where sh_num = #{shNumId}
-    </update>
+		update shareServiceBoard set personnel_now = personnel_now + 1 where
+		sh_num = #{shNumId}
+	</update>
 </mapper>
