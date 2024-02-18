@@ -42,9 +42,10 @@
 						<div class="inputTable col-9">
 								
 							<!-- 대화명은 세션 아이디로 시작 -->
-							<input type="text" name="userName" id="userName" placeholder="" class="form-control"  th:value="${session.nickName}"  readonly >
+							<input type="text" name="chat_sender" id="userName" placeholder="" class="form-control"  th:value="${session.nickName}"  readonly >
 
-
+							
+							
 						</div>
 						
 						<div class="inputTable col-3">
@@ -65,7 +66,7 @@
 					
 						<div class="inputTable col-9">
 
-							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control" name="messages">
+							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control" name="chat_messages">
 
 						</div>
 						
