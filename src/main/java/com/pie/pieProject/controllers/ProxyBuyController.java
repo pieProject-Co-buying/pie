@@ -50,11 +50,11 @@ public class ProxyBuyController {
 
 	@GetMapping("/viewProxyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
+		dao.updateHit(num);
+		
 		ProxyBuyBoardDto dto = dao.getView(num);
-
 		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
 		dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
-		dao.updateHit(num);
 
 		String table = "proxyBuyBoard";
 		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
@@ -80,15 +80,9 @@ public class ProxyBuyController {
 			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
 
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
 		dto.setPr_id(getSession(request, "userId"));
 		dto.setPr_category(pr_category);
-		if (mdto.getPremium().equals("pro")) {
-			dto.setPr_premium("1");
-		} else {
-			dto.setPr_premium("0");
-		}
 		dto.setPr_nickname(getSession(request, "nickName"));
 		dto.setPr_title(title);
 		dto.setPr_content(content);

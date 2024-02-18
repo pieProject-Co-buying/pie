@@ -103,7 +103,9 @@ insert into townBuyBoard values(
 		0
 		)
 	</insert>
-		
+	<select id="listLocal" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_address like '${param1}%' and to_process= '1'
+	</select>
 	 	
 	
 	

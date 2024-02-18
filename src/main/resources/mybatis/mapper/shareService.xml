@@ -7,7 +7,7 @@
 	</select>
 	<!--해당 게시물 상세 페이지-->
 	<select id="selectBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_numID=#{param1}
+		select * from shareServiceBoard where sh_num=#{param1}
 	</select>
 	<!--게시판 검색-->
 	<select id="searchTitle" resultType="com.pie.pieProject.DTO.ShareServiceDto">
@@ -19,22 +19,47 @@
 	</select>
 	<!--결제 완료 페이지-->
 	<select id="completePay" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_numID=#{sh_numID}
+		select * from shareServiceBoard where sh_num=#{sh_numID}
 	</select>
 	<!--게시글 작성-->
 	<insert id="insertBoard">
-    	insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelNow,sh_personnelMax,sh_filename,sh_product) values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 'YYYY-MM-DD'),#{sh_personnelNow},#{sh_personnelMax},#{sh_filename},sh_product.nextval)
-	</insert>
+    	<!--insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelNow,sh_personnelMax,sh_filename,sh_product) values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 'YYYY-MM-DD'),#{sh_personnelNow},#{sh_personnelMax},#{sh_filename},sh_product.nextval)
+-->	
+insert into shareServiceBoard values(
+		sh_num.nextval,
+		#{sh_id},
+		#{sh_nickname},
+		#{sh_category},
+		#{sh_premium},
+		#{sh_title},
+		#{sh_content},
+		#{sh_profileImg},
+		#{sh_productImg},
+		0,
+		#{sh_tag},
+		'1',
+		sysdate,
+		sysdate,
+		TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
+		#{sh_personnelMax},
+		1,
+		#{sh_priceTotal},
+		#{sh_pricePer},
+		#{sh_ip},
+		0,
+		'001'
+		)
+</insert>
 	<!--게시글 수정-->
 	<update id="updateBoard" parameterType="com.pie.pieProject.DTO.ShareServiceDto">
-		update shareServiceBoard set sh_title=#{sh_title}, sh_content=#{sh_content}, sh_price=#{sh_price}, sh_personnelMax=#{sh_personnelMax}, sh_DeadLine=#{sh_DeadLine} where sh_numID=#{sh_numID}
+		update shareServiceBoard set sh_title=#{sh_title}, sh_content=#{sh_content}, sh_price=#{sh_price}, sh_personnelMax=#{sh_personnelMax}, sh_deadLine=#{sh_DeadLine} where sh_num=#{sh_numID}
 	</update>
 	<!--게시글 삭제-->
 	<delete id="deleteBoard" parameterType="_int">
-		delete shareServiceBoard where sh_numID=#{param1}
+		delete shareServiceBoard where sh_num=#{param1}
 	</delete>
 	<!--현재 신청자 카운트-->
 	<update id="updatePersonnelNow" parameterType="int">
-        update shareServiceBoard set personnel_now = personnel_now + 1 where sh_numID = #{shNumId}
+        update shareServiceBoard set personnel_now = personnel_now + 1 where sh_num = #{shNumId}
     </update>
 </mapper>

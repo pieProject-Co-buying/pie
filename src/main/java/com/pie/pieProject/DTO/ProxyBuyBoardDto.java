@@ -9,30 +9,26 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class ProxyBuyBoardDto {
-	private String pr_num;
-	private String pr_id;
-	private String pr_nickname;
-	private String pr_premium;
-	private String pr_category;
-	private String pr_title;
-	private String pr_content;
-	private String pr_price;
-	private String pr_profileImg;
-	private String[] pr_productImgs;
-	private String pr_productImg;
-	private int pr_hit;
-	private String pr_tag;
-	private String[] pr_tags;
-	private String pr_address;
-	private String pr_process;
-	private String pr_registDay;
-	private String pr_updateDay;
-	private String pr_deadLine;
-	private int pr_personnelMax;
-	private String pr_personnelNow;
-	private int pr_priceTotal;
-	private int pr_pricePer;
-	private String pr_ip;
-	private int pr_like;
+	private String pr_num; // 게시글 번호
+	private String pr_id; // 게시글 ID
+	private String pr_nickname; // 게시글 닉네임
+	private String pr_category; // 물품 카테고리
+	private String pr_title; // 게시글 제목
+	private String pr_content; // 게시글 내용
+	private String pr_profileImg; // 게시글 작성자 프로필 이미지
+	private String[] pr_productImgs; // 게시글 내 이미지배열
+	private String pr_productImg; // 게시글 내 이미지
+	private int pr_hit; // 조회수
+	private String[] pr_tags; // 게시글 태그 배열
+	private String pr_tag; // 게시글 태그
+	private String pr_process; // 모집 진행 여부
+	private String pr_registDay; // 게시글 등록날짜
+	private String pr_updateDay; // 게시글 수정날짜
+	private String pr_deadLine; // 모집 마감일자
+	private int pr_personnelMax; // 최대 모집인원
+	private String pr_personnelNow; // 현재 모집인원
+	private int pr_priceTotal; // 가격 총합
+	private int pr_pricePer; // 인당 가격
+	private String pr_ip; // 게시글 작성 IP
+	private int pr_like; // 게시글 좋아요
 }
-
