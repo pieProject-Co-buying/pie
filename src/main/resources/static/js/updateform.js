@@ -107,6 +107,12 @@ let originFile = $("#files").val();
 
 console.log(idx);
 console.log(loadFiles);
+chkFiles();
+
+
+function chkFiles(){
+	if(idx==5) $(".btn-upload").hide();
+}
 
 
 /* 첨부파일 추가 */
