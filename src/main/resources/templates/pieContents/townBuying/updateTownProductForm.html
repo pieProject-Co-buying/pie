@@ -63,7 +63,7 @@
 							<th:block th:each="i : ${#numbers.sequence(0,board.getTo_productImgs().length-1)}">
 								<figure onclick="deleteFile(this)" th:attr="data-originFile = ${board.getTo_productImgs()[i]}"><img th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[i]}}" class='pie-img-viewsThumbs'>
 								<figcaption></figcaption>
-								<figure>
+								</figure>
 							</th:block>
 
 						</div>
