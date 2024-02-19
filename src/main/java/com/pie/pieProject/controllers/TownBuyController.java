@@ -52,9 +52,11 @@ public class TownBuyController {
 	}
 
 	@RequestMapping("/townBuyproduct")
-	public String toBoardView(HttpServletRequest request, Model model) {
+	public String toBoardView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		
 			String sId = request.getParameter("num");
+			
+			dao.updateHit(num);
 			
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);

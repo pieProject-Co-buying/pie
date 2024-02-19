@@ -57,4 +57,10 @@ public interface ITownBuyBoardDao {
 	
 	public List<TownBuyBoardDto> listLocal(String local);
 	
+	
+	//조회수
+	public void updateHit(String num);
+	
+	
+	
 }

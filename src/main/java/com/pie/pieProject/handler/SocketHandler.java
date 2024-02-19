@@ -39,10 +39,16 @@ public class SocketHandler extends TextWebSocketHandler {
 		//소켓 연결
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
-		JSONObject obj = new JSONObject();
-		obj.put("type", "getId");
-		obj.put("sessionId", session.getId());
-		session.sendMessage(new TextMessage(obj.toJSONString()));
+		
+		
+	    String nickName = (String) session.getAttributes().get("nickName");
+
+	    // 클라이언트에게 세션 닉네임을 전송
+	    JSONObject obj = new JSONObject();
+	    obj.put("type", "getId");
+	    obj.put("sessionId", session.getAttributes().get("userId"));
+	    obj.put("nickName", nickName);
+	    session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 	
 	@Override
