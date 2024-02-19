@@ -10,6 +10,30 @@
 }
 
 
+
+/* footer style */
+
+
+/* a 태그 호버시 적용될 스타일 */
+
+.hj-footer-a:hover {
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+
+/* 하단 span 태그 가상선택자 적용 */
+
+#pie_info span:not(:last-child)::after{
+	content: " |";
+	margin: 0 2px;
+}
+
+
+
+
+
 /* ####################################
 
 우리동네 공구 - 서브 1 -> 검색 / 카테고리 선택 페이지 css
