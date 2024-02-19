@@ -44,8 +44,8 @@
 				<div class="row">
 					<div class="col">
 						<p>
-							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small>
+							<small class="font-weight-bold">모집인원</small><br />
+							 <small th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small>
 						</p>
 						<p>
 
@@ -87,6 +87,7 @@
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
+					<p class="d-none" th:attr="data-num=${board.getSh_num}"></p>
 						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}" alt=""
 							class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
@@ -94,10 +95,10 @@
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 class="mb-0 pie-omitted display-5" th:text="${board.getSh_title()}">타이틀 자리</h2>
+								<h2 th:attr="data-title=${board.getSh_title}" class="mb-0 pie-omitted display-5" th:text="${board.getSh_title()}">타이틀 자리</h2>
 							</div>
 							<div class="col-12 pie-c-red p-0">
-								<h5 class="mb-0" th:text="|인/${board.getSh_pricePer()}원|"></h5>
+								<h5 th:attr="data-pricePer=${board.getSh_pricePer()}" class="mb-0" th:text="|인/${board.getSh_pricePer()}원|"></h5>
 							</div>
 
 						</div>
@@ -220,8 +221,7 @@
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
 											<img src="imgs/product3.jpg" alt="" class="img-fluid">
-											<h5 class="mb-3 mt-5 text-center">함께하면 4000원에 구매할 수 있어요
-												😘</h5>
+											<h5 class="mb-3 mt-5 text-center">함께하면 <b th:text="${board.getSh_pricePer()}"></b> 원에 구매할 수 있어요!</h5>
 										</div>
 
 

@@ -41,7 +41,7 @@
                         			<small class="badge badge-success" th:text="진행중"></small>                       	
                         		</th:block>
                         		<th:block th:if="${board.getSh_process()}=='off'">
-                        			<small class="badge badge-danger" th:text="진행마감"></small></p>                        	
+                        			<small class="badge badge-danger" th:text="진행마감"></small>                      	
                         		</th:block>
 								<span class="d-block" th:text="${board.getSh_registDay}"></span>
 								<a th:href="'boardList?sh_numID='+${board.getSh_num()}"
