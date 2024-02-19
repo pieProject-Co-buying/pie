@@ -13,7 +13,6 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/imgs/test/**")
 				.addResourceLocations(uploaddir);
-		// TODO Auto-generated method stub
 	} 
 
 }
