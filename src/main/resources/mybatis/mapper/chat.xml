@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.pie.pieProject.DAO.IChatDao">
+	
+	
+	
+	<!-- 채팅방 생성 -->
+	<insert id="createRoom">
+		
+		insert into pieChatRomm (chat_room, chat_sender, chat_reciever, chat_messages, createDate, expireDate) values(chat_room.nextval, '효효', 'test1', '안녕하세요', sysdate, TO_DATE('20240310', 'YYYYMMDD'))
+		
+	</insert>
+
+
+
+	<!-- 메세지 생성 -->
+	<insert id="insertMsg">
+		
+		insert into pieChatMsg (chat_roomNum, chat_sender, chat_reciever, chat_message, chat_receiveTime) values(1, 'test1', '효효', '네 저도 안녕하세요', sysdate)
+		
+	</insert>
+
+
+
+	<!-- 채팅방 불러오기 -->
+	<select id="selectRoom">
+	
+		select * from pieChatMsg where chat_roomNum = 2
+		
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>

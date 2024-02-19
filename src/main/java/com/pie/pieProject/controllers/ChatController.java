@@ -33,6 +33,7 @@ public class ChatController {
 		return mv;
 	}
 	
+	
 	/**
 	 * 방 페이지
 	 * @return
@@ -43,6 +44,7 @@ public class ChatController {
 		mv.setViewName("pieContents/chatting/room");
 		return mv;
 	}
+	
 	
 	/**
 	 * 방 생성하기
@@ -98,4 +100,5 @@ public class ChatController {
 		
 		return mv;
 	}
+	
 }
