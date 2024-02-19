@@ -39,13 +39,13 @@ let pie_tagsOutput = $("#pie_tagsOutput");
 pie_tags_input.keyup(function(key) {
 	if (key.keyCode == 13 || key.keyCode == 32) {
 		let tag = $(this).val();
-		tag = tag.replace(" ", "");
+		tag = tag.replace(/ /g, "");
 		tag = tag.replace(/[^\w\s가-힣ㄱ-ㅎㅏ-ㅣ]/g, '');
 		if (tag == "") {
 			alert("입력된 값이 없습니다.(특수문자는 태그에 포함할 수 없습니다.)")
 			return;
 		}
-		console.tag
+
 		tagGroup.append('<span class="badge badge-info badge-pill d-flex align-items-center p-2 mr-2">#' + tag + '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-circle-fill ml-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></span>');
 		tags_str += "#" + tag;
 		pie_tagsOutput.val(tags_str);
@@ -61,8 +61,9 @@ pie_tags_input.keyup(function(key) {
 })
 
 $(document).on("click", "span.badge", function(event) {
-	let removedtag = $(this).text();
-	tags_str = tags_str.replace(removedtag, '');
+	let removedTag = $(this).text();
+	let regex = new RegExp("#" + removedTag + "\\b", "g");
+	tags_str = tags_str.replace(regex, '');
 	pie_tagsOutput.val(tags_str);
 
 	$(this).remove();
@@ -177,14 +178,14 @@ function submitForm() {
 		success: function(response) {
 			console.log('전송 성공', response);
 			$("#files").val(response);
-			
+
 			let url = window.location.href;
 			var str = url.substring(url.lastIndexOf('/') + 1);
 			console.log(str);
-			
-			if(str=='townForm') document.townForm.submit();
-			else if(str=='proxyWriteForm') document.proxyForm.submit();
-			else if(str=='writePost') document.shareForm.submit();
+
+			if (str == 'townForm') document.townForm.submit();
+			else if (str == 'proxyWriteForm') document.proxyForm.submit();
+			else if (str == 'writePost') document.shareForm.submit();
 		},
 		error: function(xhr, desc, err) {
 			console.error('전송 실패', err);
