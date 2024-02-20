@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.pie.pieProject.DTO.PaymentDTO;
 
 @Mapper
-public interface PaymentDAO {
+public interface IPaymentDAO {
 
 	public void insertPayment(PaymentDTO dto);
 }

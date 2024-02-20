@@ -1,8 +1,5 @@
 package com.pie.pieProject.controllers;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
-import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +26,8 @@ public class ShareServiceController {
 	IMemberDao mdao;
 	@Autowired
 	ILikeDao ldao;
+	@Autowired
+	IPaymentDAO Pdao;
 
 	/********** 전체 게시물 조회 **********/
 	@RequestMapping("/shareServiceBoard")
@@ -56,6 +54,7 @@ public class ShareServiceController {
 	public String showBoard(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
 		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
 		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
@@ -69,6 +68,7 @@ public class ShareServiceController {
 		}
 
 		model.addAttribute("board", dto);
+		model.addAttribute("member",mdto);
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
@@ -243,10 +243,17 @@ public class ShareServiceController {
 	/********** 결제완료 페이지 이동 **********/
 	@RequestMapping("/shareServiceFinish")
 	public String goFinish(HttpServletRequest request, Model model) {
+	//@RequestParam(name = "msg", required = false) String msg{
 		HttpSession session = request.getSession();
 
 		String uId = (String) session.getAttribute("userId");
 		String nid = request.getParameter("sh_numID");
+		
+		/*if(Integer.parseInt(msg)==1) {
+			model.addAttribute("pay",Pdao.findPay(uId));
+		}else {
+			return "history.go(-1)";
+		}*/
 
 		model.addAttribute("find", mdao.find(uId));
 		model.addAttribute("list", dao.completePay(Integer.parseInt(nid)));

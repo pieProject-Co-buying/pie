@@ -3,24 +3,32 @@ package com.pie.pieProject.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.pie.pieProject.DAO.PaymentDAO;
+import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DTO.PaymentDTO;
+import com.pie.pieProject.DTO.ShareServiceDto;
 
-@RestController
+@Controller
 public class PaymentController {
 	@Autowired
-	private PaymentDAO dao;
+	private IPaymentDAO dao;
 	
     @PostMapping("/payCheck")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
+    	System.out.println(dto.getBuyer_addr());
+    	System.out.println(dto.getBuyer_email());
+    	System.out.println(dto.getBuyer_name());
+    	System.out.println(dto.getBuyer_nickname());
+    	System.out.println(dto.getBuyer_postcode());
+    	System.out.println(dto.getBuyer_tel());
+    	System.out.println(dto.getPay_method());
+    	
     	dao.insertPayment(dto);
-        // 받은 데이터를 처리하는 로직
-        System.out.println(dto.getPayMerchant_uid());
-        
+    	ShareServiceDto Sdto = new ShareServiceDto();
+
         // 응답 반환
         return new ResponseEntity<>("결제 정보를 성공적으로 받았습니다.", HttpStatus.OK);
     }
