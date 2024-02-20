@@ -22,6 +22,10 @@ public class WebSocketConfig implements WebSocketConfigurer{
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
 		registry.addHandler(socketHandler, "/chating");
+		
+		/* registry.addHandler(socketHandler, "/chating/{roomNumber}"); */
+		// 채팅방 구분하는 값 추가
+		
 	}
 	
 	
