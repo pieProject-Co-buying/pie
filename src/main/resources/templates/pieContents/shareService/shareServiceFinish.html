@@ -21,7 +21,9 @@
 				<p>제품명 : <span th:text="${board.getSh_title()}">감자</span></p>
 				<p>결제일시 : <span th:text="${board.getSh_registDay()}"></span></p>
 				<p>결제금액 : <span th:text="${board.getSh_pricePer()}+' 원'"></span></p>
-				<p>결제수단 : 동전</p>
+				<div th:each="pay:${pay}">
+					<p>결제수단 : <span th:text="${pay.getPayMethod()}"></span></p>
+				</div>
 			</div>
 			<div class="col-12 text-center mt-3">
 				<h5><b>주문자 정보</b></h5>

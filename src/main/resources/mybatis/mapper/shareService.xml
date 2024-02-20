@@ -32,10 +32,6 @@
 			#{sh_tag}, '1', sysdate, sysdate, TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
 			#{sh_personnelMax}, 1, #{sh_priceTotal}, #{sh_pricePer}, #{sh_ip}, 0,
 			'001' ) </insert>
-	<!--결제 데이터 베이스-->
-	<insert id="insertPayment" parameterType="com.pie.pieProject.DTO.PaymentDTO">
-        insert into payment (pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date) values (#{pay_uid}, #{payMethod}, #{payMerchant_uid}, #{payName}, #{payAmount}, sysdate)
-    </insert>
 	<!--게시글 수정-->
 	<update id="updateBoard">
 		update shareServiceBoard set
