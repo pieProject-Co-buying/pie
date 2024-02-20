@@ -12,6 +12,13 @@ public class chatDto {
 	private int roomNum;
 	private String sender;
 	private String reciever;
-	private String messages;
+	private String message;
+	private String receivDate;
+	
+	
+	private String [] messages; //주고받은 메세지 받을 배열
+	
+
+	
 	
 }

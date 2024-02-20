@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
 
 <div layout:fragment="townBuyContent" class="col">
@@ -17,6 +18,7 @@
 			</div>
 
 
+			<input type="hidden" th:value="${session.userId}" id="nowLogin"/>
 
 			<div class="row mb-5 mx-auto">
 
@@ -24,39 +26,47 @@
 
 
 
-					<ul class="list-unstyled d-flex flex-wrap flex-lg-column" id="categoryBtns">
+					<ul class="list-unstyled d-flex flex-wrap flex-lg-column"
+						id="categoryBtns">
 
 						<li class="mr-1 mb-1">
 							<!-- 전체 페이지 보여주기 -->
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="all" id="showAllBtn">우리동네공구</button>
 						</li>
 
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="food">식품</button>
 						</li>
 
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="baby">육아</button>
 						</li>
 
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="beautyAndFashion">뷰티/패션</button>
 						</li>
 
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="pet">반려동물</button>
 						</li>
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="life">생활</button>
 						</li>
 						<li class="mr-1 mb-1">
-							<button type="button" class="btn btn-outline-secondary w-100 categoryBtn"
+							<button type="button"
+								class="btn btn-outline-secondary w-100 categoryBtn"
 								data-category="etc">기타</button>
 						</li>
 
@@ -77,7 +87,7 @@
 				<div class="col-12 col-lg-10 mt-3 mb-5 mt-lg-0">
 
 					<!-- ############ 인라인스타일 수정해야함!!! 임시로 넣음 ############ -->
-					<div id="map" class="mb-5" style="width: 100%; height: 400px;">
+					<div id="map" class="mb-5" style="width: 100%; height: 500px;">
 
 
 						<!-- 지도 표시될 영역 -->
@@ -97,7 +107,8 @@
 				<div class="col-12 col-lg-10 d-none d-md-block mt-3">
 
 					<h2 for="formControlRange">어디까지 보여드릴까요?</h2>
-					<input type="range" class="form-control-range" id="mapRange" min="3" max="5" value="1" step="1">
+					<input type="range" class="form-control-range" id="mapRange"
+						min="4" max="6" value="1" step="1">
 
 					<div class="row mt-2">
 
@@ -158,8 +169,8 @@
 				</div>
 
 				<div class="col-md-6">
-					<a href="townForm" class="btn border pie-btn-brown w-100 p-5 mb-3"> <span class="h2 d-block">내 상품
-							공구하기</span> <span>바로가기</span>
+					<a href="townForm" class="btn border pie-btn-brown w-100 p-5 mb-3">
+						<span class="h2 d-block">내 상품 공구하기</span> <span>바로가기</span>
 					</a>
 				</div>
 			</div>
@@ -168,6 +179,7 @@
 
 	</div>
 
+	<button id="btn"></button>
 
 	<!--
 	<script>
@@ -379,125 +391,99 @@
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=915f353489d275e23bc0b3f0c880663b&libraries=services"></script>
+
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-			level: 3 //지도의 레벨(확대, 축소 정도)
-		};
+		$.ajax({
+			data : {
+				nowlogin : $("#nowLogin").val()
+			},
+			type : "GET",
+			url : "/map",
+			dataType : "json", // 서버에서 JSON으로 반환되는 것을 명시적으로 지정
+			success : function(response) {
+				try {
+					var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+					var mapOption = {
+						center : new kakao.maps.LatLng(37.3713202419567,
+								127.110662276962), // 지도의 중심좌표
+						level : 3
+					// 지도의 확대 레벨
+					};
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption);
 
-		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-		map.setZoomable(false);
-		map.setDraggable(false);
+					var jsonArray = response.addressList;
+					var resultArray = [];
 
-		var mapRange = document.getElementById('mapRange');
+					// 각 JSON 객체를 변환하여 결과 배열에 추가
+					for (var i = 0; i < jsonArray.length; i++) {
+						var jsonObject = jsonArray[i];
 
+						// title, x, y 속성이 존재하는지 확인
+						if (jsonObject.title && jsonObject.x !== undefined
+								&& jsonObject.y !== undefined) {
+							var convertedObject = {
+								title : jsonObject.title,
+								latlng : new kakao.maps.LatLng(
+										parseFloat(jsonObject.y),
+										parseFloat(jsonObject.x)),
+								content : '<div data-category="'+jsonObject.category+'">'+jsonObject.title
+										+ '</div>',
+								num : jsonObject.num
+							};
 
-		mapRange.addEventListener('input', function () {
-			let kmValue = (mapRange.value);
-			console.log(kmValue);
-			map.setLevel(kmValue);
-			console.log(map.getLevel());
-		});
+							console.log(parseFloat(jsonObject.x));
+							resultArray.push(convertedObject);
 
+							// 'latlng' 속성이 정의된 경우에만 마커 생성
+							if (convertedObject.latlng) {
+								var marker = new kakao.maps.Marker({
+									map : map, // 마커를 표시할 지도
+									position : convertedObject.latlng,
+								});
 
-		var geocoder = new kakao.maps.services.Geocoder();
-		let searchList = /*[[${list.size()}]]*/+0;
-		let marker = [];
-		let category = [];
-		let infowindow = [];
+								var infowindow = new kakao.maps.InfoWindow({
+									content : convertedObject.content
+								// 인포윈도우에 표시할 내용
+								});
+								kakao.maps.event.addListener(marker,
+										'mouseover', makeOverListener(map,
+												marker, infowindow));
+								kakao.maps.event
+										.addListener(marker, 'mouseout',
+												makeOutListener(infowindow));
+								
+							    kakao.maps.event.addListener(marker, 'click', function() {
+							    	location.href = 'townBuyproduct?num='+convertedObject.num
+							    });
+							}
+						} else {
+							console.error("Invalid JSON object at index " + i
+									+ ": " + JSON.stringify(jsonObject));
+						}
 
-		let j = 0;
-
-		/*[# th:each="item:${list}"]*/
-		searchKey = /*[[${item.getTo_address()}]]*/ '';
-		info = /*[[${item.getTo_title()}]]*/ '';
-
-		console.log(searchKey);
-		console.log(info);
-
-		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch(searchKey, function (result, status) {
-
-			// 정상적으로 검색이 완료됐으면
-			if (status === kakao.maps.services.Status.OK) {
-
-				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-				// 결과값으로 받은 위치를 마커로 표시합니다
-				marker[j] = new kakao.maps.Marker({
-					map: map,
-					position: coords
-				});
-
-				// 인포윈도우로 장소에 대한 설명을 표시합니다
-				infowindow[j] = new kakao.maps.InfoWindow({
-					content: '<div style="width:150px;text-align:center;padding:6px 0;" id="info' + j + '">' + info + '</div>'
-				});
-				infowindow[j].open(map, marker[j]);
-
-				console.log(marker[j]);
-				category[j] = /*[[${item.getTo_category()}]]*/'';
-
-				// 여기에서 다른 함수 호출 또는 로직을 추가할 수 있습니다.
-
-				// 마커가 생성된 후에 추가 작업이 필요하다면 여기에서 처리
-				additionalLogicAfterMarkerCreation();
-
-			}
-		});
-
-		function additionalLogicAfterMarkerCreation() {
-			j++;
-		}
-
-		/*[/]*/
-
-		console.log(marker.length);
-
-		let now = /*[[${now}]]*/'';
-
-		focus(now);
-
-		function focus(now) {
-			geocoder.addressSearch(searchKey, function (result, status) {
-				if (status === kakao.maps.services.Status.OK) {
-
-					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-					map.setCenter(coords);
-				}
-			});
-		}
-
-		$(".categoryBtn").click(function () {
-			let keyWord = $(this).attr("data-category");
-			console.log(keyWord);
-			findcategory(keyWord);
-		})
-
-		function findcategory(c) {
-			if (c == 'all') {
-				for (let k = 0; k < category.length; k++) {
-					marker[k].setVisible(true);
-					infowindow[k].open(map, marker[k]);
-				}
-
-			} else {
-
-				for (let k = 0; k < category.length; k++) {
-					if (category[k] == c) {
-						console.log(category[k]);
-						console.log(marker[k]);
-						marker[k].setVisible(true);
-						infowindow[k].open(map, marker[k]);
-					} else {
-						marker[k].setVisible(false);
-						infowindow[k].close(map, marker[k]);
 					}
+
+					console.log(resultArray);
+				} catch (error) {
+					console.error("Error parsing JSON response: " + error);
 				}
+				function makeOverListener(map, marker, infowindow) {
+					return function() {
+						infowindow.open(map, marker);
+					};
+				}
+				function makeOutListener(infowindow) {
+					return function() {
+						infowindow.close();
+					};
+				}
+				
+				
 			}
-		}
+		});
+
 		/*]]>*/
 	</script>
 </div>
