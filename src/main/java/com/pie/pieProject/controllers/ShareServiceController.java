@@ -258,6 +258,7 @@ public class ShareServiceController {
 		return (String) session.getAttribute(key);
 	}
 
+	
 	private String[] setArraysData(String key, String wallWord) {
 		String[] str_imgs = key.split(wallWord);
 		for (String s : str_imgs) {
@@ -265,5 +266,4 @@ public class ShareServiceController {
 		}
 		return str_imgs;
 	}
-
 }
