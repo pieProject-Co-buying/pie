@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -38,6 +39,7 @@ public class SocketHandler extends TextWebSocketHandler {
    
    
    @Override
+   @MessageMapping("/chating")
    public void handleTextMessage(WebSocketSession session, TextMessage message) {
 	   
       //메시지 발송
@@ -107,6 +109,7 @@ public class SocketHandler extends TextWebSocketHandler {
       System.out.println("통신해제");
    }
    
+   
    private static JSONObject jsonToObjectParser(String jsonStr) {
       JSONParser parser = new JSONParser();
       JSONObject obj = null;
@@ -121,4 +124,3 @@ public class SocketHandler extends TextWebSocketHandler {
    
    
 }
-
