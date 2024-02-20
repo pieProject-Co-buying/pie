@@ -6,30 +6,42 @@
 	
 	
 	
-	<!-- 채팅방 생성 -->
-	<insert id="createRoom">
+	<insert id="saveMsg" parameterType="java.util.Map">
+        INSERT INTO pie_messages (sender_id, sender, message, sendTime) VALUES (#{userId}, #{userName}, #{message}, sysdate)
+    </insert>
+	
+	
+	
+	
+	
+ 	<!-- 채팅방 생성 -->
+<!-- 	<insert id="createRoom">
 		
 		insert into pieChatRomm (chat_room, chat_sender, chat_reciever, chat_messages, createDate, expireDate) values(chat_room.nextval, '효효', 'test1', '안녕하세요', sysdate, TO_DATE('20240310', 'YYYYMMDD'))
 		
-	</insert>
+	</insert> -->
 
 
 
-	<!-- 메세지 생성 -->
+<!-- 	메세지 생성
 	<insert id="insertMsg">
 		
 		insert into pieChatMsg (chat_roomNum, chat_sender, chat_reciever, chat_message, chat_receiveTime) values(1, 'test1', '효효', '네 저도 안녕하세요', sysdate)
 		
-	</insert>
+		
+		 
+		 
+		 
+	</insert> -->
 
 
 
-	<!-- 채팅방 불러오기 -->
+<!-- 	채팅방 불러오기
 	<select id="selectRoom">
 	
 		select * from pieChatMsg where chat_roomNum = 2
 		
-	</select>
+	</select>  -->
 	
 	
 	

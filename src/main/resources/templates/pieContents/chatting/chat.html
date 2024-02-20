@@ -26,7 +26,7 @@
 					<div class="row mb-3">
 					
 						<div class="col">
-						
+							<input type="hidden" id="sender_id" th:value="${session.userId}">
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<div id="chating" class="chating border py-2 px-2 rounded shadow"></div>							
 						
@@ -120,6 +120,8 @@
 	
 	
 	<script type="text/javascript">
+
+	
 	
 		var ws;
 	
@@ -128,11 +130,41 @@
 			wsEvt();
 		}
 			
+		
+		
+		// WebSocket 서버 URL
+		var webSocketUrl = "ws://localhost:8080/socket";
+
+		// WebSocket 연결
+		var ws = new WebSocket(webSocketUrl);
+
+		// WebSocket 연결이 열렸을 때 실행되는 함수
+		ws.onopen = function(event) {
+		    console.log("WebSocket 연결이 열렸습니다.");
+		};
+
+		// WebSocket 서버로부터 메시지를 받았을 때 실행되는 함수
+		ws.onmessage = function(event) {
+		    console.log("서버로부터 메시지를 받았습니다: " + event.data);
+		    // 받은 메시지를 채팅창에 표시하는 등의 처리를 할 수 있습니다.
+		};
+
+		// 채팅 메시지를 전송하는 함수
+		function sendMessage() {
+		    var message = $("#chatInput").val(); // 채팅 입력창에서 메시지를 가져옴
+		    ws.send(message); // WebSocket을 통해 메시지를 서버로 전송
+		    $("#chatInput").val(""); // 메시지를 전송한 후 입력창을 비움
+		}
+		
+		
+		
 		function wsEvt() {
 			ws.onopen = function(data){
 				//소켓이 열리면 동작
 			}
 			
+			
+			/* 수신시 동작하는 이벤트 핸들러 */
 			ws.onmessage = function(data) {
 				
 				//메시지를 받으면 동작
@@ -152,17 +184,27 @@
 						
 					} else if(d.type == "message"){
 						
+						
+						/* 세션아이디 일치 ==> 내가 입력할시 */
 						if(d.sessionId == $("#sessionId").val()){
 							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
+						
 							
+						/* 세션아이디 불일치 ==> 상대방 입력할시 */
 						} else {
 							$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");
 						}
 							
+						
 					} else{
+						
 						console.warn("unknown type!")
 					}
+		
 				}
+				
+				
+				
 			}
 	
 			document.addEventListener("keypress", function(e){
@@ -171,6 +213,10 @@
 				}
 			});
 		}
+		
+		
+		
+		
 	
 		function chatName(){
 			
@@ -187,20 +233,19 @@
 				$("#yourName").hide();
 				$("#yourMsg").css("display", "flex");
 			}
-			
-			
-			
-			
-			
-			
-			
+
 		}
 	
+		
+		
+		
 		function send() {
 			
-			var option ={
+			
+			var option = {
 				type: "message",
 				sessionId : $("#sessionId").val(),
+				userId : $("#sender_id").val(),
 				userName : $("#userName").val(),
 				msg : $("#chatting").val()
 			}
@@ -210,8 +255,11 @@
 			
 		}
 		
+		
+
+		
 	</script>
 		
 	
 
-</html>
+</html>,

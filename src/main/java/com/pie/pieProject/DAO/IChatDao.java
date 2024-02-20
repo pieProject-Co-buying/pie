@@ -18,9 +18,12 @@ public interface IChatDao {
 	
 	
 	//방생성
-	public int createRoomDao(chatDto dto);
+	/* public int createRoomDao(chatDto dto); */
 	
-
+	
+	
+	//메세지 저장
+	public void saveMsg(@Param("userId") String userId, @Param("userName") String userName, @Param("message") String message);
 	
 	
 }
