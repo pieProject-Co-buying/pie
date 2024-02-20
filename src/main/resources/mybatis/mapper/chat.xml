@@ -7,7 +7,7 @@
 	
 	
 	<insert id="saveMsg" parameterType="java.util.Map">
-        INSERT INTO pie_messages (sender_id, sender, message, sendTime) VALUES (#{userId}, #{userName}, #{message}, sysdate)
+        INSERT INTO pie_messages (roomName, roomNumber, sender_id, sender, message, sendTime) VALUES (#{roomName}, #{roomNumber}, #{userId}, #{userName}, #{message}, sysdate)
     </insert>
 	
 	

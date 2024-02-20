@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -39,7 +38,6 @@ public class SocketHandler extends TextWebSocketHandler {
    
    
    @Override
-   @MessageMapping("/chating")
    public void handleTextMessage(WebSocketSession session, TextMessage message) {
 	   
       //메시지 발송
@@ -63,9 +61,15 @@ public class SocketHandler extends TextWebSocketHandler {
       System.out.println(obj.get("userId"));
       System.out.println(obj.get("userName"));
       System.out.println(obj.get("msg"));
+      System.out.println(obj.get("sessionId"));
+      System.out.println("roomName : " + obj.get("roomName"));
+      System.out.println("roomNumber : " + obj.get("roomNumber"));
+      
       
       //dao에 불러와서 저장
-      dao.saveMsg((String)obj.get("userId"), (String)obj.get("userName"), (String)obj.get("msg"));
+      dao.saveMsg((String)obj.get("roomName"), (String)obj.get("roomNumber"), (String)obj.get("userId"), (String)obj.get("userName"), (String)obj.get("msg"));
+   
+   
    }
    
    
@@ -108,7 +112,6 @@ public class SocketHandler extends TextWebSocketHandler {
       
       System.out.println("통신해제");
    }
-   
    
    private static JSONObject jsonToObjectParser(String jsonStr) {
       JSONParser parser = new JSONParser();

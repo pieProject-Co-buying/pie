@@ -23,7 +23,7 @@ public interface IChatDao {
 	
 	
 	//메세지 저장
-	public void saveMsg(@Param("userId") String userId, @Param("userName") String userName, @Param("message") String message);
+	public void saveMsg(@Param("roomName") String roomName, @Param("roomNumber") String roomNumber, @Param("userId") String userId, @Param("userName") String userName, @Param("message") String message);
 	
 	
 }
