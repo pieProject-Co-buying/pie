@@ -61,7 +61,7 @@ public class SocketHandler extends TextWebSocketHandler {
       System.out.println(obj.get("userId"));
       System.out.println(obj.get("userName"));
       System.out.println(obj.get("msg"));
-      System.out.println(obj.get("sessionId"));
+      System.out.println();
       System.out.println("roomName : " + obj.get("roomName"));
       System.out.println("roomNumber : " + obj.get("roomNumber"));
       
