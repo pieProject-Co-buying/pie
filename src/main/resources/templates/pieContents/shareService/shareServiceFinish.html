@@ -16,13 +16,13 @@
 			</div>
 			<div class="col-9 m-auto border-bottom">
 				<div class="border d-inline-block mb-3">
-					<img th:src="@{'imgs/test/'+${productImg})}" class="img-fluid" width="200" height="200">
+					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid" width="200" height="200">
 				</div>
 				<p>제품명 : <span th:text="${title}">감자</span></p>
 				<p>결제일시 : <span th:text="${payDay}"></span></p>
 				<p>결제금액 : <span th:text="${price}+' 원'"></span></p>
 				<div>
-					<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
+					<p>결제수단 : <span></span></p>
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">

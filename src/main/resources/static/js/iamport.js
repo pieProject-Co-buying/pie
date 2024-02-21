@@ -11,7 +11,6 @@ const token = $("meta[name='_csrf']").attr("content")
 const header = $("meta[name='_csrf_header']").attr("content");
 const name = $("#userName").val();
 
-
 function kgPay() {
 	if (confirm("kg 이니시스로 결제 하시겠습니까?") == true) { // 확인 클릭 시
 		// html의 th:attr의 값을 가져옴
@@ -80,12 +79,10 @@ function kgPay() {
 }
 function kakaoPay() {
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
-		/*var DataTitle = document.querySelector('[data-title]');
+		var DataTitle = document.querySelector('[data-title]');
 		var DataPrice = document.querySelector('[data-pricePer]');
 		var Title = DataTitle.getAttribute('data-title');
-		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));*/
-		
-		
+		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));
 		//var DataPersonnelNow = document.querySelector('[data-personnelNow]');
 		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
 		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
@@ -94,8 +91,8 @@ function kakaoPay() {
 			{
 				pg: "kakaopay.TC0ONETIME",
 				merchant_uid: makeMerchantUid,
-				name: "name",
-				amount: 300,
+				name: Title,
+				amount: Price,
 				buyer_name: member.name,
 				buyer_tel: member.phone,
 				buyer_addr: member.address_main + member.address_sub,
@@ -103,6 +100,7 @@ function kakaoPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
+					
 					console.log("성공1")
 					var category;
 					let url = window.location.href;
@@ -118,7 +116,7 @@ function kakaoPay() {
 						category="Proxy"
 					}			
 					console.log(str);
-
+					
 					var result = {
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
@@ -135,7 +133,8 @@ function kakaoPay() {
 					}
 					console.log(
 						result.buyer_nickname);
-          
+
+
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',
@@ -146,19 +145,15 @@ function kakaoPay() {
 						},
 						success: function(response) {
 							alert("결제에 성공하였습니다");
-							document.location.href = "shareServiceFinish?sh_numID=" + numID;
-						},
-						
-
-							
 							if (response == 'Share'){
 								document.location.href = "shareServiceFinish?num=" + numID +"&cate=" + response;
 							}else if(response == 'Proxy'){
 								document.location.href = "shareServiceFinish?num=" + PrnumID + "&cate=" + response;
 							}
 						},
-              error: function(xhr, status, error) {
+						error: function(xhr, status, error) {
 							console.log('error:' + error);
+						}
 					});
 				} else if (!rsp.success) {
 					var msg = '결제에 실패하였습니다.';
