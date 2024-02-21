@@ -11,6 +11,22 @@
     </insert>
 	
 	
+	<insert id="insertRoom">
+        INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{userId})
+    </insert>
+    
+    
+    <!-- 채팅방 목록 불러오기 -->
+	<select id="roomList" resultType="com.pie.pieProject.DTO.RoomDto">
+		select * from pie_chatRoom order by roomNumber asc
+	</select>
+	
+	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
+		select * from pie_chatRoom where partyMem like '%${param1}%' order by roomNumber asc 
+	</select>
+	
+	
+	
 	<!-- 채팅방 생성 -->
 <!--     <insert id="insertRoom" parameterType="com.example.model.Room">
         INSERT INTO room (roomName, roomNumber) VALUES (#{roomName}, #{roomNumber})

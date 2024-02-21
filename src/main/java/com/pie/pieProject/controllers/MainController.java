@@ -14,9 +14,7 @@ public class MainController {
 	
 	  @RequestMapping("/login") public String loginPage() { return
 	  "pieContents/members/login_form"; }
-	  
-	  
-	  
+
 	  @RequestMapping("/join") public String joinPage() { return
 	  "pieContents/members/join_form"; }
 	 

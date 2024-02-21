@@ -29,16 +29,17 @@ public class MemberController {
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\profiles";
 
-//	@GetMapping("/login")
-//	public String loginPage(HttpServletRequest request) {
-//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//		
-//		if (authentication instanceof AnonymousAuthenticationToken) {
-//			return "pieContents/members/login_form";
-//		}
-//		
-//		return "redirect:/";
-//	}
+	/*
+	 * @GetMapping("/login") public String loginPage(HttpServletRequest request) {
+	 * Authentication authentication =
+	 * SecurityContextHolder.getContext().getAuthentication();
+	 * 
+	 * if (authentication instanceof AnonymousAuthenticationToken) { return
+	 * "pieContents/members/login_form"; }
+	 * 
+	 * return "redirect:/"; }
+	 */
+
 
 	@PostMapping("/loginAction")
 	public String loginProcess(HttpServletRequest request, Model model) {
@@ -66,9 +67,11 @@ public class MemberController {
 	 * authentication = SecurityContextHolder.getContext().getAuthentication(); if
 	 * (authentication instanceof AnonymousAuthenticationToken) return
 	 * "pieContents/members/join_form"; return "redirect:/login"; }
+
 	 */
 
 	/*
+
 	 * @PostMapping("/joinAction") public String signup(@RequestParam(value = "id")
 	 * String id, @RequestParam(value = "password") String password,
 	 * 
@@ -132,7 +135,6 @@ public class MemberController {
 	 * "redirect:/"; } return "redirect:/login"; }
 	 */
 
-	
 	/*
 	 * @PostMapping("/joinAction") public String joinProcess(@RequestParam(value =
 	 * "id") String id, @RequestParam(value = "password") String password,
