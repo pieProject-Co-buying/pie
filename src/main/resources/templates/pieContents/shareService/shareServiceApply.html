@@ -37,10 +37,10 @@
 							<div class="card-body">
 								<h5 class="card-title" th:text="${board.getSh_title}"></h5>
 								<p class="card-text" th:utext="${board.getSh_content}"></p>
-								<th:block th:if="${board.getSh_process()}=='on'">
+								<th:block th:if="${board.getSh_process().equals('1')}">
                         			<small class="badge badge-success" th:text="진행중"></small>                       	
                         		</th:block>
-                        		<th:block th:if="${board.getSh_process()}=='off'">
+                        		<th:block th:if="${board.getSh_process().equals('0')}">
                         			<small class="badge badge-danger" th:text="진행마감"></small>                      	
                         		</th:block>
 								<span class="d-block" th:text="${board.getSh_registDay}"></span>
@@ -118,13 +118,13 @@
 	        });
 			/*************모집마감 게시물 확인*************/
 	        off.click(function() {
-	            $(".ApplyList[data-pieCate!='off']").hide();
-	            $(".ApplyList[data-pieCate='off']").slice(0, 3).show();
+	            $(".ApplyList[data-pieCate!='0']").hide();
+	            $(".ApplyList[data-pieCate='0']").slice(0, 3).show();
 	            
 	            $("#load").off().click(function(e) {
 	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='off']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='off']:hidden").slice(0, 3).show();
+	                if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
+	                    $(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
 	                } else {
 	                    alert("마지막 게시물입니다.");
 	                }

@@ -20,5 +20,6 @@ public class PaymentDTO {
     private String payName; // 제품 이름
     private String payAmount; // 제품 가격
     private String num;
+    private String pay_category; // 카테고리
     private String payDate; // 구매일자
 }
