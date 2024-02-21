@@ -2,6 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/shareService}">
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
 <div layout:fragment="shareServiceContent" class="col">
@@ -284,7 +288,7 @@
 		</div>
 
 	</div>
-	
+
 
 	<div class="row">
 		<div class="col d-flex justify-content-center align-items-center">
@@ -413,12 +417,12 @@
 		}
 	</script>
 	<script type="text/javascript" th:inline="javascript">
-    var member = /*[[${member}]]*/
-    console.log(member.nickname);
-</script>
+		var member = /*[[${member}]]*/
+		console.log(member.nickname);
+	</script>
 
 	<script src="js/product.js"></script>
-    <script th:src="@{js/iamport.js}"></script>
+	<script th:src="@{js/iamport.js}"></script>
 </div>
 
 </html>

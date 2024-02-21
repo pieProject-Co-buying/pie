@@ -84,16 +84,14 @@ public class SocketHandler extends TextWebSocketHandler {
       //소켓 연결
       super.afterConnectionEstablished(session);
       sessionMap.put(session.getId(), session);
+      System.out.println("소켓통신성공");
       
-      
-
        // 클라이언트에게 세션 닉네임을 전송
        JSONObject obj = new JSONObject();
-       
+       System.out.println("소켓통신성공");
        obj.put("type", "getId");
        obj.put("sessionId", session.getId());
-
-       
+       System.out.println("소켓통신성공");
        session.sendMessage(new TextMessage(obj.toJSONString()));
        
        System.out.println("소켓통신성공");

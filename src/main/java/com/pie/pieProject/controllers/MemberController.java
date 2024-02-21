@@ -8,6 +8,13 @@ import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,33 +36,106 @@ public class MemberController {
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\profiles";
 
-	/*
-	 * @GetMapping("/login") public String loginPage(HttpServletRequest request) {
-	 * Authentication authentication =
-	 * SecurityContextHolder.getContext().getAuthentication();
-	 * 
-	 * if (authentication instanceof AnonymousAuthenticationToken) { return
-	 * "pieContents/members/login_form"; }
-	 * 
-	 * return "redirect:/"; }
-	 */
+	@GetMapping("/login")
+	public String loginPage(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			return "pieContents/members/login_form";
+		}
+		
+		return "redirect:/";
+	}
+	
+//	@PostMapping("/loginAction")
+//	public String loginProcess(HttpServletRequest request, Model model) {
+////		String id = request.getParameter("id");
+////		String salt = dao.getSalt(id);
+////
+////		String password = request.getParameter("password");
+////		String password_salt = SHA256.encrypt(password, salt);
+////
+////		MemberDto dto = null;
+////		dto = dao.login(id, password_salt);
+////		if (dto != null) {
+////			HttpSession session = request.getSession(true);
+////			session.setAttribute("pic", dto.getProfile_pic());
+////			session.setAttribute("userId", id);
+////			session.setAttribute("nickName", dto.getNickname());
+////			return "redirect:/";
+////		} else {
+//			return "redirect:/";
+////		}
+//	}
 
+	@GetMapping("/join")
+	public String signupPage(Model model, CsrfToken token) { // 회원 가입 페이지
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("_csrf", token);
+			return "pieContents/members/join_form";
+		}
+		return "redirect:/login";
+	}
 
-	@PostMapping("/loginAction")
-	public String loginProcess(HttpServletRequest request, Model model) {
-		String id = request.getParameter("id");
-		String salt = dao.getSalt(id);
-
-		String password = request.getParameter("password");
-		String password_salt = SHA256.encrypt(password, salt);
-
-		MemberDto dto = null;
-		dto = dao.login(id, password_salt);
-		if (dto != null) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("pic", dto.getProfile_pic());
-			session.setAttribute("userId", id);
-			session.setAttribute("nickName", dto.getNickname());
+	@PostMapping("/joinAction")
+	public String signup(@RequestParam(value = "id") String id, @RequestParam(value = "password") String password,
+			@RequestParam(value = "name") String name, @RequestParam(value = "nickname") String nickname,
+			@RequestParam(value = "gender") String gender, @RequestParam(value = "email") String email,
+			@RequestParam(value = "phone") String phone, @RequestParam(value = "postCode") String postCode,
+			@RequestParam(value = "address_main") String address_main,
+			@RequestParam(value = "address_sub") String address_sub,
+			@RequestParam(value = "agreement") String agreementChk, @RequestParam("profile_pic") MultipartFile file) { // 회원
+																														// 가입
+		try {
+			 String profile_pic; if(file!=null && file.isEmpty()) {
+				  System.out.println("test"); profile_pic = "default.png"; }else {
+				  StringBuilder fileNames = new StringBuilder(); Path fileNameAndPath =
+				  Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename()); // => Returns a  {@code Path} by converting a path string => 이미지가 저장되는 경로
+				  fileNames.append(file.getOriginalFilename()); byte[] fileSize =
+				  file.getBytes(); Files.write(fileNameAndPath, fileSize);
+				  
+				  profile_pic = fileNames.toString(); }
+				  
+				  boolean agreement = (agreementChk != null);
+				  
+				  // 확인용 출력
+				  
+				  System.out.println(id); System.out.println(password);
+				  System.out.println(name); System.out.println(nickname);
+				  System.out.println(gender); System.out.println(profile_pic);
+				  System.out.println(email); System.out.println(phone);
+				  System.out.println(postCode); System.out.println(address_main);
+				  System.out.println(address_sub); System.out.println(agreement);
+				  
+				  
+				  PasswordEncoder pe = new BCryptPasswordEncoder();
+				  
+					/**/
+					  String salt = SHA256.createSalt(password);
+					 /* String password_salt = SHA256.encrypt(password, salt);
+					 */
+				  String encoded_password = pe.encode(password);
+				  
+				  MemberDto dto = new MemberDto();
+				  
+				  dto.setId(id); 
+				  dto.setPassword(encoded_password); 
+				  dto.setSalt(salt);
+				  dto.setName(name); 
+				  dto.setNickname(nickname); 
+				  dto.setGender(gender);
+				  dto.setProfile_pic(profile_pic); 
+				  dto.setEmail(email); 
+				  dto.setPhone(phone);
+				  dto.setPostCode(postCode); 
+				  dto.setAddress_main(address_main);
+				  dto.setAddress_sub(address_sub); 
+				  dto.setAgreement(agreement);
+				  
+				  dao.join(dto);
+		} catch (DuplicateKeyException e) {
+			e.printStackTrace();
 			return "redirect:/";
 		} else {
 			return "redirect:/";
@@ -199,13 +279,11 @@ public class MemberController {
 	 * return "redirect:/"; }
 	 */
 
-	@GetMapping("/logout")
-	public String logoutProcess(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		return "redirect:/";
-	}
-
+	/*
+	 * @GetMapping("/logout") public String logoutProcess(HttpServletRequest
+	 * request) { HttpSession session = request.getSession(); session.invalidate();
+	 * return "redirect:/"; }
+	 */
 	@GetMapping("/updateForm")
 	public String updateFormPage(HttpServletRequest request, Model model) {
 		MemberDto dto = new MemberDto();
@@ -264,6 +342,7 @@ public class MemberController {
 		}
 		HttpSession session = request.getSession(true);
 		session.setAttribute("pic", dto.getProfile_pic());
+		session.setAttribute("nickName", dto.getNickname());
 
 		return "redirect:/updateForm";
 	}
