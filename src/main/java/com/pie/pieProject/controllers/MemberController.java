@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,10 +69,12 @@ public class MemberController {
 //	}
 
 	@GetMapping("/join")
-	public String signupPage() { // 회원 가입 페이지
+	public String signupPage(Model model, CsrfToken token) { // 회원 가입 페이지
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication instanceof AnonymousAuthenticationToken)
+		if (authentication instanceof AnonymousAuthenticationToken) {
+			model.addAttribute("_csrf", token);
 			return "pieContents/members/join_form";
+		}
 		return "redirect:/login";
 	}
 
@@ -130,8 +133,6 @@ public class MemberController {
 				  dto.setAddress_sub(address_sub); 
 				  dto.setAgreement(agreement);
 				  
-				  
-			
 				  dao.join(dto);
 		} catch (DuplicateKeyException e) {
 			e.printStackTrace();
@@ -207,13 +208,11 @@ public class MemberController {
 	 * return "redirect:/"; }
 	 */
 
-	@GetMapping("/logout")
-	public String logoutProcess(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		return "redirect:/";
-	}
-
+	/*
+	 * @GetMapping("/logout") public String logoutProcess(HttpServletRequest
+	 * request) { HttpSession session = request.getSession(); session.invalidate();
+	 * return "redirect:/"; }
+	 */
 	@GetMapping("/updateForm")
 	public String updateFormPage(HttpServletRequest request, Model model) {
 		MemberDto dto = new MemberDto();
@@ -272,6 +271,7 @@ public class MemberController {
 		}
 		HttpSession session = request.getSession(true);
 		session.setAttribute("pic", dto.getProfile_pic());
+		session.setAttribute("nickName", dto.getNickname());
 
 		return "redirect:/updateForm";
 	}

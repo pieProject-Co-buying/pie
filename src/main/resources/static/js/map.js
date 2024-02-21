@@ -6,7 +6,7 @@ $.ajax({
 	url: "/map",
 	dataType: "json", // 서버에서 JSON으로 반환되는 것을 명시적으로 지정
 	success: function(response) {
-		try {
+		try {  
 			var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 			var mapOption = {
 				center: new kakao.maps.LatLng(

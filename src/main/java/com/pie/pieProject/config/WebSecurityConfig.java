@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.pie.pieProject.components.CustomAutenticationSuccess;
 import com.pie.pieProject.components.LoginFailHandler;
@@ -35,19 +36,23 @@ public class WebSecurityConfig {
 		HttpSessionRequestCache requestCache = new HttpSessionRequestCache();
 		requestCache.setMatchingRequestParameterName(null);
 
-		http.authorizeHttpRequests((requests) -> requests.requestMatchers("*").permitAll()
+		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
-				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/deleteTownProduct",
-						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying")
-				.authenticated()
-				.requestMatchers("/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm",
-						"/updateProxyAction", "/deleteProxyAction")
-				.authenticated()
-				.requestMatchers("/updateShareBoardForm", "/boardList", "/updateShareBoard", "/deleteShareService",
-						"/writePost", "/insertBoard", "/shareServiceApply", "/shareServiceFinish")
-				.authenticated()
+				.requestMatchers("/join", "/joinAction").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember")
+				.authenticated()
+				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/deleteTownProduct",
+						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying",
+						"/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm", "/updateProxyAction",
+						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",
+						"/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
+						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
+						"/proxyBuyApply", "/payCheck")
+				.authenticated()
+				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
+						"/shareService")
+				.permitAll().requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**")
 				.authenticated()).formLogin(login -> login.loginPage("/login") // 처리)
 						.usernameParameter("id").passwordParameter("password").loginProcessingUrl("/auth") // POST 요청
 						.defaultSuccessUrl("/").successHandler(customAutenticationSuccess)
@@ -69,36 +74,29 @@ public class WebSecurityConfig {
 								response.sendRedirect("/login");
 							}
 						}).deleteCookies("remember-me"))
-				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))// logout에 성공하면 /로
+				.csrf(csrf -> csrf
+						.ignoringRequestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/socket", "/error")
+						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				/*
+				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/login", "POST"))
+				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/join", "POST"))//
+				 * logout에 성공하면 /로 // // redirect .requireCsrfProtectionMatcher(new
+				 * AntPathRequestMatcher("/updateForm", "POST"))
+				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/logout", "POST"))
+				 */
+						)// logout에 성공하면
+																										// /로 //
 																										// redirect
 				.sessionManagement(session -> session.maximumSessions(1) // 세션 최대 허용 수
 						.maxSessionsPreventsLogin(false))
-				.requestCache(cache -> cache.requestCache(requestCache)); // false이면 중복 로그인하면 이전 로그인이 풀린다.
+				.requestCache(cache -> cache.requestCache(requestCache)); // redirect
+
+		// false이면 중복 로그인하면 이전 로그인이 풀린다.
 		return http.build();
 	}
 
 	@Bean
 	public LoginFailHandler loginFailHandler() {
 		return new LoginFailHandler();
-	}
-
-	@Bean
-	public AuthorizationManager<Message<?>> messageAuthorizationManager(
-			MessageMatcherDelegatingAuthorizationManager.Builder messages) {
-		return messages.simpTypeMatchers(SimpMessageType.CONNECT).authenticated() // 웹소켓 연결시에만 인증 확인(인증 정보는
-																					// WebSecurity(ex. formLogin)를 통해
-																					// 인증한 정보를 활용)
-				.anyMessage().permitAll().build();
-	}
-
-	@Bean("csrfChannelInterceptor") // for disable csrf
-	public ChannelInterceptor csrfChannelInterceptor() {
-		return new ChannelInterceptor() {
-		};
-	}
-
-	@Bean
-	public MessageMatcherDelegatingAuthorizationManager.Builder messageAuthorizationManagerBuilder() {
-		return MessageMatcherDelegatingAuthorizationManager.builder();
 	}
 }

@@ -10,8 +10,7 @@
 	</h2>
 
 	<form action="joinAction" enctype="multipart/form-data" method="post" name="joinForm">
-	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-	
+ 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
 		<div class="form-group row">
 			<label for="inputEmail3" class="col-sm-3 col-form-label">이름</label>
 			<div class="col-sm-6">

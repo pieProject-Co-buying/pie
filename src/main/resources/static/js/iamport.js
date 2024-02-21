@@ -7,6 +7,10 @@ var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
 var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
+const name = $("#userName").val();
+
 
 function kgPay() {
 	if (confirm("kg 이니시스로 결제 하시겠습니까?") == true) { // 확인 클릭 시
@@ -32,6 +36,7 @@ function kgPay() {
 
 		}, function(rsp) {
 			if (rsp.success) {
+
 				var result = {
 					"buyer_name": rsp.buyer_name, // 구매자 이름
 					"buyer_nickname": member.nickname, // 구매자 닉네임
@@ -46,15 +51,21 @@ function kgPay() {
 					"payAmount": Price // 상품 가격
 				}
 				$.ajax({
-					url: "payCheck", // controller로 payCheck라는 url주소를 보냄
-					type: 'POST', // 서버로 데이터를 전송
-					contentType: "application/json", // 본문 데이터가 JSON 형식으로 전송
-					data: JSON.stringify(result), // 객체를 JSON 문자열로 변환
-					success: function(response) { // controller를 거치고 결제 성공 시 (response : 서버로부터 받은 응답 데이터)
-						alert("결제에 성공하였습니다");
-						document.location.href = "shareServiceFinish?sh_numID=" + numID;
-					}
-				});
+						url: "payCheck",
+						type: 'POST',
+						contentType: "application/json",
+						data: JSON.stringify(result),
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						},
+						success: function(response) {
+							alert("결제에 성공하였습니다");
+							document.location.href = "shareServiceFinish?sh_numID=" + numID;
+						},
+						error: function(xhr, status, error) {
+							console.log('error:' + error);
+						}
+					});
 			} else if (!rsp.success) {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
@@ -92,6 +103,7 @@ function kakaoPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
+					console.log("성공1")
 					var result = {
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
@@ -107,14 +119,22 @@ function kakaoPay() {
 					}
 					console.log(
 						result.buyer_nickname);
+
+
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',
-						contentType: "application/json",
+						'contentType': "application/json",
 						data: JSON.stringify(result),
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						},
 						success: function(response) {
 							alert("결제에 성공하였습니다");
 							document.location.href = "shareServiceFinish?sh_numID=" + numID;
+						},
+						error: function(xhr, status, error) {
+							console.log('error:' + error);
 						}
 					});
 				} else if (!rsp.success) {
@@ -167,11 +187,17 @@ function tossPay() {
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',
-						contentType: "application/json",
+						'contentType': "application/json",
 						data: JSON.stringify(result),
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						},
 						success: function(response) {
 							alert("결제에 성공하였습니다");
 							document.location.href = "shareServiceFinish?sh_numID=" + numID;
+						},
+						error: function(xhr, status, error) {
+							console.log('error:' + error);
 						}
 					});
 				} else if (!rsp.success) {
@@ -204,14 +230,21 @@ function paycoPay() {
 		function(rsp) {
 			if (rsp.success) {
 				$.ajax({
-					url: "shareServiceFinish",
-					type: 'POST',
-					dataType: 'json',
-					data: {
-						imp_uid: rsp.imp_uid
-						//기타 필요한 데이터가 있으면 추가 전달
-					}
-				});
+						url: "payCheck",
+						type: 'POST',
+						'contentType': "application/json",
+						data: JSON.stringify(result),
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						},
+						success: function(response) {
+							alert("결제에 성공하였습니다");
+							document.location.href = "shareServiceFinish?sh_numID=" + numID;
+						},
+						error: function(xhr, status, error) {
+							console.log('error:' + error);
+						}
+					});
 				alert("결제에 성공하였습니다");
 				document.location.href = "shareServiceFinish";
 			} else if (!rsp.success) {
@@ -221,4 +254,20 @@ function paycoPay() {
 			}
 		}
 	);
+}
+
+function getCookie(name) {
+	var cookieValue = null;
+	if (document.cookie && document.cookie !== '') {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = cookies[i].trim();
+			// 쿠키 이름이 예상 형식과 일치하는지 확인
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
 }
