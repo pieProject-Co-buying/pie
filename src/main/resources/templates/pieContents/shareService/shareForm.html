@@ -17,6 +17,7 @@
 		<div class="row">
 			<div class="col">
 				<form action="insertBoard" enctype="multipart/form-data" method="post" name="shareForm">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
 							onerror="this.onerror=null; this.src='imgs/default.png';" /><input type="text"
@@ -29,8 +30,8 @@
 								data-toggle="dropdown" aria-expanded="false"> 카테고리 </button>
 							<input type="hidden" id="h-input" value="" name="sh_category" />
 							<div class="dropdown-menu">
-								<a class="dropdown-item" data-category="OTT">OTT</a> 
-								<a class="dropdown-item" data-category="game">게임</a> 
+								<a class="dropdown-item" data-category="OTT">OTT</a>
+								<a class="dropdown-item" data-category="game">게임</a>
 								<a class="dropdown-item" data-category="bookAndMusic">도서/음악</a>
 							</div>
 						</div>

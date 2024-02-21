@@ -48,7 +48,7 @@ public class WebSecurityConfig {
 						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",
 						"/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
 						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
-						"/proxyBuyApply", "/payCheck")
+						"/proxyBuyApply", "/payCheck", "/townForm")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService")
