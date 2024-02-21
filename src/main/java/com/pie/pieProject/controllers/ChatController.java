@@ -63,7 +63,7 @@ public class ChatController {
     
     
 	
-	List<Room> roomList = new ArrayList<Room>();
+	List<RoomDto> roomList = new ArrayList<RoomDto>();
 	static int roomNumber = 0;
 	
 
@@ -101,18 +101,35 @@ public class ChatController {
 	 * @return
 	 */
 	@RequestMapping("/createRoom")
-	public @ResponseBody List<Room> createRoom(@RequestParam HashMap<Object, Object> params){
+	public @ResponseBody List<RoomDto> createRoom(@RequestParam HashMap<Object, Object> params){
 		
 		String roomName = (String) params.get("roomName");
-		if(roomName != null && !roomName.trim().equals("")) {
-			Room room = new Room();
-			room.setRoomNumber(++roomNumber);
-			room.setRoomName(roomName);
-			roomList.add(room);
-		}
+		Integer roomNumber = (Integer) params.get("roomNumber");
+		roomNumber = 0;
+		
+		/*
+		 * if(roomName != null && !roomName.trim().equals("")) { RoomDto room = new
+		 * RoomDto(); room.setRoomNumber(++roomNumber); room.setRoomName(roomName);
+		 * roomList.add(room); }
+		 */
+		
+	    if(roomName != null && !roomName.trim().equals("")) {
+	        RoomDto room = new RoomDto();
+	        room.setRoomNumber(++roomNumber);
+	        room.setRoomName(roomName);
+	        roomList.add(room);
+	        
+	        // 마이바티스를 사용하여 방 정보를 데이터베이스에 삽입
+	        dao.insertRoom(roomName, roomNumber);
+	        
+	        System.out.println("방정보 저장 성공");
+	    }		
+		
 		
 		return roomList;
-	}
+		
+		
+	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	
 	
 	/**
@@ -122,7 +139,7 @@ public class ChatController {
 	 */
 	
 	@RequestMapping("/getRoom")
-	public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
+	public @ResponseBody List<RoomDto> getRoom(@RequestParam HashMap<Object, Object> params){
 		return roomList;
 	}
 	
@@ -137,7 +154,7 @@ public class ChatController {
 		ModelAndView mv = new ModelAndView();
 		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
 		
-		List<Room> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
+		List<RoomDto> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
 		if(new_list != null && new_list.size() > 0) {
 			mv.addObject("roomName", params.get("roomName")); 
 			mv.addObject("roomNumber", params.get("roomNumber"));

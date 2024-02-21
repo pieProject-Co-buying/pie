@@ -11,6 +11,10 @@
     </insert>
 	
 	
+	<insert id="insertRoom">
+        INSERT INTO pie_chatRoom (roomNumber, roomName) VALUES (#{roomNumber}, #{roomName})
+    </insert>
+	
 	<!-- 채팅방 생성 -->
 <!--     <insert id="insertRoom" parameterType="com.example.model.Room">
         INSERT INTO room (roomName, roomNumber) VALUES (#{roomName}, #{roomNumber})

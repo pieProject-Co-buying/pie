@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Room {
+public class RoomDto {
 	
 	int roomNumber;
 	String roomName;
