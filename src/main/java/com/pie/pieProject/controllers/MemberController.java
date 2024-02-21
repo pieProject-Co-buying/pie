@@ -40,6 +40,7 @@ public class MemberController {
 	 * return "redirect:/"; }
 	 */
 
+
 	@PostMapping("/loginAction")
 	public String loginProcess(HttpServletRequest request, Model model) {
 		String id = request.getParameter("id");
@@ -66,7 +67,11 @@ public class MemberController {
 	 * authentication = SecurityContextHolder.getContext().getAuthentication(); if
 	 * (authentication instanceof AnonymousAuthenticationToken) return
 	 * "pieContents/members/join_form"; return "redirect:/login"; }
-	 * 
+
+	 */
+
+	/*
+
 	 * @PostMapping("/joinAction") public String signup(@RequestParam(value = "id")
 	 * String id, @RequestParam(value = "password") String password,
 	 * 

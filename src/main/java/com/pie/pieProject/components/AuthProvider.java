@@ -35,8 +35,10 @@
  * List<GrantedAuthority> roles = new ArrayList<>(); roles.add(new
  * SimpleGrantedAuthority("USER")); // 권한 부여
  * 
+
  * // Principal을 사용자의 ID로 설정 return new
  * UsernamePasswordAuthenticationToken(mdto.getId(), password, roles); }
+
  * 
  * throw new BadCredentialsException("No such user or wrong password."); }
  * 

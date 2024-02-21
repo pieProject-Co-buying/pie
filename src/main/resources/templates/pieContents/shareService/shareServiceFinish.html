@@ -14,15 +14,15 @@
 			<div class="col-12 text-center mt-3">
 				<h5><b>신청 정보</b></h5>
 			</div>
-			<div class="col-9 m-auto border-bottom" th:each="board:${list}">
+			<div class="col-9 m-auto border-bottom">
 				<div class="border d-inline-block mb-3">
-					<img th:src="@{imgs/test/{productImg}(productImg=${board.sh_productImg})}" class="img-fluid" width="200" height="200">
+					<img th:src="@{'imgs/test/'+${productImg})}" class="img-fluid" width="200" height="200">
 				</div>
-				<p>제품명 : <span th:text="${board.getSh_title()}">감자</span></p>
-				<p>결제일시 : <span th:text="${board.getSh_registDay()}"></span></p>
-				<p>결제금액 : <span th:text="${board.getSh_pricePer()}+' 원'"></span></p>
-				<div th:each="pay:${pay}">
-					<p>결제수단 : <span th:text="${pay.getPayMethod()}"></span></p>
+				<p>제품명 : <span th:text="${title}">감자</span></p>
+				<p>결제일시 : <span th:text="${payDay}"></span></p>
+				<p>결제금액 : <span th:text="${price}+' 원'"></span></p>
+				<div>
+					<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">

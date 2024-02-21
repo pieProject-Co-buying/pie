@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
@@ -240,25 +240,7 @@ public class ShareServiceController {
 		return "pieContents/shareService/shareServiceApply";
 	}
 
-	/********** 결제완료 페이지 이동 **********/
-	@RequestMapping("/shareServiceFinish")
-	public String goFinish(HttpServletRequest request, Model model) {
-	//@RequestParam(name = "msg", required = false) String msg{
-		HttpSession session = request.getSession();
-
-		String uId = (String) session.getAttribute("userId");
-		String nid = request.getParameter("sh_numID");
-		
-		/*if(Integer.parseInt(msg)==1) {
-			model.addAttribute("pay",Pdao.findPay(uId));
-		}else {
-			return "history.go(-1)";
-		}*/
-
-		model.addAttribute("find", mdao.find(uId));
-		model.addAttribute("list", dao.completePay(Integer.parseInt(nid)));
-		return "pieContents/shareService/shareServiceFinish";
-	}
+	
 
 	private String getSession(HttpServletRequest request, String key) {
 		HttpSession session = request.getSession();
@@ -273,4 +255,8 @@ public class ShareServiceController {
 		}
 		return str_imgs;
 	}
+//	@GetMapping("/modal")
+//    public String getModalTemplate() {
+//        return "pieContents/shareServiceProduct"; // 모달 템플릿의 이름을 반환합니다.
+//    }
 }

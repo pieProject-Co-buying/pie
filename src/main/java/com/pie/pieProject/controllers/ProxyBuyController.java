@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
+import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +44,8 @@ public class ProxyBuyController {
 
 	@GetMapping("/viewProxyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
+		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		
 		System.out.println(num);
 		dao.updateHit(num);
 		System.out.println("chkpoint1");
@@ -61,6 +64,7 @@ public class ProxyBuyController {
 		System.out.println("chkpoint3");
 
 		model.addAttribute("board", dto);
+		model.addAttribute("member",mdto);
 		return "pieContents/proxyBuying/proxyBuyProduct";
 	}
 

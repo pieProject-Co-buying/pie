@@ -69,12 +69,12 @@ function kgPay() {
 }
 function kakaoPay() {
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
-		var DataTitle = document.querySelector('[data-title]');
+		/*var DataTitle = document.querySelector('[data-title]');
 		var DataPrice = document.querySelector('[data-pricePer]');
-		var DataNumID = document.querySelector('[data-num]');
 		var Title = DataTitle.getAttribute('data-title');
-		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));
-		var numID = parseFloat(DataNumID.getAttribute('data-num'));
+		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));*/
+		
+		
 		//var DataPersonnelNow = document.querySelector('[data-personnelNow]');
 		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
 		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
@@ -83,8 +83,8 @@ function kakaoPay() {
 			{
 				pg: "kakaopay.TC0ONETIME",
 				merchant_uid: makeMerchantUid,
-				name: Title,
-				amount: Price,
+				name: "name",
+				amount: 300,
 				buyer_name: member.name,
 				buyer_tel: member.phone,
 				buyer_addr: member.address_main + member.address_sub,
@@ -92,6 +92,20 @@ function kakaoPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
+					var category;
+					let url = window.location.href;
+					var str = url.substring(url.lastIndexOf('/') + 1,url.indexOf('?'));
+					
+					if(str=='boardList'){
+						var DataNumID = document.querySelector('[data-num]');
+						var numID = parseFloat(DataNumID.getAttribute('data-num'));
+						category="Share"
+					}else if(str=='viewProxyBoard'){
+						var DataPrNumID = document.querySelector('[data-Prnum]');
+						var PrnumID = parseFloat(DataPrNumID.getAttribute('data-Prnum'));
+						category="Proxy"
+					}			
+					console.log(str);
 					var result = {
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
@@ -102,11 +116,10 @@ function kakaoPay() {
 						"pay_uid": rsp.imp_uid,
 						"pay_method": "카카오페이",
 						"payMerchant_uid": makeMerchantUid,
-						"payName": Title,
-						"payAmount": Price
+						"payName": "제목",
+						"payAmount": 300,
+						"pay_category":category
 					}
-					console.log(
-						result.buyer_nickname);
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',
@@ -114,7 +127,13 @@ function kakaoPay() {
 						data: JSON.stringify(result),
 						success: function(response) {
 							alert("결제에 성공하였습니다");
-							document.location.href = "shareServiceFinish?sh_numID=" + numID;
+							
+							if (response == 'Share'){
+								document.location.href = "shareServiceFinish?num=" + numID +"&cate=" + response;
+							}else if(response == 'Proxy'){
+								document.location.href = "shareServiceFinish?num=" + PrnumID + "&cate=" + response;
+							}
+								
 						}
 					});
 				} else if (!rsp.success) {
@@ -221,4 +240,59 @@ function paycoPay() {
 			}
 		}
 	);
+}
+function kakaoPay1() {
+	var DataNumID = document.querySelector('[data-Prnum]');
+	var numID = parseFloat(DataNumID.getAttribute('data-Prnum'));
+	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
+
+		IMP.request_pay(
+			{
+				pg: "kakaopay.TC0ONETIME",
+				merchant_uid: makeMerchantUid,
+				name: "Title",
+				amount: 10,
+				buyer_name: "member.name",
+				buyer_tel: "010.0100.0100",
+				buyer_addr: "member.address_main ",
+				buyer_email: "email",
+				buyer_postcode: "161616"
+			}, function(rsp) {
+				if (rsp.success) {
+					var result = {
+						"buyer_name": "rsp.buyer_name",
+						"buyer_nickname": "member.nickname",
+						"buyer_tel": rsp.buyer_tel,
+						"buyer_addr": rsp.buyer_addr,
+						"buyer_email": rsp.buyer_email,
+						"buyer_postcode": rsp.buyer_postcode,
+						"pay_uid": rsp.imp_uid,
+						"pay_method": "카카오페이",
+						"payMerchant_uid": makeMerchantUid,
+						"payName": rsp.name,
+						"payAmount": 10,
+						"msg":1
+					}
+					console.log(
+						result.buyer_nickname);
+					$.ajax({
+						url: "payCheck",
+						type: 'POST',
+						contentType: "application/json",
+						data: JSON.stringify(result),
+						success: function(response) {
+							alert("결제에 성공하였습니다");
+							document.location.href = "shareServiceFinish?num=" + numID+"&msg="+1;
+						}
+					});
+				} else if (!rsp.success) {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+					alert(msg);
+				}
+			}
+		);
+	} else {
+		return;
+	}
 }

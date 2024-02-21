@@ -102,7 +102,7 @@
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<p class="d-none" th:attr="data-num=${board.getSh_num}"></p>
+						<p class="d-none" th:attr="data-num=${board.getSh_num()}"></p>
 						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
 							alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
@@ -160,7 +160,7 @@
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getSh_registDay()}"></small>
+												th:text="${board.getSh_deadLine()}"></small>
 										</p>
 									</div>
 								</div>
@@ -212,7 +212,8 @@
 							</div>
 						</div>
 						<hr>
-						<!--------------------------다른 상품--------------------------><div class="d-flex align-items-end justify-content-between">
+						<!--------------------------다른 상품-------------------------->
+						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
 							<button type="button" class="btn pie-btn-red btn-block"
