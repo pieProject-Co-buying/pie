@@ -45,22 +45,22 @@
 					<ul class="navbar-nav ml-auto align-items-lg-center">
 						<li class="nav-item active">
 							<div>
-								<th:block th:if="${session.userId!=null}">
-									<a class="nav-link" href="updateForm"><img th:src="@{'imgs/profiles/'+${session.pic}}" alt="" class="pie-profilePic mr-2" onerror="this.onerror=null; this.src='imgs/default.png';"/><span th:text="|${session.nickName}님 로그인중|" class=""></span></a>
-								</th:block>
-								<th:block th:if="${session.userId==null}">
-									<a class="nav-link" href="login">로그인</a>
-								</th:block>
+								<!-- <th:block th:if="${session.userId!=null}"> -->
+									<a sec:authorize="isAuthenticated()"  class="nav-link" href="updateForm"><img th:src="@{'imgs/profiles/'+${session.pic}}" alt="" class="pie-profilePic mr-2" onerror="this.onerror=null; this.src='imgs/default.png';"/><span th:text="|${session.userId}님 로그인중|" class=""></span></a>
+								<!-- </th:block> -->
+								<!-- <th:block th:if="${session.userId==null}"> -->
+									<a sec:authorize="!isAuthenticated()" class="nav-link" href="login">로그인</a>
+								<!-- </th:block> -->
 							</div>
 
 						</li>
 						<li class="nav-item">
 							<div>
-								<th:block th:if="${session.userId!=null}">
-									<a class="nav-link" href="logout">로그아웃</a>
-								</th:block>
+								<!-- <th:block th:if="${session.userId!=null}"> -->
+									<a sec:authorize="isAuthenticated()" class="nav-link" href="logout">로그아웃</a>
+								<!-- </th:block> -->
 								<th:block th:if="${session.userId==null}">
-									<a class="nav-link" href="join">회원가입</a>
+									<a sec:authorize="!isAuthenticated()" class="nav-link" href="join">회원가입</a>
 								</th:block>
 							</div>
 							</th:block>

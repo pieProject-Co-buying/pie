@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IMemberDao">
+	<select id="getUserList"
+		resultType="com.pie.pieProject.DTO.MemberDto">
+		SELECT *
+		FROM User
+	</select>
 	<select id="getSalt" resultType="string">
 		select salt from member_user
 		where id = #{param1}
+	</select>
+	<select id="getAuthList" resultType="String">
+		SELECT AUTHORITY FROM USERAUTH WHERE ID=#{param1}
 	</select>
 	<select id="login" resultType="com.pie.pieProject.DTO.MemberDto">
 		select * from member_user
@@ -27,30 +35,37 @@
 		#{agreement},
 		null,
 		'none',
-		TO_DATE('19000101', 'YYYYMMDD'),
+		TO_DATE('19000101',
+		'YYYYMMDD'),
 		TO_DATE('19000101', 'YYYYMMDD')
 		)
 	</insert>
 	<select id="find" resultType="com.pie.pieProject.DTO.MemberDto">
-		select * from member_user where id = #{param1}
+		select * from member_user where id
+		= #{param1}
 	</select>
 	<update id="sub">
-	update member_user set premium='pro', preDate = sysdate, preEndDate = sysdate + 30 where id = #{param1}
+		update member_user set premium='pro', preDate = sysdate, preEndDate =
+		sysdate + 30 where id = #{param1}
 	</update>
 	<update id="resub">
-	update member_user set premium='pro' where id = #{param1}
+		update member_user set premium='pro' where id = #{param1}
 	</update>
 	<delete id="deleteMember">
-	delete member_user where id = #{param1}
+		delete member_user where id = #{param1}
 	</delete>
 	<update id="updateMember">
-	update member_user set name=#{name}, nickname=#{nickname}, gender=#{gender}, profile_pic=#{profile_pic}, email=#{email}, phone=#{phone}, postCode=#{postCode}, address_main=#{address_main}, address_sub=#{address_sub} where id = #{id}
+		update member_user set name=#{name}, nickname=#{nickname}, gender=#{gender},
+		profile_pic=#{profile_pic}, email=#{email}, phone=#{phone},
+		postCode=#{postCode}, address_main=#{address_main},
+		address_sub=#{address_sub} where id = #{id}
 	</update>
 	<update id="unSub">
-	update member_user set premium='none' where id = #{param1}
+		update member_user set premium='none' where id = #{param1}
 	</update>
 	<update id="expireSub">
-	update member_user set premium='none' where preEndDate <![CDATA[ < ]]>  sysdate
+		update member_user set premium='none' where preEndDate <![CDATA[ < ]]>
+		sysdate
 	</update>
 </mapper>
 
