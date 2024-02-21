@@ -86,8 +86,6 @@ public class KaKaoMapController {
 				String x = roadAddress.get("x").toString();
 				String y = roadAddress.get("y").toString();
 
-				System.out.println(x);
-				System.out.println(y);
 				// jsonArr에서 하나씩 JSONObject로 cast해서 사용
 				
 				 JSONObject item = new JSONObject();
@@ -96,6 +94,11 @@ public class KaKaoMapController {
 				 item.put("y", y);
 				 item.put("num", dto.getTo_num());
 				 item.put("category", dto.getTo_category());
+				 int max = dto.getTo_personnelMax();
+				 int now = dto.getTo_personnelNow();
+				 System.out.println(max-now);
+				 item.put("endSoon", max-now);
+				 
 				itemList.add(item);
 
 			} catch (ParseException e) {

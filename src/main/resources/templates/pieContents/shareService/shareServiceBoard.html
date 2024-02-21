@@ -27,7 +27,7 @@
 		<div class="row mb-5 justify-content-center">
 			<div class="col-md-8">
 				<form action="searchTitle" class="pie-search">
-					<input type="hidden" />
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<div class="dropdown" id="selectCategory">
 						<a class="btn dropdown-toggle" href="#" role="button" data-toggle="dropdown"
 							aria-expanded="false"> 카테고리 </a>

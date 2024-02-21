@@ -23,7 +23,9 @@
 			<div class="col">
 				<form action="updateProxyAction" method="post"
 					name="proxyUpdateForm" enctype="multipart/form-data">
-					<input type="hidden" name="num" th:value="${param.num}" />
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" /> <input type="hidden" name="num"
+						th:value="${param.num}" />
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
 							onerror="this.onerror=null; this.src='imgs/default.png';" /><input
