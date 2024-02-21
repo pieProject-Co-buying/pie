@@ -122,7 +122,7 @@ public class ChatController {
 	        // 마이바티스를 사용하여 방 정보를 데이터베이스에 삽입
 	        dao.insertRoom(roomName, roomNumber);
 	        
-	        System.out.println("방정보 저장 성공");
+	        
 	    }		
 		
 		
