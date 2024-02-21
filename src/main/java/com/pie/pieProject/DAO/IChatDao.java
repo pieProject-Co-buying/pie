@@ -3,11 +3,9 @@ package com.pie.pieProject.DAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.pie.pieProject.DTO.RoomDto;
-import com.pie.pieProject.DTO.TownBuyBoardDto;
-import com.pie.pieProject.DTO.chatDto;
 
-import java.util.Date;
+import com.pie.pieProject.DTO.RoomDto;
+
 import java.util.List;
 
 
@@ -27,8 +25,11 @@ public interface IChatDao {
 	public void saveMsg(@Param("roomName") String roomName, @Param("roomNumber") String roomNumber, @Param("userId") String userId, @Param("userName") String userName, @Param("message") String message);
 	
 	//채팅방 생성
-	public void insertRoom(@Param("roomName") String roomName, @Param("roomNumber") int roomNumber);
-
-
+	public void insertRoom(@Param("roomName") String roomName, @Param("roomNumber") int roomNumber, @Param("nickName") String nickName);
+	
+	public List<RoomDto> roomListByID(String userId);
+	
+	public List<RoomDto> roomList();
+	
 
 }

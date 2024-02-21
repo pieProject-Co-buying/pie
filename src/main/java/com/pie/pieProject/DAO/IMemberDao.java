@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.pie.pieProject.DTO.MemberDto;
 
@@ -20,7 +19,8 @@ public interface IMemberDao {
 	public void updateMember(MemberDto mem);
 	public void unSub(String id);
 	public void expireSub();
-	public UserDetails getLogInfo(String id);
+
+	/* public UserDetails getLogInfo(String id); */
 	public ArrayList<String> getAuthList(String id);
 	public List<MemberDto> getUserList();
 

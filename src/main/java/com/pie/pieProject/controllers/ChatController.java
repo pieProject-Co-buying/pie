@@ -9,9 +9,10 @@ import java.util.stream.Collectors;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,8 @@ import com.pie.pieProject.DAO.IChatDao;
 
 import com.pie.pieProject.DTO.*;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
@@ -30,6 +33,10 @@ public class ChatController {
 
 	@Autowired
 	IChatDao dao;
+	
+	
+	List<RoomDto> roomList = new ArrayList<RoomDto>();
+	static int roomNumber = 0;
 
 	
     @MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됩니다.
@@ -62,12 +69,7 @@ public class ChatController {
     }
     
     
-	
-	List<RoomDto> roomList = new ArrayList<RoomDto>();
-	static int roomNumber = 0;
-	
 
-	
 	
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
@@ -84,9 +86,16 @@ public class ChatController {
 	 * @return
 	 */
 	@RequestMapping("/room")
-	public ModelAndView room() {
+	public ModelAndView room(Model model, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("pieContents/chatting/room");
+		
+		 HttpSession session = request.getSession();
+			/* String userId = (String)session.getAttribute("userId"); */
+		 String userId = "혜혜";
+		
+		model.addAttribute("roomList", dao.roomListByID(userId));
+		
 		return mv;
 	}
 	
@@ -102,34 +111,40 @@ public class ChatController {
 	 */
 	@RequestMapping("/createRoom")
 	public @ResponseBody List<RoomDto> createRoom(@RequestParam HashMap<Object, Object> params){
-		
-		String roomName = (String) params.get("roomName");
-		Integer roomNumber = (Integer) params.get("roomNumber");
-		roomNumber = 0;
-		
-		/*
-		 * if(roomName != null && !roomName.trim().equals("")) { RoomDto room = new
-		 * RoomDto(); room.setRoomNumber(++roomNumber); room.setRoomName(roomName);
-		 * roomList.add(room); }
-		 */
-		
+	    
+	    String roomName = (String) params.get("roomName");
+	    Integer roomNumber = (Integer) params.get("roomNumber");
+	    String nickName = (String) params.get("nickName");
+	    
+	   
+	    
+	    if (roomNumber == null) {
+	        roomNumber = 0; // 기본값 설정
+	    }
+	    
+	    // 이전 방 목록에서 최대 방 번호를 찾아서 그 다음 번호를 증가시켜 새로운 방 번호로 사용
+	    int maxRoomNumber = roomList.stream()
+	                                .mapToInt(RoomDto::getRoomNumber)
+	                                .max()
+	                                .orElse(0);
+	    int newRoomNumber = maxRoomNumber + 1;
+	    
 	    if(roomName != null && !roomName.trim().equals("")) {
 	        RoomDto room = new RoomDto();
-	        room.setRoomNumber(++roomNumber);
+	        room.setRoomNumber(newRoomNumber); // 이전 방 번호에서 1씩 증가된 값을 사용
 	        room.setRoomName(roomName);
+	        room.setPartyMem(nickName);
+	        
 	        roomList.add(room);
 	        
 	        // 마이바티스를 사용하여 방 정보를 데이터베이스에 삽입
-	        dao.insertRoom(roomName, roomNumber);
+	        dao.insertRoom(roomName, newRoomNumber, nickName); // 새로운 방 번호를 사용
 	        
-	        
-	    }		
-		
-		
-		return roomList;
-		
-		
-	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+	    }        
+	    
+	    return roomList;
+	    
+	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	
 	
 	/**
@@ -137,11 +152,37 @@ public class ChatController {
 	 * @param params
 	 * @return
 	 */
+//	@RequestParam HashMap<Object, Object> params
 	
-	@RequestMapping("/getRoom")
-	public @ResponseBody List<RoomDto> getRoom(@RequestParam HashMap<Object, Object> params){
-		return roomList;
+	 @RequestMapping("/getRoom") 
+	 public ResponseEntity<String> getRoom(HttpServletRequest request){
+		 
+		 HttpSession session = request.getSession();
+			/* String userId = (String)session.getAttribute("userId"); */
+		 String userId = "혜혜";
+		 
+		 JSONObject obj = new JSONObject();
+		 
+		 List<RoomDto> getRoom = new ArrayList<RoomDto>();
+		 
+		 System.out.println(userId);
+		 
+		 getRoom = dao.roomListByID("/"+userId);
+		 
+		 System.out.println(getRoom);
+		 
+		 for(RoomDto room : getRoom) {
+			 
+			obj.put("roomName",  room.getRoomName());
+			obj.put("roomNum",  room.getRoomNumber());
+			room.setPartyMems(room.getPartyMem().split("/"));
+			obj.put("member", room.getPartyMems());
+			
+		 }
+		 
+		 return ResponseEntity.ok(obj.toJSONString()); 
 	}
+	 
 	
 	
 	/**
@@ -152,7 +193,7 @@ public class ChatController {
 	public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
 		
 		ModelAndView mv = new ModelAndView();
-		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+		int roomNumber = Integer.parseInt((String)params.get("roomNumber"));
 		
 		List<RoomDto> new_list = roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors.toList());
 		if(new_list != null && new_list.size() > 0) {
