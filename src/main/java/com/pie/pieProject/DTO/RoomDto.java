@@ -7,9 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Room {
+public class RoomDto {
 	
-	int roomNumber;
-	String roomName;
+	private int roomNumber;
+	private String roomName;
+	private String partyMem;
+	private String[] partyMems;
 	
 }
