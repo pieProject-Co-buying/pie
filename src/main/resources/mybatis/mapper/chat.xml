@@ -12,7 +12,7 @@
 	
 	
 	<insert id="insertRoom">
-        INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{userId})
+        INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{nickName})
     </insert>
     
     

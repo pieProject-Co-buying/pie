@@ -92,7 +92,7 @@ public class ChatController {
 		
 		 HttpSession session = request.getSession();
 			/* String userId = (String)session.getAttribute("userId"); */
-		 String userId = "혜혜";
+		 String userId = (String)session.getAttribute("nickName");
 		
 		model.addAttribute("roomList", dao.roomListByID(userId));
 		
@@ -110,11 +110,16 @@ public class ChatController {
 	 * @return
 	 */
 	@RequestMapping("/createRoom")
-	public @ResponseBody List<RoomDto> createRoom(@RequestParam HashMap<Object, Object> params){
+	public @ResponseBody List<RoomDto> createRoom(@RequestParam HashMap<Object, Object> params, HttpServletRequest request){
 	    
+		
+		HttpSession session = request.getSession();
+        String nickName = (String) session.getAttribute("nickName");
+        		
 	    String roomName = (String) params.get("roomName");
 	    Integer roomNumber = (Integer) params.get("roomNumber");
-	    String nickName = (String) params.get("nickName");
+		/*String nickName = (String) params.get("nickName");*/
+
 	    
 	   
 	    
@@ -130,7 +135,9 @@ public class ChatController {
 	    int newRoomNumber = maxRoomNumber + 1;
 	    
 	    if(roomName != null && !roomName.trim().equals("")) {
+	    	
 	        RoomDto room = new RoomDto();
+	        
 	        room.setRoomNumber(newRoomNumber); // 이전 방 번호에서 1씩 증가된 값을 사용
 	        room.setRoomName(roomName);
 	        room.setPartyMem(nickName);
