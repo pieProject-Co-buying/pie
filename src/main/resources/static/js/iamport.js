@@ -50,21 +50,21 @@ function kgPay() {
 					"payAmount": Price // 상품 가격
 				}
 				$.ajax({
-						url: "payCheck",
-						type: 'POST',
-						contentType: "application/json",
-						data: JSON.stringify(result),
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader(header, token);
-						},
-						success: function(response) {
-							alert("결제에 성공하였습니다");
-							document.location.href = "shareServiceFinish?sh_numID=" + numID;
-						},
-						error: function(xhr, status, error) {
-							console.log('error:' + error);
-						}
-					});
+					url: "payCheck",
+					type: 'POST',
+					contentType: "application/json",
+					data: JSON.stringify(result),
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					success: function(response) {
+						alert("결제에 성공하였습니다");
+						document.location.href = "shareServiceFinish?sh_numID=" + numID;
+					},
+					error: function(xhr, status, error) {
+						console.log('error:' + error);
+					}
+				});
 			} else if (!rsp.success) {
 				var msg = '결제에 실패하였습니다.';
 				msg += '에러내용 : ' + rsp.error_msg;
@@ -100,23 +100,23 @@ function kakaoPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
-					
+
 					console.log("성공1")
 					var category;
 					let url = window.location.href;
-					var str = url.substring(url.lastIndexOf('/') + 1,url.indexOf('?'));
-					
-					if(str=='boardList'){
+					var str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
+
+					if (str == 'boardList') {
 						var DataNumID = document.querySelector('[data-num]');
 						var numID = parseFloat(DataNumID.getAttribute('data-num'));
-						category="Share"
-					}else if(str=='viewProxyBoard'){
+						category = "Share"
+					} else if (str == 'viewProxyBoard') {
 						var DataPrNumID = document.querySelector('[data-Prnum]');
 						var PrnumID = parseFloat(DataPrNumID.getAttribute('data-Prnum'));
-						category="Proxy"
-					}			
+						category = "Proxy"
+					}
 					console.log(str);
-					
+
 					var result = {
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
@@ -129,7 +129,7 @@ function kakaoPay() {
 						"payMerchant_uid": makeMerchantUid,
 						"payName": "제목",
 						"payAmount": 300,
-						"pay_category":category
+						"pay_category": category
 					}
 					console.log(
 						result.buyer_nickname);
@@ -145,9 +145,9 @@ function kakaoPay() {
 						},
 						success: function(response) {
 							alert("결제에 성공하였습니다");
-							if (response == 'Share'){
-								document.location.href = "shareServiceFinish?num=" + numID +"&cate=" + response;
-							}else if(response == 'Proxy'){
+							if (response == 'Share') {
+								document.location.href = "shareServiceFinish?num=" + numID + "&cate=" + response;
+							} else if (response == 'Proxy') {
 								document.location.href = "shareServiceFinish?num=" + PrnumID + "&cate=" + response;
 							}
 						},
@@ -248,21 +248,21 @@ function paycoPay() {
 		function(rsp) {
 			if (rsp.success) {
 				$.ajax({
-						url: "payCheck",
-						type: 'POST',
-						'contentType': "application/json",
-						data: JSON.stringify(result),
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader(header, token);
-						},
-						success: function(response) {
-							alert("결제에 성공하였습니다");
-							document.location.href = "shareServiceFinish?sh_numID=" + numID;
-						},
-						error: function(xhr, status, error) {
-							console.log('error:' + error);
-						}
-					});
+					url: "payCheck",
+					type: 'POST',
+					'contentType': "application/json",
+					data: JSON.stringify(result),
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader(header, token);
+					},
+					success: function(response) {
+						alert("결제에 성공하였습니다");
+						document.location.href = "shareServiceFinish?sh_numID=" + numID;
+					},
+					error: function(xhr, status, error) {
+						console.log('error:' + error);
+					}
+				});
 				alert("결제에 성공하였습니다");
 				document.location.href = "shareServiceFinish";
 			} else if (!rsp.success) {
