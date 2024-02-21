@@ -1,10 +1,7 @@
 package com.pie.pieProject.controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 
 @Controller
 public class MainController {
@@ -14,15 +11,13 @@ public class MainController {
 		return "Index";
 	}
 
-	/*
-	 * @RequestMapping("/login") public String loginPage() { return
-	 * "pieContents/members/login_form"; }
-	 */
+	
+	  @RequestMapping("/login") public String loginPage() { return
+	  "pieContents/members/login_form"; }
 
-	/*
-	 * @RequestMapping("/join") public String joinPage() { return
-	 * "pieContents/members/join_form"; }
-	 */
+	  @RequestMapping("/join") public String joinPage() { return
+	  "pieContents/members/join_form"; }
+	 
 
 	@RequestMapping("/shareService")
 	public String shareSPage() {

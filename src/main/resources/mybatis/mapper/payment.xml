@@ -4,10 +4,10 @@
 <mapper namespace="com.pie.pieProject.DAO.IPaymentDAO">
 	<!--결제 데이터 베이스-->
 	<insert id="insertPayment" parameterType="com.pie.pieProject.DTO.PaymentDTO">
-        insert into payment (buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date) values (#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid}, #{pay_method}, #{payMerchant_uid}, #{payName}, #{payAmount}, sysdate)
+        insert into payment (buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date, pay_category) values (#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid}, #{pay_method}, #{payMerchant_uid}, #{payName}, #{payAmount}, sysdate,#{pay_category})
     </insert>
     <select id="findPay">
-    	select * from payment where pay_method=#{pay_method}
+    	select pay_method from payment where num = ? and pay_category = ?
     </select>
 </mapper>
 

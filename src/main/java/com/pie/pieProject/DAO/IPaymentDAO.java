@@ -8,4 +8,6 @@ import com.pie.pieProject.DTO.PaymentDTO;
 public interface IPaymentDAO {
 
 	public void insertPayment(PaymentDTO dto);
+	//public void ProxyPayment(ProxyBuyBoardDto Pdto);
+	public PaymentDTO findPay(String pay);
 }

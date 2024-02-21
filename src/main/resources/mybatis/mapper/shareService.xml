@@ -46,7 +46,6 @@
 		sh_pricePer=#{sh_pricePer},
 		sh_ip=#{sh_ip},
 		sh_updateDay=sysdate where sh_num=#{sh_num}
-
 	</update>
 	<!--게시글 삭제-->
 	<delete id="deleteBoard" parameterType="_int">

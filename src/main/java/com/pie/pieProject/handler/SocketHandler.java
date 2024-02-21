@@ -23,6 +23,8 @@ import com.pie.pieProject.DAO.IChatDao;
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
+
+	
 	
 	@Autowired
 	IChatDao dao;
