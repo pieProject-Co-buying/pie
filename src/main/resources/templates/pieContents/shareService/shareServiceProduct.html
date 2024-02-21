@@ -106,7 +106,7 @@
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<p class="d-none" th:attr="data-num=${board.getSh_num()}"></p>
+						<p class="d-none" th:attr="data-num=${board.getSh_num}"></p>
 						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
 							alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
@@ -164,7 +164,7 @@
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getSh_deadLine()}"></small>
+												th:text="${board.getSh_registDay()}"></small>
 										</p>
 									</div>
 								</div>
@@ -422,7 +422,7 @@
 	</script>
 
 	<script src="js/product.js"></script>
-	<script th:src="@{js/iamport.js}"></script>
+	<script th:src="@{js/check.js}"></script>
 </div>
 
 </html>

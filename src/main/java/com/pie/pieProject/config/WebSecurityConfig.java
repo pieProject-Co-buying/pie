@@ -1,4 +1,3 @@
-
 package com.pie.pieProject.config;
 
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class WebSecurityConfig {
 
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
-				.requestMatchers("/join", "/joinAction").permitAll()
+				.requestMatchers("/join", "/joinAction", "/error").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember")
 				.authenticated()
@@ -78,13 +77,7 @@ public class WebSecurityConfig {
 				.csrf(csrf -> csrf
 						.ignoringRequestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/socket", "/error")
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-				/*
-				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/login", "POST"))
-				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/join", "POST"))//
-				 * logout에 성공하면 /로 // // redirect .requireCsrfProtectionMatcher(new
-				 * AntPathRequestMatcher("/updateForm", "POST"))
-				 * .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/logout", "POST"))
-				 */
+				
 						)// logout에 성공하면
 																										// /로 //
 																										// redirect
@@ -101,4 +94,3 @@ public class WebSecurityConfig {
 		return new LoginFailHandler();
 	}
 }
-

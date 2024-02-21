@@ -35,6 +35,7 @@ public class PaymentController {
 	IShareServiceDao Sdao;
 	
     @PostMapping("/payCheck")
+    @PreAuthorize("ADMIN")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
     	System.out.println("=========================");
     	System.out.println(dto.getBuyer_addr());
@@ -108,3 +109,5 @@ public class PaymentController {
 		return "pieContents/shareService/shareServiceFinish";
 	}
 }
+
+
