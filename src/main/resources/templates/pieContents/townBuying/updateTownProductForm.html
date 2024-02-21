@@ -20,6 +20,7 @@
 		<div class="row">
 			<div class="col">
 				<form action="updateTownProduct" method="post" name="townUpdateForm" enctype="multipart/form-data">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<input type="hidden" name="num" th:value="${param.num}" />
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
