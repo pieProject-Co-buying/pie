@@ -32,7 +32,13 @@
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<input type="hidden" id="roomNumber" th:value="${roomNumber}">
 							<input type="hidden" id="roomName" th:value="${roomName}">
-							<div id="chating" class="chating border py-2 px-2 rounded shadow"></div>
+							
+							
+							<div id="chating" class="chating border py-2 px-2 rounded shadow">
+							
+								
+							
+							</div>
 												
 						
 						</div>
@@ -41,12 +47,14 @@
 					
 					
 					
+<!-- 		################## 필요 없어진 코드 
+					
 					<div id="yourName" class="row">
 
 
 						<div class="inputTable col-9">
 								
-							<!-- 대화명은 세션 아이디로 시작 -->
+							대화명은 세션 아이디로 시작
 							<input type="text" name="userName" id="userName" placeholder="" class="form-control"  th:value="${session.nickName}"  readonly >
 
 							
@@ -64,7 +72,8 @@
 					
 					
 					
-	
+	 -->
+			
 					
 					<div id="yourMsg" class="row">
 					
@@ -223,29 +232,15 @@
 		
 		
 	
-		function chatName(){
-			
-			
-			
-			var userName = $("#userName").val();
-			
-			if(userName == null || userName.trim() == ""){
-				alert("로그인해주세요");
-				$("#userName").focus();
-				
-			} else {
-				wsOpen();
-				$("#yourName").hide();
-				$("#yourMsg").css("display", "flex");
-			}
-
-		}
-	
+		$(function(){
+			wsOpen();
+			$("#yourName").hide();
+			$("#yourMsg").css("display", "flex");
+		}) 
 		
 		
 		
 		function send() {
-			
 			
 			var option = {
 				type: "message",
