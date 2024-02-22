@@ -5,12 +5,13 @@
 <mapper namespace="com.pie.pieProject.DAO.IChatDao">
 	
 	
-	
+	<!-- 메세지 저장 -->
 	<insert id="saveMsg" parameterType="java.util.Map">
         INSERT INTO pie_messages (roomName, roomNumber, sender_id, sender, message, sendTime) VALUES (#{roomName}, #{roomNumber}, #{userId}, #{userName}, #{message}, sysdate)
     </insert>
 	
 	
+	<!-- 채팅방 생성 -->
 	<insert id="insertRoom">
         INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{nickName})
     </insert>
@@ -21,48 +22,16 @@
 		select * from pie_chatRoom order by roomNumber asc
 	</select>
 	
+	
 	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem like '%${param1}%' order by roomNumber asc 
 	</select>
 	
 	
-	
-	<!-- 채팅방 생성 -->
-<!--     <insert id="insertRoom" parameterType="com.example.model.Room">
-        INSERT INTO room (roomName, roomNumber) VALUES (#{roomName}, #{roomNumber})
-    </insert>	 -->
-	
-	
- 	<!-- 채팅방 생성 -->
-<!-- 	<insert id="createRoom">
+	<select id="chatList" resultType="com.pie.pieProject.DTO.ChatDto">
+		select * from pie_messages where roomNumber = #{roomNumber} order by sendTime asc
+	</select>
 		
-		insert into pieChatRomm (chat_room, chat_sender, chat_reciever, chat_messages, createDate, expireDate) values(chat_room.nextval, '효효', 'test1', '안녕하세요', sysdate, TO_DATE('20240310', 'YYYYMMDD'))
-		
-	</insert> -->
-
-
-
-<!-- 	메세지 생성
-	<insert id="insertMsg">
-		
-		insert into pieChatMsg (chat_roomNum, chat_sender, chat_reciever, chat_message, chat_receiveTime) values(1, 'test1', '효효', '네 저도 안녕하세요', sysdate)
-		
-		
-		 
-		 
-		 
-	</insert> -->
-
-
-
-<!-- 	채팅방 불러오기
-	<select id="selectRoom">
-	
-		select * from pieChatMsg where chat_roomNum = 2
-		
-	</select>  -->
-	
-	
 	
 	
 	

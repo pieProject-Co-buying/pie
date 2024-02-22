@@ -38,6 +38,7 @@ public class ChatController {
 	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됩니다.
 	public void handleChatMessage(String message) {
 
+
 		JSONObject obj = new JSONObject(); // 받은 JSON 형태의 메시지를 파싱합니다.
 
 		/*
@@ -49,6 +50,8 @@ public class ChatController {
 		String userId = (String) obj.get("userId"); // 사용자 아이디
 		String roomNumber = (String) obj.get("roomNumber"); // 사용자 이름을 추출합니다.
 		String roomName = (String) obj.get("roomName"); // 사용자 아이디
+		
+
 
 		// 추출한 정보를 Map에 담아서 데이터베이스에 저장합니다.
 		Map<String, Object> params = new HashMap<>();
@@ -57,9 +60,25 @@ public class ChatController {
 		params.put("message", msg);
 		params.put("roomNumber", roomNumber);
 		params.put("roomName", roomName);
+		
+		
+	      System.out.println();
+	      System.out.println("===============================");
+	      System.out.println("컨트롤러 handleChatMessage 동작");
+	      System.out.println(obj);
+	      System.out.println("userId : " + obj.get("userId"));
+	      System.out.println("userName : " + obj.get("userName"));
+	      System.out.println("msg : " + obj.get("msg"));
+	      System.out.println("roomName : " + obj.get("roomName"));
+	      System.out.println("roomNumber : " + obj.get("roomNumber"));
+	      System.out.println("===============================");
+	      System.out.println();
+	      	
 
 		// 데이터베이스에 저장하는 DAO 메서드를 호출합니다.
 		dao.saveMsg(userId, userName, msg, roomNumber, roomName);
+		
+		
 	}
 
 	
@@ -74,6 +93,10 @@ public class ChatController {
 		return mv;
 	}
 
+	
+	
+	
+	
 	/**
 	 * 방 페이지
 	 * 
@@ -95,6 +118,9 @@ public class ChatController {
 		return mv;
 	}
 
+	
+	
+	
 	
 	
 	
@@ -126,12 +152,18 @@ public class ChatController {
 		mems.append("@");
 		mems.append(roomName);
 
+		
+		System.out.println("============================");
+		System.out.println("컨트롤러 createRoom 동작");
 		System.out.println("nickName : " + nickName);
 		System.out.println("roomName : " + roomName);
 		System.out.println("roomNumber : " + roomNumber);
 		System.out.println("memList : " + memList);
 		System.out.println("mems : " + mems);
-
+		System.out.println("============================");
+		
+		
+		
 		List<RoomDto> AllRooms = dao.roomList();
 		if (roomNumber == null) {
 			roomNumber = 0; // 기본값 설정
@@ -164,6 +196,11 @@ public class ChatController {
 			}
 		}
 
+		
+		
+		
+		
+		
 		return roomList;
 
 		/*
@@ -227,11 +264,9 @@ public class ChatController {
 
 		List<RoomDto> getRoom = new ArrayList<RoomDto>();
 
-		System.out.println(userId);
-
 		getRoom = dao.roomListByID("/" + userId);
 
-		System.out.println(getRoom);
+		
 
 		for (RoomDto room : getRoom) {
 
@@ -241,7 +276,17 @@ public class ChatController {
 			obj.put("member", room.getPartyMems());
 
 		}
-
+		
+		
+		
+		System.out.println("=======================");
+		System.out.println("컨트롤러 getRoom 동작");
+		System.out.println("userId" + userId);
+		System.out.println("getRoom" + getRoom);
+		System.out.println("=======================");
+		
+		
+		
 		return ResponseEntity.ok(obj.toJSONString());
 	}
 
@@ -255,7 +300,7 @@ public class ChatController {
 	 * @return
 	 */
 	@RequestMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request) { // 요청 파라미터를
+	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request,  Model model) { // 요청 파라미터를
 																											// HashMap
 																											// 으로 받음
 
@@ -264,9 +309,6 @@ public class ChatController {
 		String roomName = (String) params.get("roomNumber"); // 방이름
 		String yourId = request.getParameter("mem");
 
-		// 정보 확인
-		System.out.println(roomNumber);
-		System.out.println(roomName);
 
 		/*
 		 * List<RoomDto> new_list =
@@ -275,8 +317,7 @@ public class ChatController {
 		 */ // 방번호가 RoomDto 객체를 'Loomlist'에서 찾아 리스트로 반환
 
 		List<RoomDto> new_list = dao.roomList();
-
-		System.out.println(new_list);
+		
 
 		if (new_list != null && new_list.size() > 0) {
 
@@ -289,6 +330,23 @@ public class ChatController {
 
 			mv.setViewName("pieContents/chatting/room");
 		}
+		
+		
+		// 정보 확인하는 출력구문
+		System.out.println("===================");
+		System.out.println("컨트롤러 chating 동작");
+		System.out.println(roomNumber);
+		System.out.println(roomName);
+		System.out.println("new_list" + new_list);
+		System.out.println("===================");
+		
+		
+		// 대화 목록 불러오기
+		List<ChatDto> chatList = dao.chatList(roomNumber);
+		model.addAttribute("chatList", chatList);
+
+		
+		System.out.println("chatList : " + chatList);
 
 		return mv;
 	}

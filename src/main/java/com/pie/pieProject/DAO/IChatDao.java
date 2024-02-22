@@ -3,7 +3,7 @@ package com.pie.pieProject.DAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-
+import com.pie.pieProject.DTO.ChatDto;
 import com.pie.pieProject.DTO.RoomDto;
 
 import java.util.List;
@@ -29,7 +29,11 @@ public interface IChatDao {
 	
 	public List<RoomDto> roomListByID(String userId);
 	
+
 	public List<RoomDto> roomList();
+	
+	//방정보로 채팅리스트 가져오기
+	public List<ChatDto> chatList(@Param("roomNumber") int roomNumber);
 	
 
 }

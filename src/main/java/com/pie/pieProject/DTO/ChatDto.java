@@ -11,9 +11,9 @@ public class ChatDto {
 
 	private int roomNum;
 	private String sender;
-	private String reciever;
+	
 	private String message;
-	private String receivDate;
+	private String sendTime;
 	
 	private String roomName;
 	private String roomNumber;
