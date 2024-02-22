@@ -61,19 +61,16 @@ public class ChatController {
 		params.put("roomNumber", roomNumber);
 		params.put("roomName", roomName);
 		
-		
-	      System.out.println();
-	      System.out.println("===============================");
-	      System.out.println("컨트롤러 handleChatMessage 동작");
-	      System.out.println(obj);
-	      System.out.println("userId : " + obj.get("userId"));
-	      System.out.println("userName : " + obj.get("userName"));
-	      System.out.println("msg : " + obj.get("msg"));
-	      System.out.println("roomName : " + obj.get("roomName"));
-	      System.out.println("roomNumber : " + obj.get("roomNumber"));
-	      System.out.println("===============================");
-	      System.out.println();
-	      	
+		/*
+		 * System.out.println(); System.out.println("===============================");
+		 * System.out.println("컨트롤러 handleChatMessage 동작"); System.out.println(obj);
+		 * System.out.println("userId : " + obj.get("userId"));
+		 * System.out.println("userName : " + obj.get("userName"));
+		 * System.out.println("msg : " + obj.get("msg"));
+		 * System.out.println("roomName : " + obj.get("roomName"));
+		 * System.out.println("roomNumber : " + obj.get("roomNumber"));
+		 * System.out.println("==============================="); System.out.println();
+		 */
 
 		// 데이터베이스에 저장하는 DAO 메서드를 호출합니다.
 		dao.saveMsg(userId, userName, msg, roomNumber, roomName);
@@ -104,7 +101,9 @@ public class ChatController {
 	 */
 	@RequestMapping("/room")
 	public ModelAndView room(Model model, HttpServletRequest request) {
+		
 		ModelAndView mv = new ModelAndView();
+		
 		mv.setViewName("pieContents/chatting/room");
 
 		HttpSession session = request.getSession();
@@ -152,16 +151,16 @@ public class ChatController {
 		mems.append("@");
 		mems.append(roomName);
 
-		
-		System.out.println("============================");
-		System.out.println("컨트롤러 createRoom 동작");
-		System.out.println("nickName : " + nickName);
-		System.out.println("roomName : " + roomName);
-		System.out.println("roomNumber : " + roomNumber);
-		System.out.println("memList : " + memList);
-		System.out.println("mems : " + mems);
-		System.out.println("============================");
-		
+		/*
+		 * System.out.println("============================");
+		 * System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +
+		 * nickName); System.out.println("roomName : " + roomName);
+		 * System.out.println("roomNumber : " + roomNumber);
+		 * System.out.println("memList : " + memList); System.out.println("mems : " +
+		 * mems); System.out.println("============================");
+		 * 
+		 * 
+		 */
 		
 		
 		List<RoomDto> AllRooms = dao.roomList();
@@ -196,11 +195,7 @@ public class ChatController {
 			}
 		}
 
-		
-		
-		
-		
-		
+
 		return roomList;
 
 		/*
@@ -256,8 +251,9 @@ public class ChatController {
 
 		HttpSession session = request.getSession();
 
-		String userId = (String) session.getAttribute("userId");
-
+		String userId = (String) session.getAttribute("nickName");
+		
+		System.out.println("##########userId : " + userId);
 		/* String userId = "혜혜"; */
 
 		JSONObject obj = new JSONObject();
@@ -278,14 +274,13 @@ public class ChatController {
 		}
 		
 		
-		
-		System.out.println("=======================");
-		System.out.println("컨트롤러 getRoom 동작");
-		System.out.println("userId" + userId);
-		System.out.println("getRoom" + getRoom);
-		System.out.println("=======================");
-		
-		
+		/*
+		 * System.out.println("=======================");
+		 * System.out.println("컨트롤러 getRoom 동작"); System.out.println("userId" + userId);
+		 * System.out.println("getRoom" + getRoom);
+		 * System.out.println("=======================");
+		 * 
+		 */
 		
 		return ResponseEntity.ok(obj.toJSONString());
 	}
@@ -331,15 +326,13 @@ public class ChatController {
 			mv.setViewName("pieContents/chatting/room");
 		}
 		
-		
-		// 정보 확인하는 출력구문
-		System.out.println("===================");
-		System.out.println("컨트롤러 chating 동작");
-		System.out.println(roomNumber);
-		System.out.println(roomName);
-		System.out.println("new_list" + new_list);
-		System.out.println("===================");
-		
+		/*
+		 * // 정보 확인하는 출력구문 System.out.println("===================");
+		 * System.out.println("컨트롤러 chating 동작"); System.out.println(roomNumber);
+		 * System.out.println(roomName); System.out.println("new_list" + new_list);
+		 * System.out.println("===================");
+		 * 
+		 */
 		
 		// 대화 목록 불러오기
 		List<ChatDto> chatList = dao.chatList(roomNumber);

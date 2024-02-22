@@ -32,7 +32,7 @@
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<input type="hidden" id="roomNumber" th:value="${roomNumber}">
 							<input type="hidden" id="roomName" th:value="${roomName}">
-							
+							<input type="hidden" id="sendDate" th:value="${sendDate}">
 							
 							<div id="chating" class="chating border py-2 px-2 rounded shadow">
 								
@@ -184,7 +184,24 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
 
+	<script>
+		
+		// .chating 요소를 감시할 Mutation Observer 생성
+		var observer = new MutationObserver(function(mutationsList, observer) {
+		    // 새로운 요소가 추가될 때마다 스크롤을 아래로 이동
+		    chatingDiv.scrollTop = chatingDiv.scrollHeight;
+		});
 	
+		// .chating 요소 선택
+		var chatingDiv = document.getElementById('chating');
+	
+		// Mutation Observer를 .chating 요소에 연결하여 하위 요소의 변화를 감지
+		observer.observe(chatingDiv, { childList: true });
+		
+		// .chating 요소의 스크롤을 자동으로 아래로 이동
+		chatingDiv.scrollTop = chatingDiv.scrollHeight;	
+		
+	</script>
 	
 	<script type="text/javascript">
 
@@ -254,12 +271,12 @@
 						
 						/* 세션아이디 일치 ==> 내가 입력할시 */
 						if(d.sessionId == $("#sessionId").val()){
-							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div>");	
+							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + d.sendDate + "</p></div>");	
 						
 							
 						/* 세션아이디 불일치 ==> 상대방 입력할시 */
 						} else {
-							$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div>");
+							$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-right'><p>" + d.sendDate + "</p></div>");
 						}
 							
 						
@@ -302,6 +319,7 @@
 				roomName : $("#roomName").val(),
 				userId : $("#userId").val(),
 				userName : $("#userName").val(),
+				sendDate : $("#sendDate").val(),
 				msg : $("#chatting").val()
 			}
 			

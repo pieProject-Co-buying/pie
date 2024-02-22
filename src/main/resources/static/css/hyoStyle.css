@@ -125,26 +125,27 @@
 
 
 
-		.chating{
-			height: 500px;
-			overflow: auto;
-		}
+.chating{
+	height: 500px;
+	overflow: auto;
+	scroll-behavior: auto;
+}
 		
 		
-		#yourMsg{
-			display: none;
-		}
+#yourMsg{
+	display: none;
+}
+
+
+.chatBallon{
+	max-width: 75%;
+}
 		
-		.chatBallon{
-		max-width: 75%;
-		}
-		
-		
-		
-		.roomContainer{
-			height: 500px;
-			overflow: auto;
-		}
+			
+.roomContainer{
+	height: 500px;
+	overflow: auto;
+}
 		
 		
 		

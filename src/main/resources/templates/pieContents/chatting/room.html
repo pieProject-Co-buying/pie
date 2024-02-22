@@ -19,13 +19,14 @@
 
 					<div id="roomContainer" class="roomContainer col border">
 					<input type="hidden" th:value="${session.userId}" id="nowLogin"/>
-					<input type="hidden" th:value="${session.nickName}" id="nowLoginName"/>	
+
 						
-						
+
 						
 						<table id="roomList" class="roomList">
-						    <tr th:each="room : ${roomList}">
-						        <td class="room" th:text="${room.roomName}"></a></td>
+						    <tr th:each="room:${roomList}" th:if="${session.nickName == room.roomName}">		
+						    				        
+						    <td class="room" th:text="${room.roomName}"></a></td>
 						        <td class="go">
 		 				        
 									<button type='button' class='btn btn-outline-secondary'
@@ -38,6 +39,9 @@
 						    </tr>
 						</table>
 						
+						<!-- <p th:text="${room.roomName}"></p> -->
+						<p th:text="${session.nickName}"></p>
+
 					</div>
 							
 				</div>
@@ -151,6 +155,8 @@
 		        $("#roomList").append(tag); //방목록 업데이트
 		    }
 		}
+		
+		
 		
 		/* ###################### 추가된것  */
 /* 		function showRoomList(rooms){
