@@ -19,13 +19,14 @@
 
 					<div id="roomContainer" class="roomContainer col border">
 					<input type="hidden" th:value="${session.userId}" id="nowLogin"/>
-					<input type="hidden" th:value="${session.nickName}" id="nowLoginName"/>	
+
 						
-						
+
 						
 						<table id="roomList" class="roomList">
-						    <tr th:each="room : ${roomList}">
-						        <td class="room" th:text="${room.roomName}"></a></td>
+						   <!--  <tr th:each="room:${roomList}">
+						    				        
+						    <td class="room" th:text="${room.roomName}"></a></td>
 						        <td class="go">
 		 				        
 									<button type='button' class='btn btn-outline-secondary'
@@ -35,9 +36,12 @@
 									</button>
 					                
 						        </td>
-						    </tr>
+						    </tr> -->
 						</table>
 						
+						<!-- <p th:text="${room.roomName}"></p> -->
+						<p th:text="${session.nickName}"></p>
+
 					</div>
 							
 				</div>
@@ -45,7 +49,7 @@
 			
 			</div>
 			
-
+<!-- 
 			<div class="inputTable row">
 
 				<div class="col-9">
@@ -62,7 +66,7 @@
 				</div>
 				
 			</div>
-					
+					 -->
 		
 		
 		
@@ -71,8 +75,12 @@
 	</div>
 	
 	
+	<script type="text/javascript" th:inline="javascript">
+		var you = /*[[${you}]]*/
+		console.log(you);
+	</script>
 	
-	
+
 		
 	<script type="text/javascript">
 	
@@ -104,8 +112,11 @@
 		
 		
 		function createRoom(){
-			$("#createRoom").click(function(){
-				var msg = {	roomName : $('#roomName').val()	};
+			
+				var msg = {	
+						roomName : you,
+						
+				};
 	
 				commonAjax('/createRoom', msg, 'post', function(result){
 					createChatingRoom(result);
@@ -113,8 +124,6 @@
 				});
 	
 				$("#roomName").val("");
-			});
-
 		}
 		
 		
@@ -146,6 +155,8 @@
 		        $("#roomList").append(tag); //방목록 업데이트
 		    }
 		}
+		
+		
 		
 		/* ###################### 추가된것  */
 /* 		function showRoomList(rooms){
@@ -179,6 +190,7 @@
 				contentType : contentType!=null?contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function (res) {
 					calbak(res);
+					console.log(res)
 				},
 				error : function(err){
 					console.log('error');

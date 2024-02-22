@@ -1,4 +1,3 @@
--- 채팅방 대화내용 저장할 테이블
 create table pie_messages (
     roomName varchar(200) not null,
     roomNumber varchar(200) not null,
@@ -27,6 +26,23 @@ commit;
 
 -- 만드는중 ing
 create table pie_chatRoom (
-    roomName varchar(200) not null,
-    roomNumber varchar(200) not null
+    roomName varchar2(200) not null,
+    roomNumber number unique not null,
+    partyMem varchar2(40)
 );
+
+create sequence roomNumber nocache nocycle;
+
+insert into pie_chatroom values (1,1,'/효효/혜혜');
+insert into pie_chatroom values (2,2,'/혜혜/후후');
+insert into pie_chatroom values (3,3,'/장장/효효');
+
+select * from pie_chatRoom where partyMem like '%/혜혜%' order by roomNumber asc ;
+
+select * from pie_chatRoom;
+
+
+drop table pie_chatRoom;
+
+select * from pie_chatRoom;
+commit;

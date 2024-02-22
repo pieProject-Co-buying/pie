@@ -18,6 +18,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.pie.pieProject.DAO.IChatDao;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 
@@ -44,9 +46,17 @@ public class SocketHandler extends TextWebSocketHandler {
 	   
       //메시지 발송
       String msg = message.getPayload();
-      System.out.println(msg);
+      
+      
+      System.out.println();
+      System.out.println("===============================");     
+      System.out.println("msg : " + msg);
+      System.out.println("===============================");       
+      System.out.println();
+      
       
       JSONObject obj = jsonToObjectParser(msg);
+      String userName = (String) obj.get("userName");
       
       for(String key : sessionMap.keySet()) {
          WebSocketSession wss = sessionMap.get(key);
@@ -58,14 +68,19 @@ public class SocketHandler extends TextWebSocketHandler {
       }
       
       
-      System.out.println(obj);
       
-      System.out.println(obj.get("userId"));
-      System.out.println(obj.get("userName"));
-      System.out.println(obj.get("msg"));
       System.out.println();
+      System.out.println("===============================");
+      System.out.println("소켓핸들러 handleTextMessage 동작");
+      System.out.println(obj);
+      System.out.println("userId : " + obj.get("userId"));
+      System.out.println("userName : " + obj.get("userName"));
+      System.out.println("msg : " + obj.get("msg"));
       System.out.println("roomName : " + obj.get("roomName"));
       System.out.println("roomNumber : " + obj.get("roomNumber"));
+      System.out.println("===============================");
+      System.out.println();
+      
       
       
       //dao에 불러와서 저장
@@ -84,18 +99,17 @@ public class SocketHandler extends TextWebSocketHandler {
       //소켓 연결
       super.afterConnectionEstablished(session);
       sessionMap.put(session.getId(), session);
-      System.out.println("소켓통신성공");
+      
       
        // 클라이언트에게 세션 닉네임을 전송
        JSONObject obj = new JSONObject();
-       System.out.println("소켓통신성공");
+
        obj.put("type", "getId");
        obj.put("sessionId", session.getId());
-       System.out.println("소켓통신성공");
        session.sendMessage(new TextMessage(obj.toJSONString()));
        
-       System.out.println("소켓통신성공");
 
+       System.out.println("소켓통신성공");
        
    }
    
