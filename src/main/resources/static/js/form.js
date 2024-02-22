@@ -3,6 +3,8 @@ const slider = document.querySelector('.file-uploadGroup');
 let isDown = false;
 let startX;
 let scrollLeft;
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
 
 slider.addEventListener('mousedown', e => {
 	isDown = true;
@@ -175,6 +177,9 @@ function submitForm() {
 		data: formData,
 		contentType: false,
 		processData: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success: function(response) {
 			console.log('전송 성공', response);
 			$("#files").val(response);
