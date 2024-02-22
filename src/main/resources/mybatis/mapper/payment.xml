@@ -4,11 +4,20 @@
 <mapper namespace="com.pie.pieProject.DAO.IPaymentDAO">
 	<!--결제 데이터 베이스-->
 	<insert id="insertPayment" parameterType="com.pie.pieProject.DTO.PaymentDTO">
-        insert into payment (buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date, pay_category) values (#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid}, #{pay_method}, #{payMerchant_uid}, #{payName}, #{payAmount}, sysdate,#{pay_category})
+        insert into payment (pay_num,buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date, pay_category) values (pay_num.nextval,#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid}, #{pay_method}, #{pay_Merchant_uid}, #{payName}, #{payAmount}, sysdate,#{pay_category})
     </insert>
     <select id="findPay">
-    	select pay_method from payment where num = ? and pay_category = ?
+    	select pay_method from payment where pay_merchant_uid = #{param1} and pay_category = #{param2}
     </select>
+    <!-- <select id="selectDate">
+    	select pay_date from payment where pay_merchant_uid = #{param1} and pay_category = #{param2}
+    </select>
+    <select id="payBoard">
+    	select * from payment where pay_merchant_uid=#{param1}
+    </select> 
+    <select id="payCode">
+    	select pay_merchant_uid from payment where pay_merchant_uid=#{param1}
+    </select> -->
 </mapper>
 
 

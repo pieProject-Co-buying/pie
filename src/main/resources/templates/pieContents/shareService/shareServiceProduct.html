@@ -12,6 +12,7 @@
 
 	<!--------------------------타이틀 아래 텍스트-------------------------->
 	<div class="container mt-5 mb-5">
+	<p class="d-none" th:attr="data-Shnum=${board.getSh_num}"></p>
 		<div class="row">
 			<div class="col-12 border-bottom">
 				<h5>
@@ -57,16 +58,18 @@
 				<div class="row">
 					<div class="col">
 						<p>
-							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small>
+							<small class="font-weight-bold">모집인원</small><br /> 
+							<small th:attr="data-prNow=${board.getSh_personnelNow()}" th:text="${board.getSh_personnelNow()}+' 명 /'"></small>
+							<small th:attr="data-prMax=${board.getSh_personnelMax()}" th:text="${board.getSh_personnelMax()}+' 명'"></small>
 						</p>
 						<p>
-
-							<small class="font-weight-bold">진행현황</small><br /> <small
-								class="badge badge-success"
-								th:if="${board.getSh_process().equals('1')}">진행중</small> <small
-								class="badge badge-danger"
-								th:if="${board.getSh_process().equals('0')}">완료</small>
+							<small class="font-weight-bold">진행현황</small><br /> 
+							<small class="badge badge-success"
+								th:if="${board.getSh_process().equals('1')}">
+								모집진행중</small> 
+							<small class="badge badge-danger"
+								th:if="${board.getSh_process().equals('0')}">
+								모집완료</small>
 						</p>
 
 						<p>
@@ -106,7 +109,6 @@
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<p class="d-none" th:attr="data-num=${board.getSh_num}"></p>
 						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
 							alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
@@ -114,12 +116,12 @@
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 th:attr="data-title=${board.getSh_title}"
+								<h2 th:attr="data-shTitle=${board.getSh_title}"
 									class="mb-0 pie-omitted display-5"
 									th:text="${board.getSh_title()}">타이틀 자리</h2>
 							</div>
 							<div class="col-12 pie-c-red p-0">
-								<h5 th:attr="data-pricePer=${board.getSh_pricePer()}"
+								<h5 th:attr="data-shPrice=${board.getSh_pricePer()}"
 									class="mb-0" th:text="|인/${board.getSh_pricePer()}원|"></h5>
 							</div>
 
@@ -146,8 +148,9 @@
 								<div class="row">
 									<div class="col-6">
 										<p>
-											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:text="${board.getSh_personnelNow()+' 명 / '+board.getSh_personnelMax()+' 명'}"></small>
+											<small class="font-weight-bold">모집인원</small><br /> 
+											<small th:attr="data-shNow=${board.getSh_personnelNow()}" th:text="${Now}+' 명 /'"></small>
+											<small th:attr="data-shMax=${board.getSh_personnelMax()}" th:text="${Max}+' 명'"></small>
 										</p>
 										<p>
 
@@ -220,9 +223,13 @@
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button type="button" class="btn pie-btn-red btn-block"
+							<button th:if="${board.getSh_process().equals('1')}" type="button" class="btn pie-btn-red btn-block"
 								data-toggle="modal" data-target="#staticBackdrop">
 								<small>참여하기</small>
+							</button>
+							<button th:if="${board.getSh_process().equals('0')}" type="button" class="btn btn-secondary btn-block"
+								data-toggle="modal" data-target="#staticBackdrop" disabled>
+								<small>모집마감</small>
 							</button>
 
 							<!-- Modal -->

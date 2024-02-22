@@ -16,13 +16,23 @@
 			</div>
 			<div class="col-9 m-auto border-bottom">
 				<div class="border d-inline-block mb-3">
-					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid" width="200" height="200">
+					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid"
+						width="200" height="200">
 				</div>
-				<p>제품명 : <span th:text="${title}">감자</span></p>
-				<p>결제일시 : <span th:text="${payDay}"></span></p>
-				<p>결제금액 : <span th:text="${price}+' 원'"></span></p>
+				<p>
+					상품코드 : <span th:text="${pay.getPay_Merchant_uid()}"></span>
+				</p>
+				<p>
+					제품명 : <span th:attr="data-title=${title}" th:text="${title}">감자</span>
+				</p>
+				<p>
+					결제일시 : <span th:text="${pay.getPay_date()}"></span>
+				</p>
+				<p>
+					결제금액 : <span th:attr="data-price=${price}" th:text="${price}+' 원'"></span>
+				</p>
 				<div>
-					<p>결제수단 : <span></span></p>
+					<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
 				</div>
 			</div>
 			<div class="col-12 text-center mt-3">
@@ -31,7 +41,7 @@
 			<div class="col-9 m-auto" th:each="member:${find}">
 				<p>주문자명 : <span th:text="${member.name}"></span></p>
 				<p>아이디 : <span th:text="${member.id}"></span></p>
-				<p>주소 : <span th:text="${member.address_main}+' ('+${member.address_sub}+')'"></span></p>
+				<p>주소 : <span th:text="'('+${member.postCode}+') '+${member.address_main}+' '+${ member.address_sub}"></span></p>
 				<p>연락처 : <span th:text="${member.phone}"></span></p>
 				<p>이메일 : <span th:text="${member.email}"></span></p>
 			</div>
@@ -39,11 +49,10 @@
 				<form action="">
 					<button type="button" class="custom-btn">주문내역</button>
 					<button type="button" class="custom-btn2">신청취소</button>
-					<button type="button" class="custom-btn3" onclick='location.href = "shareServiceBoard"'>목록으로</button>
+					<button type="button" class="custom-btn3" onclick='history.go(-3)'>목록으로</button>
 				</form>
 			</div>
 		</div><!--row-->
 	</div><!--container-->
 </div>
-
 </html>

@@ -27,4 +27,8 @@ public interface IProxyBuyDao {
 	public void updateProxyBoard(ProxyBuyBoardDto dto);
 	
 	public void deleteProxyBoard(String num);
+	
+	public void updateNow(int num);
+	
+	public void maxChk(int num);
 }

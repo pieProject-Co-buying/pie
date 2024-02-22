@@ -3,15 +3,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/proxyBuying}">
 <head>
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-</head>	
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 
 <div layout:fragment="proxyBuyContent" class="col">
 
 	<div class="container">
-	<p class="d-none" th:attr="data-Prnum=${board.getPr_num()}"></p>
+		<p class="d-none" th:attr="data-Prnum=${board.getPr_num()}"></p>
 		<input type="hidden" id="tableName" value="p" />
 		<div class="row">
 
@@ -49,9 +49,10 @@
 
 							<small class="font-weight-bold">진행현황</small><br /> <small
 								class="badge badge-success"
-								th:if="${board.getPr_process().equals('1')}">진행중</small> <small
-								class="badge badge-danger"
-								th:if="${board.getPr_process().equals('0')}">완료</small>
+								th:if="${board.getPr_process().equals('1')}">
+								모집진행중</small> <small class="badge badge-danger"
+								th:if="${board.getPr_process().equals('0')}">
+								모집완료</small>
 						</p>
 
 						<p>
@@ -98,10 +99,12 @@
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 class="mb-0 pie-omitted display-5"
+								<h2 th:attr="data-prTitle=${board.getPr_title}"
+									class="mb-0 pie-omitted display-5"
 									th:text="${board.getPr_title()}">타이틀 자리</h2>
 							</div>
-							<div class="col-12 pie-c-red p-0">
+							<div th:attr="data-prPrice=${board.getPr_pricePer}"
+								class="col-12 pie-c-red p-0">
 								<h5 class="mb-0" th:text="|인/${board.getPr_pricePer()}원|"></h5>
 							</div>
 
@@ -129,13 +132,18 @@
 									<div class="col-6">
 										<p>
 											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:text="${board.getPr_personnelNow()+' 명 / '+board.getPr_personnelMax()+' 명'}"></small>
+												th:attr="data-prNow=${board.getPr_personnelNow()}"
+												th:text="${board.getPr_personnelNow()}+' 명 /'"></small> <small
+												th:attr="data-prMax=${board.getPr_personnelMax()}"
+												th:text="${board.getPr_personnelMax()}+' 명'"></small>
 										</p>
 										<p>
-
 											<small class="font-weight-bold">진행현황</small><br /> <small
 												class="badge badge-success"
-												th:text="${board.getPr_process()}"></small>
+												th:if="${board.getPr_process().equals('1') && board.getPr_personnelNow() < board.getPr_personnelMax()}">
+												모집진행중</small> <small class="badge badge-danger"
+												th:if="${board.getPr_process().equals('0') || board.getPr_personnelNow() >= board.getPr_personnelMax}">
+												모집완료</small>
 										</p>
 									</div>
 									<div class="col-6">
@@ -201,9 +209,13 @@
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button type="button" class="btn pie-btn-red btn-block"
+							<button th:if="${board.getPr_process().equals('1')}" type="button" class="btn pie-btn-red btn-block"
 								data-toggle="modal" data-target="#staticBackdrop">
 								<small>참여하기</small>
+							</button>
+							<button th:if="${board.getPr_process().equals('0')}" type="button" class="btn btn-secondary btn-block"
+								data-toggle="modal" data-target="#staticBackdrop" disabled>
+								<small>모집마감</small>
 							</button>
 
 							<!-- Modal -->
@@ -306,9 +318,9 @@
 
 	</div>
 	<script type="text/javascript" th:inline="javascript">
-    var member = /*[[${member}]]*/
-    console.log(member.nickname);
-</script>
+		var member = /*[[${member}]]*/
+		console.log(member.nickname);
+	</script>
 	<script src="js/product.js"></script>
 	<script th:src="@{js/iamport.js}"></script>
 </div>

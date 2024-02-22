@@ -47,13 +47,15 @@
 		sh_ip=#{sh_ip},
 		sh_updateDay=sysdate where sh_num=#{sh_num}
 	</update>
+	<!-- 현재 인원 증가 -->
+	<update id="updateNow">
+		update shareServiceBoard set sh_personnelNow = sh_personnelNow + 1 where sh_num = #{param1}
+	</update>
 	<!--게시글 삭제-->
 	<delete id="deleteBoard" parameterType="_int">
 		delete shareServiceBoard where sh_num=#{param1}
 	</delete>
-	<!--현재 신청자 카운트-->
-	<update id="updatePersonnelNow" parameterType="int">
-		update shareServiceBoard set personnel_now = personnel_now + 1 where
-		sh_num = #{shNumId}
+	<update id="maxChk">
+		update shareServiceBoard set sh_process = '0' where sh_num = #{param1}
 	</update>
 </mapper>

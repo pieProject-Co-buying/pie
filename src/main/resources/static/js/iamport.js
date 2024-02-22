@@ -79,10 +79,39 @@ function kgPay() {
 }
 function kakaoPay() {
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
-		var DataTitle = document.querySelector('[data-title]');
-		var DataPrice = document.querySelector('[data-pricePer]');
-		var Title = DataTitle.getAttribute('data-title');
-		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));
+		var category;
+		var Title;
+		var Price;
+		var DataTitle;
+		var DataPrice;
+		var DataNumID
+		var numID
+		let url = window.location.href;
+		var str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
+
+		if (str == 'boardList') {
+			// num 값
+			DataNumID = document.querySelector('[data-Shnum]');
+			numID = parseFloat(DataNumID.getAttribute('data-Shnum'));
+			// 제목, 가격, 카테고리
+			DataTitle = document.querySelector('[data-shTitle]');
+			DataPrice = document.querySelector('[data-shPrice]');
+			Title = DataTitle.getAttribute('data-shTitle');
+			Price = parseFloat(DataPrice.getAttribute('data-shPrice'));
+			category = "Share"
+			
+		} else if (str == 'viewProxyBoard') {
+			// num 값
+			DataNumID = document.querySelector('[data-Prnum]');
+			numID = parseFloat(DataNumID.getAttribute('data-Prnum'));
+			// 제목, 가격, 카테고리
+			DataTitle = document.querySelector('[data-prTitle]');
+			DataPrice = document.querySelector('[data-prPrice]');
+			Title = DataTitle.getAttribute('data-prTitle');
+			Price = parseFloat(DataPrice.getAttribute('data-prPrice'));
+			category = "Proxy"
+		}
+		
 		//var DataPersonnelNow = document.querySelector('[data-personnelNow]');
 		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
 		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
@@ -101,22 +130,6 @@ function kakaoPay() {
 			}, function(rsp) {
 				if (rsp.success) {
 
-					console.log("성공1")
-					var category;
-					let url = window.location.href;
-					var str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
-
-					if (str == 'boardList') {
-						var DataNumID = document.querySelector('[data-num]');
-						var numID = parseFloat(DataNumID.getAttribute('data-num'));
-						category = "Share"
-					} else if (str == 'viewProxyBoard') {
-						var DataPrNumID = document.querySelector('[data-Prnum]');
-						var PrnumID = parseFloat(DataPrNumID.getAttribute('data-Prnum'));
-						category = "Proxy"
-					}
-					console.log(str);
-
 					var result = {
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
@@ -125,16 +138,12 @@ function kakaoPay() {
 						"buyer_email": rsp.buyer_email,
 						"buyer_postcode": rsp.buyer_postcode,
 						"pay_uid": rsp.imp_uid,
-						"pay_method": "카카오페이",
-						"payMerchant_uid": makeMerchantUid,
-						"payName": "제목",
-						"payAmount": 300,
+						"pay_method": "kakaoPay",
+						"pay_Merchant_uid": makeMerchantUid,
+						"payName": Title,
+						"payAmount": Price,
 						"pay_category": category
 					}
-					console.log(
-						result.buyer_nickname);
-
-
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',
@@ -146,9 +155,9 @@ function kakaoPay() {
 						success: function(response) {
 							alert("결제에 성공하였습니다");
 							if (response == 'Share') {
-								document.location.href = "shareServiceFinish?num=" + numID + "&cate=" + response;
+								document.location.href = "shareServiceFinish?num=" + numID + '&merchant_uid='+makeMerchantUid+"&category=" + response;
 							} else if (response == 'Proxy') {
-								document.location.href = "shareServiceFinish?num=" + PrnumID + "&cate=" + response;
+								document.location.href = "shareServiceFinish?num=" + numID +'&merchant_uid='+makeMerchantUid+ "&category=" + response;
 							}
 						},
 						error: function(xhr, status, error) {
