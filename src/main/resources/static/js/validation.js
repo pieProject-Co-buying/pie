@@ -133,8 +133,11 @@
 			document.querySelector("#passwordChk").addEventListener("blur", function() {
 				let input = this.value.trim();
 				let pinput = document.querySelector("#password").value.trim();
+				
+				console.log(input);
+				console.log(pinput);
 				// 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
-				if (input == pinput) {
+				if (input != pinput) {
 					this.setCustomValidity("입력한 비밀번호와 동일한 비밀번호를 입력해주세요.");
 				} else {
 					this.setCustomValidity("");
@@ -170,12 +173,12 @@
 			document.querySelector("#email1").addEventListener("blur", function() {
 				// 입력한 value 값을 읽어온다.
 				let input = this.value.trim();
-				let pattern = /^[a-zA-Z0-9._%+-]$/;
+				let pattern = /^[a-zA-Z0-9._%+-]+$/;
 
 				if (input == '') {
 					this.setCustomValidity("이메일 id를 입력해주세요.");
 				} else if (!pattern.test(input)) {
-					this.setCustomValidity("이메일 id를 확인해주세요.");
+					this.setCustomValidity("이메일 id 형식을 확인해주세요.");
 				} else {
 					this.setCustomValidity("");
 				}
@@ -320,11 +323,15 @@ function phoneForm(phone) {
 	return p1 + "-" + p2 + "-" + p3;
 }
 
+$("#profilePic").hide();
 function setThumbnail(event) {
 	var reader = new FileReader();
 
+	
 	reader.onload = function(event) {
-		let img = document.querySelector("#profilePic");
+		$(".btn-upload").hide();
+		$("#profilePic").show();
+		let img = document.querySelector(".pie-img-viewsThumbs");
 		img.setAttribute("src", event.target.result);
 	};
 

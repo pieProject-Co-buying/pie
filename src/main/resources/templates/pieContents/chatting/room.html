@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/chatting}">
 
 <div layout:fragment="chatContent" class="col">
-	
+
 
 	<div class="container-fluid p-0">
-	
+
 		<div class="container my-5">
-		
-		
+
+
 			<div class="row mb-3">
-			
+
 				<div class="col">
-				
+
 
 					<div id="roomContainer" class="roomContainer col border">
-					<input type="hidden" th:value="${session.userId}" id="nowLogin"/>
+						<input type="hidden" th:value="${session.userId}" id="nowLogin" />
 
-						
 
-						
+
+
 						<table id="roomList" class="roomList">
-						   <!--  <tr th:each="room:${roomList}">
+							<!--  <tr th:each="room:${roomList}">
 						    				        
 						    <td class="room" th:text="${room.roomName}"></a></td>
 						        <td class="go">
@@ -38,18 +37,18 @@
 						        </td>
 						    </tr> -->
 						</table>
-						
+
 						<!-- <p th:text="${room.roomName}"></p> -->
 						<p th:text="${session.nickName}"></p>
 
 					</div>
-							
+
 				</div>
-			
-			
+
+
 			</div>
-			
-<!-- 
+
+			<!-- 
 			<div class="inputTable row">
 
 				<div class="col-9">
@@ -67,138 +66,150 @@
 				
 			</div>
 					 -->
-		
-		
-		
+
+
+
 		</div>
-		
+
 	</div>
-	
-	
+
+
 	<script type="text/javascript" th:inline="javascript">
-		var you = /*[[${you}]]*/
+		var you = /*[[${you}]]*/'';
+		var me = /*[[${session.usernickName}]]*/'';
 		console.log(you);
 	</script>
-	
 
-		
+
+
 	<script type="text/javascript">
-	
+		const token = $("meta[name='_csrf']").attr("content")
+		const header = $("meta[name='_csrf_header']").attr("content");
+
+
 		var ws;
-		
-		window.onload = function(){
+
+		window.onload = function () {
 			let id = $("#nowLogin").val()
 			let nickName = $("#nowLoginName").val()
 			/*  getRoom(id);   */ /* 이걸 없애면 데이터베이스대로 가져옴 근데 새로생성하면 다른페이지 보여줌 ㅎㅎ */
- 			createRoom();
+			createRoom();
 		}
-		
-		
-	
-/* 		function getRoom(txt){
-			$.ajax({
-				url : "getRoom",
-				type : "POST",
-				contentType : "application/JSON",
-				success : function(response){
-					console.log(response)
-					
-				}
-				
-			})
-		} */
-		
-		
-		
-		
-		function createRoom(){
-			
-				var msg = {	
-						roomName : you,
-						
-				};
-	
-				commonAjax('/createRoom', msg, 'post', function(result){
-					createChatingRoom(result);
-					/* showRoomList(result); */
-				});
-	
-				$("#roomName").val("");
-		}
-		
-		
-	
-	    
-	
-		function goRoom(number, name){
-			location.href="/moveChating?roomName="+name+"&"+"roomNumber="+number;
-			
-		}
-	
-		
-		
 
-		function createChatingRoom(res){
-		    if(res != null){
-		        /* var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'>입장</th></tr>"; */
-		        var tag = "<tr><th class='room w-75'></th><th class='go w-100'></th></tr>";
-		        res.forEach(function(d, idx){
-		            var rn = d.roomName.trim();
-		            var roomNumber = d.roomNumber;
-		            tag += "<tr>"+
-		                        /* "). */
-		                        "<td class='room'>"+ rn +"</td>"+
-		                        "<td class='go'><button type='button' class='btn btn-outline-secondary' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>대화하기</button></td>" +
-		                    "</tr>";    
-		        });
-		        
-		        $("#roomList").append(tag); //방목록 업데이트
-		    }
+
+
+		/* 		function getRoom(txt){
+					$.ajax({
+						url : "getRoom",
+						type : "POST",
+						contentType : "application/JSON",
+						success : function(response){
+							console.log(response)
+							
+						}
+						
+					})
+				} */
+
+
+
+
+		function createRoom() {
+
+			var msg = {
+				mem1: me,
+				mem2: you,
+			};
+
+			commonAjax('/createRoom', msg, 'post', function (result) {
+				createChatingRoom(result);
+				/* showRoomList(result); */
+
+			});
+
+			$("#roomName").val("");
 		}
-		
-		
-		
+
+
+
+
+
+		function goRoom(number, name1, name2) {
+			location.href = "/moveChating?mem1=" + name1 + "&mem2=" + name2 + "&" + "roomNumber=" + number;
+
+		}
+
+
+
+
+		function createChatingRoom(res) {
+			if (res != null) {
+				/* var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'>입장</th></tr>"; */
+				var tag = "<tr><th class='room w-75'></th><th class='go w-100'></th></tr>";
+				res.forEach(function (d, idx) {
+					var rn = d.roomName.trim();
+					var roomNumber = d.roomNumber;
+					tag += "<tr>" +
+						/* "). */
+						"<td class='room'>" + rn + "</td>" +
+						"<td class='go'><button type='button' class='btn btn-outline-secondary' onclick='goRoom(\"" + roomNumber + "\", \"" + rn + "\")'>대화하기</button></td>" +
+						"</tr>";
+				});
+
+				$("#roomList").append(tag); //방목록 업데이트
+			}
+		}
+
+
+
 		/* ###################### 추가된것  */
-/* 		function showRoomList(rooms){
-		    var roomListHtml = ""; // HTML 코드를 담을 변수 초기화
-		    
-		    // 각 방 객체를 순회하면서 HTML 코드 생성
-		    rooms.forEach(function(room){
-		        var roomName = room.roomName.trim(); // 방 이름 추출
-		        var roomNumber = room.roomNumber; // 방 번호 추출
-		        // 각 방 정보를 HTML 형식으로 추가
-		        roomListHtml += "<tr>" +
-		                            "<td class='room'>" + roomName + "</td>" +
-		                            "<td class='go'>" +
-		                                "<button type='button' class='btn btn-outline-secondary' onclick='goRoom(\"" + roomNumber + "\", \"" + roomName + "\")'>대화하기</button>" +
-		                            "</td>" +
-		                        "</tr>";
-		    });
-		    
-		    // 방 목록을 HTML 요소에 적용
-		    $("#roomList").empty().append(roomListHtml);
-		} */
+		/* 		function showRoomList(rooms){
+					var roomListHtml = ""; // HTML 코드를 담을 변수 초기화
+				    
+					// 각 방 객체를 순회하면서 HTML 코드 생성
+					rooms.forEach(function(room){
+						var roomName = room.roomName.trim(); // 방 이름 추출
+						var roomNumber = room.roomNumber; // 방 번호 추출
+						// 각 방 정보를 HTML 형식으로 추가
+						roomListHtml += "<tr>" +
+											"<td class='room'>" + roomName + "</td>" +
+											"<td class='go'>" +
+												"<button type='button' class='btn btn-outline-secondary' onclick='goRoom(\"" + roomNumber + "\", \"" + roomName + "\")'>대화하기</button>" +
+											"</td>" +
+										"</tr>";
+					});
+				    
+					// 방 목록을 HTML 요소에 적용
+					$("#roomList").empty().append(roomListHtml);
+				} */
 		/* ###################### 추가된것  */
-		
-	
-		function commonAjax(url, parameter, type, calbak, contentType){
-			
+
+
+		function commonAjax(url, parameter, type, calbak, contentType) {
+
 			$.ajax({
 				url: url,
 				data: parameter,
 				type: type,
-				contentType : contentType!=null?contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+				contentType: contentType != null ? contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader(header, token);
+				},
 				success: function (res) {
 					calbak(res);
 					console.log(res)
+					console.log(res[0].partyMem.split("@")[1])
+					console.log(res[0].partyMem.split("@")[2])
+					goRoom(res[0].roomNumber, res[0].partyMem.split("@")[1], res[0].partyMem.split("@")[2])
+
 				},
-				error : function(err){
+				error: function (err) {
 					console.log('error');
 					calbak(err);
 				}
 			});
 		}
-		
+
 	</script>
 
 

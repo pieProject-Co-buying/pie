@@ -29,7 +29,7 @@
 	
 	
 	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
-		select * from pie_chatRoom where partyMem like '%${param1}%' order by roomNumber asc 
+		select * from pie_chatRoom where partyMem = '@${param1}@${param2}' or partyMem = '@${param2}@${param1}'
 	</select>
 	
 	

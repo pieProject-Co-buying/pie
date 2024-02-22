@@ -347,9 +347,13 @@ a:hover {
 }
 
 #profilePic {
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
+	position: relative;
 }
+
+
+
 
 .pie-profilePic {
 	width: 30px;

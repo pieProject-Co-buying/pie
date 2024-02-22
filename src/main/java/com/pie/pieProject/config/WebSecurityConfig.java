@@ -72,8 +72,7 @@ public class WebSecurityConfig {
 							}
 						}).deleteCookies("remember-me"))
 				.csrf(csrf -> csrf
-						.ignoringRequestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating",
-								"/chating/**", "/socket", "/error")
+						.ignoringRequestMatchers("/error")
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 
 				)// logout에 성공하면 /로 redirect
