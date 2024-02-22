@@ -1,4 +1,5 @@
 create table payment(
+    pay_num integer unique not null,
     buyer_name varchar2(100),
     buyer_nickname varchar2(100),
     buyer_tel varchar2(100),
@@ -7,17 +8,30 @@ create table payment(
     buyer_postcode varchar2(100),
     pay_uid varchar2(100),
     pay_method varchar2(100),
-    pay_merchant_uid varchar2(100),
+    pay_merchant_uid varchar2(100) unique not null,
     pay_name varchar2(100),
     pay_amount number,
-    pay_date date default sysdate
+    pay_date date default sysdate,
+    pay_category varchar2(100)
 );
+--시퀀스
+create sequence pay_num nocache nocycle;
+drop sequence pay_num;
 --테이블 관련
 drop table payment;
 --insert
-insert into payment (buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date) VALUES ('w','w','w','w','w','w','123','123','123','123',123,sysdate);
+insert into payment (pay_num,buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid, pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date,pay_category) VALUES (pay_num.nextval,'w','w','w','w','w','w','123','123','123','123',123,sysdate,'Share');
 --select
 select * from payment;
 select * from payment where pay_method='카드결제';
+select pay_method from payment where pay_num = 1 and pay_category = 'Share' and pay_merchant_uid=123;
+select pay_date from payment where pay_num = 1 and pay_category = 'Share';
+update shareServiceBoard set sh_personnelNow = sh_personnelNow + 1 where sh_num = 1;
+--select payment from pay_merchant_uid where pay_merchant_uid=;
+select pay_merchant_uid from payment where pay_merchant_uid=173513486;
+select * from payment where pay_merchant_uid=173513486;
+--delete
+delete payment where pay_num=1;
 --commit
 commit;
+rollback;

@@ -25,4 +25,9 @@ public interface IShareServiceDao {
 	public ArrayList<ShareServiceDto> myBoard(String keyword);
 	// 게시판 순서 정렬
 	public ArrayList<ShareServiceDto> completePay(int num);
+	// 현재 인원 증가
+	public void updateNow(int num);
+	//
+	public void maxChk(int num);
+	
 }
