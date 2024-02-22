@@ -3,6 +3,9 @@ package com.pie.pieProject.DTO;
 import java.util.ArrayList;
 import java.util.Date;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +16,9 @@ import lombok.Setter;
 
 public class MemberDto {
 	private String mem_num; // 멤버 번호
+	@NotNull
+	@NotEmpty
+	@Pattern(regexp="^[a-zA-Z0-9]{5,16}$", message = "아이디는 영어 대소문자와 숫자로 이루어진 5-16자의 문자열로 작성해야 합니다.")
 	private String id; // 아이디
 	private String password; // 비밀번호
 	private String salt; // salt

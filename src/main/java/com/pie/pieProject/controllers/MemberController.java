@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,9 +42,17 @@ public class MemberController {
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "pieContents/members/login_form";
 		}
-		
 		return "redirect:/";
 	}
+	
+	 @GetMapping("/loginForm")
+	    public String loginForm(@RequestParam(value = "error", required = false) String error,
+	                            @RequestParam(value = "exception", required = false) String exception, Model model) {
+	        model.addAttribute("error", error);
+	        model.addAttribute("exception", exception);
+
+	        return "pieContents/members/login_form";
+	    }
 	
 	
 	
@@ -314,6 +323,17 @@ public class MemberController {
 	public String deleteMember(HttpServletRequest request, Model model) {
 		dao.deleteMember(getSession(request, "userId"));
 		return "redirect:/logout";
+	}
+	
+	@PostMapping("/checkId")
+	public ResponseEntity<Boolean> checkId(@RequestParam("chkId") String chkId){
+		return ResponseEntity.ok(dao.chkDuplicate(chkId)>0);
+	}
+	
+	@PostMapping("/checkNickName")
+	public ResponseEntity<Boolean> checkNickName(@RequestParam("chkName") String chkName){
+		System.out.println(chkName);
+		return ResponseEntity.ok(dao.chkNDuplicate(chkName)>0);
 	}
 
 	private String getSession(HttpServletRequest request, String key) {
