@@ -22,6 +22,11 @@
 		select * from pie_chatRoom order by roomNumber asc
 	</select>
 	
+	   <!-- 채팅방 목록 불러오기 -->
+	<select id="room" resultType="com.pie.pieProject.DTO.RoomDto">
+		select * from pie_chatRoom where roomNumber = #{param1} order by roomNumber asc
+	</select>
+	
 	
 	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem like '%${param1}%' order by roomNumber asc 

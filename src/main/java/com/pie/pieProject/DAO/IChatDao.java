@@ -28,6 +28,7 @@ public interface IChatDao {
 	public void insertRoom(@Param("roomName") String roomName, @Param("roomNumber") int roomNumber, @Param("nickName") String nickName);
 	
 	public List<RoomDto> roomListByID(String userId);
+	public RoomDto room(String userId);
 	
 
 	public List<RoomDto> roomList();

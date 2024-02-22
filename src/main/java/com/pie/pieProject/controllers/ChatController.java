@@ -38,7 +38,6 @@ public class ChatController {
 	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됩니다.
 	public void handleChatMessage(String message) {
 
-
 		JSONObject obj = new JSONObject(); // 받은 JSON 형태의 메시지를 파싱합니다.
 
 		/*
@@ -50,8 +49,6 @@ public class ChatController {
 		String userId = (String) obj.get("userId"); // 사용자 아이디
 		String roomNumber = (String) obj.get("roomNumber"); // 사용자 이름을 추출합니다.
 		String roomName = (String) obj.get("roomName"); // 사용자 아이디
-		
-
 
 		// 추출한 정보를 Map에 담아서 데이터베이스에 저장합니다.
 		Map<String, Object> params = new HashMap<>();
@@ -60,7 +57,7 @@ public class ChatController {
 		params.put("message", msg);
 		params.put("roomNumber", roomNumber);
 		params.put("roomName", roomName);
-		
+
 		/*
 		 * System.out.println(); System.out.println("===============================");
 		 * System.out.println("컨트롤러 handleChatMessage 동작"); System.out.println(obj);
@@ -74,13 +71,9 @@ public class ChatController {
 
 		// 데이터베이스에 저장하는 DAO 메서드를 호출합니다.
 		dao.saveMsg(userId, userName, msg, roomNumber, roomName);
-		
-		
+
 	}
 
-	
-	
-	
 	@RequestMapping("/chat")
 	public ModelAndView chat() {
 
@@ -90,10 +83,6 @@ public class ChatController {
 		return mv;
 	}
 
-	
-	
-	
-	
 	/**
 	 * 방 페이지
 	 * 
@@ -101,15 +90,16 @@ public class ChatController {
 	 */
 	@RequestMapping("/room")
 	public ModelAndView room(Model model, HttpServletRequest request) {
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		mv.setViewName("pieContents/chatting/room");
 
 		HttpSession session = request.getSession();
 		/* String userId = (String)session.getAttribute("userId"); */
 		String userId = (String) session.getAttribute("nickName");
 		String yourId = request.getParameter("mem");
+		System.out.println(dao.roomListByID(userId).size());
 
 		model.addAttribute("roomList", dao.roomListByID(userId));
 		model.addAttribute("you", yourId);
@@ -117,14 +107,6 @@ public class ChatController {
 		return mv;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 방 생성하기
 	 * 
@@ -144,9 +126,6 @@ public class ChatController {
 		// 리스트 잘 불어오고 있는지 확인용
 		List<String> memList = new ArrayList<>(Arrays.asList(nickName, roomName));
 
-		// 저장된 dao에서 정보 가지고 오기 위해 추가
-		List<RoomDto> roomList = dao.roomList();
-
 		mems.append(nickName);
 		mems.append("@");
 		mems.append(roomName);
@@ -157,46 +136,54 @@ public class ChatController {
 		 * nickName); System.out.println("roomName : " + roomName);
 		 * System.out.println("roomNumber : " + roomNumber);
 		 * System.out.println("memList : " + memList); System.out.println("mems : " +
-		 * mems); System.out.println("============================");
+		 * mems); System.out.println("============================"); 
 		 * 
 		 * 
 		 */
+		List<RoomDto> myRooms;
 		
-		
-		List<RoomDto> AllRooms = dao.roomList();
 		if (roomNumber == null) {
 			roomNumber = 0; // 기본값 설정
-		}
 
-		// 이전 방 목록에서 최대 방 번호를 찾아서 그 다음 번호를 증가시켜 새로운 방 번호로 사용
-		int maxRoomNumber = AllRooms.stream().mapToInt(RoomDto::getRoomNumber).max().orElse(0);
-		int newRoomNumber = maxRoomNumber + 1;
+			List<RoomDto> AllRooms = dao.roomList();
+			// 이전 방 목록에서 최대 방 번호를 찾아서 그 다음 번호를 증가시켜 새로운 방 번호로 사용
+			int maxRoomNumber = AllRooms.stream().mapToInt(RoomDto::getRoomNumber).max().orElse(0);
+			int newRoomNumber = maxRoomNumber + 1;
+			
 
-		if (roomName != null && !roomName.trim().equals("")) {
-			// 방 이름이 중복되지 않고 닉네임과 방 이름이 모두 포함된 경우에만 새로운 방을 추가
-			boolean isRoomNameValid = roomList.stream().noneMatch(room -> room.getRoomName().equals(roomName));
-			boolean isNickNameValid = roomList.stream().noneMatch(room -> room.getPartyMem().contains(nickName));
+			if (roomName != null && nickName != null) {
+				List<RoomDto> nowRoom = new ArrayList<>();
+				myRooms = dao.roomListByID(nickName);
+				// 방 이름이 중복되지 않고 닉네임과 방 이름이 모두 포함된 경우에만 새로운 방을 추가
+				boolean isRoomNameValid = roomList.stream().noneMatch(room -> room.getRoomName().equals(roomName));
+				boolean isNickNameValid = roomList.stream().noneMatch(room -> room.getPartyMem().contains(nickName));
 
-			if (isRoomNameValid || isNickNameValid) {
-				/*
-				 * mems.append(nickName); mems.append("@"); mems.append(roomName);
-				 */
-				//이 구문이 들어가면 중복값으로 넣어지는 현상 발생
+				if (isRoomNameValid && isNickNameValid) {
+					/*
+					 * mems.append(nickName); mems.append("@"); mems.append(roomName);
+					 */
+					// 이 구문이 들어가면 중복값으로 넣어지는 현상 발생
 
-				RoomDto room = new RoomDto();
-				room.setRoomNumber(newRoomNumber);
-				room.setRoomName(roomName);
-				room.setPartyMem(mems.toString());
+					RoomDto room = new RoomDto();
+					room.setRoomNumber(newRoomNumber);
+					room.setRoomName(roomName);
+					room.setPartyMem(mems.toString());
 
-				roomList.add(room);
+					roomList.add(room);
 
-				// 새로운 방 정보를 데이터베이스에 삽입
-				dao.insertRoom(roomName, newRoomNumber, mems.toString());
+					// 새로운 방 정보를 데이터베이스에 삽입
+					dao.insertRoom(roomName, newRoomNumber, mems.toString());
+					
+					nowRoom.add(room);
+					return nowRoom;
+				}
 			}
 		}
+		myRooms = dao.roomListByID(nickName);
+		// 저장된 dao에서 정보 가지고 오기 위해 추가
+		
 
-
-		return roomList;
+		return myRooms;
 
 		/*
 		 * if(roomName != null && !roomName.trim().equals("")) {
@@ -233,10 +220,6 @@ public class ChatController {
 		 */
 
 	}
-	
-	
-	
-	
 
 	/**
 	 * 방 정보가져오기
@@ -252,7 +235,7 @@ public class ChatController {
 		HttpSession session = request.getSession();
 
 		String userId = (String) session.getAttribute("nickName");
-		
+
 		System.out.println("##########userId : " + userId);
 		/* String userId = "혜혜"; */
 
@@ -262,8 +245,6 @@ public class ChatController {
 
 		getRoom = dao.roomListByID("/" + userId);
 
-		
-
 		for (RoomDto room : getRoom) {
 
 			obj.put("roomName", room.getRoomName());
@@ -272,8 +253,7 @@ public class ChatController {
 			obj.put("member", room.getPartyMems());
 
 		}
-		
-		
+
 		/*
 		 * System.out.println("=======================");
 		 * System.out.println("컨트롤러 getRoom 동작"); System.out.println("userId" + userId);
@@ -281,29 +261,25 @@ public class ChatController {
 		 * System.out.println("=======================");
 		 * 
 		 */
-		
+
 		return ResponseEntity.ok(obj.toJSONString());
 	}
 
-	
-	
-	
-	
 	/**
 	 * 채팅방
 	 * 
 	 * @return
 	 */
 	@RequestMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request,  Model model) { // 요청 파라미터를
-																											// HashMap
-																											// 으로 받음
+	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request, Model model) { // 요청
+																															// 파라미터를
+		// HashMap
+		// 으로 받음
 
 		ModelAndView mv = new ModelAndView(); // 컨트롤러 메서드가 뷰와 모델 데이터를 함께 반환
 		int roomNumber = Integer.parseInt((String) params.get("roomNumber")); // 채팅방 번호
 		String roomName = (String) params.get("roomNumber"); // 방이름
 		String yourId = request.getParameter("mem");
-
 
 		/*
 		 * List<RoomDto> new_list =
@@ -312,7 +288,6 @@ public class ChatController {
 		 */ // 방번호가 RoomDto 객체를 'Loomlist'에서 찾아 리스트로 반환
 
 		List<RoomDto> new_list = dao.roomList();
-		
 
 		if (new_list != null && new_list.size() > 0) {
 
@@ -325,7 +300,7 @@ public class ChatController {
 
 			mv.setViewName("pieContents/chatting/room");
 		}
-		
+
 		/*
 		 * // 정보 확인하는 출력구문 System.out.println("===================");
 		 * System.out.println("컨트롤러 chating 동작"); System.out.println(roomNumber);
@@ -333,12 +308,11 @@ public class ChatController {
 		 * System.out.println("===================");
 		 * 
 		 */
-		
+
 		// 대화 목록 불러오기
 		List<ChatDto> chatList = dao.chatList(roomNumber);
 		model.addAttribute("chatList", chatList);
 
-		
 		System.out.println("chatList : " + chatList);
 
 		return mv;
