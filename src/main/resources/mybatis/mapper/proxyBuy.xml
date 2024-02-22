@@ -65,4 +65,12 @@
 	<delete id="deleteProxyBoard">
 		delete proxyBuyBoard where pr_num = #{param1}
 	</delete>
+	<!-- 현재 인원 증가 -->
+	<update id="updateNow">
+		update proxyBuyBoard set pr_personnelNow = pr_personnelNow + 1 where pr_num = #{param1}
+	</update>
+	<!--  -->
+	<update id="maxChk">
+		update proxyBuyBoard set pr_process = '0' where pr_num = #{param1}
+	</update>
 </mapper>
