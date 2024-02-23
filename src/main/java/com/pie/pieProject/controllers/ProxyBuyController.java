@@ -53,7 +53,11 @@ public class ProxyBuyController {
 		ProxyBuyBoardDto dto = dao.getView(num);
 		System.out.println("chkpoint2");
 		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
-		dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+		if(dto.getPr_tag()==null||dto.getPr_tag().equals("#")) {
+			dto.setPr_tags(null);
+		}else {
+			dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+		}
 
 		String table = "proxyBuyBoard";
 		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
@@ -81,7 +85,8 @@ public class ProxyBuyController {
 			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
 
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
-
+		
+		System.out.println(tags);
 		dto.setPr_id(getSession(request, "userId"));
 		dto.setPr_category(pr_category);
 		dto.setPr_nickname(getSession(request, "nickName"));
@@ -105,7 +110,11 @@ public class ProxyBuyController {
 		System.out.println(num);
 		ProxyBuyBoardDto dto = dao.getView(num);
 		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
-		dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+		if(dto.getPr_tag()==null||dto.getPr_tag().equals("#")) {
+			dto.setPr_tags(null);
+		}else {
+			dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+		}
 		model.addAttribute("board",dto);
 		return "/pieContents/proxyBuying/proxyupdateForm";
 	}
@@ -118,6 +127,7 @@ public class ProxyBuyController {
 			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
 
+		System.out.println(tags);
 		dto.setPr_num(num);
 		dto.setPr_category(pr_category);
 		dto.setPr_title(title);

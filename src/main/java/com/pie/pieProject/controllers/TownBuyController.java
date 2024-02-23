@@ -62,7 +62,11 @@ public class TownBuyController {
 			TownBuyBoardDto dto = dao.viewDao(sId);
 
 			dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
-			dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+			if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
+				dto.setTo_tags(null);
+			}else {
+				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+			}
 			/* dao.updateHit(sId); */
 			
 			String table = "townBuyBoard";
@@ -125,7 +129,11 @@ public class TownBuyController {
 		
 		TownBuyBoardDto dto = dao.viewDao(sId);
 		dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
-		dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+		if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
+			dto.setTo_tags(null);
+		}else {
+			dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+		}
 		model.addAttribute("board", dto);
 		return "pieContents/townBuying/updateTownProductForm";
 

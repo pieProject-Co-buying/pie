@@ -164,10 +164,12 @@
 
 						<div class="w-100 py-5" th:utext="${board.getPr_content()}"></div>
 						<div class="">
-							<small> <th:block
-									th:each="i : ${#numbers.sequence(1,board.getPr_tags().length-1)}">
-									<span class="badge badge-light"
-										th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+							<small> <th:block th:if="${board.getPr_tags()!=null}">
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+									</th:block>
 								</th:block>
 							</small>
 						</div>

@@ -66,7 +66,7 @@ public class ImageUploadController {
 	}
 
 	@PostMapping("/imageUploading")
-	public ResponseEntity<String> imageuploadAction(@RequestParam("attach_file") MultipartFile[] files) {
+	public ResponseEntity<String> imageuploadAction(@RequestParam(name = "attach_file", required = false) MultipartFile[] files) {
 
 		StringBuilder fileData = new StringBuilder();
 		UUID uuidOne = UUID.randomUUID();
@@ -74,19 +74,23 @@ public class ImageUploadController {
 		System.out.println(UPLOAD_DIRECTORY2);
 
 		try {
-			for (MultipartFile file : files) {
-				System.out.println("Uploaded File Name: " + file.getOriginalFilename());
-				StringBuilder fileNames = new StringBuilder();
-				String newFileName = uuidOne + file.getOriginalFilename();
-				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, newFileName);
-				// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
-				fileNames.append(file.getOriginalFilename());
-				byte[] fileSize = file.getBytes();
-				Files.write(fileNameAndPath, fileSize);
-				System.out.println(fileNames + "업로드완료");
-
-				fileData.append(newFileName);
-				fileData.append("/");
+			if (files!=null) {
+				for (MultipartFile file : files) {
+					System.out.println("Uploaded File Name: " + file.getOriginalFilename());
+					StringBuilder fileNames = new StringBuilder();
+					String newFileName = uuidOne + file.getOriginalFilename();
+					Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY2, newFileName);
+					// => Returns a {@code Path} by converting a path string => 이미지가 저장되는 경로
+					fileNames.append(file.getOriginalFilename());
+					byte[] fileSize = file.getBytes();
+					Files.write(fileNameAndPath, fileSize);
+					System.out.println(fileNames + "업로드완료");
+	
+					fileData.append(newFileName);
+					fileData.append("/");
+				}
+			}else {
+				fileData.append("proxy_title2-01.png/");
 			}
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -96,14 +100,15 @@ public class ImageUploadController {
 	}
 
 	@PostMapping("/imageUpdating")
-	public ResponseEntity<String> imageupdateAction(@RequestParam(name = "attach_file", required = false) MultipartFile[] files,
+	public ResponseEntity<String> imageupdateAction(
+			@RequestParam(name = "attach_file", required = false) MultipartFile[] files,
 			@RequestParam("original") String orinalFile) {
 
 		StringBuilder fileData = new StringBuilder();
 		UUID uuidOne = UUID.randomUUID();
 
 		try {
-			if (files!=null) {
+			if (files != null) {
 				for (MultipartFile file : files) {
 					System.out.println("Uploaded File Name: " + file.getOriginalFilename());
 					StringBuilder fileNames = new StringBuilder();

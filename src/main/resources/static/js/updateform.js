@@ -3,6 +3,9 @@ const slider = document.querySelector('.file-uploadGroup');
 let isDown = false;
 let startX;
 let scrollLeft;
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
+document.getElementById('today').value = new Date().toISOString().slice(0, 10);
 
 slider.addEventListener('mousedown', e => {
 	isDown = true;
@@ -38,32 +41,40 @@ let tags_str = pie_tagsOutput.val();
 
 pie_tags_input.keyup(function(key) {
 	if (key.keyCode == 13 || key.keyCode == 32) {
-		let tag = $(this).val();
-		tag = tag.replace(" ", "");
-		tag = tag.replace(/[^\w\s가-힣ㄱ-ㅎㅏ-ㅣ]/g, '');
-		if (tag == "") {
-			alert("입력된 값이 없습니다.(특수문자는 태그에 포함할 수 없습니다.)")
-			return;
-		}
-		console.tag
-		tagGroup.append('<span class="badge badge-info badge-pill d-flex align-items-center p-2 mr-2">#' + tag + '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-circle-fill ml-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></span>');
-		tags_str += "#" + tag;
-		pie_tagsOutput.val(tags_str);
-
-		$(this).val('');
-		console.log(tags_str);
-
-		let tagNum = $("#tagGroup .badge").length;
-		if (tagNum == 5) {
-			pie_tags_input.hide();
-		}
+		insertTag(this)
 	}
 })
+
+function insertTag(obj) {
+	let tag = $(obj).val();
+	tag = tag.replace(" ", "");
+	tag = tag.replace(/[^\w\s가-힣ㄱ-ㅎㅏ-ㅣ]/g, '');
+	
+	if (tag == "") {
+		alert("입력된 값이 없습니다.(특수문자는 태그에 포함할 수 없습니다.)")
+		return false;
+	} else if (tag.length > 10) {
+		alert("태그는 10자 이하로 입력해주세요.")
+		return false;
+	}
+
+	tagGroup.append('<span class="badge badge-info badge-pill d-flex align-items-center p-2 mr-2">#' + tag + '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-x-circle-fill ml-1" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/></svg></span>');
+	tags_str += "#" + tag;
+	pie_tagsOutput.val(tags_str);
+
+	$(obj).val('');
+	console.log(tags_str);
+
+	let tagNum = $("#tagGroup .badge").length;
+	if (tagNum == 5) {
+		pie_tags_input.hide();
+	}
+}
 
 let originalfileArray = $("#ori_files").val();
 
 $(document).on("click", "span.badge", function(event) {
-	let removedtag = "#"+$(this).find("span").text();
+	let removedtag = "#" + $(this).find("span").text();
 	tags_str = tags_str.replace(removedtag, '');
 
 	console.log(removedtag);
@@ -110,8 +121,8 @@ console.log(loadFiles);
 chkFiles();
 
 
-function chkFiles(){
-	if(idx==5) $(".btn-upload").hide();
+function chkFiles() {
+	if (idx == 5) $(".btn-upload").hide();
 }
 
 
@@ -161,8 +172,8 @@ function addFile(event) {
 /* 첨부파일 검증 */
 function validation(obj) {
 	const fileTypes = ['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/tif'];
-	if (obj.name.length > 100) {
-		alert("파일명이 100자 이상인 파일은 제외되었습니다.");
+	if (obj.name.length > 50) {
+		alert("파일명이 50자 이상인 파일은 제외되었습니다.");
 		return false;
 	} else if (obj.size > (3 * 1024 * 1024)) {
 		alert("최대 파일 용량인 3MB를 초과한 파일은 제외되었습니다.");
@@ -184,56 +195,21 @@ function deleteFile(obj) {
 	parent.removeChild(obj);
 	let deletedOrignFileStr;
 	let deletedOrignFile = obj.getAttribute('data-originFile');
-	deletedOrignFileStr = originalfileArray.replace(deletedOrignFile+"/", '');
+	deletedOrignFileStr = originalfileArray.replace(deletedOrignFile + "/", '');
 	console.log(deletedOrignFileStr);
 	originalfileArray = deletedOrignFileStr;
 
 	let maxFileCnt = 5;
 	let attFileCnt = document.querySelectorAll('.pie-img-viewsThumbs').length;
 	let remainFileCnt = maxFileCnt - attFileCnt;
-	
+
 	if (remainFileCnt > 0) {
 		$(".btn-upload").show();
 	}
-	
+
 }
 
-/* 폼 전송 */
-function submitForm() {
-	// 폼데이터 담기
-	var form = document.proxyForm;
-	var formData = new FormData(form);
-	for (var i = 0; i < filesArr.length; i++) {
-		// 삭제되지 않은 파일만 폼데이터에 담기
-		if (!filesArr[i].is_delete) {
-			formData.append("attach_file", filesArr[i]);
-		}
-	}
-	formData.append("original", originalfileArray)
-	
-	$.ajax({
-		method: 'POST',
-		url: '/imageUpdating',
-		data: formData,
-		contentType: false,
-		processData: false,
-		success: function(response) {
-			console.log('전송 성공', response);
-			$("#files").val(response);
 
-			let url = window.location.href;
-			var str = url.substring(url.lastIndexOf('/') + 1,url.indexOf('?'));
-			console.log(str);
-
-			if (str == 'updateTownProductForm') document.townUpdateForm.submit();
-			else if (str == 'updateProxyForm') document.proxyUpdateForm.submit();
-			else if (str == 'updateShareBoardForm') document.shareUpdateForm.submit();
-		},
-		error: function(xhr, desc, err) {
-			console.error('전송 실패', err);
-		}
-	});
-}
 
 $(function() {
 	// 가격 계산하기
@@ -260,9 +236,7 @@ $(function() {
 	})
 
 	personNum.change(function() {
-
-		console.log(price_total.val());
-		console.log(price_per.val());
+		$("#personRange").val($(this).val())
 		if (isNaN(price_total.val()) || isNaN(price_per.val()) || price_total.val() < 0 || price_per.val() < 0) {
 			price_total.val(0)
 			price_per.val(0)
@@ -271,6 +245,17 @@ $(function() {
 		price_total.val(Math.floor(price_per.val() * personNum.val()));
 	})
 
+	$("#personRange").change(function() {
+		$("#personnelMax").val($(this).val())
+		if (isNaN(price_total.val()) || isNaN(price_per.val()) || price_total.val() < 0 || price_per.val() < 0) {
+			price_total.val(0)
+			price_per.val(0)
+		}
+		price_per.val(Math.floor(price_total.val() / personNum.val()));
+		price_total.val(Math.floor(price_per.val() * personNum.val()));
+	})
+
+
 	//summerNote 설정
 	$('#summernote').summernote({
 		minHeight: 400,             // 최소 높이
@@ -278,6 +263,12 @@ $(function() {
 		focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 		lang: "ko-KR",					// 한글 설정
 		spellCheck: false,
+		callbacks: {
+			onKeyup: function(e) {
+				fn_chk_byte('#summernote')
+			}
+		},
+
 		/*callbacks: {	//이미지 첨부하는 부분
 			onImageUpload: function (files) {
 				uploadSummernoteImageFile(files[0], this);
@@ -311,10 +302,10 @@ $(function() {
 	else if (c == 'pet') ctext = '반려동물';
 	else if (c == 'life') ctext = '생활';
 	else if (c == 'etc') ctext = '기타';
-	else if( c == 'OTT') ctext = 'OTT';
-	else if( c == 'game') ctext = '게임';
-	else if( c == 'bookAndMusic') ctext = '도서/음악';
-	
+	else if (c == 'OTT') ctext = 'OTT';
+	else if (c == 'game') ctext = '게임';
+	else if (c == 'bookAndMusic') ctext = '도서/음악';
+
 
 	selectCategory.text(ctext);
 	input.val(c);
@@ -328,3 +319,28 @@ $(function() {
 
 })
 
+
+function fn_chk_byte(obj) {
+	totalByte = 0;
+	var message = $(obj).val();
+
+	for (var i = 0; i < message.length; i++) {
+		var currentByte = message.charCodeAt(i);
+		if (currentByte > 128) {
+			totalByte += 3;
+		} else {
+			totalByte++;
+		}
+	}
+
+	$("#messagebyte").text(totalByte);
+	if (!sms_send()) return false;
+	else return true;
+}
+
+function sms_send() {
+	if (totalByte > 2000) {
+		alert("2000Byte 까지 전송가능합니다.");
+		return false;
+	} else return true;
+}

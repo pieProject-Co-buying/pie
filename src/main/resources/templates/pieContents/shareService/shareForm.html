@@ -21,7 +21,7 @@
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
 							onerror="this.onerror=null; this.src='imgs/default.png';" /><input type="text"
-							class="pl-2 form-control-plaintext" id="exampleInputEmail1" name="to_nickname"
+							class="pl-2 form-control-plaintext" id="sh_nickname" name="sh_nickname"
 							th:value="${session.nickName}" readonly>
 					</div>
 					<div class="form-group row">
@@ -37,7 +37,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="exampleInputEmail1" placeholder="제목"
+						<input type="text" class="form-control" id="sh_title" placeholder="제목"
 							name="sh_title">
 					</div>
 					<div class="form-group d-flex">
@@ -56,28 +56,44 @@
 							type="hidden" name="sh_files" id="files" />
 					</div>
 					<textarea id="summernote" name="sh_content"></textarea>
+					<div class="text-right">
+						<small>잔여 bytes :: </small><small id="messagebyte">11</small><small>
+							/ 2000</small>
+					</div>
 
 					<div class="form-group row pt-3">
 						<div class="col-md-6 pt-3">
 							<label for=""><small class="pl-1">모집인원</small></label><input type="number"
-								class="form-control" id="personnelMax" name="sh_personnelMax" min="1" max="300"
-								value="1">
+								class="form-control" id="personnelMax" name="sh_personnelMax" min="1" max="300" maxlength="3" value="2"
+								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+								<input type="range" class="form-control-range" id="personRange"
+								min="2" max="100" value="2">
 						</div>
 						<div class="col-md-6 pt-3">
-							<label for=""><small class="pl-1">모집마감일</small></label> <input type="date"
-								class="form-control" id="sh_deadLine" name="sh_deadLine">
+							<label for="sh_deadLine"><small class="pl-1">모집마감일</small></label>
+							<div class="row">
+								<div class="col-6">
+								시작일(오늘)
+									
+								</div>
+								<div class="col-6">
+								마감일
+									<input type="date" class="form-control" id="sh_deadLine"
+										name="sh_deadLine">
 
+								</div>
+							</div>
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<div class="col-md-6 pt-3">
-							<label for=""><small class="pl-1">모집 가격(총합)</small></label> <input type="text"
-								class="form-control" id="price_total" name="price_total">
+							<label for=""><small class="pl-1">모집 가격(총합)</small></label> <input type="text" class="form-control" id="price_total"
+								name="price_total" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 						</div>
 						<div class="col-md-6 pt-3">
-							<label for=""><small class="pl-1">모집 가격(인당)</small></label> <input type="text"
-								class="form-control" id="price_per" name="price_per">
+							<label for=""><small class="pl-1">모집 가격(인당)</small></label> <input type="text" class="form-control" id="price_per"
+								name="price_per" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
 						</div>
 					</div>
