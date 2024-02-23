@@ -14,9 +14,12 @@ import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
+import com.pie.pieProject.DAO.ISubscribeDAO;
+import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.DTO.SubScribeDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -31,10 +34,13 @@ public class PaymentController {
 	IMemberDao mdao;
 	@Autowired
 	IShareServiceDao Sdao;
+	@Autowired
+	ISubscribeDAO Subdao;
 	
     @PostMapping("/payCheck")
     @PreAuthorize("ADMIN")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
+    	dao.insertPayment(dto);
         // 응답 반환
         return new ResponseEntity<>(dto.getPay_category(), HttpStatus.OK);
     }
@@ -83,6 +89,13 @@ public class PaymentController {
 		model.addAttribute("pay", dao.payBoard(Integer.parseInt(merchant),category));
 		
 		return "pieContents/shareService/shareServiceFinish";
+	}
+	// 정기결제 (구독)
+	@PostMapping("/complete")
+	public ResponseEntity<String> insertSubScribe(@RequestBody SubScribeDTO dto){
+		Subdao.insertSubScribe(dto);
+		
+		return new ResponseEntity<>(dto.getSub_premium(), HttpStatus.OK);
 	}
 }
 

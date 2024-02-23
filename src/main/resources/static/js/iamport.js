@@ -14,14 +14,14 @@ const name = $("#userName").val();
 function kgPay() {
 	if (confirm("kg 이니시스로 결제 하시겠습니까?") == true) { // 확인 클릭 시
 		// html의 th:attr의 값을 가져옴
-		var DataTitle = document.querySelector('[data-title]');
-		var DataPrice = document.querySelector('[data-pricePer]');
-		var DataNumID = document.querySelector('[data-num]');
+		var DataTitle = document.querySelector('[data-SHtitle]');
+		var DataPrice = document.querySelector('[data-Shprice]');
+		var DataNumID = document.querySelector('[data-Shnum]');
 		// 가져온 속성값을 변수에 담음
-		var Title = DataTitle.getAttribute('data-title');
+		var Title = DataTitle.getAttribute('data-Shtitle');
 		// 정수는 parseFloat으로 변환
-		var Price = parseFloat(DataPrice.getAttribute('data-pricePer'));
-		var numID = parseFloat(DataNumID.getAttribute('data-num'));
+		var Price = parseFloat(DataPrice.getAttribute('data-Shprice'));
+		var numID = parseFloat(DataNumID.getAttribute('data-Shnum'));
 		IMP.request_pay({
 			pg: 'html5_inicis.INIBillTst',
 			merchant_uid: makeMerchantUid, // 상점에서 관리하는 주문번호
@@ -256,22 +256,7 @@ function paycoPay() {
 		},
 		function(rsp) {
 			if (rsp.success) {
-				$.ajax({
-					url: "payCheck",
-					type: 'POST',
-					'contentType': "application/json",
-					data: JSON.stringify(result),
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader(header, token);
-					},
-					success: function(response) {
-						alert("결제에 성공하였습니다");
-						document.location.href = "shareServiceFinish?sh_numID=" + numID;
-					},
-					error: function(xhr, status, error) {
-						console.log('error:' + error);
-					}
-				});
+				
 				alert("결제에 성공하였습니다");
 				document.location.href = "shareServiceFinish";
 			} else if (!rsp.success) {
@@ -281,4 +266,64 @@ function paycoPay() {
 			}
 		}
 	);
+}
+function sub(){
+	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
+	IMP.request_pay({
+	pg : "kakaopay.TCSUBSCRIP", // 실제 계약 후에는 실제 상점아이디로 변경
+	pay_method : 'card', // 'card'만 지원됩니다.
+	merchant_uid: makeMerchantUid, // 상점에서 관리하는 주문 번호
+	name : '프리미엄 구독',
+	amount : 17000, // 결제창에 표시될 금액. 실제 승인이 이루어지지는 않습니다. (모바일에서는 가격이 표시되지 않음)
+	customer_uid : makeMerchantUid, // 필수 입력.
+	buyer_email : mem.email,
+	buyer_name : mem.name,
+	buyer_tel : mem.phone
+	}, function(rsp) {
+		if (rsp.success) {
+			var result = {
+				"buyer_id": mem.id,
+				"buyer_name": mem.name,
+				"buyer_nickname": mem.nickname,
+				"buyer_tel": mem.phone,
+				"buyer_email": mem.email,
+				"sub_uid": rsp.imp_uid,
+				"sub_customer_uid": makeMerchantUid,
+				"sub_method": "kakaopay",
+				"sub_merchant_uid": makeMerchantUid,
+				"sub_name": '프리미엄 구독',
+				"sub_amount": 17000,
+				"sub_premium": "pro"
+			}
+			console.log(makeMerchantUid);
+			$.ajax({
+				url: "complete",
+				type: 'POST',
+				'contentType': "application/json",
+				data: JSON.stringify(result),
+				beforeSend: function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success: function(response) {
+					if(response == 'pro'){						
+						alert('빌링키 발급 성공 다시 로그인하소');
+						document.location.href='subScribe'
+					}else{
+						alert('빌링키 발급 실패');
+						return false;
+					}
+				},
+				error: function(xhr, status, error) {
+					console.log('error:' + error);
+				}
+			});
+		} else if (!rsp.success) {
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}
+	});
+	}else{
+		return;
+	}
 }
