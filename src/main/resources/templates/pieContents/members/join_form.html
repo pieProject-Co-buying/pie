@@ -1,57 +1,131 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/login}">
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
 <!-- gnb fragment -->
-<div layout:fragment="membersContent" class="col p-5 border rounded" id="joinForm">
+<div layout:fragment="membersContent" class="col p-5 border rounded"
+	id="joinForm">
 
 	<h2 class="text-center pb-5">
-		<img src="imgs/logo_pie_color.png" alt="" width="80" class="d-inlineblock" /> <span
-			class="w-100 pt-4 d-block">회원가입</span>
+		<img src="imgs/logo_pie_color.png" alt="" width="80"
+			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">회원가입</span>
 	</h2>
 
-	<form action="joinAction" enctype="multipart/form-data" method="post" name="joinForm">
- 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> 
+	<form action="joinAction" enctype="multipart/form-data" method="post"
+		name="joinForm" class="needs-validation" novalidate autocomplete="off">
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+		<div class="form-group row name_group">
+			<label for="name" class="col-sm-3 col-form-label">이름</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="name" name="name"
+					required>
+				<div class="invalid-feedback nameFeedBack">이름을 입력해주세요.</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="nickname" class="col-sm-3 col-form-label">닉네임</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="nickname"
+					name="nickname" maxlength="8" required>
+				<div class="invalid-feedback">닉네임을 입력해주세요.</div>
+			</div>
+		</div>
+		<div class="form-group row id_group">
+			<label for="id" class="col-sm-3 col-form-label">아이디</label>
+			<div class="col-sm-6">
+				<input type="text" class="form-control" id="id" name="id" required>
+				<div class="invalid-feedback idFeedBack">아이디를 입력해주세요.</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="password" class="col-sm-3 col-form-label">비밀번호</label>
+			<div class="col-sm-6 position-relative">
+				<input type="password" class="form-control" id="password"
+					name="password" required>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor"
+					class="bi bi-eye-slash view-button position-absolute"
+					viewBox="0 0 16 16">
+  <path
+						d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+  <path
+						d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+  <path
+						d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+</svg>
+
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor" class="bi bi-eye view-button"
+					viewBox="0 0 16 16">
+  <path
+						d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+  <path
+						d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+</svg>
+				<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+			</div>
+		</div>
 
 		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-3 col-form-label">이름</label>
-			<div class="col-sm-6">
-				<input type="text" class="form-control" id="inputEmail3" name="name">
+			<label for="passwordChk" class="col-sm-3 col-form-label">비밀번호
+				확인</label>
+			<div class="col-sm-6 position-relative">
+				<input type="password" class="form-control" id="passwordChk"
+					name="passwordChk" required>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor" class="bi bi-eye-slash view-button"
+					viewBox="0 0 16 16">
+  <path
+						d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z" />
+  <path
+						d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829" />
+  <path
+						d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z" />
+</svg>
+
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor" class="bi bi-eye view-button"
+					viewBox="0 0 16 16">
+  <path
+						d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+  <path
+						d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+</svg>
+				<div class="invalid-feedback">비밀번호 확인을 입력해주세요.</div>
 			</div>
 		</div>
-		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-3 col-form-label">닉네임</label>
-			<div class="col-sm-6">
-				<input type="text" class="form-control" id="inputEmail3" name="nickname">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-3 col-form-label">아이디</label>
-			<div class="col-sm-6">
-				<input type="text" class="form-control" id="inputEmail3" name="id">
-			</div>
-		</div>
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-3 col-form-label">비밀번호</label>
-			<div class="col-sm-6">
-				<input type="password" class="form-control" id="inputPassword3" name="password">
-			</div>
-		</div>
+
 		<fieldset class="form-group row">
 			<legend class="col-form-label col-sm-3 float-sm-left pt-0">성별</legend>
-			<div class="col-sm-9 d-flex justify-content-start">
-				<div class="form-check pr-2">
-					<input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
-					<label class="form-check-label" for="male"> 남성 </label>
-				</div>
-				<div class="form-check pr-2">
-					<input class="form-check-input" type="radio" name="gender" id="female" value="female"> <label
-						class="form-check-label" for="female"> 여성 </label>
-				</div>
-				<div class="form-check pr-2">
-					<input class="form-check-input" type="radio" name="gender" id="none" value="none"> <label
-						class="form-check-label" for="none"> 선택안함 </label>
+			<div class="col-sm-6">
+				<div class="pie-genders rounded">
+					<div class="form-check">
+						<input class="form-check-input d-none" type="radio" name="gender"
+							id="male" value="male" required> <label
+							class="form-check-label" for="male"> <small>남성</small>
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input d-none" type="radio" name="gender"
+							id="female" value="female" required> <label
+							class="form-check-label" for="female"> <small>여성</small>
+						</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input d-none" type="radio" name="gender"
+							id="none" value="none" checked required> <label
+							class="form-check-label" for="none"> <small>선택안함</small>
+						</label>
+					</div>
 				</div>
 			</div>
+			<div class="invalid-feedback">성별을 선택해주세요.</div>
 		</fieldset>
 
 		<div class="form-group row">
@@ -59,73 +133,105 @@
 			<div class="col-sm-9">
 				<div class="row">
 					<div class="col">
-						<img src="" alt="" class="img-thumbnail" id="profilePic"
+						<label for="profileUpload">
+							<div class="btn-upload">
+								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+									fill="currentColor" class="bi bi-plus-circle"
+									viewBox="0 0 16 16">
+									<path
+										d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+									<path
+										d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+								</svg>
+							</div>
+							<figure id="profilePic">
+									<img src=""
+							class="img-thumbnail pie-img-viewsThumbs"
 							onerror="this.onerror=null; this.src='imgs/default.png';" />
+									<figcaption></figcaption>
+								</figure>
+						</label>
 					</div>
 				</div>
 				<div class="row pt-1">
 					<div class="col">
-						<input type="file" class="form-control-file" id="exampleFormControlFile1" name="profile_pic"
-							onchange="setThumbnail(event)">
+						<input type="file" class="d-none" id="profileUpload"
+							name="profile_pic" onchange="setThumbnail(event)">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="inputEmail3" class="col-sm-3 col-form-label">전화번호</label>
+			<label for="phone" class="col-sm-3 col-form-label">전화번호</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="inputEmail3" name="phone">
+				<input type="text" class="form-control" id="phone" name="phone"
+					required>
+				<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-3 col-form-label">이메일</label>
-			<input type="hidden" name="email" id="emailCom" />
+			<label for="email1" class="col-sm-3 col-form-label">이메일</label> <input
+				type="hidden" name="email" id="emailCom" />
 			<div class="col-sm-9">
 				<div class="row">
-					<div class="col-6 pr-1">
-						<label for="formGroupExampleInput" class="sr-only">이메일 선택</label>
+					<div class="form-group col-6 pr-1">
 						<div class="input-group">
-							<input type="text" class="form-control" id="email1" placeholder="이메일">
+							<input type="text" class="form-control" id="email1"
+								placeholder="이메일" required>
 							<div class="input-group-append">
 								<div class="input-group-text">@</div>
 							</div>
+							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="form-group col-6 pl-0">
-						<label for="exampleFormControlSelect2" class="sr-only">Example
-							multiple select</label> <select class="form-control px-0" id="exampleFormControlSelect2">
+						<label for="email2" class="sr-only">Example multiple
+							select</label> <select class="form-control px-0" id="email2" required>
 							<option>gmail.com</option>
 							<option>naver.com</option>
 							<option>daum.net</option>
 							<option>hotmail.com</option>
-							<option>직접입력</option>
-						</select> <input type="text" class="form-control" id="emailAddressInput" placeholder="직접 입력" />
+							<option value="">직접입력</option>
+						</select> <input type="text" class="form-control" id="emailAddressInput"
+							placeholder="직접입력" required readOnly>
+						<div class="invalid-feedback">이메일을 입력해주세요.</div>
+
 					</div>
 				</div>
-
 			</div>
 		</div>
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-3 col-form-label">우편번호</label>
-			<div class="col-sm-9 d-flex justify-content-between">
-				<input type="text" class="form-control mr-1" id="sample6_postcode" placeholder="우편번호" name="postCode">
-				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn pie-btn-red">
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-3 col-form-label">주소</label>
+		<div class="form-group pie-address row">
+			<label for="postCode" class="col-sm-3 col-form-label">우편번호</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="sample6_address" placeholder="주소" name="address_main">
+				<div class="d-flex justify-content-between">
+					<input type="text" class="form-control mr-1" id="postCode"
+						placeholder="우편번호" name="postCode" onclick="findPostCode()"
+						required> <input type="button" onclick="findPostCode()"
+						value="우편번호 찾기" class="btn pie-btn-red">
+				</div>
+				<div class="invalid-feedback">우편번호를 입력해주세요.</div>
 			</div>
+
+		</div>
+
+		<div class="form-group pie-address row">
+			<label for="address_main" class="col-sm-3 col-form-label">주소</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="address_main"
+					placeholder="주소" name="address_main" onclick="findPostCode()"
+					required>
+				<div class="invalid-feedback">주소를 입력해주세요.</div>
+			</div>
+
 		</div>
 		<div class="form-group row">
-			<label for="inputPassword3" class="col-sm-3 col-form-label">상세주소</label>
+			<label for="address_sub" class="col-sm-3 col-form-label">상세주소</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="sample6_detailAddress" placeholder="상세주소"
-					name="address_sub">
+				<input type="text" class="form-control" id="address_sub"
+					placeholder="상세주소" name="address_sub">
 			</div>
+
 		</div>
 
 		<div class="form-group row">
@@ -133,21 +239,19 @@
 				<div class="border rounded p-3" id="joinTerms">
 					<h6>가입 약관</h6>
 
-					<small>군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 대통령은 헌법과 법률이 정하는 바에 의하여
-						국군을 통수한다. 국회는 국민의 보통·평등·직접·비밀선거에 의하여 선출된 국회의원으로 구성한다. 대통령의 국법상 행위는
-						문서로써 하며, 이 문서에는 국무총리와 관계 국무위원이 부서한다. 군사에 관한 것도 또한 같다.</small>
-					<br /><br />
-					<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
-						거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
-						권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
-					<br /><br />
-					<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
-						거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
-						권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
-					<br /><br />
-					<small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여
-						거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의
-						권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할 수 없다.</small>
+					<small>군사재판을 관할하기 위하여 특별법원으로서 군사법원을 둘 수 있다. 대통령은 헌법과 법률이
+						정하는 바에 의하여 국군을 통수한다. 국회는 국민의 보통·평등·직접·비밀선거에 의하여 선출된 국회의원으로 구성한다.
+						대통령의 국법상 행위는 문서로써 하며, 이 문서에는 국무총리와 관계 국무위원이 부서한다. 군사에 관한 것도 또한 같다.</small>
+					<br /> <br /> <small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는
+						행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여 국가·공공단체
+						또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여 그 취득을 알선할
+						수 없다.</small> <br /> <br /> <small>모든 국민은 행위시의 법률에 의하여 범죄를 구성하지
+						아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를 남용하여
+						국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여 그
+						취득을 알선할 수 없다.</small> <br /> <br /> <small>모든 국민은 행위시의 법률에 의하여
+						범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 국회의원은 그 지위를
+						남용하여 국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여 재산상의 권리·이익 또는 직위를 취득하거나 타인을
+						위하여 그 취득을 알선할 수 없다.</small>
 
 				</div>
 			</div>
@@ -156,142 +260,30 @@
 		<div class="form-group row">
 			<div class="col">
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" id="gridCheck1" name="agreement">
-					<label class="form-check-label" for="gridCheck1"> 위 약관에
-						동의합니다. </label>
+					<input class="form-check-input" type="checkbox" id="gridCheck1"
+						name="agreement" required> <label class="form-check-label"
+						for="gridCheck1"> 위 약관에 동의합니다. </label>
+					<div class="invalid-feedback">약관동의 후 가입이 가능합니다.</div>
 				</div>
 			</div>
 		</div>
 		<div class="form-group row justify-content-center mt-5">
 			<div class="col-sm-9">
-				<button type="button" class="btn btn-block pie-btn-red" id="joinBtn">가입</button>
+				<button type="submit" class="btn btn-block pie-btn-red" id="joinBtn">가입</button>
 			</div>
 		</div>
 	</form>
 
 
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
-		function sample6_execDaumPostcode() {
-			new daum.Postcode(
-				{
-					oncomplete: function (data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						var addr = ''; // 주소 변수
-						var extraAddr = ''; // 참고항목 변수
-
-						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-							addr = data.roadAddress;
-						} else { // 사용자가 지번 주소를 선택했을 경우(J)
-							addr = data.jibunAddress;
-						}
-
-						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-						if (data.userSelectedType === 'R') {
-							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-							if (data.bname !== ''
-								&& /[동|로|가]$/g.test(data.bname)) {
-								extraAddr += data.bname;
-							}
-							// 건물명이 있고, 공동주택일 경우 추가한다.
-							if (data.buildingName !== ''
-								&& data.apartment === 'Y') {
-								extraAddr += (extraAddr !== '' ? ', '
-									+ data.buildingName
-									: data.buildingName);
-							}
-						}
-
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
-						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("sample6_detailAddress")
-							.focus();
-					}
-				}).open();
-		}
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="js/PostCode.js">
+		
 	</script>
 
-
+	<script src="js/validation.js"></script>
 	<script>
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function () {
-			'use strict';
-			window.addEventListener('load',
-				function () {
-					// Fetch all the forms we want to apply custom Bootstrap validation styles to
-					var forms = document
-						.getElementsByClassName('needs-validation');
-					// Loop over them and prevent submission
-					var validation = Array.prototype.filter.call(forms,
-						function (form) {
-							form.addEventListener('submit', function (
-								event) {
-								if (form.checkValidity() === false) {
-									event.preventDefault();
-									event.stopPropagation();
-								}
-								form.classList.add('was-validated');
-							}, false);
-						});
-				}, false);
-		})();
-	</script>
-
-	<script>
-		$(function () {
-			let emailSelect = $("#exampleFormControlSelect2");
-			let emailInput = $("#emailAddressInput");
-
-			emailInput.hide();
-
-			emailSelect.change(function () {
-				if (emailSelect.val() === "직접입력") {
-					$(this).hide();
-					emailInput.show();
-				} else {
-					$(this).show();
-					emailInput.hide();
-				}
-			})
-
-			if (emailInput.val() != "") {
-				emailSelect.val(emailInput.val());
-			}
-
-			let email = $("#emailCom");
-			let emailId = $("#email1");
-			let emailIdVal;
-
-			emailId.blur(function () {
-				emailIdVal = emailId.val();
-			})
-
-			let joinBtn = $("#joinBtn");
-
-			joinBtn.click(function () {
-				email.val(emailIdVal + "@" + emailSelect.val());
-				document.joinForm.submit();
-			})
-		})
-	</script>
-	<script>
-		function setThumbnail(event) {
-			var reader = new FileReader();
-
-			reader.onload = function (event) {
-				let img = document.querySelector("#profilePic");
-				img.setAttribute("src", event.target.result);
-			};
-
-			reader.readAsDataURL(event.target.files[0]);
-		}
+		
 	</script>
 </div>
 

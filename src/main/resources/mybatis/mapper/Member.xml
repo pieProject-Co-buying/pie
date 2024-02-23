@@ -67,5 +67,12 @@
 		update member_user set premium='none' where preEndDate <![CDATA[ < ]]>
 		sysdate
 	</update>
+	<select id="chkDuplicate" resultType="_int">
+		select count(*) from member_user where id = #{param1}
+	</select>
+	<select id="chkNDuplicate" resultType="_int">
+		select count(*) from member_user where nickName = #{param1}
+	</select>
+	
 </mapper>
 

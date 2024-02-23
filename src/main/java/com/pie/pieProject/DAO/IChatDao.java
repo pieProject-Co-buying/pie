@@ -27,7 +27,7 @@ public interface IChatDao {
 	//채팅방 생성
 	public void insertRoom(@Param("roomName") String roomName, @Param("roomNumber") int roomNumber, @Param("nickName") String nickName);
 	
-	public List<RoomDto> roomListByID(String userId);
+	public List<RoomDto> roomListByID(String userId, String yourId);
 	public RoomDto room(String userId);
 	
 

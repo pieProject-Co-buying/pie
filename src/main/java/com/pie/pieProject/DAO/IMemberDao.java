@@ -19,6 +19,8 @@ public interface IMemberDao {
 	public void updateMember(MemberDto mem);
 	public void unSub(String id);
 	public void expireSub();
+	public int chkDuplicate(String id);
+	public int chkNDuplicate(String nickName);
 
 	/* public UserDetails getLogInfo(String id); */
 	public ArrayList<String> getAuthList(String id);

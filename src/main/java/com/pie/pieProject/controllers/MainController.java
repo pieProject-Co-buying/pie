@@ -11,13 +11,15 @@ public class MainController {
 		return "Index";
 	}
 
-	
-	  @RequestMapping("/login") public String loginPage() { return
-	  "pieContents/members/login_form"; }
+	@RequestMapping("/login")
+	public String loginPage() {
+		return "pieContents/members/login_form";
+	}
 
-	  @RequestMapping("/join") public String joinPage() { return
-	  "pieContents/members/join_form"; }
-	 
+	@RequestMapping("/join")
+	public String joinPage() {
+		return "pieContents/members/join_form";
+	}
 
 	@RequestMapping("/shareService")
 	public String shareSPage() {

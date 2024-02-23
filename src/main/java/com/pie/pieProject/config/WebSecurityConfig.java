@@ -4,20 +4,14 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.simp.SimpMessageType;
-import org.springframework.messaging.support.ChannelInterceptor;
-import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.messaging.access.intercept.MessageMatcherDelegatingAuthorizationManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.pie.pieProject.components.CustomAutenticationSuccess;
 import com.pie.pieProject.components.LoginFailHandler;
@@ -38,7 +32,7 @@ public class WebSecurityConfig {
 
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
-				.requestMatchers("/join", "/joinAction", "/error").permitAll()
+				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember")
 				.authenticated()
@@ -53,11 +47,14 @@ public class WebSecurityConfig {
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService")
 				.permitAll().requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**")
-				.authenticated()).formLogin(login -> login.loginPage("/login") // 처리)
-						.usernameParameter("id").passwordParameter("password").loginProcessingUrl("/auth") // POST 요청
-						.defaultSuccessUrl("/").successHandler(customAutenticationSuccess)
-						.failureHandler(loginFailHandler())// 로그인 실패 시 처리하는
-															// // 핸들러 등록.
+				.authenticated())
+		.formLogin(login -> login.loginPage("/login") // 처리)
+						.usernameParameter("id")
+						.passwordParameter("password")
+						.loginProcessingUrl("/auth") // POST 요청
+						.defaultSuccessUrl("/")
+						.successHandler(customAutenticationSuccess)
+						.failureHandler(loginFailHandler())// 로그인 실패 시 처리하는 핸들러 등록.
 						.permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/")
 						.addLogoutHandler(new LogoutHandler() {
@@ -75,12 +72,10 @@ public class WebSecurityConfig {
 							}
 						}).deleteCookies("remember-me"))
 				.csrf(csrf -> csrf
-						.ignoringRequestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/socket", "/error")
+						.ignoringRequestMatchers("/error")
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-				
-						)// logout에 성공하면
-																										// /로 //
-																										// redirect
+
+				)// logout에 성공하면 /로 redirect
 				.sessionManagement(session -> session.maximumSessions(1) // 세션 최대 허용 수
 						.maxSessionsPreventsLogin(false))
 				.requestCache(cache -> cache.requestCache(requestCache)); // redirect

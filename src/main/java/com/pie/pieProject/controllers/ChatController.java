@@ -99,9 +99,11 @@ public class ChatController {
 		/* String userId = (String)session.getAttribute("userId"); */
 		String userId = (String) session.getAttribute("nickName");
 		String yourId = request.getParameter("mem");
-		System.out.println(dao.roomListByID(userId).size());
-
-		model.addAttribute("roomList", dao.roomListByID(userId));
+		
+		 System.out.println(dao.roomListByID(userId,yourId).size());
+		 
+		 model.addAttribute("roomList", dao.roomListByID(userId,yourId));
+		 
 		model.addAttribute("you", yourId);
 
 		return mv;
@@ -120,7 +122,7 @@ public class ChatController {
 		HttpSession session = request.getSession();
 		String nickName = (String) session.getAttribute("nickName");
 
-		String roomName = (String) params.get("roomName");
+		String roomName = (String) params.get("mem2");
 		Integer roomNumber = (Integer) params.get("roomNumber");
 		StringBuilder mems = new StringBuilder("@");
 		// 리스트 잘 불어오고 있는지 확인용
@@ -149,16 +151,29 @@ public class ChatController {
 			// 이전 방 목록에서 최대 방 번호를 찾아서 그 다음 번호를 증가시켜 새로운 방 번호로 사용
 			int maxRoomNumber = AllRooms.stream().mapToInt(RoomDto::getRoomNumber).max().orElse(0);
 			int newRoomNumber = maxRoomNumber + 1;
-			
+			int cnt = 0;
 
 			if (roomName != null && nickName != null) {
 				List<RoomDto> nowRoom = new ArrayList<>();
-				myRooms = dao.roomListByID(nickName);
+				System.out.println("chkPoint1");
 				// 방 이름이 중복되지 않고 닉네임과 방 이름이 모두 포함된 경우에만 새로운 방을 추가
-				boolean isRoomNameValid = roomList.stream().noneMatch(room -> room.getRoomName().equals(roomName));
-				boolean isNickNameValid = roomList.stream().noneMatch(room -> room.getPartyMem().contains(nickName));
-
-				if (isRoomNameValid && isNickNameValid) {
+				
+				/*
+				 * boolean isRoomNameValid = roomList.stream().noneMatch(room ->
+				 * room.getRoomName().equals(roomName)); boolean isNickNameValid =
+				 * roomList.stream().noneMatch(room -> room.getPartyMem().contains(nickName));
+				 */
+				
+				
+				for(RoomDto r : AllRooms) {
+					if(r.getPartyMem().contains(nickName)&&r.getPartyMem().contains(roomName)) {
+						cnt++;
+					}
+				}
+				
+				System.out.println(cnt);
+				if (cnt==0) {
+					System.out.println("chkPoint2");
 					/*
 					 * mems.append(nickName); mems.append("@"); mems.append(roomName);
 					 */
@@ -174,12 +189,17 @@ public class ChatController {
 					// 새로운 방 정보를 데이터베이스에 삽입
 					dao.insertRoom(roomName, newRoomNumber, mems.toString());
 					
+					System.out.println("newRoomNumber");
+					System.out.println("roomName");
+					System.out.println("mems.toString()");
+					
 					nowRoom.add(room);
+					System.out.println(nowRoom);
 					return nowRoom;
 				}
 			}
 		}
-		myRooms = dao.roomListByID(nickName);
+		myRooms = dao.roomListByID(nickName,roomName);
 		// 저장된 dao에서 정보 가지고 오기 위해 추가
 		
 
@@ -243,16 +263,17 @@ public class ChatController {
 
 		List<RoomDto> getRoom = new ArrayList<RoomDto>();
 
-		getRoom = dao.roomListByID("/" + userId);
-
-		for (RoomDto room : getRoom) {
-
-			obj.put("roomName", room.getRoomName());
-			obj.put("roomNum", room.getRoomNumber());
-			room.setPartyMems(room.getPartyMem().split("/"));
-			obj.put("member", room.getPartyMems());
-
-		}
+		/*
+		 * getRoom = dao.roomListByID(userId,);
+		 * 
+		 * for (RoomDto room : getRoom) {
+		 * 
+		 * obj.put("roomName", room.getRoomName()); obj.put("roomNum",
+		 * room.getRoomNumber()); room.setPartyMems(room.getPartyMem().split("/"));
+		 * obj.put("member", room.getPartyMems());
+		 * 
+		 * }
+		 */
 
 		/*
 		 * System.out.println("=======================");
@@ -277,7 +298,8 @@ public class ChatController {
 		// 으로 받음
 
 		ModelAndView mv = new ModelAndView(); // 컨트롤러 메서드가 뷰와 모델 데이터를 함께 반환
-		int roomNumber = Integer.parseInt((String) params.get("roomNumber")); // 채팅방 번호
+		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+		// 채팅방 번호
 		String roomName = (String) params.get("roomNumber"); // 방이름
 		String yourId = request.getParameter("mem");
 

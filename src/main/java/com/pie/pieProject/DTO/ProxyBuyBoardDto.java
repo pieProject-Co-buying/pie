@@ -26,7 +26,7 @@ public class ProxyBuyBoardDto {
 	private String pr_updateDay; // 게시글 수정날짜
 	private String pr_deadLine; // 모집 마감일자
 	private int pr_personnelMax; // 최대 모집인원
-	private String pr_personnelNow; // 현재 모집인원
+	private int pr_personnelNow; // 현재 모집인원
 	private int pr_priceTotal; // 가격 총합
 	private int pr_pricePer; // 인당 가격
 	private String pr_ip; // 게시글 작성 IP

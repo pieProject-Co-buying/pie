@@ -33,10 +33,11 @@ body {
 	overflow-x: hidden;
 }
 
-a{
+a {
 	color: inherit;
 }
-a:hover{
+
+a:hover {
 	color: inherit;
 	text-decoration: none;
 }
@@ -346,9 +347,13 @@ a:hover{
 }
 
 #profilePic {
-	width: 150px;
-	height: 150px;
+	width: 120px;
+	height: 120px;
+	position: relative;
 }
+
+
+
 
 .pie-profilePic {
 	width: 30px;
@@ -627,7 +632,8 @@ input[readonly]:focus {
 }
 
 figure:has(.pie-img-viewsThumbs) {
-	flex: 0 0 auto; width : 120px;
+	flex: 0 0 auto;
+	width: 120px;
 	height: 120px;
 	border-radius: 10px;
 	overflow: hidden;
@@ -688,19 +694,70 @@ figure:hover .pie-img-viewsThumbs+figCaption {
 	display: none;
 }
 
-#pie_tags_input:focus{
+#pie_tags_input:focus {
 	outline: none;
 }
-#pie_tags_input::placeholder{
+
+#pie_tags_input::placeholder {
 	font-size: 0.8rem;
 }
 
-.pie-write-dropdown .dropdown-menu{
+.pie-write-dropdown .dropdown-menu {
 	top: 10px;
 	width: calc(100% - 30px);
 }
+
 .pie-write-dropdown .dropdown-toggle::after {
 	position: absolute;
 	right: 30px;
 	top: 40%;
+}
+
+form .view-button {
+	position: absolute;
+	right: 30px;
+	height: calc(1.5em + 0.75rem + 2px);
+	top: 0;
+	color: gray;
+}
+
+.was-validated .form-control:invalid ~.view-button, .was-validated .form-control:valid
+	 ~.view-button {
+	right: 50px;
+}
+
+.pie-genders {
+	width: 100%;
+	display: table;
+	border-collapse: collapse;
+	padding: 30px;
+	table-layout: fixed;
+	border-radius: 10px;
+	border-style: hidden;
+	box-shadow: 0 0 0 1px #ced4da;
+}
+
+.pie-genders .form-check {
+	display: table-cell;
+	width: calc(100%/ 3);
+	line-height: calc(1.5em + 0.75rem + 2px);
+	height: calc(1.5em + 0.75rem + 2px);
+	border: 1px solid #ced4da;
+	padding: 0;
+}
+
+.pie-genders .form-check label {
+	text-align: center;
+	vertical-align: middle;
+	height: 100%;
+	width: 100%;
+}
+
+.pie-genders .form-check:has(input:checked) {
+	position: relative;
+	background: rgba(40, 167, 69, 0.3);
+}
+
+.pie-address input[readonly]{
+	background: transparent;
 }

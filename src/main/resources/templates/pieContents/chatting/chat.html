@@ -1,153 +1,159 @@
 <!DOCTYPE html>
 
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/chatting}">
 
 <div layout:fragment="chatContent" class="col">
-	
+
 
 
 
 	<div class="container-fluid">
-	
-		<div class="row">
-		
-			<div class="col">
-			
 
-			
+		<div class="row">
+
+			<div class="col">
+
+
+
 				<div id="container" class="container">
-				
-				
-					
+
+
+
 					<h1 class="mb-5 text-center text-md-left">함께해요 파이채팅</h1>
-					
+
 					<div class="row mb-3">
-					
+
 						<div class="col">
-							
-					
+
+
 							<input type="hidden" id="userId" th:value="${session.userId}">
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<input type="hidden" id="roomNumber" th:value="${roomNumber}">
-							<input type="hidden" id="roomName" th:value="${roomName}">
+							<input type="hidden" id="mem1" th:value="${param.mem1}">
+							<input type="hidden" id="mem2" th:value="${param.mem2}">
 							<input type="hidden" id="sendDate" th:value="${sendDate}">
-							
+							<input type="hidden" id="realNick" th:value="${session.nickName}">
+
+
 							<div id="chating" class="chating border py-2 px-2 rounded shadow">
-								
-								
-								
-								
+
+
+
+
 								<div th:each="message:${chatList}">
-								
-								
+
+
 									<div th:if="${session.nickName == message.getSender()}">
-									
-									
+
+
 										<!-- 내가보낸 대화목록 -->
 										<div class='me d-flex w-100 justify-content-end my-2'>
-										
-											<div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+
+											<div
+												class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
 												<p class='w-100' th:text="${message.message}"></p>
 											</div>
-											
+
 										</div>
-										
+
 										<div>
 											<p class="text-right" th:text="${message.sendTime}"></p>
 										</div>
-										
+
 									</div>
-									
-									
-									
+
+
+
 									<div th:unless="${session.nickName == message.sender}">
-									
-										
+
+
 										<!-- 상대방이 보낸 대화목록 -->
 										<div class='others w-100 text-left my-2'>
-											<div class='mb-2' th:text="${message.sender}"></div>  <!-- sender -->
-											<div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+											<div class='mb-2' th:text="${message.sender}"></div> <!-- sender -->
+											<div
+												class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
 												<p class='w-100' th:text="${message.message}"></p>
 											</div>
 										</div>
-										
+
 										<div>
 											<p class="text-left" th:text="${message.sendTime}"></p>
 										</div>
-																
-									
+
+
 									</div>
-																
+
 
 								</div>
-								
-								
-								
-								
-							
+
+
+
+
+
 							</div>
-												
-						
+
+
 						</div>
-					
+
 					</div>
-					
-					
-					
-	
-					
+
+
+
+
+
 					<div id="yourName" class="row">
 
 
 						<div class="inputTable col-9">
-								
+
 							대화명은 세션 아이디로 시작
-							<input type="text" name="userName" id="userName" placeholder="" class="form-control"  th:value="${session.nickName}"  readonly >
+							<input type="text" name="userName" id="userName" placeholder="" class="form-control"
+								th:value="${session.nickName}" readonly>
 
-							
-							
+
+
 						</div>
-						
+
 						<div class="inputTable col-3">
-						
-							<button onclick="chatName()" id="startBtn" class="btn pie-btn-red w-100" >시작</button>
+
+							<button onclick="chatName()" id="startBtn" class="btn pie-btn-red w-100">시작</button>
 
 						</div>
-	
+
 
 					</div>
-					
-					
-					
 
-			
-					
+
+
+
+
+
 					<div id="yourMsg" class="row">
-					
-					
+
+
 						<div class="inputTable col-9">
 
-							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control" name="chat_messages">
+							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control"
+								name="chat_messages">
 
 						</div>
-						
+
 						<div class="inputTable col-3">
-						
+
 							<button onclick="send()" id="sendBtn" class="btn pie-btn-red w-100">전송</button>
 
 						</div>
-						
+
 					</div>
-					
-				
-					
+
+
+
 				</div>
-							
-						
-	
-		<!-- 메모 
+
+
+
+				<!-- 메모 
 		
 		채팅창 옆에 대화목록 보여지게 해야함... 레이아웃에서 수정..?
 		레이아웃에 
@@ -157,15 +163,15 @@
 		
 		
 		-->
-		
-		
-		
-			
-			</div>	<!-- col -->
-		
-		</div>	<!-- row -->
-	
-	</div>  <!-- container-fluid -->
+
+
+
+
+			</div> <!-- col -->
+
+		</div> <!-- row -->
+
+	</div> <!-- container-fluid -->
 
 
 
@@ -176,42 +182,46 @@
 
 
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+		crossorigin="anonymous"></script>
 
 
 	<script>
-		
+
 		// .chating 요소를 감시할 Mutation Observer 생성
-		var observer = new MutationObserver(function(mutationsList, observer) {
-		    // 새로운 요소가 추가될 때마다 스크롤을 아래로 이동
-		    chatingDiv.scrollTop = chatingDiv.scrollHeight;
+		var observer = new MutationObserver(function (mutationsList, observer) {
+			// 새로운 요소가 추가될 때마다 스크롤을 아래로 이동
+			chatingDiv.scrollTop = chatingDiv.scrollHeight;
 		});
-	
+
 		// .chating 요소 선택
 		var chatingDiv = document.getElementById('chating');
-	
+
 		// Mutation Observer를 .chating 요소에 연결하여 하위 요소의 변화를 감지
-		observer.observe(chatingDiv, { childList: true });
-		
+		observer.observe(chatingDiv, {childList: true});
+
 		// .chating 요소의 스크롤을 자동으로 아래로 이동
-		chatingDiv.scrollTop = chatingDiv.scrollHeight;	
-		
+		chatingDiv.scrollTop = chatingDiv.scrollHeight;
+
 	</script>
-	
+
 	<script type="text/javascript">
 
-	
-	
+
+
 		var ws;
-	
-		function wsOpen(){
+
+		function wsOpen() {
 			/* ws = new WebSocket("ws://" + location.host + "/chating"); */
 			wsEvt();
 		}
-			
-		
-		
+
+
+
 		// WebSocket 서버 URL
 		var webSocketUrl = "ws://" + location.host + "/chating";
 
@@ -219,121 +229,129 @@
 		var ws = new WebSocket(webSocketUrl);
 
 		// WebSocket 연결이 열렸을 때 실행되는 함수
-		ws.onopen = function(event) {
-		    console.log("WebSocket 연결이 열렸습니다.");
+		ws.onopen = function (event) {
+			console.log("WebSocket 연결이 열렸습니다.");
 		};
 
 		// WebSocket 서버로부터 메시지를 받았을 때 실행되는 함수
-		ws.onmessage = function(event) {
-		    console.log("서버로부터 메시지를 받았습니다: " + event.data);
-		    // 받은 메시지를 채팅창에 표시하는 등의 처리를 할 수 있습니다.
+		ws.onmessage = function (event) {
+			console.log("서버로부터 메시지를 받았습니다: " + event.data);
+			// 받은 메시지를 채팅창에 표시하는 등의 처리를 할 수 있습니다.
 		};
 
 		// 채팅 메시지를 전송하는 함수
 		function sendMessage() {
-		    var message = $("#chatInput").val(); // 채팅 입력창에서 메시지를 가져옴
-		    ws.send(message); // WebSocket을 통해 메시지를 서버로 전송
-		    $("#chatInput").val(""); // 메시지를 전송한 후 입력창을 비움
+			var message = $("#chatInput").val(); // 채팅 입력창에서 메시지를 가져옴
+			ws.send(message); // WebSocket을 통해 메시지를 서버로 전송
+			$("#chatInput").val(""); // 메시지를 전송한 후 입력창을 비움
 		}
-		
-		
-		
+
+
+
 		function wsEvt() {
-			ws.onopen = function(data){
+			ws.onopen = function (data) {
 				//소켓이 열리면 동작
 			}
-			
-			
+
+
 			/* 수신시 동작하는 이벤트 핸들러 */
-			ws.onmessage = function(data) {
-				
+			ws.onmessage = function (data) {
+
 				//메시지를 받으면 동작
 				var msg = data.data;
-				
-				if(msg != null && msg.trim() != ''){
-					
+
+				if (msg != null && msg.trim() != '') {
+
 					var d = JSON.parse(msg);
-					
-					if(d.type == "getId"){
-						
+
+					if (d.type == "getId") {
+
 						var si = d.sessionId != null ? d.sessionId : "";
-						
-						if(si != ''){
-							$("#sessionId").val(si); 
+
+						if (si != '') {
+							$("#sessionId").val(si);
 						}
 						
-					} else if(d.type == "message"){
+
+					} else if (d.type == "message") {
 						
+						console.log(d.userName)
+						console.log($("#mem1").val());
 						
-						/* 세션아이디 일치 ==> 내가 입력할시 */
-						if(d.sessionId == $("#sessionId").val()){
-							$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");	
+						console.log($("#realNick").val());
+						console.log($("#mem2").val());
 						
-							
-						/* 세션아이디 불일치 ==> 상대방 입력할시 */
-						} else {
-							$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+						if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
+							/* 세션아이디 일치 ==> 내가 입력할시 */
+							console.log(d.sessionId);
+							console.log($("#sessionId").val());
+							console.log(d.sessionId == $("#sessionId").val())
+							if (d.sessionId == $("#sessionId").val()) {
+								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+							} else {
+								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+							}
 						}
-							
-						
-					} else{
-						
+
+
+					} else {
+
 						console.warn("unknown type!")
 					}
-		
 				}
-				
-				
-				
+
 			}
-	
-			document.addEventListener("keypress", function(e){
-				if(e.keyCode == 13){ //enter press
-					send();
-				}
-			});
 		}
+
+		document.addEventListener("keypress", function (e) {
+			if (e.keyCode == 13) { //enter press
+				send();
+			}
+		});
 		
-		
+
+
 		function getYmd10() {
-		    //yyyy-mm-dd 포맷 날짜 생성
-		    var d = new Date();
-		    return d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString())+" "+ d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+			//yyyy-mm-dd 포맷 날짜 생성
+			var d = new Date();
+			return d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString()) + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 		}
-		
-		
-	
-		$(function(){
+
+
+
+		$(function () {
 			wsOpen();
 			$("#yourName").hide();
 			$("#yourMsg").css("display", "flex");
-		}) 
-		
-		
-		
+		})
+
+
+
 		function send() {
-			
+
 			var option = {
 				type: "message",
-				sessionId : $("#sessionId").val(),
-				roomNumber : $("#roomNumber").val(),
-				roomName : $("#roomName").val(),
-				userId : $("#userId").val(),
-				userName : $("#userName").val(),
-				sendDate : $("#sendDate").val(),
-				msg : $("#chatting").val()
+				sessionId: $("#sessionId").val(),
+				roomNumber: $("#roomNumber").val(),
+				roomName: $("#mem1").val() + $("#mem2").val(),
+				mem1:$("#mem1").val(),
+				mem2: $("#mem2").val(),
+				userId: $("#userId").val(),
+				userName: $("#userName").val(),
+				sendDate: $("#sendDate").val(),
+				msg: $("#chatting").val()
 			}
-			
+
 			ws.send(JSON.stringify(option))
 			$('#chatting').val("");
-			
-		}
-		
-		
 
-		
+		}
+
+
+
+
 	</script>
-		
-	
+
+
 
 </html>
