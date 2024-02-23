@@ -36,5 +36,6 @@ public interface IChatDao {
 	//방정보로 채팅리스트 가져오기
 	public List<ChatDto> chatList(@Param("roomNumber") int roomNumber);
 	
+	public List<RoomDto> roomListByMine(String userId);
 
 }

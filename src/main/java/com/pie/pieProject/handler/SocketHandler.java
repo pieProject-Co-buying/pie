@@ -47,13 +47,13 @@ public class SocketHandler extends TextWebSocketHandler {
       //메시지 발송
       String msg = message.getPayload();
       
-      
-      System.out.println();
-      System.out.println("===============================");     
-      System.out.println("msg : " + msg);
-      System.out.println("===============================");       
-      System.out.println();
-      
+//      
+//      System.out.println();
+//      System.out.println("===============================");     
+//      System.out.println("msg : " + msg);
+//      System.out.println("===============================");       
+//      System.out.println();
+//      
       
       JSONObject obj = jsonToObjectParser(msg);
       String userName = (String) obj.get("userName");
