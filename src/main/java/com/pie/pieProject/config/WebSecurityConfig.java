@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
 				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
-						"/outMember")
+						"/outMember","/complete")
 				.authenticated()
 				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/deleteTownProduct",
 						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying",
