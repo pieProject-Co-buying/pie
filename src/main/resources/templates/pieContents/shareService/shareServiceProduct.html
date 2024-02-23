@@ -177,10 +177,12 @@
 
 						<div class="w-100 py-5" th:utext="${board.getSh_content()}"></div>
 						<div class="">
-							<small> <th:block
-									th:each="i : ${#numbers.sequence(1,board.getSh_tags().length-1)}">
-									<span class="badge badge-light"
-										th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+							<small> <th:block th:if="${board.getSh_tags()!=null}">
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									</th:block>
 								</th:block>
 							</small>
 						</div>

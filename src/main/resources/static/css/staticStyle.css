@@ -352,9 +352,6 @@ a:hover {
 	position: relative;
 }
 
-
-
-
 .pie-profilePic {
 	width: 30px;
 	height: 30px;
@@ -758,6 +755,21 @@ form .view-button {
 	background: rgba(40, 167, 69, 0.3);
 }
 
-.pie-address input[readonly]{
+.pie-address input[readonly] {
+	background: transparent;
+}
+
+input[type=date] {
+	position: relative;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+	position: absolute;
+	right: -10px;
+	top: 0;
+	transform: translateX(-10px);
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
 	background: transparent;
 }

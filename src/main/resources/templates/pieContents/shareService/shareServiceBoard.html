@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/shareService}">
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
@@ -23,16 +24,17 @@
 			</div>
 			<!--col-->
 		</div>
-		
+
 		<div class="row mb-5 justify-content-center">
 			<div class="col-md-8">
 				<form action="searchTitle" class="pie-search">
 					<div class="dropdown" id="selectCategory">
-						<a class="btn dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-							aria-expanded="false"> 카테고리 </a>
+						<a class="btn dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
 						<div class="dropdown-menu"></div>
 					</div>
-					<input type="text" name="search" id="search" class="flex-fill" placeholder="검색">
+					<input type="text" name="search" id="search" class="flex-fill"
+						placeholder="검색">
 					<button type="submit"></button>
 				</form>
 			</div>
@@ -41,11 +43,13 @@
 		<!--row-->
 		<div class="row category jh-cards">
 			<!--col-4-->
-			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}" th:attr="data-category=${board.getSh_category()}" class="col-md-4 col-sm-12 movie" style="cursor: pointer">
-				
+			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}"
+				th:attr="data-category=${board.getSh_category()}"
+				class="col-md-4 col-sm-12 movie" style="cursor: pointer">
+
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getSh_num()}"
-					class="card" style="cursor: pointer; text-decoration:none; color:black"> <img
+				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black"> <img
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
@@ -53,15 +57,18 @@
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
-							<small> <th:block
-									th:each="i : ${#numbers.sequence(1,board.getSh_tags().length-1)}">
-									<span class="badge badge-light"
-										th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+							<small> <th:block th:if="${board.getSh_tags()!=null}">
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getSh_category()}"></small>
-						<small class="pie-writer"> <img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
+						<small th:text="${board.getSh_category()}"></small> <small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
 							onerror="this.onerror=null; this.src='imgs/default.png';" /> <span
 							th:text="${board.getSh_nickname()}"></span>
 						</small>
@@ -83,7 +90,8 @@
 			<div class="row">
 				<div class="col-12 btn btn-block border" id="load">
 					<div class="">
-						<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+						<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg"
+								width="10" height="10" fill="currentColor"
 								class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 								<path
 									d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
@@ -97,8 +105,9 @@
 		<!--더보기 row-->
 	</div>
 	<div class="container">
-			<a href="writePost" class="btn custom-btn">글작성</a>
-	</div><!--container-->
+		<a href="writePost" class="btn custom-btn">글작성</a>
+	</div>
+	<!--container-->
 	<!--wrapper-->
 
 	<!--더보기 스크립트-->
@@ -217,7 +226,7 @@
 			});
 		})
 	</script>
-	
+
 	<!--------------메인 페이지에서 해당하는 카테고리로 이동했을 경우-------------->
 	<script>
 	 // 현재 URL에서 쿼리 문자열 가져오기

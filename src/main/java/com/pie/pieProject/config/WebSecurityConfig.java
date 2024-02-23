@@ -36,7 +36,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember")
 				.authenticated()
-				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/deleteTownProduct",
+				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct", "/deleteTownProduct",
 						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying",
 						"/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm", "/updateProxyAction",
 						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",

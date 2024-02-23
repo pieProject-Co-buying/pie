@@ -34,7 +34,11 @@ public class ShareServiceController {
 	public String showBoardList(Model model) {
 		List<ShareServiceDto> list = dao.getBoardList();
 		for (ShareServiceDto d : list) {
-			d.setSh_tags(setArraysData(d.getSh_tag(), "#"));
+			if(d.getSh_tag()==null||d.getSh_tag().equals("#")) {
+				d.setSh_tags(null);
+			}else {
+				d.setSh_tags(setArraysData(d.getSh_tag(), "#"));
+			}
 			String c = d.getSh_category();
 			if (c.equals("OTT")) {
 				d.setSh_category("OTT");
@@ -57,7 +61,11 @@ public class ShareServiceController {
 		MemberDto mdto = mdao.find(getSession(request, "userId"));
 
 		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
-		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
+			dto.setSh_tags(null);
+		}else {
+			dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		}
 		/* dao.updateHit(sId); */
 
 		String table = "shareServiceBoard";
@@ -80,7 +88,11 @@ public class ShareServiceController {
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 
 		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
-		dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
+			dto.setSh_tags(null);
+		}else {
+			dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+		}
 		/* dao.updateHit(sId); */
 
 		String table = "shareServiceBoard";
