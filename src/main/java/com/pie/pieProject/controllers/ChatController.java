@@ -251,7 +251,6 @@ public class ChatController {
 		// 대화 목록 불러오기
 		List<ChatDto> chatList = dao.chatList(roomNumber);
 		model.addAttribute("chatList", chatList);
-
 		System.out.println("chatList : " + chatList);
 
 		return mv;
