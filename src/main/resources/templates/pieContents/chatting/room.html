@@ -3,6 +3,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/chatting}">
 
+
+
+
+
 <div layout:fragment="chatContent" class="col">
 
 
@@ -12,6 +16,15 @@
 
 
 			<div class="row mb-3">
+				
+				
+				
+				<!-- 알람기능을 위해 추가 & 테스트중-->
+				<div>
+					<div id="messageNotification" style="display: none;">메세지가 도착했습니다</div>
+				</div>
+				
+				
 
 				<div class="col">
 
@@ -201,5 +214,41 @@
 	</script>
 
 
+	<!-- 알람기능을 위해 추가 & 테스트중-->
+    <script type="text/javascript">
+				
+		function connect() {
+		    var socket = new WebSocket('ws://localhost:8084/chating');
+		    socket.onopen = function() {
+		        console.log('Connected');
+		    };
+		    socket.onmessage = function(event) {
+		        console.log('Received message:', event.data);
+		        // 메시지 처리 로직을 여기에 추가
+		        showMessageNotification(event.data);
+		    };
+		    socket.onerror = function(error) {
+		        console.error('WebSocket error:', error);
+		    };
+		    socket.onclose = function(event) {
+		        console.log('WebSocket closed:', event);
+		    };
+		}
+		
+		$(function () {
+		    connect();
+		});
+		
+		function showMessageNotification(message) {
+		    var messageNotification = document.getElementById("messageNotification");
+		    messageNotification.textContent = message;
+		    messageNotification.style.display = "block"; // 알림 메시지를 보이도록 변경
+		    setTimeout(function () {
+		        messageNotification.style.display = "none"; // 일정 시간 후에 알림 메시지를 숨김
+		    }, 3000); // 3초 후에 숨김
+		}
+				
+
+    </script>
 
 </html>

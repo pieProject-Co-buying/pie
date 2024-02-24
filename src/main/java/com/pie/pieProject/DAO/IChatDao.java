@@ -17,10 +17,6 @@ import java.util.List;
 public interface IChatDao {
 	
 	
-	//방생성
-	/* public int createRoomDao(chatDto dto); */
-	
-	
 	
 	//메세지 저장
 	public void saveMsg(@Param("roomName") String roomName, @Param("roomNumber") String roomNumber, @Param("userId") String userId, @Param("userName") String userName, @Param("message") String message);

@@ -88,9 +88,37 @@ public class SocketHandler extends TextWebSocketHandler {
       
       //dao에 불러와서 저장
       dao.saveMsg((String)obj.get("roomName"), (String)obj.get("roomNumber"), (String)obj.get("userId"), (String)obj.get("userName"), (String)obj.get("msg"));
-   
+      
+      
+      
+      //알람기능 구현위한 테스트중
+      showMessageNotification();
    
    }
+   
+   
+   
+ //알람기능 구현위한 테스트중
+   private void showMessageNotification() {
+	    // 알림을 표시하는 로직
+	    for (WebSocketSession wss : sessionMap.values()) {
+	        try {
+	            // 알림을 보낼 메시지 생성
+	            JSONObject notification = new JSONObject();
+	            notification.put("type", "notification");
+	            notification.put("message", "메시지가 도착했습니다");
+	            
+	            System.out.println(notification);
+
+	            // 메시지 전송
+	            wss.sendMessage(new TextMessage(notification.toJSONString()));
+	            
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+   
    
    
    
