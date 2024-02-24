@@ -200,6 +200,8 @@ public class ChatController {
 			}
 		}
 		
+		
+		
 		myRooms = dao.roomListByMine(nickName);
 		// 저장된 dao에서 정보 가지고 오기 위해 추가
 		
