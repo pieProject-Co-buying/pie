@@ -23,23 +23,10 @@
 
 
 						<table id="roomList" class="roomList">
-							<!--  <tr th:each="room:${roomList}">
-						    				        
-						    <td class="room" th:text="${room.roomName}"></a></td>
-						        <td class="go">
-		 				        
-									<button type='button' class='btn btn-outline-secondary'
-									        th:attr="data-roomNumber=${room.roomNumber}, data-roomName=${room.roomName}"
-									        onclick="goRoom(this.getAttribute('data-roomNumber'), this.getAttribute('data-roomName'))">
-									    대화하기
-									</button>
-					                
-						        </td>
-						    </tr> -->
+							
 						</table>
 
-						<!-- <p th:text="${room.roomName}"></p> -->
-						<p th:text="${session.nickName}"></p>
+
 
 					</div>
 
@@ -200,7 +187,7 @@
 					console.log(res)
 					console.log(res[0].partyMem.split("@")[1])
 					console.log(res[0].partyMem.split("@")[2])
-					goRoom(res[0].roomNumber, res[0].partyMem.split("@")[1], res[0].partyMem.split("@")[2])
+					/* goRoom(res[0].roomNumber, res[0].partyMem.split("@")[1], res[0].partyMem.split("@")[2]) */
 
 				},
 				error: function (err) {

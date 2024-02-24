@@ -24,12 +24,16 @@
 	
 	   <!-- 채팅방 목록 불러오기 -->
 	<select id="room" resultType="com.pie.pieProject.DTO.RoomDto">
-		select * from pie_chatRoom where roomNumber = #{param1} order by roomNumber asc
+		select * from pie_chatRoom where partyMem = #{param1}
 	</select>
 	
 	
 	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem = '@${param1}@${param2}' or partyMem = '@${param2}@${param1}'
+	</select>
+	
+	<select id="roomListByMine" resultType="com.pie.pieProject.DTO.RoomDto">
+		select * from pie_chatRoom where partyMem like '%@${param1}@%' or partyMem like '%@${param1}' order by roomnumber desc
 	</select>
 	
 	

@@ -142,7 +142,8 @@ public class ChatController {
 		 * 
 		 * 
 		 */
-		List<RoomDto> myRooms;
+		List<RoomDto> myRooms = new ArrayList<>();
+		
 		
 		if (roomNumber == null) {
 			roomNumber = 0; // 기본값 설정
@@ -193,13 +194,13 @@ public class ChatController {
 					System.out.println("roomName");
 					System.out.println("mems.toString()");
 					
-					nowRoom.add(room);
-					System.out.println(nowRoom);
-					return nowRoom;
+					myRooms = dao.roomListByMine(nickName);
+					return myRooms;
 				}
 			}
 		}
-		myRooms = dao.roomListByID(nickName,roomName);
+		
+		myRooms = dao.roomListByMine(nickName);
 		// 저장된 dao에서 정보 가지고 오기 위해 추가
 		
 

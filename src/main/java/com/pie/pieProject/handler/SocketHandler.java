@@ -32,6 +32,8 @@ public class SocketHandler extends TextWebSocketHandler {
 	IChatDao dao;
    
 	
+	
+	
    HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵 - 현재 연결된 세션들
    
    

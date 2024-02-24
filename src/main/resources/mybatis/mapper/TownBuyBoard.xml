@@ -59,6 +59,20 @@
 	<select id="searchDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_title like '%${param1}%' or
 		to_content like '%${param1}%'
+		
+		
+<!--		    SELECT *
+		    FROM townBuyBoard
+		    WHERE 
+		    <if test="to_category == null">
+		        to_title like '%${param1}%' or to_content like '%${param1}%'
+		    </if>
+		    <if test="to_category != null">
+		        to_title like '%${param1}%' or to_content like '%${param1}%'
+		        AND
+		        (to_category IS NULL OR to_category = #{param2})
+		    </if>		
+				-->
 	</select>
 
 
