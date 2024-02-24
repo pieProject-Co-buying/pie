@@ -42,8 +42,6 @@
 		select * from pie_messages where roomNumber = #{roomNumber} order by sendTime asc
 	</select>
 		
-	
-	
-	
+
 
 </mapper>

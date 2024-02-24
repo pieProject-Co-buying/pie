@@ -72,6 +72,8 @@ public class SocketHandler extends TextWebSocketHandler {
       
       
       
+      
+      
       System.out.println();
       System.out.println("===============================");
       System.out.println("소켓핸들러 handleTextMessage 동작");

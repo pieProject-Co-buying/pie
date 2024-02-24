@@ -31,10 +31,10 @@
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
 							<input type="hidden" id="roomNumber" th:value="${roomNumber}">
 							<input type="hidden" id="mem1" th:value="${param.mem1}">
-							<input type="hidden" id="mem2" th:value="${param.mem2}">
+							<!--<input type="hidden" id="mem2" th:value="${param.mem2}">-->
 							<input type="hidden" id="sendDate" th:value="${sendDate}">
 							<input type="hidden" id="realNick" th:value="${session.nickName}">
-
+							<input type="hidden" id="roomName" th:value="${session.roomName}">
 
 							<div id="chating" class="chating border py-2 px-2 rounded shadow">
 
@@ -65,7 +65,7 @@
 
 
 
-									<div th:unless="${session.nickName == message.sender}">
+									<div th:unless="${session.nickName == message.sender}" >
 
 
 										<!-- 상대방이 보낸 대화목록 -->
@@ -175,21 +175,6 @@
 
 
 
-	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-	<!-- 카드크기 줄이고싶어요!!!!! 카드로 해야 깔끔한 카드로 줬어요 -->
-	<!-- max-width 화면 %로 지정하고 글씨 갯수에 따라 늘어나게 하고 싶어요 카카오톡 처럼요 -->
-	<!-- 이렇다면 div줘도 상관없을듯 하긴하네요 -->
-
-
-
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-		crossorigin="anonymous"></script>
-
-
 	<script>
 
 		// .chating 요소를 감시할 Mutation Observer 생성
@@ -283,8 +268,9 @@
 						
 						if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
 							/* 세션아이디 일치 ==> 내가 입력할시 */
-							console.log(d.sessionId);
-							console.log($("#sessionId").val());
+							console.log("여기" + d.sessionId);
+							console.log("여기" + $("#sessionId").val());
+							
 							console.log(d.sessionId == $("#sessionId").val())
 							if (d.sessionId == $("#sessionId").val()) {
 								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");

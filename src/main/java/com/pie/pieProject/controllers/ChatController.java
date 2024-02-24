@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -133,16 +132,16 @@ public class ChatController {
 		mems.append("@");
 		mems.append(roomName);
 
-		/*
-		 * System.out.println("============================");
-		 * System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +
-		 * nickName); System.out.println("roomName : " + roomName);
-		 * System.out.println("roomNumber : " + roomNumber);
-		 * System.out.println("memList : " + memList); System.out.println("mems : " +
-		 * mems); System.out.println("============================"); 
-		 * 
-		 * 
-		 */
+		
+		 System.out.println("============================");
+		 System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +
+		 nickName); System.out.println("roomName : " + roomName);
+		 System.out.println("roomNumber : " + roomNumber);
+		 System.out.println("memList : " + memList); System.out.println("mems : " +
+		 mems); System.out.println("============================");
+		 
+		 
+		 
 		List<RoomDto> myRooms = new ArrayList<>();
 		
 		
@@ -304,7 +303,9 @@ public class ChatController {
 		// 채팅방 번호
 		String roomName = (String) params.get("roomNumber"); // 방이름
 		String yourId = request.getParameter("mem");
-
+		
+		
+		System.out.println("movechating");
 		/*
 		 * List<RoomDto> new_list =
 		 * roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors
@@ -341,5 +342,7 @@ public class ChatController {
 
 		return mv;
 	}
+	
+	
 
 }

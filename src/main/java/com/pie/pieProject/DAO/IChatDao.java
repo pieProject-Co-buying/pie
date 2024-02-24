@@ -34,5 +34,9 @@ public interface IChatDao {
 	public List<ChatDto> chatList(@Param("roomNumber") int roomNumber);
 	
 	public List<RoomDto> roomListByMine(String userId);
+	
+	
+	
+
 
 }
