@@ -326,6 +326,7 @@ public class ChatController {
 			mv.setViewName("pieContents/chatting/room");
 		}
 
+		
 		/*
 		 * // 정보 확인하는 출력구문 System.out.println("===================");
 		 * System.out.println("컨트롤러 chating 동작"); System.out.println(roomNumber);
