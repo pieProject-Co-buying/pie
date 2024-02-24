@@ -11,12 +11,14 @@ import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -27,14 +29,36 @@ public class ProxyBuyController {
 	IMemberDao mdao;
 	@Autowired
 	ILikeDao ldao;
+	@Autowired
+	BoardComp Bcomp;
 
-	public static String UPLOAD_DIRECTORY2 = System.getProperty("user.dir")
-			+ "\\src\\main\\resources\\static\\imgs\\test";
+	
+	@RequestMapping("/proxyBuyMain")
+	public String proxyBPage() {
+		return "pieContents/proxyBuying/proxyBuyMain";
+	}
+	
+	@RequestMapping("/proxyBuyBest")
+	public String proxyBBestPage(Model model) {
+		List<ProxyBuyBoardDto> list = dao.listDaoByFavorite();
+		
+		for(ProxyBuyBoardDto dto : list) {
+			dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
+			if(dto.getPr_tag()==null||dto.getPr_tag().equals("#")) {
+				dto.setPr_tags(null);
+			}else {
+				dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+			}
+		}
+		
+		model.addAttribute("list", list);
+		return "pieContents/proxyBuying/proxyBuyBest";
+	}
 
 	@GetMapping("/proxyBuyProducts")
 	public String getList(Model model) {
 		List<ProxyBuyBoardDto> list1 = dao.listDaoByNewerNumber(3);
-		List<ProxyBuyBoardDto> list2 = dao.listDaoByCategoryNumber("test", 3);
+		List<ProxyBuyBoardDto> list2 = dao.listDaoByCategoryNumber("baby", 3);
 
 		model.addAttribute("list1", list1);
 		model.addAttribute("list2", list2);
@@ -44,7 +68,7 @@ public class ProxyBuyController {
 
 	@GetMapping("/viewProxyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		
 		System.out.println(num);
 		dao.updateHit(num);
@@ -52,15 +76,15 @@ public class ProxyBuyController {
 		
 		ProxyBuyBoardDto dto = dao.getView(num);
 		System.out.println("chkpoint2");
-		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
+		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
 		if(dto.getPr_tag()==null||dto.getPr_tag().equals("#")) {
 			dto.setPr_tags(null);
 		}else {
-			dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+			dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
 		}
 
 		String table = "proxyBuyBoard";
-		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
+		if (ldao.checkLike(Bcomp.getSession(request, "userId"), num, table) > 0) {
 			model.addAttribute("like", true);
 		} else {
 			model.addAttribute("like", false);
@@ -87,12 +111,12 @@ public class ProxyBuyController {
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
 		
 		System.out.println(tags);
-		dto.setPr_id(getSession(request, "userId"));
+		dto.setPr_id(Bcomp.getSession(request, "userId"));
 		dto.setPr_category(pr_category);
-		dto.setPr_nickname(getSession(request, "nickName"));
+		dto.setPr_nickname(Bcomp.getSession(request, "nickName"));
 		dto.setPr_title(title);
 		dto.setPr_content(content);
-		dto.setPr_profileImg(getSession(request, "pic"));
+		dto.setPr_profileImg(Bcomp.getSession(request, "pic"));
 		dto.setPr_productImg(pictures);
 		dto.setPr_tag(tags);
 		dto.setPr_deadLine(deadLine);
@@ -109,11 +133,11 @@ public class ProxyBuyController {
 	public String proxyUpdateForm(@RequestParam("num") String num, Model model) {
 		System.out.println(num);
 		ProxyBuyBoardDto dto = dao.getView(num);
-		dto.setPr_productImgs(setArraysData(dto.getPr_productImg(), "/"));
+		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
 		if(dto.getPr_tag()==null||dto.getPr_tag().equals("#")) {
 			dto.setPr_tags(null);
 		}else {
-			dto.setPr_tags(setArraysData(dto.getPr_tag(), "#"));
+			dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
 		}
 		model.addAttribute("board",dto);
 		return "/pieContents/proxyBuying/proxyupdateForm";
@@ -147,18 +171,5 @@ public class ProxyBuyController {
 	public String proxyDeleteForm(@RequestParam("num") String num, Model model){
 		dao.deleteProxyBoard(num);
 		return "redirect:/proxyBuyProducts";
-	}
-
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
-	}
-
-	private String[] setArraysData(String key, String wallWord) {
-		String[] str_imgs = key.split(wallWord);
-		for (String s : str_imgs) {
-			s.replace(wallWord, "");
-		}
-		return str_imgs;
 	}
 }

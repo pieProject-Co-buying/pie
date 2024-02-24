@@ -5,7 +5,8 @@
 <mapper namespace="com.pie.pieProject.DAO.ITownBuyBoardDao">
 
 
-	<select id="listDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	<select id="listDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard order by to_num desc
 
 	</select>
@@ -20,7 +21,8 @@
 	</select>
 
 
-	<select id="viewDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	<select id="viewDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_num = #{param1}
 
 	</select>
@@ -28,25 +30,21 @@
 
 	<update id="updateDao">
 
-		<!--  update townBuyBoard 
-	    set to_category = #{to_category},
-	        to_title = #{to_title},
-	        to_content = #{to_content},
-	        to_price =  #{to_price},
-	        to_personnelMax =  #{to_personnelMax}, 
-	        to_deadLine = TO_DATE(#{to_deadLine}, 'YYYY-MM-DD') 
-	    where to_num = #{to_num}--> 
-	    
-	    
-	    update townBuyBoard set to_category=#{to_category},
+		<!-- update townBuyBoard set to_category = #{to_category}, to_title = #{to_title}, 
+			to_content = #{to_content}, to_price = #{to_price}, to_personnelMax = #{to_personnelMax}, 
+			to_deadLine = TO_DATE(#{to_deadLine}, 'YYYY-MM-DD') where to_num = #{to_num} -->
+
+
+		update townBuyBoard set to_category=#{to_category},
 		to_title=#{to_title}, to_content=#{to_content},
 		to_productImg=#{to_productImg}, to_tag=#{to_tag},
 		to_deadLine=TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'),
 		to_personnelMax=#{to_personnelMax}, to_priceTotal=#{to_priceTotal},
-		to_pricePer=#{to_pricePer}, to_ip=#{to_ip}, to_updateDay=sysdate, to_address = #{to_address} where
-		to_num=#{to_num} 
-		
-		</update>
+		to_pricePer=#{to_pricePer}, to_ip=#{to_ip}, to_updateDay=sysdate,
+		to_address = #{to_address} where
+		to_num=#{to_num}
+
+	</update>
 
 
 	<delete id="deleteDao">
@@ -55,21 +53,32 @@
 
 	</delete>
 
+	<select id="searchDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_title like
+		'%${param1}%' or
+		to_content like '%${param1}%' or to_tag like '%${param1}%'
+	</select>
 
-	<select id="searchDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where to_title like '%${param1}%' or
-		to_content like '%${param1}%'
+	<select id="searchCateDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_category = #{param2} and (to_title like
+		'%${param1}%' or
+		to_content like '%${param1}%' or to_tag like '%${param1}%')
 	</select>
 
 
-	<select id="categoryDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	<select id="categoryDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_category = #{param1}
 	</select>
 
 	<select id="categoryDaoNum"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from (select * from townBuyBoard where to_category = #{param1})
-		where ROWNUM <![CDATA[ <= ]]> #{param2}
+		select * from (select * from townBuyBoard where to_category =
+		#{param1})
+		where ROWNUM <![CDATA[ <= ]]>
+		#{param2}
 	</select>
 
 	<insert id="writeDao">
@@ -89,7 +98,8 @@
 		'1',
 		sysdate,
 		sysdate,
-		TO_DATE(#{to_deadLine}, 'YYYY-MM-DD'),
+		TO_DATE(#{to_deadLine},
+		'YYYY-MM-DD'),
 		#{to_personnelMax},
 		1,
 		#{to_priceTotal},
@@ -98,16 +108,29 @@
 		0
 		)
 	</insert>
-	
-	
-	<select id="listLocal" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where to_address like '${param1}%' and
+
+
+	<select id="listLocal"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_address like
+		'${param1}%' and
 		to_process= '1'
 	</select>
-	
-	
+
+	<update id="updatePer">
+		update townBuyBoard set to_personnelNow =
+		to_personnelNow+1 where to_num = #{param1}
+	</update>
+
+	<update id="updateProcess">
+		update townBuyBoard set to_process = 0 where to_num =
+		#{param1}
+	</update>
+
+
 	<update id="updateHit">
-		update townBuyBoard set to_hit = to_hit+1 where to_num = #{param1}
+		update townBuyBoard set to_hit = to_hit+1 where
+		to_num = #{param1}
 	</update>
 
 

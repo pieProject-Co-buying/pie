@@ -16,6 +16,15 @@
 		select * from ( select * from proxyBuyBoard order by pr_registDay desc)
 		where ROWNUM <![CDATA[ <= ]]> #{param1}
 	</select>
+	
+	<select id="listDaoByFavorite"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from ( select * from proxyBuyBoard order by pr_like desc, pr_hit desc)
+		where ROWNUM <![CDATA[ <= ]]> 5
+	</select>
+	
+	
+	
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard where pr_category=#{param1} order by

@@ -47,27 +47,32 @@
 
 				<div class="col-12 col-lg-9">
 
-					<form action="" class="pie-search">
+					<form action="searchTownBuy" class="pie-search" method="get"
+						name="searchForm">
+						<input type="hidden" name="category" id="category"
+							th:value="${param.category}" />
+
 						<div class="dropdown" id="selectCategory">
+
 							<a class="btn dropdown-toggle" href="#" role="button"
-								data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
+								data-toggle="dropdown" aria-expanded="false">카테고리 </a>
+
 							<div class="dropdown-menu">
-							
-							
-							
-								<a class="dropdown-item" role="button">식품</a>
-								<a class="dropdown-item" role="button">육아</a>
-								<a class="dropdown-item" role="button">뷰티/패션</a>							
-								<a class="dropdown-item" role="button">반려동물</a>
-								<a class="dropdown-item" role="button">생활</a>
-								<a class="dropdown-item" role="button">기타</a>									
-							
-							
-							
+								<a class="dropdown-item" data-category="">전체</a> <a
+									class="dropdown-item" data-category="food">식품</a> <a
+									class="dropdown-item" data-category="baby">육아</a> <a
+									class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
+								<a class="dropdown-item" data-category="pet">반려동물</a> <a
+									class="dropdown-item" data-category="life">생활</a> <a
+									class="dropdown-item" data-category="etc">기타</a>
 							</div>
+
+
+
 						</div>
-						<input type="text" name="search" id="search" class="flex-fill">
-						<button class=""></button>
+						<input type="text" name="townKeyword" id="townKeyword"
+							class="flex-fill" th:value="${param.townKeyword}">
+						<button type="submit"></button>
 					</form>
 
 				</div>
@@ -96,37 +101,53 @@
 
 					<ul class="list-unstyled">
 
+						<a
+							th:href="@{'searchTownBuy?category=&townKeyword=' + ${key}}"
+							class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
+							<li class="mb-2" th:text="|전체(${list.size()}건)|">전체 (n건)</li>
+						</a>
 
 
-						<a href="" class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
+						<a
+							th:href="@{'searchTownBuy?category=food&townKeyword=' + ${key}}"
+							class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
 							<li class="mb-2" th:text="|식품(${food}건)|">식품 (n건)</li>
 						</a>
 
 
-						<a href="" class="text-dark h5">
-							<li class="mb-2" th:text="|육아(${baby}건)|">생필품 (n건)</li>
+						<a
+							th:href="@{'searchTownBuy?category=baby&townKeyword=' + ${key}}"
+							class="text-dark h5">
+							<li class="mb-2" th:text="|육아(${baby}건)|">육아 (n건)</li>
 						</a>
 
 
 
-						<a href="" class="text-dark h5">
-							<li class="mb-2" th:text="|뷰티/패션(${beautyAndFashion}건)|">아기용품 (n건)</li>
+						<a
+							th:href="@{'searchTownBuy?category=beautyAndFashion&townKeyword=' + ${key}}"
+							class="text-dark h5">
+							<li class="mb-2" th:text="|뷰티/패션(${beautyAndFashion}건)|">뷰티/패션
+								(n건)</li>
 						</a>
 
 
 
-						<a href="" class="text-dark h5">
-							<li class="mb-2" th:text="|반려동물(${pet}건)|">의류 (n건)</li>
+						<a th:href="@{'searchTownBuy?category=pet&townKeyword=' + ${key}}"
+							class="text-dark h5">
+							<li class="mb-2" th:text="|반려동물(${pet}건)|">반려동물 (n건)</li>
 						</a>
 
 
 
-						<a href="" class="text-dark h5">
-							<li class="mb-2" th:text="|생활(${life}건)|">화장품 (n건)</li>
+						<a
+							th:href="@{'searchTownBuy?category=life&townKeyword=' + ${key}}"
+							class="text-dark h5">
+							<li class="mb-2" th:text="|생활(${life}건)|">생활 (n건)</li>
 						</a>
-						
-						<a href="" class="text-dark h5">
-							<li class="mb-2" th:text="|기타(${etc}건)|">화장품 (n건)</li>
+
+						<a th:href="@{'searchTownBuy?category=etc&townKeyword=' + ${key}}"
+							class="text-dark h5">
+							<li class="mb-2" th:text="|기타(${etc}건)|">기타 (n건)</li>
 						</a>
 
 					</ul>
@@ -169,7 +190,7 @@
 						<a href="" class="badge badge-pill badge-light p-2 m-1">
 							<li th:text="|생활(${life}건)|">화장품 (n건)</li>
 						</a>
-						
+
 						<a href="" class="badge badge-pill badge-light p-2 m-1">
 							<li th:text="|기타(${etc}건)|">화장품 (n건)</li>
 						</a>
@@ -194,7 +215,7 @@
 					<div class="row">
 
 
-						<div class="col-12 mb-2" th:each = "board:${list}">
+						<div class="col-12 mb-2" th:each="board:${list}">
 
 							<div class="card">
 
@@ -202,7 +223,9 @@
 
 									<div class="col-12 col-md-6">
 
-										<img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" alt="" class="img-fluid">
+										<img
+											th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+											alt="" class="img-fluid">
 
 									</div>
 
@@ -212,7 +235,8 @@
 											<h3 th:text="${board.getTo_title()}"></h3>
 											<p class="" th:utext="${board.getTo_content()}">.</p>
 
-											<a href="" class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
+											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
+												class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
 										</div>
 
 
@@ -228,13 +252,19 @@
 
 
 
+					</div>
+
+
+
+
+
+
+
+
+
+
+
 				</div>
-
-
-
-
-
-
 
 
 
@@ -242,29 +272,29 @@
 
 			</div>
 
+			<script>
+				// 선택한 카테고리 보여지게 하는 기능
+
+				$(function() {
+					$("#selectCategory .dropdown-toggle").text(
+							$("[data-category=" + $("#category").val() + "]")
+									.text())
+				})
+
+				$(document).on(
+						'click',
+						'.dropdown-menu .dropdown-item',
+						function() {
+							let selectedCategory = $(this).text();
+							$(this).closest('.dropdown').find(
+									'.dropdown-toggle').text(selectedCategory);
+							$("#category").val($(this).attr("data-category"));
+						});
+			</script>
+
 
 
 
 
 		</div>
-		
-	<script>
-	
-	// 선택한 카테고리 보여지게 하는 기능
-    $(document).on('click', '.dropdown-menu .dropdown-item', function(){
-        let selectedCategory = $(this).text();
-        $(this).closest('.dropdown').find('.dropdown-toggle').text(selectedCategory);
-    });		
-		
-	
-	</script>
-			
-		
-		
-		
-		
-	</div>
-	
-	
-
 </html>

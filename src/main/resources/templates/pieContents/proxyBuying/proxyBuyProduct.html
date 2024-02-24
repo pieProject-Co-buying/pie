@@ -49,10 +49,9 @@
 
 							<small class="font-weight-bold">진행현황</small><br /> <small
 								class="badge badge-success"
-								th:if="${board.getPr_process().equals('1')}">
-								모집진행중</small> <small class="badge badge-danger"
-								th:if="${board.getPr_process().equals('0')}">
-								모집완료</small>
+								th:if="${board.getPr_process().equals('1')}"> 모집진행중</small> <small
+								class="badge badge-danger"
+								th:if="${board.getPr_process().equals('0')}"> 모집완료</small>
 						</p>
 
 						<p>
@@ -203,19 +202,64 @@
 								</th:block>
 
 								<small id="likeCount" th:text="${board.getPr_like()}">12</small>
-								<span class="pie-share-icon pie-icons mx-3"></span> <span
-									class="pie-chat-icon pie-icons"></span>
+								
+								
+								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
+									data-target="#shareModal"></span>
+
+								<!-- Modal -->
+								<div class="modal fade" id="shareModal" tabindex="-1"
+									aria-labelledby="shareModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="shareModalLabel">Modal
+													title</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="col-auto">
+													<div class="input-group mb-2">
+														<input type="text" class="form-control" id="downloadURL"
+															placeholder="">
+														<div class="input-group-append">
+															<div data-clipboard-target="#downloadURL" class="input-group-text copyBtn">공유하기</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary">Save
+													changes</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+
+								<span class="pie-chat-icon pie-icons"></span>
 							</div>
 						</div>
 						<hr>
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button th:if="${board.getPr_process().equals('1')}" type="button" class="btn pie-btn-red btn-block"
+							<button th:if="${board.getPr_process().equals('1')}"
+								type="button" class="btn pie-btn-red btn-block"
 								data-toggle="modal" data-target="#staticBackdrop">
 								<small>참여하기</small>
 							</button>
-							<button th:if="${board.getPr_process().equals('0')}" type="button" class="btn btn-secondary btn-block"
+							<button th:if="${board.getPr_process().equals('0')}"
+								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
 							</button>
@@ -322,6 +366,26 @@
 	<script type="text/javascript" th:inline="javascript">
 		var member = /*[[${member}]]*/
 		console.log(member.nickname);
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	<script>
+		$(function() {
+			/***************************************************
+			 * URL 복사기능
+			 * *************************************************/
+			const url = window.location.href;
+
+			let urlInput = $("#downloadURL");
+			let urlBtn = $(".copyBtn");
+
+			urlInput.val(url);
+
+			urlBtn.click(function() {
+				new ClipboardJS('.copyBtn');
+				alert("링크가 복사되었습니다.")
+			})
+
+		})
 	</script>
 	<script src="js/product.js"></script>
 	<script th:src="@{js/iamport.js}"></script>

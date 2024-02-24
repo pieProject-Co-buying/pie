@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 
 @Mapper
@@ -17,6 +18,8 @@ public interface IProxyBuyDao {
 	public List<ProxyBuyBoardDto> listDaoByCategory(String category);
 
 	public List<ProxyBuyBoardDto> listDaoByCategoryNumber(String category, int num);
+	
+	public List<ProxyBuyBoardDto> listDaoByFavorite();
 
 	public ProxyBuyBoardDto getView(String num);
 
