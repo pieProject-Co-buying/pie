@@ -154,8 +154,10 @@ public class TownBuyController {
 
 	public String search(HttpServletRequest request, Model model) {
 		String townKeyword = request.getParameter("townKeyword");
+		String towncategory = request.getParameter("towncategory");
 		
 		List<TownBuyBoardDto> list = dao.searchDao(townKeyword);
+		
 		int food = 0;
 		int baby = 0;
 		int beautyAndFashion = 0;
