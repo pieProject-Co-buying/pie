@@ -11,6 +11,8 @@
     </insert>
 	
 	
+	
+	
 	<!-- 채팅방 생성 -->
 	<insert id="insertRoom">
         INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{nickName})

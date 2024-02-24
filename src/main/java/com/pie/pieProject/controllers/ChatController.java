@@ -132,6 +132,7 @@ public class ChatController {
 		mems.append("@");
 		mems.append(roomName);
 
+
 		
 		 System.out.println("============================");
 		 System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +
@@ -142,6 +143,7 @@ public class ChatController {
 		 
 		 
 		 
+
 		List<RoomDto> myRooms = new ArrayList<>();
 		
 		
@@ -200,45 +202,12 @@ public class ChatController {
 			}
 		}
 		
+
 		myRooms = dao.roomListByMine(nickName);
 		// 저장된 dao에서 정보 가지고 오기 위해 추가
 		
 
 		return myRooms;
-
-		/*
-		 * if(roomName != null && !roomName.trim().equals("")) {
-		 * 
-		 * System.out.println("여기까진 넘어왔어요");
-		 * 
-		 * if(memList.contains(nickName) && memList.contains(roomName)) {
-		 * if(memList.contains(nickName) && memList.contains(roomName)) {
-		 * 
-		 * System.out.println("이미 방이 있어요");
-		 * 
-		 * return roomList;
-		 * 
-		 * } else {
-		 * 
-		 * System.out.println("방이없네요");
-		 * 
-		 * 
-		 * RoomDto room = new RoomDto();
-		 * 
-		 * room.setRoomNumber(newRoomNumber); // 이전 방 번호에서 1씩 증가된 값을 사용
-		 * room.setRoomName(roomName); room.setPartyMem(mems.toString());
-		 * 
-		 * roomList.add(room);
-		 * 
-		 * // 마이바티스를 사용하여 방 정보를 데이터베이스에 삽입 dao.insertRoom(roomName, newRoomNumber,
-		 * memList.toString()); // 새로운 방 번호를 사용
-		 * 
-		 * }
-		 * 
-		 * }
-		 * 
-		 * return roomList;
-		 */
 
 	}
 
