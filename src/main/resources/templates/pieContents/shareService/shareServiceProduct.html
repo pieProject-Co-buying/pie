@@ -216,8 +216,46 @@
 								</th:block>
 
 								<small id="likeCount" th:text="${board.getSh_like()}">12</small>
-								<span class="pie-share-icon pie-icons mx-3"></span> <span
-									class="pie-chat-icon pie-icons"></span>
+								
+								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
+									data-target="#shareModal"></span>
+
+								<!-- Modal -->
+								<div class="modal fade" id="shareModal" tabindex="-1"
+									aria-labelledby="shareModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="shareModalLabel">Modal
+													title</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="col-auto">
+													<div class="input-group mb-2">
+														<input type="text" class="form-control" id="downloadURL"
+															placeholder="">
+														<div class="input-group-append">
+															<div data-clipboard-target="#downloadURL" class="input-group-text copyBtn">공유하기</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary">Save
+													changes</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+
+
 							</div>
 						</div>
 						<hr>
@@ -428,6 +466,26 @@
 	<script type="text/javascript" th:inline="javascript">
 		var member = /*[[${member}]]*/
 		console.log(member.nickname);
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	<script>
+		$(function() {
+			/***************************************************
+			 * URL 복사기능
+			 * *************************************************/
+			const url = window.location.href;
+
+			let urlInput = $("#downloadURL");
+			let urlBtn = $(".copyBtn");
+
+			urlInput.val(url);
+
+			urlBtn.click(function() {
+				new ClipboardJS('.copyBtn');
+				alert("링크가 복사되었습니다.")
+			})
+
+		})
 	</script>
 
 	<script src="js/product.js"></script>

@@ -42,7 +42,7 @@
 							<small class="font-weight-bold">모집인원</small><br /> <small
 								th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
 						</p>
-						<p>
+						<p id="processNow">
 
 							<small class="font-weight-bold">진행현황</small><br /> <small
 								class="badge badge-success"
@@ -132,7 +132,9 @@
 
 											<small class="font-weight-bold">진행현황</small><br /> <small
 												class="badge badge-success"
-												th:text="${board.getTo_process()}"></small>
+												th:if="${board.getTo_process().equals('1')}">진행중</small> <small
+												class="badge badge-danger"
+												th:if="${board.getTo_process().equals('0')}">완료</small>
 										</p>
 									</div>
 									<div class="col-6">
@@ -196,8 +198,45 @@
 
 
 								<small id="likeCount" th:text="${board.getTo_like()}">12</small>
-								<span class="pie-share-icon pie-icons mx-3"></span>
+								
+								
+								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
+									data-target="#shareModal"></span>
 
+								<!-- Modal -->
+								<div class="modal fade" id="shareModal" tabindex="-1"
+									aria-labelledby="shareModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="shareModalLabel">Modal
+													title</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="col-auto">
+													<div class="input-group mb-2">
+														<input type="text" class="form-control" id="downloadURL"
+															placeholder="">
+														<div class="input-group-append">
+															<div data-clipboard-target="#downloadURL" class="input-group-text copyBtn">공유하기</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary">Save
+													changes</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 
 								<!-- 버튼 클릭시 chat으로 이동되도록 추가-->
 								<a class="pie-chat-icon pie-icons"
@@ -241,16 +280,18 @@
 
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
-											<img src="imgs/product3.jpg" alt="" class="img-fluid">
-											<h5 class="mb-3 mt-5 text-center">함께하면 4000원에 구매할 수 있어요
-												😘</h5>
+											<img
+												th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[0]}}"
+												alt="" class="img-fluid">
+											<h5 class="mb-3 mt-5 text-center"
+												th:text="|함께하면 ${board.getTo_pricePer()}원에 구매할 수 있어요|"></h5>
 										</div>
 
 
 										<div class="modal-footer">
-											<button type="button" class="btn btn-outline-secondary"
-												data-dismiss="modal" onclick="window.open('townBuyResult')">좋아요!
-												함께해요</button>
+											<a type="button" class="btn btn-outline-secondary"
+												th:href="@{'townBuyResult?num='+${board.getTo_num()}}">좋아요!
+												함께해요</a>
 											<button type="button" class="btn btn-outline-secondary"
 												data-dismiss="modal">다시생각해볼게요</button>
 										</div>
@@ -281,6 +322,31 @@
 	<!-- 수정 / 삭제 -->
 
 	<script src="js/product.js"></script>
+	<script>
+	if($("#processNow").find(".badge").text() == "완료"){
+			alert("모집이 완료된 게시글이예요!")
+		}
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	<script>
+		$(function() {
+			/***************************************************
+			 * URL 복사기능
+			 * *************************************************/
+			const url = window.location.href;
+
+			let urlInput = $("#downloadURL");
+			let urlBtn = $(".copyBtn");
+
+			urlInput.val(url);
+
+			urlBtn.click(function() {
+				new ClipboardJS('.copyBtn');
+				alert("링크가 복사되었습니다.")
+			})
+
+		})
+	</script>
 
 </div>
 

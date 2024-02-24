@@ -15,9 +15,15 @@ $(".pie-heart-icon").click(function() {
 		dataType: 'json',
 		type: "POST",
 		url: "/updateHeart",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
 		success: function(response) {
 			console.log(response);
 			$("#likeCount").text(response);
+		},
+		error: function(xhr, desc, err) {
+			console.error('전송 실패', err);
 		}
 	});
 })

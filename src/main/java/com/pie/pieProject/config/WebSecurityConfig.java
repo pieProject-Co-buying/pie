@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",
 						"/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
 						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
-						"/proxyBuyApply", "/payCheck", "/townForm")
+						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm","/proxyApplyFormUpload", "/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate", "/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService")

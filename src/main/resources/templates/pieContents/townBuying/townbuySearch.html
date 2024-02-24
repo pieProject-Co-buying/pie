@@ -4,17 +4,17 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
-	
-	<div layout:fragment="townBuyContent" class="col">
-	
-	
-		<!-- ########################################################
+
+<div layout:fragment="townBuyContent" class="col">
+
+
+	<!-- ########################################################
 	
 		우리동네 공구 - 서브 1 -> 검색 / 카테고리 선택 페이지
 		
 		######################################################## -->
-		
-		<!-- #################################################
+
+	<!-- #################################################
 		
 		[ 수정 예정사항 ]
 	
@@ -33,509 +33,557 @@
 	
 	
 		################################################# -->
-	
-	
-	
-		<div class="container-fluid px-0">
-			
-	
-			<div class="container">
-				
-				<div class="row mt-5 mb-4">
-					
 
-	
-					<div class="col-12">
-						
-						<h1 class="text-center">어떤 공구를 찾으세요?</h1>
-	
-					</div>
-	
-	
-				</div>
-	
-			</div>
-	
-	
-			<!-- 검색창 및 #태그 -->
-	
-			<div class="container mb-5">
-						
-					<form action="searchTownBuy" class="pie-search mb-4" method="get" name="searchForm">
-						<input type="hidden" />
-						
-						<div class="dropdown" id="selectCategory">
-						
-							<a class="btn dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">카테고리</a>
-							
-							<div class="dropdown-menu">
-							
-															
-								<a class="dropdown-item" name="food">식품</a>
-								<a class="dropdown-item" name="baby">육아</a>
-								<a class="dropdown-item" name="beautyAndFashion">뷰티/패션</a>							
-								<a class="dropdown-item" name="pet">반려동물</a>
-								<a class="dropdown-item" name="life">생활</a>
-								<a class="dropdown-item" name="etc">기타</a>		
-								
-															
-							</div>
-							
-							
-							
-						</div>
-						
-						<input type="text" name="townKeyword" id="townKeyword" class="flex-fill">
-						
-						<button type="submit"></button>
-						
-					</form>
-	
-	
-	
-					<div class="row">
-	
-	
-						<!-- 클릭시 검색어 자동 완성 -->
-						<div class="col text-center">
-								
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#코스트코</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#트레이더스</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#이마트</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#코스트코</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#트레이더스</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#이마트</a>
-							<a type="button" class="btn btn-secondary m-1" href="townBuySearchResult">#아기용품</a>
-	
-						</div>
-	
-	
-					</div>
-	
-	
-			</div> <!-- 검색창 및 #태그 -->
-	
-	
-	
-			<!-- 카테고리 -->
-			<!-- 이미지 크기를 어떻게 할지? -->
-	
-	
-			<div class="container mb-5">
-				
-				<div class="row">
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=food" class="text-dark">
-							<img src="imgs/category/ct_best.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">식품</p>
-						</a>
-					</div>
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=baby" class="text-dark">
-							<img src="imgs/category/ct_food.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">육아</p>
-						</a>
-					</div>
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=beautyAndFashion" class="text-dark">
-							<img src="imgs/category/ct_winter.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">뷰티/패션</p>
-						</a>
-					</div>
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=petf" class="text-dark">
-							<img src="imgs/category/ct_kids.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">반려동물</p>
-						</a>
-					</div>
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=life" class="text-dark">
-							<img src="imgs/category/ct_innerB.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">생활</p>
-						</a>
-					</div>
-	
-					<div class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-						<a  href="/townBuyingCategoryChoice?category=etc" class="text-dark">
-							<img src="imgs/category/ct_cosme.png" class="img-fluid mx-auto d-block w-50" alt="...">
-							<p class="text-center">기타</p>
-						</a>
-					</div>
-	
-	
-				</div>
-	
-	
-	
-	
-	
-			</div>
-	
-	
-			<!-- 프리미엄회원 게시글 카테고리별 노출 -->
-			<!-- 요소 크기 맞출 것 => 캐로셀로 변경 -->
-	
-			<div class="container mb-5">
-				
-				<h1 class="mb-3 text-center text-md-left">프리미엄 회원 공구</h1>
-				<h3 class="mb-5 text-center text-md-left text-sm-small">프리미엄 회원분들이 진행중인 공구를 보여드려요!</h3>
-	
-				<div class="row">
-	
-	
-	
-	
-	
-					<div class="col-12 col-md-4 mb-4">
-						
-						<h2>식품</h2>
-						<hr>
-	
-	
-	
-	
-						<div id="carousel1" class="carousel slide" data-ride="carousel">
-	
-	
-	
-	
-						  <div class="carousel-inner">
-	
-	
-	
-						    <div class="carousel-item" th:each = "board:${foodList}">
-	
-								<div class="card hj-sub1-card-h">
-	
-	
-								  <img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
-	
-	
-	
-								  <div class="card-body">
-								  
-								    <h5 class="card-title" th:text="${board.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:utext="${board.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	
-								    <div class="text-right">
-								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}" >같이 사러가기 &raquo;</a>
-								    </div>
-	
-	
-								  </div>
-	
-								</div>
-	
-						    </div>
-	
-	
-						  </div>
-	
-	
-	
-	
-	
-	
-						 <button class="carousel-control-prev" type="button" data-target="#carousel1" data-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-target="#carousel1" data-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Next</span>
-						  </button>
-						  
-						  
-						</div>
-	
-	
-	
-					</div>
-	
-	
-	
-	
-	
-					<div class="col-12 col-md-4 mb-4">
-						
-						<h2>육아</h2>
-						<hr>
-						
-	
-	
-	
-	
-						<div id="carousel2" class="carousel slide" data-ride="carousel2">
-	
 
-						  <div class="carousel-inner">
-	
-	
-	
-						    <div class="carousel-item" th:each = "board:${babyList}">
-	
-								<div class="card hj-sub1-card-h">
-	
-	
-								  <img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
-	
-	
-	
-								  <div class="card-body">
-								  
-								    <h5 class="card-title" th:text="${board.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:utext="${board.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	
-								    <div class="text-right">
-								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}" >같이 사러가기 &raquo;</a>
-								    </div>
-	
-	
-								  </div>
-	
-								</div>
-	
-						    </div>
-	
-						  </div>
-	
-	
-						 <button class="carousel-control-prev" type="button" data-target="#carousel2" data-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-target="#carousel2" data-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Next</span>
-						  </button>
-						</div>
-	
-					</div>
-	
-	
-	
-	
 
-	
-					<div class="col-12 col-md-4 mb-4">
-						
-						<h2>생활</h2>
-						<hr>
-	
+	<div class="container-fluid px-0">
 
-						<div id="carousel3" class="carousel slide" data-ride="carousel3">
-	
-	
-	
-	
-						  <div class="carousel-inner">
-	
-	
-	
-						    <div class="carousel-item" th:each = "board:${lifeList}">
-	
-								<div class="card hj-sub1-card-h">
-	
-	
-								  <img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
-	
-	
-	
-								  <div class="card-body">
-								  
-								    <h5 class="card-title" th:text="${board.getTo_title()}">Card title</h5>
-								    <p class="card-text text-truncate" th:utext="${board.getTo_content()}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	
-								    <div class="text-right">
-								    	<a href="townBuyproduct" class="btn btn-outline-secondary" th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}" >같이 사러가기 &raquo;</a>
-								    </div>
-	
-	
-								  </div>
-	
-								</div>
-	
-						    </div>
-	
-	
-						  </div>
-	
-	
 
-						 <button class="carousel-control-prev" type="button" data-target="#carousel3" data-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-target="#carousel3" data-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="sr-only">Next</span>
-						  </button>
-						</div>
-	
-					</div>
+		<div class="container">
+
+			<div class="row mt-5 mb-4">
+
+
+
+				<div class="col-12">
+
+					<h1 class="text-center">어떤 공구를 찾으세요?</h1>
 
 				</div>
 
-			</div>	<!-- 프리미엄회원 게시글 카테고리별 노출 -->
-	
-			
-			
-			<!-- 공구 게시글 작성 - 배너스타일 -->
-			<div class="col-12">
-
-				<a href="townForm" class="btn border w-100 py-5 mb-5 hj-wirte-btn">
-					<span class="h2 d-block text-white">모두가 가능해요 파이공구!</span>
-					<span class="text-white">바로가기</span>
-				</a>
-				
-			</div> 
-	 
-	 
-	
-	
-	
-			<div class="container my-5">
-	
-				<h1 class="mb-3">우리동네 공구 리스트</h1>
-	
-				<div class="row">
-	
-
-	
-					<div class="col-12 col-lg-6 townBuyCard" th:each = "board:${list}">
-					
-						<div class="card mb-3">
-	
-	
-						    <div class="card-body">
-	 
-						    	<div class="row">
-						    		
-						    		<div class="col-4">
-	
-						    			<img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" class="card-img-top" alt="...">
-						    			
-						    		</div>
-	
-						    		<div class="col-8">
-								    			
-								    	<h5 class="card-title" th:text="${board.getTo_title()}"></h5>
-								    	<p class="card-text" th:utext="${board.getTo_content()}"></p>
-									    <div class="text-right">
-									    	<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}" class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
-									    </div>
-									    
-						    		</div>
-	
-	
-						    	</div>
-	
-	
-	
-						    </div>
-	
-	
-						    
-						</div>
-	
-	
-	
-					</div>
-	
-				</div>
-				
-				
-				<div class="row">
-					<div class="col">
-						<button type="button" class="btn btn-outline-secondary w-100" id="loadMoreButton">더보기</button>
-						<div id="cardContainer"></div>
-					</div>
-				</div>
 
 			</div>
 
 		</div>
 
 
+		<!-- 검색창 및 #태그 -->
+
+		<div class="container mb-5">
+
+			<form action="searchTownBuy" class="pie-search mb-4" method="get"
+				name="searchForm">
+				<input type="hidden" name="category" id="category" />
+
+				<div class="dropdown" id="selectCategory">
+
+					<a class="btn dropdown-toggle" href="#" role="button"
+						data-toggle="dropdown" aria-expanded="false">카테고리 </a>
+
+					<div class="dropdown-menu">
+						<a class="dropdown-item" data-category="">전체</a> <a
+							class="dropdown-item" data-category="food">식품</a> <a
+							class="dropdown-item" data-category="baby">육아</a> <a
+							class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
+						<a class="dropdown-item" data-category="pet">반려동물</a> <a
+							class="dropdown-item" data-category="life">생활</a> <a
+							class="dropdown-item" data-category="etc">기타</a>
+					</div>
+
+
+
+				</div>
+
+				<input type="text" name="townKeyword" id="townKeyword"
+					class="flex-fill">
+
+				<button type="submit"></button>
+
+			</form>
+
+
+
+			<div class="row">
+
+
+				<!-- 클릭시 검색어 자동 완성 -->
+				<div class="col text-center">
+
+					<a type="button" class="btn btn-secondary m-1"
+						href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a> <a type="button"
+						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
+					<a type="button" class="btn btn-secondary m-1"
+						href="searchTownBuy?category=&townKeyword=이마트">#이마트</a> <a type="button"
+						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
+					<a type="button" class="btn btn-secondary m-1"
+						href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a> <a type="button"
+						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
+					<a type="button" class="btn btn-secondary m-1"
+						href="searchTownBuy?category=&townKeyword=아기용품">#아기용품</a>
+
+				</div>
+
+
+			</div>
+
+
+		</div>
+		<!-- 검색창 및 #태그 -->
+
+
+
+		<!-- 카테고리 -->
+		<!-- 이미지 크기를 어떻게 할지? -->
+
+
+		<div class="container mb-5">
+
+			<div class="row">
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=food" class="text-dark">
+						<img src="imgs/category/ct_best.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">식품</p>
+					</a>
+				</div>
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=baby" class="text-dark">
+						<img src="imgs/category/ct_food.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">육아</p>
+					</a>
+				</div>
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=beautyAndFashion"
+						class="text-dark"> <img src="imgs/category/ct_winter.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">뷰티/패션</p>
+					</a>
+				</div>
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=petf" class="text-dark">
+						<img src="imgs/category/ct_kids.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">반려동물</p>
+					</a>
+				</div>
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=life" class="text-dark">
+						<img src="imgs/category/ct_innerB.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">생활</p>
+					</a>
+				</div>
+
+				<div
+					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
+					<a href="/townBuyingCategoryChoice?category=etc" class="text-dark">
+						<img src="imgs/category/ct_cosme.png"
+						class="img-fluid mx-auto d-block w-50" alt="...">
+						<p class="text-center">기타</p>
+					</a>
+				</div>
+
+
+			</div>
+
+
+
+
+
+		</div>
+
+
+		<!-- 프리미엄회원 게시글 카테고리별 노출 -->
+		<!-- 요소 크기 맞출 것 => 캐로셀로 변경 -->
+
+		<div class="container mb-5">
+
+			<h1 class="mb-3 text-center text-md-left">프리미엄 회원 공구</h1>
+			<h3 class="mb-5 text-center text-md-left text-sm-small">프리미엄
+				회원분들이 진행중인 공구를 보여드려요!</h3>
+
+			<div class="row">
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+
+					<h2>식품</h2>
+					<hr>
+
+
+
+
+					<div id="carousel1" class="carousel slide" data-ride="carousel">
+
+
+
+
+						<div class="carousel-inner">
+
+
+
+							<div class="carousel-item" th:each="board:${foodList}">
+
+								<div class="card hj-sub1-card-h">
+
+
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+
+									<div class="card-body">
+
+										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+											title</h5>
+										<p class="card-text text-truncate"
+											th:utext="${board.getTo_content()}">Some quick example
+											text to build on the card title and make up the bulk of the
+											card's content.</p>
+
+										<div class="text-right">
+											<a href="townBuyproduct" class="btn btn-outline-secondary"
+												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												사러가기 &raquo;</a>
+										</div>
+
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+						</div>
+
+
+
+
+
+
+						<button class="carousel-control-prev" type="button"
+							data-target="#carousel1" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-target="#carousel1" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</button>
+
+
+					</div>
+
+
+
+				</div>
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+
+					<h2>육아</h2>
+					<hr>
+
+
+
+
+
+					<div id="carousel2" class="carousel slide" data-ride="carousel2">
+
+
+						<div class="carousel-inner">
+
+
+
+							<div class="carousel-item" th:each="board:${babyList}">
+
+								<div class="card hj-sub1-card-h">
+
+
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+									<div class="card-body">
+
+										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+											title</h5>
+										<p class="card-text text-truncate"
+											th:utext="${board.getTo_content()}">Some quick example
+											text to build on the card title and make up the bulk of the
+											card's content.</p>
+
+										<div class="text-right">
+											<a class="btn btn-outline-secondary"
+												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												사러가기 &raquo;</a>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+						<button class="carousel-control-prev" type="button"
+							data-target="#carousel2" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-target="#carousel2" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</button>
+					</div>
+
+				</div>
+
+
+
+
+
+
+				<div class="col-12 col-md-4 mb-4">
+
+					<h2>생활</h2>
+					<hr>
+
+
+					<div id="carousel3" class="carousel slide" data-ride="carousel3">
+
+
+
+
+						<div class="carousel-inner">
+
+
+
+							<div class="carousel-item" th:each="board:${lifeList}">
+
+								<div class="card hj-sub1-card-h">
+
+
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
+
+
+
+									<div class="card-body">
+
+										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+											title</h5>
+										<p class="card-text text-truncate"
+											th:utext="${board.getTo_content()}">Some quick example
+											text to build on the card title and make up the bulk of the
+											card's content.</p>
+
+										<div class="text-right">
+											<a href="townBuyproduct" class="btn btn-outline-secondary"
+												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												사러가기 &raquo;</a>
+										</div>
+
+
+									</div>
+
+								</div>
+
+							</div>
+
+
+						</div>
+
+
+
+						<button class="carousel-control-prev" type="button"
+							data-target="#carousel3" data-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-target="#carousel3" data-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</button>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+		<!-- 프리미엄회원 게시글 카테고리별 노출 -->
+
+
+
+		<!-- 공구 게시글 작성 - 배너스타일 -->
+		<div class="col-12">
+
+			<a href="townForm" class="btn border w-100 py-5 mb-5 hj-wirte-btn">
+				<span class="h2 d-block text-white">모두가 가능해요 파이공구!</span> <span
+				class="text-white">바로가기</span>
+			</a>
+
+		</div>
+
+
+
+
+
+		<div class="container my-5">
+
+			<h1 class="mb-3">우리동네 공구 리스트</h1>
+
+			<div class="row">
+
+
+
+				<div class="col-12 col-lg-6 townBuyCard" th:each="board:${list}">
+
+					<div class="card mb-3">
+
+
+						<div class="card-body">
+
+							<div class="row">
+
+								<div class="col-4">
+
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										class="card-img-top" alt="...">
+
+								</div>
+
+								<div class="col-8">
+
+									<h5 class="card-title" th:text="${board.getTo_title()}"></h5>
+									<p class="card-text" th:utext="${board.getTo_content()}"></p>
+									<div class="text-right">
+										<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
+											class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
+									</div>
+
+								</div>
+
+
+							</div>
+
+
+
+						</div>
+
+
+
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+
+			<div class="row">
+				<div class="col">
+					<button type="button" class="btn btn-outline-secondary w-100"
+						id="loadMoreButton">더보기</button>
+					<div id="cardContainer"></div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+
 
 	<script>
-	
 		document.addEventListener('DOMContentLoaded', function() {
-		    // 페이지가 로드될 때 처음 6개의 카드만 보이도록 설정
-		    showInitialCards(6);
-		    
-		    // 더보기 버튼 클릭 이벤트 추가
-		    document.getElementById('loadMoreButton').addEventListener('click', loadMoreCards);
+			// 페이지가 로드될 때 처음 6개의 카드만 보이도록 설정
+			showInitialCards(6);
+
+			// 더보기 버튼 클릭 이벤트 추가
+			document.getElementById('loadMoreButton').addEventListener('click',
+					loadMoreCards);
 		});
-	
+
 		function showInitialCards(numToShow) {
-		    const allCards = document.querySelectorAll('.townBuyCard');
-		    // 처음에 표시할 카드 수만큼만 보이도록 설정
-		    for (let i = 0; i < allCards.length; i++) {
-		        if (i < numToShow) {
-		            allCards[i].style.display = 'block';
-		        } else {
-		            allCards[i].style.display = 'none';
-		        }
-		    }
+			const allCards = document.querySelectorAll('.townBuyCard');
+			// 처음에 표시할 카드 수만큼만 보이도록 설정
+			for (let i = 0; i < allCards.length; i++) {
+				if (i < numToShow) {
+					allCards[i].style.display = 'block';
+				} else {
+					allCards[i].style.display = 'none';
+				}
+			}
 		}
-	
+
 		function loadMoreCards() {
-		    // 추가 카드를 가져오는 로직 구현
-		    // 이 부분은 서버에서 데이터를 가져와서 새로운 카드를 생성하고 추가
-		    // 여기서는 예시로 각 카드의 display 속성을 변경하여 가상으로 추가
-		    const additionalCards = document.querySelectorAll('.townBuyCard:not([style="display: block;"])');
-		    const numToShow = 6; // 한 번에 보여줄 추가 카드의 수
-		    let cardsToShow = 0;
-		    for (let i = 0; i < additionalCards.length; i++) {
-		        if (cardsToShow < numToShow) {
-		            additionalCards[i].style.display = 'block';
-		            cardsToShow++;
-		        } else {
-		            break;
-		        }
-		    }
-		    
-		    
-		    // 모든 카드를 보여주었는지 확인
-		    if (cardsToShow === 0) {
-		    	document.getElementById('loadMoreButton').style.display = 'none';
-		    }
-		    
+			// 추가 카드를 가져오는 로직 구현
+			// 이 부분은 서버에서 데이터를 가져와서 새로운 카드를 생성하고 추가
+			// 여기서는 예시로 각 카드의 display 속성을 변경하여 가상으로 추가
+			const additionalCards = document
+					.querySelectorAll('.townBuyCard:not([style="display: block;"])');
+			const numToShow = 6; // 한 번에 보여줄 추가 카드의 수
+			let cardsToShow = 0;
+			for (let i = 0; i < additionalCards.length; i++) {
+				if (cardsToShow < numToShow) {
+					additionalCards[i].style.display = 'block';
+					cardsToShow++;
+				} else {
+					break;
+				}
+			}
+
+			// 모든 카드를 보여주었는지 확인
+			if (cardsToShow === 0) {
+				document.getElementById('loadMoreButton').style.display = 'none';
+			}
+
 		}
-		
-		
-			
-		
+
 		// 선택한 카테고리 보여지게 하는 기능
-	    $(document).on('click', '.dropdown-menu .dropdown-item', function(){
-	        let selectedCategory = $(this).text();
-	        $(this).closest('.dropdown').find('.dropdown-toggle').text(selectedCategory);
-	    });		
-			
-		
-	
-	
+		$(document).on(
+				'click',
+				'.dropdown-menu .dropdown-item',
+				function() {
+					let selectedCategory = $(this).text();
+					$(this).closest('.dropdown').find('.dropdown-toggle').text(
+							selectedCategory);
+					$("#category").val($(this).attr("data-category"));
+				});
 	</script>
 
 	<script>
-		
-	/* 캐로셀 첫 index active 적용하는 js */
-		
-		$(function(){
-			$("#carousel1").find(".carousel-item").eq(0).addClass("active");      
-			$("#carousel2").find(".carousel-item").eq(0).addClass("active");      
-			$("#carousel3").find(".carousel-item").eq(0).addClass("active");   
+		/* 캐로셀 첫 index active 적용하는 js */
+
+		$(function() {
+			$("#carousel1").find(".carousel-item").eq(0).addClass("active");
+			$("#carousel2").find(".carousel-item").eq(0).addClass("active");
+			$("#carousel3").find(".carousel-item").eq(0).addClass("active");
 		})
 	</script>
 
-	
-	</div>
+
+</div>
 
 
 </html>

@@ -14,6 +14,7 @@ import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -28,6 +29,9 @@ public class ShareServiceController {
 	ILikeDao ldao;
 	@Autowired
 	IPaymentDAO Pdao;
+	@Autowired
+	BoardComp Bcomp;
+
 
 	/********** 전체 게시물 조회 **********/
 	@RequestMapping("/shareServiceBoard")
@@ -37,7 +41,7 @@ public class ShareServiceController {
 			if(d.getSh_tag()==null||d.getSh_tag().equals("#")) {
 				d.setSh_tags(null);
 			}else {
-				d.setSh_tags(setArraysData(d.getSh_tag(), "#"));
+				d.setSh_tags(Bcomp.setArraysData(d.getSh_tag(), "#"));
 			}
 			String c = d.getSh_category();
 			if (c.equals("OTT")) {
@@ -58,18 +62,18 @@ public class ShareServiceController {
 	public String showBoard(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 
-		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
+		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
 		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
 			dto.setSh_tags(null);
 		}else {
-			dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
 		/* dao.updateHit(sId); */
 
 		String table = "shareServiceBoard";
-		if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+		if (ldao.checkLike(Bcomp.getSession(request, "userId"), sId, table) > 0) {
 			model.addAttribute("like", true);
 		} else {
 			model.addAttribute("like", false);
@@ -87,16 +91,16 @@ public class ShareServiceController {
 
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 
-		dto.setSh_productImgs(setArraysData(dto.getSh_productImg(), "/"));
+		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
 		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
 			dto.setSh_tags(null);
 		}else {
-			dto.setSh_tags(setArraysData(dto.getSh_tag(), "#"));
+			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
 		/* dao.updateHit(sId); */
 
 		String table = "shareServiceBoard";
-		if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+		if (ldao.checkLike(Bcomp.getSession(request, "userId"), sId, table) > 0) {
 			model.addAttribute("like", true);
 		} else {
 			model.addAttribute("like", false);
@@ -203,9 +207,9 @@ public class ShareServiceController {
 		 */
 
 		ShareServiceDto dto = new ShareServiceDto();
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 
-		dto.setSh_id(getSession(request, "userId"));
+		dto.setSh_id(Bcomp.getSession(request, "userId"));
 
 		System.out.println(request.getParameter("sh_category"));
 		dto.setSh_category(request.getParameter("sh_category"));
@@ -216,10 +220,10 @@ public class ShareServiceController {
 			dto.setSh_premium("0");
 		}
 
-		dto.setSh_nickname(getSession(request, "nickName"));
+		dto.setSh_nickname(Bcomp.getSession(request, "nickName"));
 		dto.setSh_title(request.getParameter("sh_title"));
 		dto.setSh_content(request.getParameter("sh_content"));
-		dto.setSh_profileImg(getSession(request, "pic"));
+		dto.setSh_profileImg(Bcomp.getSession(request, "pic"));
 		dto.setSh_productImg(request.getParameter("sh_files"));
 		dto.setSh_tag(request.getParameter("pie_tagsOutput"));
 		dto.setSh_personnelMax(Integer.parseInt(request.getParameter("sh_personnelMax")));
@@ -237,9 +241,8 @@ public class ShareServiceController {
 	@RequestMapping("/shareServiceApply")
 	public String Applyboard(HttpServletRequest request, Model model) {
 		// HttpSession 객체 가져오기
-		HttpSession session = request.getSession();
 		// 세션에서 userId 가져오기
-		String sId = (String) session.getAttribute("userId");
+		String sId = Bcomp.getSession(request, "userId");
 		// 세션 id가 null일 경우 로그인 페이지로 이동
 		if (sId == null) {
 			return "pieContents/members/login_form";
@@ -252,21 +255,7 @@ public class ShareServiceController {
 		return "pieContents/shareService/shareServiceApply";
 	}
 
-	
 
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
-	}
-
-	
-	private String[] setArraysData(String key, String wallWord) {
-		String[] str_imgs = key.split(wallWord);
-		for (String s : str_imgs) {
-			s.replace(wallWord, "");
-		}
-		return str_imgs;
-	}
 //	@GetMapping("/modal")
 //    public String getModalTemplate() {
 //        return "pieContents/shareServiceProduct"; // 모달 템플릿의 이름을 반환합니다.
