@@ -10,14 +10,10 @@
         INSERT INTO pie_messages (roomName, roomNumber, sender_id, sender, message, sendTime) VALUES (#{roomName}, #{roomNumber}, #{userId}, #{userName}, #{message}, sysdate)
     </insert>
 	
-	
-	
-	
 	<!-- 채팅방 생성 -->
 	<insert id="insertRoom">
         INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{nickName})
     </insert>
-    
     
     <!-- 채팅방 목록 불러오기 -->
 	<select id="roomList" resultType="com.pie.pieProject.DTO.RoomDto">
@@ -29,8 +25,6 @@
 		select * from pie_chatRoom where partyMem = #{param1}
 	</select>
 	
-	
-	
 	<select id="roomListByID" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem = '@${param1}@${param2}' or partyMem = '@${param2}@${param1}'
 	</select>
@@ -39,11 +33,10 @@
 		select * from pie_chatRoom where partyMem like '%@${param1}@%' or partyMem like '%@${param1}' order by roomnumber desc
 	</select>
 	
-	
+	<!-- 채팅리스트 가져오기 -->
 	<select id="chatList" resultType="com.pie.pieProject.DTO.ChatDto">
 		select * from pie_messages where roomNumber = #{roomNumber} order by sendTime asc
 	</select>
-		
-
+	
 
 </mapper>

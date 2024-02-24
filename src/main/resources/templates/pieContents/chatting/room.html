@@ -53,6 +53,8 @@
 
 
 					<div id="roomContainer" class="roomContainer col border">
+						
+						<!-- 값 테스트용 -->
 						<input type="hidden" th:value="${session.userId}" id="nowLogin" />
 						<input type="hidden" id="userId" th:value="${session.userId}">
 						<input type="hidden" id="sessionId" th:value="${session.nickName}">
@@ -101,24 +103,8 @@
 		window.onload = function () {
 			let id = $("#nowLogin").val()
 			let nickName = $("#nowLoginName").val()
-			/*  getRoom(id);   */ /* 이걸 없애면 데이터베이스대로 가져옴 근데 새로생성하면 다른페이지 보여줌 ㅎㅎ */
 			createRoom();
 		}
-
-
-
-		/* 		function getRoom(txt){
-					$.ajax({
-						url : "getRoom",
-						type : "POST",
-						contentType : "application/JSON",
-						success : function(response){
-							console.log(response)
-							
-						}
-						
-					})
-				} */
 
 
 
@@ -132,7 +118,6 @@
 
 			commonAjax('/createRoom', msg, 'post', function (result) {
 				createChatingRoom(result);
-				/* showRoomList(result); */
 
 			});
 
@@ -141,16 +126,10 @@
 
 
 
-				
-				
-
-
 		function goRoom(number, name1, name2) {
 			location.href = "/moveChating?mem1=" + name1 + "&mem2=" + name2 + "&" + "roomNumber=" + number;
 			alert(name1 + name2)
 		}
-
-
 
 
 		function createChatingRoom(res) {
@@ -172,29 +151,6 @@
 			}
 		}
 
-
-
-		/* ###################### 추가된것  */
-		/* 		function showRoomList(rooms){
-					var roomListHtml = ""; // HTML 코드를 담을 변수 초기화
-				    
-					// 각 방 객체를 순회하면서 HTML 코드 생성
-					rooms.forEach(function(room){
-						var roomName = room.roomName.trim(); // 방 이름 추출
-						var roomNumber = room.roomNumber; // 방 번호 추출
-						// 각 방 정보를 HTML 형식으로 추가
-						roomListHtml += "<tr>" +
-											"<td class='room'>" + roomName + "</td>" +
-											"<td class='go'>" +
-												"<button type='button' class='btn btn-outline-secondary' onclick='goRoom(\"" + roomNumber + "\", \"" + roomName + "\")'>대화하기</button>" +
-											"</td>" +
-										"</tr>";
-					});
-				    
-					// 방 목록을 HTML 요소에 적용
-					$("#roomList").empty().append(roomListHtml);
-				} */
-		/* ###################### 추가된것  */
 
 
 		function commonAjax(url, parameter, type, calbak, contentType) {
@@ -226,75 +182,75 @@
 	</script>
 
 
-
-
-
-<!-- 알람기능을 위해 추가 & 테스트중-->
-<!-- 현재 테스트 중-->
-<script type="text/javascript">
-    var isConnected = false; // 웹소켓 연결 상태 변수 추가
-    
-    function connect() {
-        var socket = new WebSocket('ws://localhost:8084/chating');
-        socket.onopen = function() {
-            console.log('Connected');
-            isConnected = true; // 연결되면 상태를 true로 변경
-        };
-        socket.onmessage = function(event) {
-            console.log('Received message:', event.data);
-            // 연결되어 있고 메시지를 수신했을 때만 토스트 표시
-            if (isConnected) {
-                showMessageNotification(event.data);
-            }
-        };
-        socket.onerror = function(error) {
-            console.error('WebSocket error:', error);
-        };
-        socket.onclose = function(event) {
-            console.log('WebSocket closed:', event);
-            isConnected = false; // 연결이 닫히면 상태를 false로 변경
-        };
-    }
-
-    $(function () {
-        connect();
-    });
-    
-    
-
-  function showMessageNotification(message) {
-	  
-	  
-    // JSON 형식의 메시지 파싱
-    var jsonData = JSON.parse(message);
-    
-    // userId 값
-    var userName = jsonData.userName;
-    //roomNumber
-    var roomNumber = jsonData.roomNumber;
-    
-    // 메시지 도착 알림
-    var alertMessage = userName + " 님의 메세지가 도착했습니다.";
-
-    // 토스트 HTML 코드 생성
-    var toastHTML = '<div class="toast hj-chat-toast-position" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">' +
-                        '<div class="toast-header">' +
-                            '<img src="imgs/logo_color_C_red.png" class="rounded me-2 mr-2" alt="..." style="width: 30px;">' +
-                            '<strong class="mr-auto">파이채팅 알림</strong>' +
-                            '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span>' +
-                            '</button>' +
-                        '</div>' +
-                        '<div class="toast-body">' + alertMessage + '</div>' +
-                    '</div>';
-
-    // 토스트를 #toastBox에 추가
-    $('#toastBox').append(toastHTML);
-
-    // 토스트 표시
-    $('.toast').toast('show');
-}
-    
+	
+	
+	<!-- 알람기능을 위해 추가 & 테스트중-->
+	<!-- 현재 테스트 중-->
+	<!-- 메세지 수신시에만 토스트 동작해야 되는데 예상으로는 연결될때마다 undefined라는 이름으로 계속 호출되는 현상 수정중 -->
+	<script type="text/javascript">
+	    var isConnected = false; // 웹소켓 연결 상태 변수 추가
+	    
+	    function connect() {
+	        var socket = new WebSocket('ws://localhost:8084/chating');
+	        socket.onopen = function() {
+	            console.log('Connected');
+	            isConnected = true; // 연결되면 상태를 true로 변경
+	        };
+	        socket.onmessage = function(event) {
+	            console.log('Received message:', event.data);
+	            // 연결되어 있고 메시지를 수신했을 때만 토스트 표시
+	            if (isConnected) {
+	                showMessageNotification(event.data);
+	            }
+	        };
+	        socket.onerror = function(error) {
+	            console.error('WebSocket error:', error);
+	        };
+	        socket.onclose = function(event) {
+	            console.log('WebSocket closed:', event);
+	            isConnected = false; // 연결이 닫히면 상태를 false로 변경
+	        };
+	    }
+	
+	    $(function () {
+	        connect();
+	    });
+	    
+	    
+	
+	  function showMessageNotification(message) {
+		  
+		  
+	    // JSON 형식의 메시지 파싱
+	    var jsonData = JSON.parse(message);
+	    
+	    // userId 값
+	    var userName = jsonData.userName;
+	    //roomNumber
+	    var roomNumber = jsonData.roomNumber;
+	    
+	    // 메시지 도착 알림
+	    var alertMessage = userName + " 님의 메세지가 도착했습니다.";
+	
+	    // 토스트 HTML 코드 생성
+	    var toastHTML = '<div class="toast hj-chat-toast-position" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">' +
+	                        '<div class="toast-header">' +
+	                            '<img src="imgs/logo_color_C_red.png" class="rounded me-2 mr-2" alt="..." style="width: 30px;">' +
+	                            '<strong class="mr-auto">파이채팅 알림</strong>' +
+	                            '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">' +
+	                                '<span aria-hidden="true">&times;</span>' +
+	                            '</button>' +
+	                        '</div>' +
+	                        '<div class="toast-body">' + alertMessage + '</div>' +
+	                    '</div>';
+	
+	    // 토스트를 #toastBox에 추가
+	    $('#toastBox').append(toastHTML);
+	
+	    // 토스트 표시
+	    $('.toast').toast('show');
+	}
+	    
     
 
 </script>

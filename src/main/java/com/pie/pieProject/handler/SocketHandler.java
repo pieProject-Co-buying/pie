@@ -32,14 +32,11 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Autowired
 	IChatDao dao;
    
-	
-	
-	
+
    HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵 - 현재 연결된 세션들
    
    
-   
-// chatRoomId: {session1, session2}
+   // chatRoomId: {session1, session2}
    private final Map<Long,Set<WebSocketSession>> chatRoomSessionMap = new HashMap<>();
    
    
@@ -67,7 +64,7 @@ public class SocketHandler extends TextWebSocketHandler {
 //      System.out.println();
 //      
 
-      
+ 
       JSONObject obj = jsonToObjectParser(msg);
       String userName = (String) obj.get("userName");
       
@@ -79,11 +76,7 @@ public class SocketHandler extends TextWebSocketHandler {
             e.printStackTrace();
          }
       }
-      
-      
-      
-      
-      
+
       System.out.println();
       System.out.println("===============================");
       System.out.println("소켓핸들러 handleTextMessage 동작");
@@ -110,6 +103,8 @@ public class SocketHandler extends TextWebSocketHandler {
    
    
    
+   
+   
  //알람기능 구현위한 테스트중
    private void showMessageNotification() {
 	    // 알림을 표시하는 로직
@@ -131,7 +126,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	    }
 	}
    
-   
+
    
    
    
@@ -155,9 +150,6 @@ public class SocketHandler extends TextWebSocketHandler {
        System.out.println("소켓통신성공");
        
    }
-   
-   
-   
    
    
    

@@ -26,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
+
+
 @Controller
 public class ChatController {
 
@@ -35,22 +37,23 @@ public class ChatController {
 	List<RoomDto> roomList = new ArrayList<RoomDto>();
 	static int roomNumber = 0;
 
-	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됩니다.
+	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됨
+	
 	public void handleChatMessage(String message) {
 
-		JSONObject obj = new JSONObject(); // 받은 JSON 형태의 메시지를 파싱합니다.
+		JSONObject obj = new JSONObject(); // 받은 JSON 형태의 메시지를 파싱
 
 		/*
 		 * JSONObject jsonObject = new JSONObject(message);
 		 */
 
-		String msg = (String) obj.get("userName"); // 메시지 내용을 추출합니다.
-		String userName = (String) obj.get("msg"); // 사용자 이름을 추출합니다.
+		String msg = (String) obj.get("userName"); // 메시지 내용을 추출
+		String userName = (String) obj.get("msg"); // 사용자 이름을 추출
 		String userId = (String) obj.get("userId"); // 사용자 아이디
-		String roomNumber = (String) obj.get("roomNumber"); // 사용자 이름을 추출합니다.
+		String roomNumber = (String) obj.get("roomNumber"); // 사용자 이름을 추출
 		String roomName = (String) obj.get("roomName"); // 사용자 아이디
 
-		// 추출한 정보를 Map에 담아서 데이터베이스에 저장합니다.
+		// 추출한 정보를 Map에 담아서 데이터베이스에 저장
 		Map<String, Object> params = new HashMap<>();
 		params.put("userId", userId);
 		params.put("userName", userName);
@@ -58,7 +61,7 @@ public class ChatController {
 		params.put("roomNumber", roomNumber);
 		params.put("roomName", roomName);
 
-		/*
+		/* 테스트용
 		 * System.out.println(); System.out.println("===============================");
 		 * System.out.println("컨트롤러 handleChatMessage 동작"); System.out.println(obj);
 		 * System.out.println("userId : " + obj.get("userId"));
@@ -69,7 +72,7 @@ public class ChatController {
 		 * System.out.println("==============================="); System.out.println();
 		 */
 
-		// 데이터베이스에 저장하는 DAO 메서드를 호출합니다.
+		// 데이터베이스에 저장하는 DAO 메서드를 호출
 		dao.saveMsg(userId, userName, msg, roomNumber, roomName);
 
 	}
@@ -83,11 +86,8 @@ public class ChatController {
 		return mv;
 	}
 
-	/**
-	 * 방 페이지
-	 * 
-	 * @return
-	 */
+	
+	/* 방 페이지  @return */
 	@RequestMapping("/room")
 	public ModelAndView room(Model model, HttpServletRequest request) {
 
@@ -109,12 +109,7 @@ public class ChatController {
 		return mv;
 	}
 
-	/**
-	 * 방 생성하기
-	 * 
-	 * @param params
-	 * @return
-	 */
+	/* 방 생성하기 @param params @return  */
 	@RequestMapping("/createRoom")
 	public @ResponseBody List<RoomDto> createRoom(@RequestParam HashMap<Object, Object> params,
 			HttpServletRequest request) {
@@ -135,12 +130,9 @@ public class ChatController {
 
 		
 		 System.out.println("============================");
-		 System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +
-		 nickName); System.out.println("roomName : " + roomName);
+		 System.out.println("컨트롤러 createRoom 동작"); System.out.println("nickName : " +  nickName); System.out.println("roomName : " + roomName);
 		 System.out.println("roomNumber : " + roomNumber);
-		 System.out.println("memList : " + memList); System.out.println("mems : " +
-		 mems); System.out.println("============================");
-		 
+		 System.out.println("memList : " + memList); System.out.println("mems : " +  mems); System.out.println("============================");
 		 
 		 
 
@@ -160,14 +152,7 @@ public class ChatController {
 				List<RoomDto> nowRoom = new ArrayList<>();
 				System.out.println("chkPoint1");
 				// 방 이름이 중복되지 않고 닉네임과 방 이름이 모두 포함된 경우에만 새로운 방을 추가
-				
-				/*
-				 * boolean isRoomNameValid = roomList.stream().noneMatch(room ->
-				 * room.getRoomName().equals(roomName)); boolean isNickNameValid =
-				 * roomList.stream().noneMatch(room -> room.getPartyMem().contains(nickName));
-				 */
-				
-				
+
 				for(RoomDto r : AllRooms) {
 					if(r.getPartyMem().contains(nickName)&&r.getPartyMem().contains(roomName)) {
 						cnt++;
@@ -177,11 +162,7 @@ public class ChatController {
 				System.out.println(cnt);
 				if (cnt==0) {
 					System.out.println("chkPoint2");
-					/*
-					 * mems.append(nickName); mems.append("@"); mems.append(roomName);
-					 */
-					// 이 구문이 들어가면 중복값으로 넣어지는 현상 발생
-
+					
 					RoomDto room = new RoomDto();
 					room.setRoomNumber(newRoomNumber);
 					room.setRoomName(roomName);
@@ -211,13 +192,7 @@ public class ChatController {
 
 	}
 
-	/**
-	 * 방 정보가져오기
-	 * 
-	 * @param params
-	 * @return
-	 */
-//	@RequestParam HashMap<Object, Object> params
+	/* 방 정보가져오기 @param  @return */
 
 	@RequestMapping("/getRoom")
 	public ResponseEntity<String> getRoom(HttpServletRequest request) {
@@ -233,39 +208,13 @@ public class ChatController {
 
 		List<RoomDto> getRoom = new ArrayList<RoomDto>();
 
-		/*
-		 * getRoom = dao.roomListByID(userId,);
-		 * 
-		 * for (RoomDto room : getRoom) {
-		 * 
-		 * obj.put("roomName", room.getRoomName()); obj.put("roomNum",
-		 * room.getRoomNumber()); room.setPartyMems(room.getPartyMem().split("/"));
-		 * obj.put("member", room.getPartyMems());
-		 * 
-		 * }
-		 */
-
-		/*
-		 * System.out.println("=======================");
-		 * System.out.println("컨트롤러 getRoom 동작"); System.out.println("userId" + userId);
-		 * System.out.println("getRoom" + getRoom);
-		 * System.out.println("=======================");
-		 * 
-		 */
-
 		return ResponseEntity.ok(obj.toJSONString());
 	}
 
-	/**
-	 * 채팅방
-	 * 
-	 * @return
-	 */
+	/* 채팅방 @return  */
 	@RequestMapping("/moveChating")
-	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request, Model model) { // 요청
-																															// 파라미터를
-		// HashMap
-		// 으로 받음
+	public ModelAndView chating(@RequestParam HashMap<Object, Object> params, HttpServletRequest request, Model model) {
+		// 요청 파라미터를 HashMap 으로 받음
 
 		ModelAndView mv = new ModelAndView(); // 컨트롤러 메서드가 뷰와 모델 데이터를 함께 반환
 		int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
@@ -273,14 +222,8 @@ public class ChatController {
 		String roomName = (String) params.get("roomNumber"); // 방이름
 		String yourId = request.getParameter("mem");
 		
-		
 		System.out.println("movechating");
-		/*
-		 * List<RoomDto> new_list =
-		 * roomList.stream().filter(o->o.getRoomNumber()==roomNumber).collect(Collectors
-		 * .toList());
-		 */ // 방번호가 RoomDto 객체를 'Loomlist'에서 찾아 리스트로 반환
-
+ 
 		List<RoomDto> new_list = dao.roomList();
 
 		if (new_list != null && new_list.size() > 0) {
@@ -304,6 +247,7 @@ public class ChatController {
 		 * 
 		 */
 
+		
 		// 대화 목록 불러오기
 		List<ChatDto> chatList = dao.chatList(roomNumber);
 		model.addAttribute("chatList", chatList);

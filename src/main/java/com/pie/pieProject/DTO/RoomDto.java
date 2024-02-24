@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoomDto {
 	
-	
 	private int roomNumber;
 	private String roomName;
 	private String partyMem;
