@@ -182,6 +182,7 @@
 				beforeSend: function (xhr) {
 					xhr.setRequestHeader(header, token);
 				},
+				
 				success: function (res) {
 					calbak(res);
 					console.log(res)

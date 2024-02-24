@@ -50,6 +50,7 @@ public class SocketHandler extends TextWebSocketHandler {
       String msg = message.getPayload();
       
       
+      
       System.out.println();
       System.out.println("===============================");     
       System.out.println("msg : " + msg);
