@@ -74,7 +74,28 @@
 		select count(*) from member_user where nickName = #{param1}
 	</select>
 	<update id="updatePremium">
-		update member_user set premium=#{param}
+		update member_user set premium=#{param1}
 	</update>
+	
+	<select id="findByEmail" resultType="String">
+		select id from member_user where email = #{param1}
+	</select>
+	
+	<select id="findByPhone" resultType="String">
+		select id from member_user where phone = #{param1}
+	</select>
+	
+		<select id="findByEmailId" resultType="_int">
+		select count(*) from member_user where email = #{param1} and id = #{param2}
+	</select>
+	
+	<select id="findByPhoneId" resultType="_int">
+		select count(*) from member_user where phone = #{param1} and id = #{param2}
+	</select>
+	
+		<update id="initPassword">
+		update member_user set password=#{param1} where id = #{param2}
+	</update>
+
 </mapper>
 

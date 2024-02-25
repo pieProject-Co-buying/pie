@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.Secure.SHA256;
 import com.pie.pieProject.DTO.MemberDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -32,30 +33,31 @@ import jakarta.servlet.http.HttpSession;
 public class MemberController {
 	@Autowired
 	IMemberDao dao;
+	@Autowired
+	BoardComp bcomp;
+
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\profiles";
 
 	@GetMapping("/login")
 	public String loginPage(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
+
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "pieContents/members/login_form";
 		}
 		return "redirect:/";
 	}
-	
-	 @GetMapping("/loginForm")
-	    public String loginForm(@RequestParam(value = "error", required = false) String error,
-	                            @RequestParam(value = "exception", required = false) String exception, Model model) {
-	        model.addAttribute("error", error);
-	        model.addAttribute("exception", exception);
 
-	        return "pieContents/members/login_form";
-	    }
-	
-	
-	
+	@GetMapping("/loginForm")
+	public String loginForm(@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "exception", required = false) String exception, Model model) {
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
+
+		return "pieContents/members/login_form";
+	}
+
 //	@PostMapping("/loginAction")
 //	public String loginProcess(HttpServletRequest request, Model model) {
 ////		String id = request.getParameter("id");
@@ -97,52 +99,66 @@ public class MemberController {
 			@RequestParam(value = "agreement") String agreementChk, @RequestParam("profile_pic") MultipartFile file) { // 회원
 																														// 가입
 		try {
-			 String profile_pic; if(file!=null && file.isEmpty()) {
-				  System.out.println("test"); profile_pic = "default.png"; }else {
-				  StringBuilder fileNames = new StringBuilder(); Path fileNameAndPath =
-				  Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename()); // => Returns a  {@code Path} by converting a path string => 이미지가 저장되는 경로
-				  fileNames.append(file.getOriginalFilename()); byte[] fileSize =
-				  file.getBytes(); Files.write(fileNameAndPath, fileSize);
-				  
-				  profile_pic = fileNames.toString(); }
-				  
-				  boolean agreement = (agreementChk != null);
-				  
-				  // 확인용 출력
-				  
-				  System.out.println(id); System.out.println(password);
-				  System.out.println(name); System.out.println(nickname);
-				  System.out.println(gender); System.out.println(profile_pic);
-				  System.out.println(email); System.out.println(phone);
-				  System.out.println(postCode); System.out.println(address_main);
-				  System.out.println(address_sub); System.out.println(agreement);
-				  
-				  
-				  PasswordEncoder pe = new BCryptPasswordEncoder();
-				  
-					/**/
-					  String salt = SHA256.createSalt(password);
-					 /* String password_salt = SHA256.encrypt(password, salt);
-					 */
-				  String encoded_password = pe.encode(password);
-				  
-				  MemberDto dto = new MemberDto();
-				  
-				  dto.setId(id); 
-				  dto.setPassword(encoded_password); 
-				  dto.setSalt(salt);
-				  dto.setName(name); 
-				  dto.setNickname(nickname); 
-				  dto.setGender(gender);
-				  dto.setProfile_pic(profile_pic); 
-				  dto.setEmail(email); 
-				  dto.setPhone(phone);
-				  dto.setPostCode(postCode); 
-				  dto.setAddress_main(address_main);
-				  dto.setAddress_sub(address_sub); 
-				  dto.setAgreement(agreement);
-				  
-				  dao.join(dto);
+			String profile_pic;
+			if (file != null && file.isEmpty()) {
+				System.out.println("test");
+				profile_pic = "default.png";
+			} else {
+				StringBuilder fileNames = new StringBuilder();
+				Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename()); // => Returns a {@code
+																								// Path} by converting a
+																								// path string => 이미지가
+																								// 저장되는 경로
+				fileNames.append(file.getOriginalFilename());
+				byte[] fileSize = file.getBytes();
+				Files.write(fileNameAndPath, fileSize);
+
+				profile_pic = fileNames.toString();
+			}
+
+			boolean agreement = (agreementChk != null);
+
+			// 확인용 출력
+
+			System.out.println(id);
+			System.out.println(password);
+			System.out.println(name);
+			System.out.println(nickname);
+			System.out.println(gender);
+			System.out.println(profile_pic);
+			System.out.println(email);
+			System.out.println(phone);
+			System.out.println(postCode);
+			System.out.println(address_main);
+			System.out.println(address_sub);
+			System.out.println(agreement);
+
+			PasswordEncoder pe = new BCryptPasswordEncoder();
+
+			/**/
+			String salt = SHA256.createSalt(password);
+			/*
+			 * String password_salt = SHA256.encrypt(password, salt);
+			 */
+			String encoded_password = pe.encode(password);
+
+			MemberDto dto = new MemberDto();
+
+			dto.setId(id);
+			dto.setPassword(encoded_password);
+			dto.setSalt(salt);
+			dto.setName(name);
+			dto.setNickname(nickname);
+			dto.setGender(gender);
+			dto.setProfile_pic(profile_pic);
+			dto.setEmail(email);
+			dto.setPhone(phone);
+			dto.setPostCode(postCode);
+			dto.setAddress_main(address_main);
+			dto.setAddress_sub(address_sub);
+			dto.setAgreement(agreement);
+
+			dao.join(dto);
 		} catch (DuplicateKeyException e) {
 			e.printStackTrace();
 			return "redirect:/";
@@ -225,7 +241,7 @@ public class MemberController {
 	@GetMapping("/updateForm")
 	public String updateFormPage(HttpServletRequest request, Model model) {
 		MemberDto dto = new MemberDto();
-		dto = dao.find(getSession(request, "userId"));
+		dto = dao.find(bcomp.getSession(request, "userId"));
 		model.addAttribute("mem", dto);
 		return "/pieContents/members/update_form";
 	}
@@ -241,7 +257,7 @@ public class MemberController {
 		System.out.println(email);
 
 		MemberDto dto = new MemberDto();
-		MemberDto now = dao.find(getSession(request, "userId"));
+		MemberDto now = dao.find(bcomp.getSession(request, "userId"));
 
 		try {
 			StringBuilder fileNames = new StringBuilder();
@@ -262,7 +278,7 @@ public class MemberController {
 			String salt = now.getSalt();
 			String password_salt = SHA256.encrypt(password, salt);
 
-			dto.setId(getSession(request, "userId"));
+			dto.setId(bcomp.getSession(request, "userId"));
 			dto.setPassword(password_salt);
 			dto.setName(name);
 			dto.setNickname(nickname);
@@ -287,9 +303,9 @@ public class MemberController {
 
 	@GetMapping("/subScribe")
 	public String subScribe(HttpServletRequest request, Model model) {
-		dao.sub(getSession(request, "userId"));
+		dao.sub(bcomp.getSession(request, "userId"));
 		MemberDto dto = new MemberDto();
-		dto = dao.find(getSession(request, "userId"));
+		dto = dao.find(bcomp.getSession(request, "userId"));
 
 		if (dto.getPremium().equals("pro")) {
 			model.addAttribute("msg", 1);
@@ -301,9 +317,9 @@ public class MemberController {
 
 	@GetMapping("/reSubScribe")
 	public String resubScribe(HttpServletRequest request, Model model) {
-		dao.resub(getSession(request, "userId"));
+		dao.resub(bcomp.getSession(request, "userId"));
 		MemberDto dto = new MemberDto();
-		dto = dao.find(getSession(request, "userId"));
+		dto = dao.find(bcomp.getSession(request, "userId"));
 
 		if (dto.getPremium().equals("pro")) {
 			model.addAttribute("msg", 1);
@@ -315,29 +331,97 @@ public class MemberController {
 
 	@GetMapping("/deleteSubScribe")
 	public String deleteSubScribe(HttpServletRequest request, Model model) {
-		dao.unSub(getSession(request, "userId"));
+		dao.unSub(bcomp.getSession(request, "userId"));
 		return "redirect:/updateForm";
 	}
 
 	@GetMapping("/outMember")
 	public String deleteMember(HttpServletRequest request, Model model) {
-		dao.deleteMember(getSession(request, "userId"));
+		dao.deleteMember(bcomp.getSession(request, "userId"));
 		return "redirect:/logout";
 	}
-	
+
 	@PostMapping("/checkId")
-	public ResponseEntity<Boolean> checkId(@RequestParam("chkId") String chkId){
-		return ResponseEntity.ok(dao.chkDuplicate(chkId)>0);
-	}
-	
-	@PostMapping("/checkNickName")
-	public ResponseEntity<Boolean> checkNickName(@RequestParam("chkName") String chkName){
-		System.out.println(chkName);
-		return ResponseEntity.ok(dao.chkNDuplicate(chkName)>0);
+	public ResponseEntity<Boolean> checkId(@RequestParam("chkId") String chkId) {
+		return ResponseEntity.ok(dao.chkDuplicate(chkId) > 0);
 	}
 
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
+	@PostMapping("/checkNickName")
+	public ResponseEntity<Boolean> checkNickName(@RequestParam("chkName") String chkName) {
+		System.out.println(chkName);
+		return ResponseEntity.ok(dao.chkNDuplicate(chkName) > 0);
+	}
+
+	@GetMapping("/findID")
+	public String findID(Model model) {
+		return "/pieContents/members/findID_form";
+	}
+
+	@GetMapping("/findPW")
+	public String findPW(Model model) {
+		return "/pieContents/members/findPw_form";
+	}
+
+	@PostMapping("/findIdAction")
+	public String findIdAction(@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "phone", required = false) String phone, Model model) {
+		String id = "";
+		int msg = 0;
+		System.out.println(email);
+		System.out.println(phone);
+
+		if (email != null && !email.equals("")) {
+			id = dao.findByEmail(email);
+		} else if (phone != null && !phone.equals("")) {
+			id = dao.findByPhone(phone);
+		}
+
+		if (id != null && !id.equals("")) {
+			id = bcomp.masking(id);
+			msg = 1;
+		}
+
+		System.out.println(id);
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("id", id);
+		return "/pieContents/members/findResult";
+	}
+
+	@PostMapping("/findPwAction")
+	public String findPwAction(@RequestParam("id") String id,
+			@RequestParam(value = "email", required = false) String email,
+			@RequestParam(value = "phone", required = false) String phone, Model model) {
+		System.out.println(email);
+		System.out.println(phone);
+		int msg = 0;
+		int su = 0;
+
+		if (email != null && !email.equals("")) {
+			su = dao.findByEmailId(email, id);
+		} else if (phone != null && !phone.equals("")) {
+			su = dao.findByPhoneId(phone, id);
+		}
+
+		model.addAttribute("id", id);
+
+		if (su > 0) {
+			return "/pieContents/members/ChangePw_form";
+		}
+
+		model.addAttribute("msg", msg);
+		return "/pieContents/members/findResult";
+	}
+
+	@PostMapping("/changePwAction")
+	public String findPwAction(@RequestParam("id") String id, @RequestParam("password") String pw, Model model) {
+		int msg = 0;
+		PasswordEncoder pe = new BCryptPasswordEncoder();
+		String encoded_password = pe.encode(pw);
+
+		dao.initPassword(encoded_password, id);
+		msg = 2;
+		model.addAttribute("msg", msg);
+		return "/pieContents/members/findResult";
 	}
 }

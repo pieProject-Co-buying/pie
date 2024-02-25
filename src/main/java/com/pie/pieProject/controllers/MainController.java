@@ -1,13 +1,45 @@
 package com.pie.pieProject.controllers;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.pie.pieProject.DAO.ILikeDao;
+import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IProxyBuyDao;
+import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.components.BoardComp;
 
 @Controller
 public class MainController {
+	@Autowired
+	IProxyBuyDao pdao;
+	@Autowired
+	IMemberDao mdao;
+	@Autowired
+	ILikeDao ldao;
+	@Autowired
+	BoardComp Bcomp;
 
 	@RequestMapping("/")
-	public String mainPage() {
+	public String mainPage(Model model) {
+
+		List<ProxyBuyBoardDto> plist = pdao.listDaoByFavorite();
+
+		for (ProxyBuyBoardDto dto : plist) {
+			dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
+			if (dto.getPr_tag() == null || dto.getPr_tag().equals("#")) {
+				dto.setPr_tags(null);
+			} else {
+				dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+			}
+		}
+
+		model.addAttribute("list", plist);
+
 		return "Index";
 	}
 
@@ -56,13 +88,10 @@ public class MainController {
 		return "pieContents/townBuying/townBuySearchResult";
 	}
 
-
 	/*
 	 * @RequestMapping("/townBuyproduct") public String townBProductPage() { return
 	 * "pieContents/townBuyproduct"; }
 	 */
-
-
 
 	/*
 	 * @RequestMapping("/proxyBuyProducts") public String proxyBProductsPage() {

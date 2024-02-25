@@ -67,4 +67,8 @@ public class BoardComp {
 		
 		return text;
 	}
+	
+	public String masking(String str) {
+		return str.replaceAll("(?<=.{2}).","*");
+	}
 }

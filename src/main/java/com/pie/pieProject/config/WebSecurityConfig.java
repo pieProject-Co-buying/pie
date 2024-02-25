@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
-				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm").permitAll()
+				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm","/findID","/findIdAction","/findPW","/findPwAction","/changePwAction").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember","/complete")
 				.authenticated()

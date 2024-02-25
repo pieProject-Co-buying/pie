@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/login}">
+<!-- gnb fragment -->
+<div layout:fragment="membersContent" class="col p-5 border rounded"
+	id="loginForm">
+
+	<h2 class="text-center pb-4">
+		<img src="imgs/logo_pie_color.png" alt="" width="80"
+			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">비밀번호 변경</span>
+	</h2>
+
+	<div class="row">
+		<div class="col">
+			<div class="alert alert-danger" role="alert"
+				th:if="${param.error!=null}" th:text="${param.exception}"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col py-5">
+			<form class="needs-validation" novalidate action="changePwAction"
+				method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" />
+				<div class="form-row">
+					<div class="col mb-3 mt-5">
+						<label for="email">변경할 비밀번호</label> <input type="text"
+							class="form-control" id="password" name="password" required>
+						<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+					</div>
+				</div>
+				<div class="form-row mb-5">
+					<div class="col mb-3" id="findInput">
+						<label for="email">비밀번호 확인</label> <input type="text"
+							class="form-control" id="passwordchk" name="passwordchk" required>
+						<div class="invalid-feedback">비밀번호 확인을 입력해주세요.</div>
+					</div>
+				</div>
+				<input type="hidden" th:value="${id}" name = "id"/>
+				<button class="btn pie-btn-red btn-block mt-3" type="submit">변경</button>
+			</form>
+		</div>
+	</div>
+
+</div>
+</html>
