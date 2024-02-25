@@ -21,6 +21,13 @@ public interface IMemberDao {
 	public void expireSub();
 	public int chkDuplicate(String id);
 	public int chkNDuplicate(String nickName);
+	public String findByEmail(String email); 
+	public String findByPhone(String phone); 
+	
+	public int findByEmailId(String email, String Id); 
+	public int findByPhoneId(String phone, String Id); 
+	
+	public int initPassword(String pw, String Id);
 
 	/* public UserDetails getLogInfo(String id); */
 	public ArrayList<String> getAuthList(String id);
