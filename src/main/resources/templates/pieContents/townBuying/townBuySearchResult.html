@@ -47,15 +47,11 @@
 
 				<div class="col-12 col-lg-9">
 
-<<<<<<< HEAD
-					<form action="searchTownBuy" class="pie-search">
-=======
 					<form action="searchTownBuy" class="pie-search" method="get"
 						name="searchForm">
 						<input type="hidden" name="category" id="category"
 							th:value="${param.category}" />
 
->>>>>>> refs/remotes/origin/develop
 						<div class="dropdown" id="selectCategory">
 
 							<a class="btn dropdown-toggle" href="#" role="button"
@@ -74,14 +70,9 @@
 
 
 						</div>
-
-						<input type="text" name="townKeyword" id="townKeyword" class="flex-fill" th:value="${session.townKeyword}">
-						<button class=""></button>
-
 						<input type="text" name="townKeyword" id="townKeyword"
 							class="flex-fill" th:value="${param.townKeyword}">
 						<button type="submit"></button>
-
 					</form>
 
 				</div>
@@ -244,12 +235,8 @@
 											<h3 th:text="${board.getTo_title()}"></h3>
 											<p class="" th:utext="${board.getTo_content()}">.</p>
 
-
-											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}" class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
-
 											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
 												class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
-
 										</div>
 
 

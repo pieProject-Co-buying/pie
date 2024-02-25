@@ -12,7 +12,7 @@
 
 	<div class="container-fluid p-0">
 			
-			
+			 
 						
 			<div class="row">
 				<!-- 알람기능을 위해 추가 & 테스트중 -->
@@ -49,13 +49,13 @@
 
 			<div class="row mb-3">
 
-				<div class="col">
+				<div class="col-12 col-lg-6 offset-lg-3">
 					
 					
 
-
-
-					<div id="roomContainer" class="roomContainer col border">
+					<h2 class="mb-5 text-center">대화상대를 선택해주세요</h2>
+						
+					<div id="roomContainer" class="roomContainer border rounded shadow p-4">
 						
 						<!-- 값 테스트용 -->
 						<input type="hidden" th:value="${session.userId}" id="nowLogin" />
@@ -69,9 +69,9 @@
 
 
 
-						<table id="roomList" class="roomList">
+						<div id="roomList" class="roomList">
 							
-						</table>
+						</div>
 
 
 
@@ -129,31 +129,34 @@
 
 
 
-		function goRoom(number, name1, name2) {
-			location.href = "/moveChating?mem1=" + name1 + "&mem2=" + name2 + "&" + "roomNumber=" + number;
+		function goRoom(number) {
+			location.href = "/moveChating?roomNumber=" + number;
 			alert(name1 + name2)
 		}
 
 
-		function createChatingRoom(res) {
-			if (res != null) {
-				/* var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'>입장</th></tr>"; */
-				var tag = "<tr><th class='room w-25'></th><th class='go w-50'></th></tr>";
-				res.forEach(function (d, idx) {
-					var rn = d.roomName.trim();
-					var roomNumber = d.roomNumber;
-					tag += "<tr>" +
-						/* "). */
-						"<td>" + roomNumber + "</td>" +  //확인용
-						"<td class='room'>" + rn + "<span class='badge badge-danger ml-2 d-none''>" + "new" + "</span>" + "</td>" +
-						"<td class='go'><button type='button' class='btn btn-outline-secondary' onclick='goRoom(\"" + roomNumber + "\", \"" + rn + "\")'>대화하기</button></td>" +
-						"</tr>";
-				});
 
-				$("#roomList").append(tag); //방목록 업데이트
-			}
-		}
+function createChatingRoom(res) {
+    if (res != null) {
+        var tag = "";
+        var sessionNick = $("#realNick").val(); // 현재 세션의 닉네임 가져오기
+        res.forEach(function (d, idx) {
+            var roomNumber = d.roomNumber;
+            var nickName = d.nickname;
+            var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
+            
+            // 닉네임과 버튼을 중앙 정렬하여 추가
+            tag += "<div class='row mb-3 justify-content-center'>" +
+                "<div class='room col-6 text-center'>" + "<span class='h3'>" + (isMyChat ? nickName + "(나)" : nickName) + "</span>" + "</div>" +
+                "<div class='go col-6 text-center'>" +
+                (isMyChat ? "<button type='button' class='btn pie-btn-red'' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>" : "<button type='button' class='btn pie-btn-red' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>") +
+                "</div>" +
+                "</div>";
+        });
 
+        $("#roomList").append(tag); // 방 목록 업데이트
+    }
+}
 
 
 		function commonAjax(url, parameter, type, calbak, contentType) {
@@ -172,8 +175,6 @@
 					console.log(res)
 					console.log(res[0].partyMem.split("@")[1])
 					console.log(res[0].partyMem.split("@")[2])
-					/* goRoom(res[0].roomNumber, res[0].partyMem.split("@")[1], res[0].partyMem.split("@")[2]) */
-
 				},
 				error: function (err) {
 					console.log('error');
@@ -194,7 +195,7 @@
 	    var isConnected = false; // 웹소켓 연결 상태 변수 추가
 	    
 	    function connect() {
-	        var socket = new WebSocket('ws://localhost:8084/chating');
+	        var socket = new WebSocket('ws://localhost:8084/chating?sessionId=' + $('#sessionId').val());
 	        socket.onopen = function() {
 	            console.log('Connected');
 	            isConnected = true; // 연결되면 상태를 true로 변경
@@ -235,7 +236,7 @@
     // userName이 정의되어 있고, undefined가 아닌 경우에만 토스트를 표시
     if (userName && userName !== 'undefined') {
         // 메시지 도착 알림
-        var alertMessage =roomNumber +"번방 "+  userName + " 님의 메세지가 도착했습니다.";
+        var alertMessage = userName + " 님의 메세지가 도착했습니다.";
 
         // 토스트 HTML 코드 생성
         var toastHTML = '<div class="toast hj-chat-toast-position" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">' +

@@ -186,13 +186,9 @@
 									
 									
 									<!-- 버튼 클릭시 chat으로 이동되도록 추가-->	
-									<a class="pie-chat-icon pie-icons"  th:href="@{'room?mem='+${board.getTo_nickname}}"></a>
+									<a class="pie-chat-icon pie-icons"  th:href="@{'room?mem='+${board.getTo_id}}"></a>
 
 								
-								
-								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
-									data-target="#shareModal"></span>
-
 								<!-- Modal -->
 								<div class="modal fade" id="shareModal" tabindex="-1"
 									aria-labelledby="shareModalLabel" aria-hidden="true">
@@ -226,12 +222,6 @@
 										</div>
 									</div>
 								</div>
-								
-
-								<!-- 버튼 클릭시 chat으로 이동되도록 추가-->
-								<a class="pie-chat-icon pie-icons"
-									th:href="@{'room?mem='+${board.getTo_nickname}}"></a>
-
 							</div>
 							
 							

@@ -13,5 +13,8 @@ public class RoomDto {
 	private String roomName;
 	private String partyMem;
 	private String[] partyMems;
-	
+	private String managerMemNum;
+	private String joinMemNum;
+	private String joinMemNickname;
+	private String managerMemNickname;
 }
