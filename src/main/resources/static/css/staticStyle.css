@@ -773,3 +773,13 @@ input[type=date]::-webkit-calendar-picker-indicator {
 	cursor: pointer;
 	background: transparent;
 }
+
+#proxyMainCarousel{
+	height: 300px;
+}
+
+#proxyMainCarousel img{
+	height: 300px;
+	object-position : center;
+	object-fit: cover;
+}

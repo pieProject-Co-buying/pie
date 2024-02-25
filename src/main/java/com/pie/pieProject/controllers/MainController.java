@@ -56,30 +56,13 @@ public class MainController {
 		return "pieContents/townBuying/townBuySearchResult";
 	}
 
-	@RequestMapping("/townBuyResult")
-	public String townBApplyResultPage() {
-		return "pieContents/townBuying/townBuyResult";
-	}
 
 	/*
 	 * @RequestMapping("/townBuyproduct") public String townBProductPage() { return
 	 * "pieContents/townBuyproduct"; }
 	 */
 
-	@RequestMapping("/proxyBuyMain")
-	public String proxyBPage() {
-		return "pieContents/proxyBuying/proxyBuyMain";
-	}
 
-	@RequestMapping("/proxyBuyApply")
-	public String proxyBApplyPage() {
-		return "pieContents/proxyBuying/proxyBuyApply";
-	}
-
-	@RequestMapping("/proxyBuyBest")
-	public String proxyBBestPage() {
-		return "pieContents/proxyBuying/proxyBuyBest";
-	}
 
 	/*
 	 * @RequestMapping("/proxyBuyProducts") public String proxyBProductsPage() {
