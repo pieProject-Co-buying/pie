@@ -190,6 +190,11 @@
 
 				// 토스트 표시
 				$('.toast').toast('show');
+				
+				// 10초 후에 토스트를 숨김
+				setTimeout(function() {
+				    $('.toast').toast('hide');
+				}, 10000); 
 
 			}
 		}
