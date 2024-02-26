@@ -293,7 +293,8 @@ function sub(){
 				"sub_merchant_uid": makeMerchantUid,
 				"sub_name": '프리미엄 구독',
 				"sub_amount": 17000,
-				"sub_premium": "pro"
+				"sub_premium": "pro",
+				"schedules": [15]
 			}
 			console.log(makeMerchantUid);
 			$.ajax({

@@ -108,13 +108,12 @@ public class PaymentController {
 		model.addAttribute("pay", list);
 		return "pieContents/shareService/shareServiceApplyConsole";
 	}
-	// admin 결제내역 페이지 id,nickname 기반 검색
-	/********** 제목, 내용 기반 검색 **********/
+	/**********admin 결제내역 페이지 id,nickname 기반 검색**********/
 	@RequestMapping("/searchBuyerName")
 	public String searchBuyer(HttpServletRequest request, Model model) {
-		String sId = request.getParameter("search");
-		model.addAttribute("list", dao.searchBuyer(sId));
-		return "pieContents/shareService/shareServiceBoard";
+		String search = request.getParameter("search");
+		model.addAttribute("list", dao.searchBuyer(search));
+		return "pieContents/shareService/shareServiceApplyConsole";
 	}
 	/*@RequestMapping("/adminPageNum")
 	public String proxyBApplyPage(@RequestParam("page") int page, Model model) {

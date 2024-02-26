@@ -178,7 +178,7 @@
 			<div class="col-sm-9 d-flex align-items-center">
 				<th:block
 					th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()<#dates.createNow()}">
-					<button type="button" class="btn btn-primary flex-shrink-0 mr-2 ">구독하기</button>
+					<button type="button" class="btn btn-primary flex-shrink-0 mr-2" data-toggle="modal" data-target="#subScribe">구독하기</button>
 				</th:block>
 				<th:block
 					th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()>#dates.createNow()}">
