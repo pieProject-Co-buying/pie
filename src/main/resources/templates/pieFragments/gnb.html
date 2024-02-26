@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+
 <!-- gnb fragment -->
 <div th:fragment="gnb">
 	<div class="row fixed-top no-gutters">
@@ -43,13 +45,13 @@
 									class="dropdown-item" href="shareServiceBoard">신청해요 게시판</a> <a
 									class="dropdown-item" href="shareServiceApply">신청중인 서비스 조회</a>
 							</div></li>
-							
-						<li class="nav-item">
+
+						<!-- <li class="nav-item">
 							<a class="nav-link"   th:href="@{'room?mem='+${session.userId}}">파이채팅
 								<span class="sr-only">(current)</span>
 							</a>
-						</li>
-						
+						</li> -->
+
 					</ul>
 
 					<ul class="navbar-nav ml-auto align-items-lg-center">
@@ -66,7 +68,8 @@
 
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
 									class="dropdown-item" href="#">좋아요한 게시글</a> <a
-									class="dropdown-item" href="#">채팅</a>
+									class="dropdown-item"
+									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
 							</div>
 
 
@@ -105,6 +108,83 @@
 		</div>
 	</div>
 
+	<div class="toast-container col fixed-bottom border" id="toastBox">
+
+	</div>
+	<input type="hidden" id="sessionId" th:value="${session.nickName}">
+	<input type="hidden" id="realNick" th:value="${session.nickName}">
+
+	<!-- 알람기능을 위해 추가 & 테스트중-->
+	<!-- 현재 테스트 중-->
+	<!-- 메세지 수신시에만 토스트 동작해야 되는데 예상으로는 연결될때마다 undefined라는 이름으로 계속 호출되는 현상 수정중 -->
+	<script type="text/javascript">
+		var isConnected = false; // 웹소켓 연결 상태 변수 추가
+
+		function connect() {
+			var socket = new WebSocket('ws://localhost:8084/chating?sessionId='
+					+ $('#sessionId').val());
+			socket.onopen = function() {
+				console.log('Connected');
+				isConnected = true; // 연결되면 상태를 true로 변경
+			};
+			socket.onmessage = function(event) {
+				console.log('Received message:', event.data);
+				// 연결되어 있고 메시지를 수신했을 때만 토스트 표시
+				if (isConnected) {
+					showMessageNotification(event.data);
+				}
+			};
+			socket.onerror = function(error) {
+				console.error('WebSocket error:', error);
+			};
+			socket.onclose = function(event) {
+				console.log('WebSocket closed:', event);
+				isConnected = false; // 연결이 닫히면 상태를 false로 변경
+			};
+		}
+
+		$(function() {
+			connect();
+		});
+
+		function showMessageNotification(message) {
+
+			// JSON 형식의 메시지 파싱
+			var jsonData = JSON.parse(message);
+
+			// userId 값
+			var userName = jsonData.userName;
+			//roomNumber
+			var roomNumber = jsonData.roomNumber;
+
+			// userName이 정의되어 있고, undefined가 아닌 경우에만 토스트를 표시
+			if (userName && userName !== 'undefined' && userName != $('#realNick').val()) {
+				console.log(jsonData.sessionId);
+				console.log($('#sessionId').val());
+				// 메시지 도착 알림
+				var alertMessage = userName + " 님의 메세지가 도착했습니다.";
+
+				$('#toastBox').empty();
+				// 토스트 HTML 코드 생성
+				var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">'
+						+ '<div class="toast-header">'
+						+ '<img src="imgs/logo_color_C_red.png" class="rounded me-2 mr-2" alt="..." style="width: 30px;">'
+						+ '<strong class="mr-auto">파이채팅 알림</strong>'
+						+ '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'
+						+ '<span aria-hidden="true">&times;</span>'
+						+ '</button>'
+						+ '</div>'
+						+ '<div class="toast-body">'
+						+ alertMessage + '</div>' + '</div>';
+				// 토스트를 #toastBox에 추가
+				$('#toastBox').append(toastHTML);
+
+				// 토스트 표시
+				$('.toast').toast('show');
+
+			}
+		}
+	</script>
 </div>
 
 </html>
