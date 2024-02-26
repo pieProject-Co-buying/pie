@@ -118,28 +118,28 @@
 		}
 
 
-
-function createChatingRoom(res) {
-    if (res != null) {
-        var tag = "";
-        var sessionNick = $("#realNick").val(); // 현재 세션의 닉네임 가져오기
-        res.forEach(function (d, idx) {
-            var roomNumber = d.roomNumber;
-            var nickName = d.nickname;
-            var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
-            
-            // 닉네임과 버튼을 중앙 정렬하여 추가
-            tag += "<div class='row mb-3 justify-content-center'>" +
-                "<div class='room col-6 text-center'>" + "<span class='h3'>" + (isMyChat ? nickName + "(나)" : nickName) + "</span>" + "</div>" +
-                "<div class='go col-6 text-center'>" +
-                (isMyChat ? "<button type='button' class='btn pie-btn-red'' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>" : "<button type='button' class='btn pie-btn-red' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>") +
-                "</div>" +
-                "</div>";
-        });
-
-        $("#roomList").append(tag); // 방 목록 업데이트
-    }
-}
+		
+		function createChatingRoom(res) {
+		    if (res != null) {
+		        var tag = "";
+		        var sessionNick = $("#realNick").val(); // 현재 세션의 닉네임 가져오기
+		        res.forEach(function (d, idx) {
+		            var roomNumber = d.roomNumber;
+		            var nickName = d.nickname;
+		            var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
+		            
+		            // 닉네임과 버튼을 중앙 정렬하여 추가
+		            tag += "<div class='row mb-3 justify-content-center'>" +
+		                "<div class='room col-6 text-center'>" + "<span class='h3'>" + (isMyChat ? nickName + "(나)" : nickName) + "</span>" + "</div>" +
+		                "<div class='go col-6 text-center'>" +
+		                (isMyChat ? "<button type='button' class='btn pie-btn-red'' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>" : "<button type='button' class='btn pie-btn-red' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>") +
+		                "</div>" +
+		                "</div>";
+		        });
+		
+		        $("#roomList").append(tag); // 방 목록 업데이트
+		    }
+		}
 
 
 		function commonAjax(url, parameter, type, calbak, contentType) {

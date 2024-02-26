@@ -110,7 +110,8 @@ public class ChatController {
 	/* 방 생성하기 @param params @return  */
 	@RequestMapping("/createRoom")
 	public @ResponseBody List<ChatRoomUserDto> createRoom(@RequestParam HashMap<Object, Object> params,
-			HttpServletRequest request) {
+			
+		HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 
@@ -131,6 +132,8 @@ public class ChatController {
 		 System.out.println("memList : " + memList); System.out.println("mems : " +  mems); System.out.println("============================");
 
 		 int roomNumber = dao.insertRoom(managerMemId, userId);
+		 int roomNumber2 = dao.insertRoom(userId, managerMemId);
+		 
 //	 	dao.insertRoomUser(roomNumber, userId);
 //
 //		List<RoomDto> myRooms = new ArrayList<>();
