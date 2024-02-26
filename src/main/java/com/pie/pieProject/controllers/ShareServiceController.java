@@ -254,10 +254,12 @@ public class ShareServiceController {
 		// 뷰 이름 반환
 		return "pieContents/shareService/shareServiceApply";
 	}
-
-
-//	@GetMapping("/modal")
-//    public String getModalTemplate() {
-//        return "pieContents/shareServiceProduct"; // 모달 템플릿의 이름을 반환합니다.
-//    }
+	/**********************admin 게시글 관리**********************/
+	@RequestMapping("/shareServiceBoardConsole")
+	public String boardConsole(Model model) {
+		List<ShareServiceDto> list = dao.getBoardList();
+		
+		model.addAttribute("list", list);
+		return "pieContents/shareService/shareServiceBoardConsole";
+	}
 }

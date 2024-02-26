@@ -8,7 +8,4 @@ import com.pie.pieProject.DTO.SubScribeDTO;
 @Mapper
 public interface ISubscribeDAO {
 	public void insertSubScribe(SubScribeDTO dto);
-	public MemberDto updatePremium(String premium);
-	public MemberDto selectMember(int num);
-	
 }

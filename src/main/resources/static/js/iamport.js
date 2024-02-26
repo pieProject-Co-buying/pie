@@ -140,8 +140,8 @@ function kakaoPay() {
 						"pay_uid": rsp.imp_uid,
 						"pay_method": "kakaoPay",
 						"pay_Merchant_uid": makeMerchantUid,
-						"payName": Title,
-						"payAmount": Price,
+						"pay_name": Title,
+						"pay_amount": Price,
 						"pay_category": category
 					}
 					$.ajax({
