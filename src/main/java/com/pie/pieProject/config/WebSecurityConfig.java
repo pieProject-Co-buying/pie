@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
 				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm","/findID","/findIdAction","/findPW","/findPwAction","/changePwAction").permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
-						"/outMember","/complete")
+						"/outMember","/complete","/shareServiceBoardConsole","/shareServiceApplyConsole","/searchBuyerName")
 				.authenticated()
 				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct", "/deleteTownProduct",
 						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying",
@@ -42,7 +42,7 @@ public class WebSecurityConfig {
 						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",
 						"/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
 						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
-						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm","/proxyApplyFormUpload", "/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate", "/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult")
+						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm","/proxyApplyFormUpload", "/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate", "/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult","/shareServiceBoardConsole","/shareServiceApplyConsole","/searchBuyerName")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService")

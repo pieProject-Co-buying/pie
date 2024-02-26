@@ -17,8 +17,8 @@ public class PaymentDTO {
 	private String pay_uid; // 고유번호
     private String pay_method; // 결제수단
     private String pay_Merchant_uid; // 제품 코드
-    private String payName; // 제품 이름
-    private String payAmount; // 제품 가격
+    private String pay_name; // 제품 이름
+    private String pay_amount; // 제품 가격
     private String pay_num; // 게시물 번호
     private String pay_category; // 카테고리
     private String pay_date; // 구매일자
