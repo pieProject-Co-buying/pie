@@ -32,28 +32,32 @@ public class WebSecurityConfig {
 
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
-				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm","/findID","/findIdAction","/findPW","/findPwAction","/changePwAction").permitAll()
+				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm", "/findID",
+						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm")
+				.permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
-						"/outMember","/complete","/shareServiceBoardConsole","/shareServiceApplyConsole","/searchBuyerName")
+						"/outMember", "/complete", "/shareServiceBoardConsole", "/shareServiceApplyConsole",
+						"/searchBuyerName")
 				.authenticated()
-				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct", "/deleteTownProduct",
-						"/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard", "/townBuying",
-						"/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm", "/updateProxyAction",
-						"/deleteProxyAction", "/updateShareBoardForm", "/boardList", "/updateShareBoard",
-						"/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
+				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct",
+						"/deleteTownProduct", "/searchTownBuy", "/townBuyingCategoryChoice", "/writeTownBoard",
+						"/townBuying", "/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm",
+						"/updateProxyAction", "/deleteProxyAction", "/updateShareBoardForm", "/boardList",
+						"/updateShareBoard", "/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
 						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
-						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm","/proxyApplyFormUpload", "/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate", "/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult","/shareServiceBoardConsole","/shareServiceApplyConsole","/searchBuyerName")
+						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm", "/proxyApplyFormUpload",
+						"/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate",
+						"/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult", "/shareServiceBoardConsole",
+						"/shareServiceApplyConsole", "/searchBuyerName", "/Follwing")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService")
-				.permitAll().requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**")
-				.authenticated())
-		.formLogin(login -> login.loginPage("/login") // 처리)
-						.usernameParameter("id")
-						.passwordParameter("password")
-						.loginProcessingUrl("/auth") // POST 요청
-						.defaultSuccessUrl("/")
-						.successHandler(customAutenticationSuccess)
+				.permitAll()
+				.requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/test",
+						"/search")
+				.authenticated()).formLogin(login -> login.loginPage("/login") // 처리)
+						.usernameParameter("id").passwordParameter("password").loginProcessingUrl("/auth") // POST 요청
+						.defaultSuccessUrl("/").successHandler(customAutenticationSuccess)
 						.failureHandler(loginFailHandler())// 로그인 실패 시 처리하는 핸들러 등록.
 						.permitAll())
 				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/")
@@ -71,8 +75,7 @@ public class WebSecurityConfig {
 								response.sendRedirect("/login");
 							}
 						}).deleteCookies("remember-me"))
-				.csrf(csrf -> csrf
-						.ignoringRequestMatchers("/error")
+				.csrf(csrf -> csrf.ignoringRequestMatchers("/error")
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 
 				)// logout에 성공하면 /로 redirect

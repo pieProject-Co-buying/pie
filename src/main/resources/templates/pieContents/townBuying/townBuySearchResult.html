@@ -2,6 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
 <div layout:fragment="townBuyContent" class="col">
 
@@ -37,7 +41,6 @@
 
 		<div class="container mt-5">
 
-
 			<div class="row mb-2 mb-lg-5 flex-wrap">
 
 				<div class="col-12 col-lg-3 mb-lg-0 mb-3">
@@ -56,7 +59,6 @@
 
 							<a class="btn dropdown-toggle" href="#" role="button"
 								data-toggle="dropdown" aria-expanded="false">카테고리 </a>
-
 							<div class="dropdown-menu">
 								<a class="dropdown-item" data-category="">전체</a> <a
 									class="dropdown-item" data-category="food">식품</a> <a
@@ -101,8 +103,7 @@
 
 					<ul class="list-unstyled">
 
-						<a
-							th:href="@{'searchTownBuy?category=&townKeyword=' + ${key}}"
+						<a th:href="@{'searchTownBuy?category=&townKeyword=' + ${key}}"
 							class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
 							<li class="mb-2" th:text="|전체(${list.size()}건)|">전체 (n건)</li>
 						</a>
@@ -239,18 +240,13 @@
 												class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
 										</div>
 
-
 									</div>
 
-
 								</div>
-
 
 							</div>
 
 						</div>
-
-
 
 					</div>
 
@@ -258,27 +254,72 @@
 
 
 
-
-
-
-
-
-
 				</div>
 
-
-
-
-
 			</div>
+
+			<div class="row">
+				<div class="col">
+					<h1>동일제품 가격비교!</h1>
+					<p>현재 쇼핑몰에서 판매중인 상품과 가격비교해서 똑똑하고 알뜰하게 구매하세요!</p>
+				</div>
+			</div>
+			<div class="row row-cols-1 row-cols-md-5" id="serachResult"></div>
+
+
+			<script>
+				$(function() {
+					const token = $("meta[name='_csrf']").attr("content")
+					const header = $("meta[name='_csrf_header']").attr(
+							"content");
+					let keyWord = $("#townKeyword").val();
+					console.log(keyWord);
+
+					$
+							.ajax({
+								method : 'POST',
+								url : '/search',
+								contentType : 'application/json',
+								data : keyWord,
+								beforeSend : function(xhr) {
+									xhr.setRequestHeader(header, token);
+								},
+								success : function(response) {
+									const jsonData = JSON.parse(response);
+									console.log('전송 성공', jsonData);
+									$
+											.each(
+													jsonData.items,
+													function(index, item) {
+														$('#serachResult')
+																.append(
+																		'<div class="col mb-4"><a href="'+item.link+'" class="card"><img src="'+ item.image +'" class="card-img-top" alt="..."><div class="card-body"><h5 class="card-title">'
+																				+ item.title
+																				+ '</h5><p class="card-text">'
+																				+ item.lprice
+																				+ '</p></div></a></div>');
+													});
+								},
+								error : function(xhr, desc, err) {
+									console.error('전송 실패', err);
+								}
+							});
+
+				})
+			</script>
 
 			<script>
 				// 선택한 카테고리 보여지게 하는 기능
 
 				$(function() {
-					$("#selectCategory .dropdown-toggle").text(
-							$("[data-category=" + $("#category").val() + "]")
-									.text())
+					if ($("#category").val() != null
+							&& $("#category").val() != "") {
+						$("#selectCategory .dropdown-toggle").text(
+								$(
+										"[data-category="
+												+ $("#category").val() + "]")
+										.text())
+					}
 				})
 
 				$(document).on(
@@ -291,6 +332,7 @@
 							$("#category").val($(this).attr("data-category"));
 						});
 			</script>
+
 
 
 

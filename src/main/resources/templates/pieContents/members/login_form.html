@@ -13,7 +13,8 @@
 
 	<div class="row">
 		<div class="col">
-			<div class="alert alert-danger" role="alert" th:if="${param.error!=null}" th:text="${param.exception}"></div>
+			<div class="alert alert-danger" role="alert"
+				th:if="${param.error!=null}" th:text="${param.exception}"></div>
 		</div>
 	</div>
 
@@ -38,6 +39,13 @@
 		</div>
 		<button class="btn pie-btn-red btn-block mt-3" type="submit">로그인</button>
 	</form>
+
+	<div class="text-center">
+		<a href="https://kauth.kakao.com/oauth/authorize"
+			th:href="@{https://kauth.kakao.com/oauth/authorize(client_id=${kakaoApiKey}, redirect_uri=${redirectUri}, response_type='code')}">
+			<img src="/imgs/kakao_login_medium_wide.png">
+		</a>
+	</div>
 
 	<div class="row mt-3">
 		<div class="col d-flex justify-content-center">
