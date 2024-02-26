@@ -18,10 +18,12 @@
 
 				<div id="container" class="container">
 
-
-
-					<h1 class="mb-5 text-center text-md-left">함께해요 파이채팅</h1>
-
+					<div clas="row">
+						<img src="imgs/logo_color_C_red.png" class="col-6 offset-3 d-md-none">
+						<h1 class="mb-5 text-center text-md-left">함께해요 파이채팅</h1>
+					</div>
+					
+					
 					<div class="row mb-3">
 
 						<div class="col">
@@ -29,13 +31,16 @@
 
 							<input type="hidden" id="userId" th:value="${session.userId}">
 							<input type="hidden" id="sessionId" th:value="${session.nickName}">
-							<input type="hidden" id="roomNumber" th:value="${roomNumber}">
-							<input type="hidden" id="mem1" th:value="${param.mem1}">
-							<input type="hidden" id="mem2" th:value="${param.mem2}">
+							<input type="hidden" id="roomNumber" th:value="${roomInfo.roomNumber}">
+							<input type="hidden" id="mem1" th:value="${roomInfo.joinMemNickname}">
+							<input type="hidden" id="mem2" th:value="${roomInfo.managerMemNickname}">
 							<input type="hidden" id="sendDate" th:value="${sendDate}">
 							<input type="hidden" id="realNick" th:value="${session.nickName}">
+							<input type="hidden" id="roomName" th:value="${session.roomName}">
+								
 
-
+	
+							<p class="text-center text-md-right" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
 							<div id="chating" class="chating border py-2 px-2 rounded shadow">
 
 
@@ -50,8 +55,7 @@
 										<!-- 내가보낸 대화목록 -->
 										<div class='me d-flex w-100 justify-content-end my-2'>
 
-											<div
-												class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+											<div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
 												<p class='w-100' th:text="${message.message}"></p>
 											</div>
 
@@ -65,12 +69,12 @@
 
 
 
-									<div th:unless="${session.nickName == message.sender}">
+									<div th:unless="${session.nickName == message.sender}" >
 
 
 										<!-- 상대방이 보낸 대화목록 -->
 										<div class='others w-100 text-left my-2'>
-											<div class='mb-2' th:text="${message.sender}"></div> <!-- sender -->
+											<div class='mb-2 chatBallon' th:text="${message.sender}"></div> <!-- sender -->
 											<div
 												class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
 												<p class='w-100' th:text="${message.message}"></p>
@@ -86,9 +90,6 @@
 
 
 								</div>
-
-
-
 
 
 							</div>
@@ -111,8 +112,6 @@
 							<input type="text" name="userName" id="userName" placeholder="" class="form-control"
 								th:value="${session.nickName}" readonly>
 
-
-
 						</div>
 
 						<div class="inputTable col-3">
@@ -123,10 +122,6 @@
 
 
 					</div>
-
-
-
-
 
 
 					<div id="yourMsg" class="row">
@@ -146,26 +141,16 @@
 						</div>
 
 					</div>
-
+					
+					
+					<div class="row mt-4">
+						<div class="col">
+							<button  onclick="goBack()" id="goBack" class="btn pie-btn-red w-100">뒤로가기</button>
+						</div>
+					</div>
 
 
 				</div>
-
-
-
-				<!-- 메모 
-		
-		채팅창 옆에 대화목록 보여지게 해야함... 레이아웃에서 수정..?
-		레이아웃에 
-		
-		파라미터  roomName은 대화할 상대로 받을 것
-		
-		
-		
-		-->
-
-
-
 
 			</div> <!-- col -->
 
@@ -173,22 +158,11 @@
 
 	</div> <!-- container-fluid -->
 
-
-
-	<!-- @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
-	<!-- 카드크기 줄이고싶어요!!!!! 카드로 해야 깔끔한 카드로 줬어요 -->
-	<!-- max-width 화면 %로 지정하고 글씨 갯수에 따라 늘어나게 하고 싶어요 카카오톡 처럼요 -->
-	<!-- 이렇다면 div줘도 상관없을듯 하긴하네요 -->
-
-
-
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-		crossorigin="anonymous"></script>
-
+	<script>
+		function goBack() {
+		    window.history.back(); // 뒤로가기
+		}
+	</script>
 
 	<script>
 
@@ -223,7 +197,11 @@
 
 
 		// WebSocket 서버 URL
-		var webSocketUrl = "ws://" + location.host + "/chating";
+		var webSocketUrl = "ws://" + location.host + "/chating" 
+			+ "?roomNumber=" + $('#roomNumber').val() 
+			+ "&sessionId=" + $('#sessionId').val()
+			+ "&mem1=" + $('#mem1').val()
+			+ "&mem2=" + $('#mem2').val();
 
 		// WebSocket 연결
 		var ws = new WebSocket(webSocketUrl);
@@ -283,13 +261,14 @@
 						
 						if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
 							/* 세션아이디 일치 ==> 내가 입력할시 */
-							console.log(d.sessionId);
-							console.log($("#sessionId").val());
+							console.log("여기" + d.sessionId);
+							console.log("여기" + $("#sessionId").val());
+							
 							console.log(d.sessionId == $("#sessionId").val())
 							if (d.sessionId == $("#sessionId").val()) {
 								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
 							} else {
-								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
 							}
 						}
 
@@ -299,6 +278,7 @@
 						console.warn("unknown type!")
 					}
 				}
+				
 
 			}
 		}
@@ -330,6 +310,7 @@
 		function send() {
 
 			var option = {
+				
 				type: "message",
 				sessionId: $("#sessionId").val(),
 				roomNumber: $("#roomNumber").val(),
@@ -348,10 +329,6 @@
 		}
 
 
-
-
 	</script>
-
-
 
 </html>

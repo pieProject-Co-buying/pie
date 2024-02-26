@@ -1,3 +1,16 @@
+
+-- 신규 테이블 추가
+create table chatRoom (
+  roomNumber NUMBER PRIMARY KEY,
+  managerMemNum VARCHAR2(16),
+  joinMemNum VARCHAR2(16),
+  foreign key (managerMemNum) references member_user (id),
+  foreign key (joinMemNum) references member_user (id)
+
+)
+
+
+
 create table pie_messages (
     roomName varchar(200) not null,
     roomNumber varchar(200) not null,
@@ -20,7 +33,6 @@ select * from pie_messages;
 
 
 commit;
-
 
 
 
