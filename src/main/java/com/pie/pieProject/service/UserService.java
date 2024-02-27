@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pie.pieProject.DAO.IMemberAuthDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DTO.MemberDto;
 
@@ -16,6 +17,8 @@ public class UserService {
 
 	@Autowired
 	private IMemberDao mdao;
+	@Autowired
+	private IMemberAuthDao adao;
 
 	public List<MemberDto> getUserList() {
 		return mdao.getUserList();
@@ -28,4 +31,9 @@ public class UserService {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+	
+	public String getAuth(String id) {
+		return adao.findAuth(id);
+	}
 }
+

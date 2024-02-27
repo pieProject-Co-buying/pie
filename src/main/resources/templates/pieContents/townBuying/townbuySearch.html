@@ -40,9 +40,10 @@
 
 		<div class="container mb-5">
 
-			<form action="searchTownBuy" class="pie-search mb-4" method="get"
+			<form action="searchProducts" class="pie-search mb-4" method="get"
 				name="searchForm">
 				<input type="hidden" name="category" id="category" />
+				<input type="hidden" name="table" value="t" />
 
 				<div class="dropdown" id="selectCategory">
 
@@ -77,13 +78,8 @@
 
 				<!-- 클릭시 검색어 자동 완성 -->
 				<div class="col text-center">
-
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
+				
+					<a th:each = "keyWord : ${bestKey}" type="button" class="m-1" th:href="@{'searchTownBuy?category=&townKeyword='+${keyWord}}" th:text="|#${keyWord}|"></a>
 
 				</div>
 

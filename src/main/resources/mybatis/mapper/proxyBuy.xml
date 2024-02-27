@@ -23,7 +23,12 @@
 		where ROWNUM <![CDATA[ <= ]]> 5
 	</select>
 	
-	
+	<select id="searchDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_title like
+		'%${param1}%' or
+		to_content like '%${param1}%' or to_tag like '%${param1}%'
+	</select>
 	
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/townBuying}">
+	layout:decorate="~{layouts/proxyBuying}">
 <head>
 <meta name="_csrf" th:content="${_csrf.token}" />
 <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </head>
 
-<div layout:fragment="townBuyContent" class="col">
+<div layout:fragment="proxyBuyContent" class="col">
 
 
 	<!-- #################################################
@@ -50,16 +50,16 @@
 
 				<div class="col-12 col-lg-9">
 
-					<form action="searchProducts" class="pie-search" method="get"
+					<form action="searchProducts" class="pie-search mb-4" method="get"
 						name="searchForm">
-						<input type="hidden" name="category" id="category"
-							th:value="${param.category}" /> <input type="hidden"
-							name="table" value="t" />
+						<input type="hidden" name="category" id="category" /> <input
+							type="hidden" name="table" value="p" />
 
 						<div class="dropdown" id="selectCategory">
 
 							<a class="btn dropdown-toggle" href="#" role="button"
 								data-toggle="dropdown" aria-expanded="false">카테고리 </a>
+
 							<div class="dropdown-menu">
 								<a class="dropdown-item" data-category="">전체</a> <a
 									class="dropdown-item" data-category="food">식품</a> <a
@@ -73,9 +73,13 @@
 
 
 						</div>
+
 						<input type="text" name="townKeyword" id="townKeyword"
 							class="flex-fill" th:value="${param.townKeyword}">
+
+
 						<button type="submit"></button>
+
 					</form>
 
 				</div>
@@ -228,7 +232,7 @@
 									<div class="col-12 col-md-6">
 
 										<img
-											th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+											th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
 											alt="" class="img-fluid">
 
 									</div>
@@ -236,10 +240,10 @@
 									<div class="col-12 col-md-6">
 
 										<div class="card-body">
-											<h3 th:text="${board.getTo_title()}"></h3>
-											<p class="" th:utext="${board.getTo_content()}">.</p>
+											<h3 th:text="${board.getPr_title()}"></h3>
+											<p class="" th:utext="${board.getPr_content()}">.</p>
 
-											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
+											<a th:href="@{'townBuyproduct?num=' + ${board.getPr_num()}}"
 												class="btn btn-outline-dark">같이 사러가기 &raquo;</a>
 										</div>
 

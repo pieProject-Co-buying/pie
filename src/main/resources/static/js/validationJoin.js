@@ -74,7 +74,7 @@
 				let input = this.value.trim();
 
 				// 유효성 검증을 위한 정규식 패턴
-				let pattern = /^[a-zA-Z0-9_-]{5,16}$/;
+				let pattern = /^(?!admin)[a-zA-Z0-9_-]{5,16}$/;
 
 				// 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
 				if (input === "") {

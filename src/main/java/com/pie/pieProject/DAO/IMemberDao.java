@@ -30,7 +30,6 @@ public interface IMemberDao {
 	public int initPassword(String pw, String Id);
 
 	/* public UserDetails getLogInfo(String id); */
-	public ArrayList<String> getAuthList(String id);
 	public List<MemberDto> getUserList();
 
 
