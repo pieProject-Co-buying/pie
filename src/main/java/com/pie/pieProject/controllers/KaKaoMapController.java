@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 public class KaKaoMapController {
@@ -32,11 +33,14 @@ public class KaKaoMapController {
 	IMemberDao mdao;
 	@Autowired
 	ITownBuyBoardDao tdao;
+	@Value("${kakao.api.key}")
+	String apiKey;
+
 
 	@RequestMapping(value = "/map", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public ResponseEntity<String> getKaKaoApiFromAddress(@RequestParam("nowlogin") String userId,
 			HttpServletRequest request) {
-		String apiKey = "6f3d6128e4f2b81a8c824eac48c5f3e6";
+		
 		String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json";
 		String jsonString = null;
 		MemberDto mdto = mdao.find(userId);
@@ -110,10 +114,4 @@ public class KaKaoMapController {
 
 		return ResponseEntity.ok(obj.toJSONString());
 	}
-
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
-	}
-
 }

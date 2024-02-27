@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.Secure.SHA256;
+import com.pie.pieProject.DTO.KakaoApi;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.components.BoardComp;
 
@@ -35,14 +36,19 @@ public class MemberController {
 	IMemberDao dao;
 	@Autowired
 	BoardComp bcomp;
+	@Autowired
+	KakaoApi kakaoApi;
 
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\profiles";
 
 	@GetMapping("/login")
-	public String loginPage(HttpServletRequest request) {
+	public String loginPage(HttpServletRequest request, Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		model.addAttribute("kakaoApiKey", kakaoApi.getKakaoApiKey());
+		model.addAttribute("redirectUri", kakaoApi.getKakaoRedirectUri());
+		
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "pieContents/members/login_form";
 		}
@@ -52,6 +58,10 @@ public class MemberController {
 	@GetMapping("/loginForm")
 	public String loginForm(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "exception", required = false) String exception, Model model) {
+		
+		model.addAttribute("kakaoApiKey", kakaoApi.getKakaoApiKey());
+		model.addAttribute("redirectUri", kakaoApi.getKakaoRedirectUri());
+		
 		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
 

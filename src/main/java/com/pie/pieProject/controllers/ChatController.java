@@ -18,8 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pie.pieProject.DAO.IChatDao;
-
+import com.pie.pieProject.DAO.IFriendDao;
 import com.pie.pieProject.DTO.*;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,6 +34,12 @@ public class ChatController {
 
 	@Autowired
 	IChatDao dao;
+	
+	@Autowired
+	IFriendDao fdao;
+	
+	@Autowired
+	BoardComp bcomp;
 
 	List<RoomDto> roomList = new ArrayList<RoomDto>();
 	static int roomNumber = 0;
@@ -99,9 +106,12 @@ public class ChatController {
 		/* String userId = (String)session.getAttribute("userId"); */
 //		String userId = (String) session.getAttribute("nickName");
 		String buyerId = request.getParameter("mem");
-		 
+		List<MemberDto> friendsList = fdao.friendsList(bcomp.getSession(request, "userId"));
+		
+		
+		
 		 model.addAttribute("roomList", dao.roomListByID(buyerId));
-		 
+		 model.addAttribute("fl",friendsList);
 		model.addAttribute("you", buyerId);
 
 		return mv;
