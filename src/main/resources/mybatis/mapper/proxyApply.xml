@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pie.pieProject.DAO.IProxyApplyDao">
+
+	<select id="listDaoByNewer"
+		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
+		select * from proxyApplyBoard order by pr_registDay desc
+	</select>
+	<select id="getView">
+		select * from proxyApplyBoard where pr_num = #{param1}
+	</select>
+	<insert id="insertProxyBoard">
+		insert into proxyApplyBoard values(
+		pr_applyNum.nextval,
+		#{pr_id},
+		#{pr_nickname},
+		#{pr_category},
+		#{pr_title},
+		#{pr_content},
+		#{pr_profileImg},
+		#{pr_productImg},
+		0,
+		sysdate,
+		sysdate,
+		sysdate,
+		#{pr_ip},
+		#{pr_URL}
+		)
+	</insert>
+	<update id="updateProxyBoard">
+		update proxyApplyBoard set pr_category=#{pr_category}, pr_title=#{pr_title}, pr_URL=#{pr_URL},
+		pr_content=#{pr_content}, pr_productImg=#{pr_productImg}, pr_ip=#{pr_ip}, pr_updateDay=sysdate where pr_num=#{pr_num}
+	</update>
+	<delete id="deleteProxyBoard">
+		delete proxyApplyBoard where pr_num = #{param1}
+	</delete>
+	<update id="updateState">
+		update proxyApplyBoard set pr_process = #{pr_process}, pr_chkDay = sysdate where pr_num= #{pr_num}
+	</update>
+	<!-- 현재 인원 증가 -->
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pie.pieProject.DAO.IProxyBuyDao">
+	<select id="listDao"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+
+		select * from proxyBuyBoard order by pr_num desc
+	</select>
+	<select id="listDaoByNewer"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard order by pr_registDay desc
+	</select>
+	<select id="listDaoByNewerNumber"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from ( select * from proxyBuyBoard order by pr_registDay desc)
+		where ROWNUM <![CDATA[ <= ]]> #{param1}
+	</select>
+	
+	<select id="listDaoByFavorite"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from ( select * from proxyBuyBoard order by pr_like desc, pr_hit desc)
+		where ROWNUM <![CDATA[ <= ]]> 5
+	</select>
+	
+	
+	
+	<select id="listDaoByCategory"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard where pr_category=#{param1} order by
+		pr_updateDay desc
+	</select>
+	<select id="listDaoByCategoryNumber"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from (select * from proxyBuyBoard where pr_category=#{param1}
+		order by pr_updateDay desc) where ROWNUM <![CDATA[ <= ]]> #{param2}
+	</select>
+	<select id="getView">
+		select * from proxyBuyBoard where pr_num = #{param1}
+	</select>
+	<insert id="insertProxyBoard">
+		insert into proxyBuyBoard values(
+		pr_num.nextval,
+		#{pr_id},
+		#{pr_nickname},
+		#{pr_category},
+		#{pr_title},
+		#{pr_content},
+		#{pr_profileImg},
+		#{pr_productImg},
+		0,
+		#{pr_tag},
+		'1',
+		sysdate,
+		sysdate,
+		TO_DATE(#{pr_deadLine}, 'YYYY-MM-DD'),
+		#{pr_personnelMax},
+		1,
+		#{pr_priceTotal},
+		#{pr_pricePer},
+		#{pr_ip},
+		0
+		)
+	</insert>
+	<update id="updateHit">
+		update proxyBuyBoard set pr_hit = pr_hit+1 where pr_num = #{param1}
+	</update>
+	<update id="updateProxyBoard">
+		update proxybuyboard set pr_category=#{pr_category}, pr_title=#{pr_title},
+		pr_content=#{pr_content}, pr_productImg=#{pr_productImg}, pr_tag=#{pr_tag},
+		pr_deadLine=TO_DATE(#{pr_deadLine}, 'YYYY-MM-DD'), pr_personnelMax=#{pr_personnelMax},
+		pr_priceTotal=#{pr_priceTotal}, pr_pricePer=#{pr_pricePer}, pr_ip=#{pr_ip}, pr_updateDay=sysdate where pr_num=#{pr_num}
+	</update>
+	<delete id="deleteProxyBoard">
+		delete proxyBuyBoard where pr_num = #{param1}
+	</delete>
+	<!-- 현재 인원 증가 -->
+	<update id="updateNow">
+		update proxyBuyBoard set pr_personnelNow = pr_personnelNow + 1 where pr_num = #{param1}
+	</update>
+	<!--  -->
+	<update id="maxChk">
+		update proxyBuyBoard set pr_process = '0' where pr_num = #{param1}
+	</update>
+</mapper>

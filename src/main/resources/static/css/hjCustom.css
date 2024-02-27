@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+/*All height 100vh*/
+.hyej-h100vh {
+	height: 100vh;
+}
+
+/*캐로셀 관련 커스텀-Main*/
+.hyej-carousel-custom {
+	width: 150%;
+	left: -25%;
+	height: 500px;
+}
+
+.hyej-carousel-custom .owl-item {
+	height: 500px;
+	border-radius: 50px;
+}
+
+/*캐로셀 이미지-Main*/
+#headerCarousel .carousel-item:nth-of-type(1) {
+	background: url("../imgs/carouselimg1.png") center/cover no-repeat;
+}
+
+#headerCarousel .carousel-item:nth-of-type(2) {
+	background: url("../imgs/carouselimg2.png") center/cover no-repeat;
+}
+
+#headerCarousel .carousel-item:nth-of-type(3) {
+	background: url("../imgs/carouselimg3.png") center/cover no-repeat;
+}
+
+/*가입약관*/
+#joinTerms {
+	height: 100px;
+	overflow-y: scroll;
+}
+
+/*가입약관 스크롤바*/
+#joinTerms::-webkit-scrollbar {
+	width: 8px;
+}
+
+#joinTerms::-webkit-scrollbar-thumb {
+	background-color: var(--darkgray);
+	border-radius: 10px;
+	background-clip: padding-box;
+	border: 2px solid transparent;
+}
+
+#joinTerms::-webkit-scrollbar-track {
+	background-color: var(--lightgray);
+}
+
+/*베스트 상품 갤러리 - proxyBuyContent*/
+.hyej-best-gallery>[class*=col-] {
+	position: relative;
+}
+
+.hyej-best-gallery .col-md-6:not(:has(.hyej-customCard)) img {
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
+	object-position: center;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	position: relative;
+}
+
+.hyej-best-gallery .col-md-12 img {
+	height: 120px;
+}
+
+.hyej-customCard{
+	height: 100%;
+	width: 100%;
+/* 	border: 1px solid #000; */
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+/* .hyej-best-gallery .col-md-12:after, .hyej-best-gallery .col-md-6:nth-of-type(1):hover:after
+	{
+	content: "베스트 상품";
+	padding: 20px;
+	color: #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	background: rgba(0, 0, 0, 0.5);
+} */
+
+.hyej-best-gallery .col-md-6:nth-of-type(1):hover:after {
+	width: calc(100% - 30px);
+	left: 15px;
+}
+
+/*대리구매 메인 갤러리 - proxyBuy메인*/
+.hyej-info-gallery img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.hyej-proxytitle {
+	width: 100%;
+	height: 30vh;
+	max-height: 320px;
+	-webkit-border-radius: 30px; -moz-border-radius : 30px; border-radius :
+	30px;
+	position: relative;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+.hyej-info-gallery .col-lg-6 {
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+.hyej-info-gallery .col-lg-6:nth-of-type(1) .hyej-proxytitle {
+	background: url(../imgs/proxy_title1-01.png) center/100% auto no-repeat;
+}
+
+.hyej-info-gallery .col-lg-6:nth-of-type(2) .hyej-proxytitle {
+	background: url(../imgs/proxy_title2-01.png) center/100% auto no-repeat;
+}
+
+.hyej-proxytitle h2 {
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+	font-size: 3rem;
+}
+
+.hyej-proxytitle .btn {
+	color: #fff;
+	border: 1px solid white;
+}
+
+.hyej-info-gallery .col-6:nth-of-type(1) .hyej-proxytitle:hover .btn {
+	color: var(--red);
+	background: #fff;
+}
+
+.hyej-info-gallery .col-6:nth-of-type(2) .hyej-proxytitle:hover .btn {
+	color: #f7941d;
+	background: #fff;
+}
+
+@media screen and (max-width: 999px) {
+	/*캐로셀 관련 커스텀-Main*/
+	.hyej-carousel-custom {
+		width: 100%;
+		left: 15px;
+		height: 500px;
+	}
+}

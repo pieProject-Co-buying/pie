@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/shareService}">
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="shareServiceContent">
+	<!--------------------------타이틀 텍스트-------------------------->
+	<div class="container mt-5 mb-5">
+		<div class="row">
+			<div class="col-12 border-bottom">
+				<h5>게시물 수정</h5>
+			</div>
+		</div><!--row-->
+	</div><!--container-->
+	<!--------------------------입력란-------------------------->
+	<div class="container border p-3 mb-5">
+		<div class="row">
+			<div class="col-md-3">
+				<div>제목</div>
+				<div>내용</div>
+				<div>가격</div>
+				<div>참여인원</div>
+				<div>모집마감일</div>
+				<div>이미지</div>
+			</div><!--col-->
+			<div class="form">
+				<form action="">
+					<div>
+						<label for="title" class="mr-5"></label>
+						<input type="text" class="form-control w-50" id="title">
+					</div>
+				</form>
+			</div>
+		</div><!--row-->
+	</div><!--container-->
+</div>
