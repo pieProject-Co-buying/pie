@@ -1,23 +1,25 @@
 package com.pie.pieProject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
+import com.pie.pieProject.DTO.PaymentDTO;
+import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShareServiceController {
@@ -260,6 +262,34 @@ public class ShareServiceController {
 		List<ShareServiceDto> list = dao.getBoardList();
 		
 		model.addAttribute("list", list);
+		return "pieContents/shareService/shareServiceBoardConsole";
+	}
+	@RequestMapping("/adminPage")
+	public String adminPage(@RequestParam("page") int page, Model model) {
+		List<PaymentDTO> allList = Pdao.paymentList();
+
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) allList.size() / pageLimit);
+
+		/*
+		 * for (PaymentDTO dto : allList) {
+		 * dto.setPay_category(Bcomp.translate(dto.getPay_category())); }
+		 */
+		
+		List<PaymentDTO> list = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, allList.size());
+		System.out.println(minPage);
+		System.out.println(maxPage);
+
+		for (int i = minPage; i < maxPage; i++) {
+			list.add(allList.get(i));
+		}
+
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		return "pieContents/shareService/shareServiceBoardConsole";
 	}
 }

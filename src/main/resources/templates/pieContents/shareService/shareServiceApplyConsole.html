@@ -58,5 +58,29 @@
       </table>
     </div>
   </div>
+  <div class="container">
+  	<div class="row">
+  		<div class="col">
+  			<div class="row mt-5">
+			<div class="col d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="adminPage?page=1"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+						</a></li>
+						<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
+							<li class="page-item"><a class="page-link"
+								th:href="@{'adminPage?page='+${i}}" th:text="${i}"></a></li>
+						</th:block>
+						<li class="page-item"><a class="page-link" th:href="@{'adminPage?page='+${pageNum}}"
+							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+  		</div>
+  	</div>
+  </div>
 </div>
 </html>
