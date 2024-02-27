@@ -73,7 +73,9 @@
 								th:src="@{'imgs/profiles/'+${session.pic}}" alt=""
 								class="pie-profilePic mr-2"
 								onerror="this.onerror=null; this.src='imgs/default.png';" /><span
-								th:text="|${session.nickName}님 로그인중|" class=""></span></a>
+								th:text="|${session.nickName}님 로그인중|" class=""></span>
+								<span id="noti" class="badge badge-warning"></span>
+								</a>
 							<div class="dropdown-menu dropdown-menu-right">
 
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
@@ -156,12 +158,11 @@
 		$(function() {
 			connect();
 		});
-
+		
 		function showMessageNotification(message) {
 
 			// JSON 형식의 메시지 파싱
 			var jsonData = JSON.parse(message);
-
 			// userId 값
 			var userName = jsonData.userName;
 			//roomNumber

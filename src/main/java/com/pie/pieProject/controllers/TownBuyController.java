@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,11 +35,16 @@ public class TownBuyController {
 	ILikeDao ldao;
 	@Autowired
 	IMemberDao mdao;
+	@Value("${kakao.api.mapkey}")
+	String kakaoMapApiKey;
+	
+
 
 	@RequestMapping("/townBuySearch")
 	public String toBoardList(HttpServletRequest request, Model model) {
 
 		model.addAttribute("list", dao.listDao());
+		
 		model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
 		model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
 		model.addAttribute("lifeList", dao.categoryDaoNum("life", 4));
@@ -46,6 +53,15 @@ public class TownBuyController {
 		 * String sP = request.getParameter("to_premium");
 		 * model.addAttribute("premiumList", dao.listPremiumDao());
 		 */
+		
+		
+		
+		
+
+		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4));
+		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4));
+		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4));
+		
 
 		return "pieContents/townBuying/townBuySearch";
 
@@ -244,6 +260,7 @@ public class TownBuyController {
 		List<TownBuyBoardDto> list = dao.listLocal(addr);
 		model.addAttribute("list", list);
 		model.addAttribute("now",mdto.getAddress_main());
+		model.addAttribute("Mapi",kakaoMapApiKey);
 		
 		return "pieContents/townBuying/townBuyMain";
 	}

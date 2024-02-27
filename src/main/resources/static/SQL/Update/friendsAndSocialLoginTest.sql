@@ -1,10 +1,28 @@
+create table friendTable(
+followingId varchar2(30),
+followedId varchar2(30)
+);
+
+select * from friendtable;
+
+drop table friendTable;
+
+commit;
+
+SELECT member_user.nickname
+		FROM friendTable
+		JOIN member_user ON friendTable.followedId = member_user.id;
+        
+SELECT member_user.nickname
+FROM friendTable
+JOIN member_user ON friendTable.followedId = member_user.id
+WHERE friendTable.followingid = 'test';
+
 -- member_user : 회원 데이터 베이스
-create table member_user
+create table socialmember_user
 (
     mem_num integer unique not null,
-    id       varchar2(16) primary key,
-    password varchar2(100) not null,
-    salt varchar2(40) not null,
+    id varchar2(200) not null,
     name     varchar2(51) not null,
     nickname varchar2(24) not null,
     gender varchar2(12) not null,
@@ -20,11 +38,3 @@ create table member_user
     preDate date default sysdate,
     preEndDate date default sysdate+30
 );
-
-select * from member_user;
-
-
-drop table member_user;
-drop sequence mem_seq;
-
-create sequence mem_seq nocache nocycle;

@@ -16,7 +16,7 @@
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 
-		select * from townBuyBoard where to_premium = #{param1}
+		select * from townBuyBoard where to_premium = 1 and to_category = #{param1}
 
 	</select>
 

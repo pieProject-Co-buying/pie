@@ -112,4 +112,9 @@ public class MainController {
 	public String townFormPage() {
 		return "pieContents/townBuying/townForm";
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		 return "pieContents/proxyBuying/test";
+	}
 }

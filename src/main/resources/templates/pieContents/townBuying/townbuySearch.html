@@ -225,29 +225,29 @@
 
 
 
-							<div class="carousel-item" th:each="board:${foodList}">
+							<div class="carousel-item" th:each="Fboard:${PFoodList}">
 
 								<div class="card hj-sub1-card-h">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										th:src="@{'/imgs/test/' + ${Fboard.getTo_productImg().substring(0,Fboard.getTo_productImg().indexOf('/'))}}"
 										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
 
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+										<h5 class="card-title" th:text="${Fboard.getTo_title()}">Card
 											title</h5>
 										<p class="card-text text-truncate"
-											th:utext="${board.getTo_content()}">Some quick example
+											th:utext="${Fboard.getTo_content()}">Some quick example
 											text to build on the card title and make up the bulk of the
 											card's content.</p>
 
 										<div class="text-right">
 											<a href="townBuyproduct" class="btn btn-outline-secondary"
-												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												th:href="@{'townBuyproduct?num=' + ${Fboard.getTo_num()}}">같이
 												사러가기 &raquo;</a>
 										</div>
 
@@ -304,28 +304,28 @@
 
 
 
-							<div class="carousel-item" th:each="board:${babyList}">
+							<div class="carousel-item" th:each="Bboard:${PBabyList}">
 
 								<div class="card hj-sub1-card-h">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										th:src="@{'/imgs/test/' + ${Bboard.getTo_productImg().substring(0,Bboard.getTo_productImg().indexOf('/'))}}"
 										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+										<h5 class="card-title" th:text="${Bboard.getTo_title()}">Card
 											title</h5>
 										<p class="card-text text-truncate"
-											th:utext="${board.getTo_content()}">Some quick example
+											th:utext="${Bboard.getTo_content()}">Some quick example
 											text to build on the card title and make up the bulk of the
 											card's content.</p>
 
 										<div class="text-right">
 											<a class="btn btn-outline-secondary"
-												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												th:href="@{'townBuyproduct?num=' + ${Bboard.getTo_num()}}">같이
 												사러가기 &raquo;</a>
 										</div>
 
@@ -372,29 +372,29 @@
 
 
 
-							<div class="carousel-item" th:each="board:${lifeList}">
+							<div class="carousel-item" th:each="Lboard:${PLifeList}">
 
 								<div class="card hj-sub1-card-h">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										th:src="@{'/imgs/test/' + ${Lboard.getTo_productImg().substring(0,Lboard.getTo_productImg().indexOf('/'))}}"
 										class="card-img-top  hj-sub1-card-part-h img-fluid" alt="...">
 
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${board.getTo_title()}">Card
+										<h5 class="card-title" th:text="${Lboard.getTo_title()}">Card
 											title</h5>
 										<p class="card-text text-truncate"
-											th:utext="${board.getTo_content()}">Some quick example
+											th:utext="${Lboard.getTo_content()}">Some quick example
 											text to build on the card title and make up the bulk of the
 											card's content.</p>
 
 										<div class="text-right">
 											<a href="townBuyproduct" class="btn btn-outline-secondary"
-												th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">같이
+												th:href="@{'townBuyproduct?num=' + ${Lboard.getTo_num()}}">같이
 												사러가기 &raquo;</a>
 										</div>
 

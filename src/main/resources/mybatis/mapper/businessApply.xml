@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.pie.pieProject.DAO.IBusinessApplyDao">
+	
+	
+	<insert id="bus_apply">
+		
+		insert into businessApplyForm values(
+		bus_apply_num.nextval, 
+		#{bus_name},
+		#{bus_num},
+		#{bus_adress},
+		#{bus_Maxqnt},
+		#{bus_productName},
+		#{bus_unitPrice},
+		#{bus_chargePerson},
+		#{bus_img},
+		#{bus_password},
+		#{bus_productName},
+		0);		
+			
+	</insert>
+
+
+	
+
+</mapper>
