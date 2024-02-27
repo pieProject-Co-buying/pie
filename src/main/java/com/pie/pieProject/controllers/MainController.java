@@ -36,8 +36,10 @@ public class MainController {
 			} else {
 				dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
 			}
+			dto.setPr_category(Bcomp.translate(dto.getPr_category()));
 		}
-
+		plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+				
 		model.addAttribute("list", plist);
 
 		return "Index";

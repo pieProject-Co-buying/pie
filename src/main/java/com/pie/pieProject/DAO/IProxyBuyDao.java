@@ -20,6 +20,8 @@ public interface IProxyBuyDao {
 	public List<ProxyBuyBoardDto> listDaoByCategoryNumber(String category, int num);
 	
 	public List<ProxyBuyBoardDto> listDaoByFavorite();
+	//검색
+	public List<ProxyBuyBoardDto> searchDao(String townKeyword);
 
 	public ProxyBuyBoardDto getView(String num);
 

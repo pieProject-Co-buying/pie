@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.pie.pieProject.DAO.IMemberAuthDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.Secure.SHA256;
 import com.pie.pieProject.DTO.KakaoApi;
@@ -38,6 +39,8 @@ public class MemberController {
 	BoardComp bcomp;
 	@Autowired
 	KakaoApi kakaoApi;
+	@Autowired
+	IMemberAuthDao adao;
 
 	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir")
 			+ "\\src\\main\\resources\\static\\imgs\\profiles";
@@ -130,18 +133,14 @@ public class MemberController {
 
 			// 확인용 출력
 
-			System.out.println(id);
-			System.out.println(password);
-			System.out.println(name);
-			System.out.println(nickname);
-			System.out.println(gender);
-			System.out.println(profile_pic);
-			System.out.println(email);
-			System.out.println(phone);
-			System.out.println(postCode);
-			System.out.println(address_main);
-			System.out.println(address_sub);
-			System.out.println(agreement);
+			/*
+			 * System.out.println(id); System.out.println(password);
+			 * System.out.println(name); System.out.println(nickname);
+			 * System.out.println(gender); System.out.println(profile_pic);
+			 * System.out.println(email); System.out.println(phone);
+			 * System.out.println(postCode); System.out.println(address_main);
+			 * System.out.println(address_sub); System.out.println(agreement);
+			 */
 
 			PasswordEncoder pe = new BCryptPasswordEncoder();
 
@@ -169,6 +168,7 @@ public class MemberController {
 			dto.setAgreement(agreement);
 
 			dao.join(dto);
+			adao.joinUser(id);
 		} catch (DuplicateKeyException e) {
 			e.printStackTrace();
 			return "redirect:/";

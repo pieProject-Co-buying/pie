@@ -39,12 +39,13 @@ dependencies {
 	
 	//Spring Security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	testImplementation 'org.springframework.security:spring-security-test'
 	
 	// 유효성 검증
 	implementation group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
+	
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.15.3'
 	
 }
 

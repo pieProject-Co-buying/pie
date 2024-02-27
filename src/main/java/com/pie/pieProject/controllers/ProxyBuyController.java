@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
+import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
@@ -31,10 +32,13 @@ public class ProxyBuyController {
 	ILikeDao ldao;
 	@Autowired
 	BoardComp Bcomp;
+	@Autowired
+	ISearchDao sdao;
 
 	
 	@RequestMapping("/proxyBuyMain")
-	public String proxyBPage() {
+	public String proxyBPage(Model model) {
+		model.addAttribute("bestKey",sdao.bestKeyword("proxyBuy"));
 		return "pieContents/proxyBuying/proxyBuyMain";
 	}
 	

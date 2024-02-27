@@ -9,35 +9,8 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		<div class="row mb-5">
-			<div class="col text-center">
-				<h1>믿고 맡길 수 있는 공동구매? 파이박스와 함께해요!</h1>
-			</div>
-		</div>
-		<div class="row hyej-info-gallery mb-5">
-			<div class="col-lg-6 mb-5">
-				<a href="proxyBuyProducts">
-					<div class="hyej-proxytitle">
-						<h2 class="text-white font-weight-bolder text-right">
-							파이가 준비한 <br /> 상품 보기<br />
-							<button class="btn">바로가기</button>
-						</h2>
-					</div>
-				</a>
-			</div>
-			<div class="col-lg-6 mb-5">
-				<a href="proxyBuyApply?page=1">
-					<div class="hyej-proxytitle">
-						<h2 class="text-white font-weight-bolder text-right">
-							사고 싶은 <br /> 상품 신청하기<br />
-							<button class="btn">바로가기</button>
-						</h2>
-					</div>
-				</a>
-			</div>
-		</div>
 
-		<div class="row my-5 pt-5">
+		<div class="row pt-5">
 			<div class="col text-center">
 				<h1>원하는 상품을 검색해보세요!</h1>
 				<p>원하는 상품을 검색하고 가장 저렴한 가격으로 함께해요!</p>
@@ -45,9 +18,10 @@
 		</div>
 		<div class="row mb-5">
 			<div class="col text-center">
-				<form action="searchTownBuy" class="pie-search mb-4" method="get"
+				<form action="searchProducts" class="pie-search mb-4" method="get"
 					name="searchForm">
-					<input type="hidden" name="category" id="category" />
+					<input type="hidden" name="category" id="category" /> <input
+						type="hidden" name="table" value="p" />
 
 					<div class="dropdown" id="selectCategory">
 
@@ -75,10 +49,38 @@
 
 				</form>
 
-				<a href="test"> 쇼핑 api 테스트 페이지 </a>
+				<div class="col text-center">
+
+					<a th:each="keyWord : ${bestKey}" type="button" class="m-1"
+						th:href="@{'searchTownBuy?category=&townKeyword='+${keyWord}}"
+						th:text="|#${keyWord}|"></a>
+
+				</div>
 			</div>
 		</div>
 
+		<div class="container w-75">
+			<div class="row hyej-info-gallery my-5">
+				<div class="col-lg-6 mb-5 position-relative">
+					<a href="proxyBuyProducts" class="pie-radius">
+						<div class="hyej-proxytitle">
+							<h2 class="text-white font-weight-bolder text-right">
+								파이박스 <br /> 상품 보기<br />
+							</h2>
+						</div>
+					</a>
+				</div>
+				<div class="col-lg-6 mb-5 position-relative">
+					<a href="proxyBuyApply?page=1"  class="pie-radius">
+						<div class="hyej-proxytitle">
+							<h2 class="text-white font-weight-bolder text-right">
+								사고 싶은 <br /> 상품 신청하기<br />
+							</h2>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!--게시글 로직 container-->
 	<!--wrapper-->

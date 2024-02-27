@@ -3,18 +3,24 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/login}">
 <!-- gnb fragment -->
-<div layout:fragment="membersContent" class="col p-5 border rounded"
+<div layout:fragment="membersContent" class="col p-5 shadow pie-radius"
 	id="loginForm">
 
-	<h2 class="text-center pb-4">
-		<img src="imgs/logo_pie_color.png" alt="" width="80"
-			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">로그인</span>
-	</h2>
+	<h3 class="text-center pb-4">
+		<span class="w-100 pt-2 d-block font-weight-bolder pie-c-red">로그인</span>
+	</h3>
 
-	<div class="row">
+
+	<div class="row" th:if="${param.error!=null}">
 		<div class="col">
 			<div class="alert alert-danger" role="alert"
-				th:if="${param.error!=null}" th:text="${param.exception}"></div>
+				th:text="${param.exception}"></div>
+		</div>
+	</div>
+
+	<div class="row pb-3">
+		<div class="col text-center">
+			<small class="text-secondary">로그인 후 더 많은 파이의 소식과 함께하세요.</small>
 		</div>
 	</div>
 
@@ -23,24 +29,24 @@
 	<form class="needs-validation" novalidate action="/auth" method="post">
 		<input type="hidden" th:name="${_csrf.parameterName}"
 			th:value="${_csrf.token}" />
-		<div class="form-row">
-			<div class="col mb-3">
-				<label for="validationCustom01">아이디</label> <input type="text"
-					class="form-control" id="id" name="id" required>
+		<div class="form-row my-1 mt-4">
+			<div class="col">
+				<input type="text" class="form-control" id="id" name="id"
+					placeholder="아이디" required>
 				<div class="invalid-feedback">아이디를 입력해주세요.</div>
 			</div>
 		</div>
-		<div class="form-row">
-			<div class="col mb-3">
-				<label for="validationCustom02">비밀번호</label> <input type="text"
-					class="form-control" id="password" name="password" required>
+		<div class="form-row my-1">
+			<div class="col">
+				<input type="text" class="form-control" id="password"
+					name="password" placeholder="비밀번호" required>
 				<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 			</div>
 		</div>
-		<button class="btn pie-btn-red btn-block mt-3" type="submit">로그인</button>
+		<button class="btn pie-btn-red btn-block mt-5" type="submit">로그인</button>
 	</form>
 
-	<div class="text-center">
+	<div class="text-center d-none">
 		<a href="https://kauth.kakao.com/oauth/authorize"
 			th:href="@{https://kauth.kakao.com/oauth/authorize(client_id=${kakaoApiKey}, redirect_uri=${redirectUri}, response_type='code')}">
 			<img src="/imgs/kakao_login_medium_wide.png">

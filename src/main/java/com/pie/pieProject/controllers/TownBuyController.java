@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
@@ -35,6 +36,8 @@ public class TownBuyController {
 	ILikeDao ldao;
 	@Autowired
 	IMemberDao mdao;
+	@Autowired
+	ISearchDao sdao;
 	@Value("${kakao.api.mapkey}")
 	String kakaoMapApiKey;
 	
@@ -54,9 +57,7 @@ public class TownBuyController {
 		 * model.addAttribute("premiumList", dao.listPremiumDao());
 		 */
 		
-		
-		
-		
+		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4));
 		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4));
@@ -166,42 +167,7 @@ public class TownBuyController {
 
 	}
 
-	@RequestMapping("/searchTownBuy")
-
-	public String search(HttpServletRequest request, Model model) {
-		String townKeyword = request.getParameter("townKeyword");
-		String towncategory = request.getParameter("towncategory");
-		
-		List<TownBuyBoardDto> list = dao.searchDao(townKeyword);
-		
-		int food = 0;
-		int baby = 0;
-		int beautyAndFashion = 0;
-		int pet = 0;
-		int life= 0;
-		int etc = 0;
-		
-		for(TownBuyBoardDto b : list) {
-			String c= b.getTo_category();
-			if(c.equals("food")) food++;
-			else if(c.equals("baby")) baby++;
-			else if(c.equals("beautyAndFashion")) beautyAndFashion++;
-			else if(c.equals("pet")) pet++;
-			else if(c.equals("life")) life++;
-			else if(c.equals("etc")) etc++;
-		}
-
-		model.addAttribute("list", list);
-		model.addAttribute("food", food);
-		model.addAttribute("baby", baby);
-		model.addAttribute("beautyAndFashion", beautyAndFashion);
-		model.addAttribute("pet", pet);
-		model.addAttribute("life", life);
-		model.addAttribute("etc", etc);
-
-		return "pieContents/townBuying/townBuySearchResult";
-
-	}
+	
 
 	@RequestMapping("/townBuyingCategoryChoice")
 
