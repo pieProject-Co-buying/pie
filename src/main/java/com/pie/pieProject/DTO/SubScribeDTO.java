@@ -23,3 +23,4 @@ public class SubScribeDTO {
 	private String sub_date; // 결제일
 	private String sub_premium; // 구독 여부
 }
+
