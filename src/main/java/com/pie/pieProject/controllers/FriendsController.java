@@ -22,7 +22,7 @@ public class FriendsController {
 	public ResponseEntity<Boolean> following(@RequestParam("you") String you, HttpServletRequest request){
 		String me = bcomp.getSession(request, "userId");
 
-		if(me.equals(you)) {
+		if(me.equals(you)){
 			return ResponseEntity.ok(false);
 		}
 		
