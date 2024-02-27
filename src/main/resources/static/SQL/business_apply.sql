@@ -8,5 +8,9 @@ CREATE TABLE businessApplyForm (
     bus_chargePerson VARCHAR2(100) NOT NULL,
     bus_img VARCHAR2(1000),
     bus_password varchar2(30) not null,
-    bus_hit NUMBER
+    bus_hit NUMBER,
+    bus_writeDay default sysdate
 );
+
+
+drop table businessApplyForm;

@@ -1,23 +1,25 @@
 package com.pie.pieProject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
+import com.pie.pieProject.DTO.PaymentDTO;
+import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShareServiceController {
@@ -59,11 +61,12 @@ public class ShareServiceController {
 
 	/********** 게시물 상세 페이지 **********/
 	@RequestMapping("/boardList")
-	public String showBoard(HttpServletRequest request, Model model) {
+	public String showBoard(@RequestParam("num") String num,HttpServletRequest request, Model model) {
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
-
+		List<ShareServiceDto> list = dao.getBoardList();
+		
 		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
 		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
 			dto.setSh_tags(null);
@@ -78,9 +81,10 @@ public class ShareServiceController {
 		} else {
 			model.addAttribute("like", false);
 		}
-
+		dao.updateHit(num);
 		model.addAttribute("board", dto);
 		model.addAttribute("member",mdto);
+		model.addAttribute("list",list);
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
@@ -256,10 +260,33 @@ public class ShareServiceController {
 	}
 	/**********************admin 게시글 관리**********************/
 	@RequestMapping("/shareServiceBoardConsole")
-	public String boardConsole(Model model) {
+	public String boardConsole(@RequestParam("page") int page, Model model) {
 		List<ShareServiceDto> list = dao.getBoardList();
 		
-		model.addAttribute("list", list);
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		
+		List<ShareServiceDto> templist = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
+		for (int i = minPage; i < maxPage; i++) {
+			templist.add(list.get(i));
+		}
+		
+		System.out.println(templist.size());
+		
+		model.addAttribute("list", templist);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
 		return "pieContents/shareService/shareServiceBoardConsole";
+	}
+	/**********admin 게시물관리 페이지 id,nickname 기반 검색**********/
+	@RequestMapping("/searchBoardName")
+	public String searchBuyer(HttpServletRequest request, Model model) {
+		String search = request.getParameter("search");
+		model.addAttribute("list", dao.searchBuyer(search));
+		return "pieContents/shareService/shareServiceApplyConsole";
 	}
 }
