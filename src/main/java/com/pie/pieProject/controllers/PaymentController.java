@@ -102,10 +102,31 @@ public class PaymentController {
 	}
 	// admin 결제내역 페이지
 	@RequestMapping("/shareServiceApplyConsole")
-	public String applyConsole(Model model) {
+	public String applyConsole(@RequestParam("page") int page, Model model) {
 		List<PaymentDTO> list = dao.paymentList();
-		
 		model.addAttribute("pay", list);
+
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		
+		List<PaymentDTO> templist = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
+		for (int i = minPage; i < maxPage; i++) {
+			templist.add(list.get(i));
+		}
+		
+		System.out.println(templist.size());
+
+		model.addAttribute("payList", templist);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		
+		
+		
+		
 		return "pieContents/shareService/shareServiceApplyConsole";
 	} 
 	/**********admin 결제내역 페이지 id,nickname 기반 검색**********/
@@ -115,33 +136,5 @@ public class PaymentController {
 		model.addAttribute("list", dao.searchBuyer(search));
 		return "pieContents/shareService/shareServiceApplyConsole";
 	}
-	/*@RequestMapping("/adminPageNum")
-	public String proxyBApplyPage(@RequestParam("page") int page, Model model) {
-		List<PaymentDTO> allList = dao.paymentList();
-
-		int pageLimit = 10;
-		int pageNum = (int) Math.ceil((double) allList.size() / pageLimit);
-
-		for (PaymentDTO dto : allList) {
-			dto.setBuyer_name(Bcomp.translate(dto.getBuyer_name()));
-			dto.setBuyer_nickname(Bcomp.setProcess(dto.getBuyer_nickname()));
-		}
-
-		List<PaymentDTO> list = new ArrayList<>();
-
-		int minPage = (page - 1) * pageLimit;
-		int maxPage = Math.min(page * pageLimit, allList.size());
-		System.out.println(minPage);
-		System.out.println(maxPage);
-
-		for (int i = minPage; i < maxPage; i++) {
-			list.add(allList.get(i));
-		}
-
-		model.addAttribute("list", list);
-		model.addAttribute("page", page);
-		model.addAttribute("pageNum", pageNum);
-		return "pieContents/proxyBuying/proxyBuyApply";
-	}*/
 }
 

@@ -61,11 +61,12 @@ public class ShareServiceController {
 
 	/********** 게시물 상세 페이지 **********/
 	@RequestMapping("/boardList")
-	public String showBoard(HttpServletRequest request, Model model) {
+	public String showBoard(@RequestParam("num") String num,HttpServletRequest request, Model model) {
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
-
+		List<ShareServiceDto> list = dao.getBoardList();
+		
 		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
 		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
 			dto.setSh_tags(null);
@@ -80,9 +81,10 @@ public class ShareServiceController {
 		} else {
 			model.addAttribute("like", false);
 		}
-
+		dao.updateHit(num);
 		model.addAttribute("board", dto);
 		model.addAttribute("member",mdto);
+		model.addAttribute("list",list);
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
@@ -258,38 +260,33 @@ public class ShareServiceController {
 	}
 	/**********************admin 게시글 관리**********************/
 	@RequestMapping("/shareServiceBoardConsole")
-	public String boardConsole(Model model) {
+	public String boardConsole(@RequestParam("page") int page, Model model) {
 		List<ShareServiceDto> list = dao.getBoardList();
 		
-		model.addAttribute("list", list);
-		return "pieContents/shareService/shareServiceBoardConsole";
-	}
-	@RequestMapping("/adminPage")
-	public String adminPage(@RequestParam("page") int page, Model model) {
-		List<PaymentDTO> allList = Pdao.paymentList();
-
 		int pageLimit = 10;
-		int pageNum = (int) Math.ceil((double) allList.size() / pageLimit);
-
-		/*
-		 * for (PaymentDTO dto : allList) {
-		 * dto.setPay_category(Bcomp.translate(dto.getPay_category())); }
-		 */
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
 		
-		List<PaymentDTO> list = new ArrayList<>();
+		List<ShareServiceDto> templist = new ArrayList<>();
 
 		int minPage = (page - 1) * pageLimit;
-		int maxPage = Math.min(page * pageLimit, allList.size());
-		System.out.println(minPage);
-		System.out.println(maxPage);
-
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
 		for (int i = minPage; i < maxPage; i++) {
-			list.add(allList.get(i));
+			templist.add(list.get(i));
 		}
-
-		model.addAttribute("list", list);
+		
+		System.out.println(templist.size());
+		
+		model.addAttribute("list", templist);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		return "pieContents/shareService/shareServiceBoardConsole";
+	}
+	/**********admin 게시물관리 페이지 id,nickname 기반 검색**********/
+	@RequestMapping("/searchBoardName")
+	public String searchBuyer(HttpServletRequest request, Model model) {
+		String search = request.getParameter("search");
+		model.addAttribute("list", dao.searchBuyer(search));
+		return "pieContents/shareService/shareServiceApplyConsole";
 	}
 }
