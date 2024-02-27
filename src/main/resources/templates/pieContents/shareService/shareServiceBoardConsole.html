@@ -15,10 +15,10 @@
   <div id="board-search">
     <div class="container">
       <div class="search-window">
-        <form action="searchTitle">
+        <form action="searchBoardName">
           <div class="search-wrap">
             <label for="search" class="blind">게시글 검색</label>
-            <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+            <input type="text" id="search" name="search" placeholder="검색어를 입력해주세요.">
             <button type="submit" class="btn btn-dark">검색</button>
           </div>
         </form>
@@ -28,28 +28,59 @@
   <!-------------------------------------------------------------->
   <div id="board-list">
     <div class="container">
-      <table class="board-table mt-1" th:each="board:${list}">
+      <table class="board-table mt-1">
         <thead>
         <tr>
           <th scope="col" class="th-num">번호</th>
           <th scope="col" class="th-title">제목</th>
           <th scope="col" class="th-date">등록일</th>
+          <th scope="col" class="th-date">마감일</th>
           <th scope="col" class="th-date">진행현황</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <th:block th:each="board:${list}">
+        	<tr>
           <td th:text="${board.getSh_num()}"></td>
           <th>
             <a th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
           </th>
           <td th:text="${board.getSh_registDay()}"></td>
+          <td th:text="${board.getSh_deadLine()}"></td>
 		  <td><small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small>
 		  	  <small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}"> 모집완료</small></td>
 		</tr>
+        </th:block>
         </tbody>
       </table>
     </div>
   </div>
+  <div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="row mt-5">
+					<div class="col d-flex justify-content-center">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								<li class="page-item"><a class="page-link"
+									href="shareServiceBoardConsole?page=1" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+								</a></li>
+								<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
+									<li class="page-item"><a class="page-link"
+										th:href="@{'shareServiceBoardConsole?page='+${i}}"
+										th:text="${i}"></a></li>
+								</th:block>
+								<li class="page-item"><a class="page-link"
+									th:href="@{'shareServiceBoardConsole?page='+${pageNum}}"
+									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+								</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </html>

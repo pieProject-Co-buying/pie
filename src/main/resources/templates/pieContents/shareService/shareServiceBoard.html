@@ -45,11 +45,11 @@
 			<!--col-4-->
 			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}"
 				th:attr="data-category=${board.getSh_category()}"
-				class="col-md-4 col-sm-12 movie" style="cursor: pointer">
+				class="col-md-4 col-sm-12 movie" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
 				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black"> <img
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
