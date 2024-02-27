@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.ISubscribeDAO">
 	<insert id="insertSubScribe">
 		insert into subScribe values(sub_num.nextval,#{buyer_id},#{buyer_name},#{buyer_nickname},#{buyer_tel},#{schedules},#{buyer_email},#{sub_uid},#{sub_customer_uid},#{sub_method},#{sub_merchant_uid},#{sub_name},#{sub_amount},sysdate,#{sub_premium})
 	</insert>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pie.pieProject.DAO.ISubscribeDAO">
+	<insert id="insertSubScribe">
+		insert into subScribe values(sub_num.nextval,#{buyer_id},#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_email},#{schedules},#{sub_uid},#{sub_customer_uid},#{sub_method},#{sub_merchant_uid},#{sub_name},#{sub_amount},sysdate,#{sub_premium})
+	</insert>
+>>>>>>> branch 'develop' of https://github.com/pieProject-Co-buying/pie.git
 </mapper>

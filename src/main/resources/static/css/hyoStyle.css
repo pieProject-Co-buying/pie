@@ -1,5 +1,6 @@
 .hj-bo {
 	border: 1px solid red;
+
 }
 
 /* img 속성 cover 적용 */
@@ -142,3 +143,4 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+
