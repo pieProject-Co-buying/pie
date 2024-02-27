@@ -3,38 +3,16 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
 
-<div layout:fragment="townBuyContent">
 
 
-	<!-- #################################################
 
-	카테고리 클릭시 이동 될 페이지
+<div layout:fragment="townBuyContent" class="col">
 
-	################################################# -->
-
-
-	<!-- #################################################
-	
-	[ 수정 예정사항 ]
-	
-
-	# 선택시 선택된 카테고리 active
-
-	----------------------------------------------------------
-
-	[ 백엔드 영역 ]
-
-	
-	# 6개 노출 후 더보기 버튼으로 추가 상품 보이는 로직으로 동일하게 감
-
-	################################################# -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 
 
 
 	<div class="container-fluid px-0">
-
-
-
 
 
 		<div class="container">
@@ -94,23 +72,17 @@
 
 			<div class="row">
 
-				<div class="col text-center">
+				<!-- 클릭시 검색어 자동 완성 -->
+				<div class="col text-center mb-3">
 
-
-					<a type="button" class="btn btn-secondary m-1"
-						href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a> <a type="button"
-						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
-					<a type="button" class="btn btn-secondary m-1"
-						href="searchTownBuy?category=&townKeyword=이마트">#이마트</a> <a type="button"
-						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
-					<a type="button" class="btn btn-secondary m-1"
-						href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a> <a type="button"
-						class="btn btn-secondary m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
-					<a type="button" class="btn btn-secondary m-1"
-						href="searchTownBuy?category=&townKeyword=아기용품">#아기용품</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
+					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
 
 				</div>
-
 			</div>
 
 
@@ -125,63 +97,57 @@
 
 
 
-		<div class="container mb-5">
+		<div class="container w-75 mb-5 border-bottom">
 
-			<div class="row">
+			<div class="row mb-5">
 
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=food" class="text-dark">
-						<img src="imgs/category/ct_best.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">식품</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=food" class="text-dark text-center">
+								<span class="material-symbols-outlined hj-sub-icon-size">dinner_dining</span>
+								<p class="hj-category_active">식품</p>
+							</a>
 				</div>
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=baby" class="text-dark">
-						<img src="imgs/category/ct_food.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">육아</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=baby" class="text-dark text-center">
+								<span class="material-symbols-outlined hj-sub-icon-size">child_care</span>
+								<p class="text-center">육아</p>
+							</a>
 				</div>
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=beautyAndFashion"
-						class="text-dark"> <img src="imgs/category/ct_winter.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">뷰티/패션</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=beautyAndFashion" class="text-dark text-center">
+								<span class="material-symbols-outlined hj-sub-icon-size">apparel</span>
+								<p class="text-center">뷰티/패션</p>
+							</a>
 				</div>
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=petf" class="text-dark">
-						<img src="imgs/category/ct_kids.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">반려동물</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=pet" class="text-dark text-center">
+								<span class="material-symbols-outlined hj-sub-icon-size">pets</span>
+								<p class="text-center">반려동물</p>
+							</a>
 				</div>
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=life" class="text-dark">
-						<img src="imgs/category/ct_innerB.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">생활</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=life" class="text-dark text-centerr">
+							<span class="material-symbols-outlined hj-sub-icon-size">favorite</span>
+								<p class="text-center">생활</p>
+							</a>
 				</div>
 
 				<div
 					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-					<a href="/townBuyingCategoryChoice?category=etc" class="text-dark">
-						<img src="imgs/category/ct_cosme.png"
-						class="img-fluid mx-auto d-block w-50" alt="...">
-						<p class="text-center">기타</p>
-					</a>
+							<a href="/townBuyingCategoryChoice?category=etc" class="text-dark text-center">
+								<span class="material-symbols-outlined hj-sub-icon-size">more_horiz</span>
+								<p class="text-center">기타</p>
+							</a>
 				</div>
 
 
@@ -208,29 +174,16 @@
 
 					<div class="card-columns">
 
-						<div class="card" th:each="list:${list}">
+						<a class="card hj-radius-30" th:each="list:${list}" th:href="@{'townBuyproduct?num=' + ${list.getTo_num()}}">
 							<img
 								th:src="@{'/imgs/test/' + ${list.getTo_productImg().substring(0,list.getTo_productImg().indexOf('/'))}}"
-								class="card-img-top" alt="...">
+								class="card-img-top hj-radius-img-30" alt="...">
 							<div class="card-body">
 								<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
 								<p class="card-text" th:utext="${list.getTo_content()}"></p>
 
-								<div class="row">
-
-									<!-- (n/n => 참여 사용자 수/글쓴이가 설정한 사용자수 ) -->
-									<div class="col-6">현재 진행 (1/7)</div>
-									<div class="col-6 text-right">
-										<a th:href="@{'townBuyproduct?id=' + ${list.getTo_num()}}"
-											class="btn btn-outline-secondary">같이 사러가기 &raquo;</a>
-
-									</div>
-
-								</div>
-
-
 							</div>
-						</div>
+						</a>
 
 					</div>
 				</div>
@@ -238,20 +191,13 @@
 
 
 
-			<!-- 초기 로드될 게시물 6개 / 백 작업시 게시글 갯수 6개 넘어갈 시 활성화 및 더보기 누르면 6개 더 보여주기 or 전체 보여주기 -->
-
-			<div class="row mx-auto m-2 mt-5 w-100">
-				<div class="col">
-
-					<button type="button" class="btn btn-outline-secondary w-100"
+			<div class="row mt-5">
+				<div class="col text-center">
+					<button type="button" class="btn w-20"
 						id="loadMoreButton">더보기</button>
-
+					<div id="cardContainer"></div>
 				</div>
 			</div>
-
-
-
-
 
 
 		</div>
@@ -262,66 +208,10 @@
 	</div>
 
 
+	<script src="js/townBuying.js"></script>
+	
+	
 
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// 페이지가 로드될 때 처음 6개의 카드만 보이도록 설정
-			showInitialCards(6);
-
-			// 더보기 버튼 클릭 이벤트 추가
-			document.getElementById('loadMoreButton').addEventListener('click',
-					loadMoreCards);
-		});
-
-		function showInitialCards(numToShow) {
-			const allCards = document.querySelectorAll('.townBuyCard');
-			// 처음에 표시할 카드 수만큼만 보이도록 설정
-			for (let i = 0; i < allCards.length; i++) {
-				if (i < numToShow) {
-					allCards[i].style.display = 'block';
-				} else {
-					allCards[i].style.display = 'none';
-				}
-			}
-		}
-
-		function loadMoreCards() {
-			// 추가 카드를 가져오는 로직 구현
-			// 이 부분은 서버에서 데이터를 가져와서 새로운 카드를 생성하고 추가
-			// 여기서는 예시로 각 카드의 display 속성을 변경하여 가상으로 추가
-			const additionalCards = document
-					.querySelectorAll('.townBuyCard:not([style="display: block;"])');
-			const numToShow = 6; // 한 번에 보여줄 추가 카드의 수
-			let cardsToShow = 0;
-			for (let i = 0; i < additionalCards.length; i++) {
-				if (cardsToShow < numToShow) {
-					additionalCards[i].style.display = 'block';
-					cardsToShow++;
-				} else {
-					break;
-				}
-			}
-
-			// 모든 카드를 보여주었는지 확인
-			if (cardsToShow === 0) {
-				document.getElementById('loadMoreButton').style.display = 'none';
-			}
-
-		}
-
-		// 선택한 카테고리 보여지게 하는 기능
-		$(document).on(
-				'click',
-				'.dropdown-menu .dropdown-item',
-				function() {
-					let selectedCategory = $(this).text();
-					$(this).closest('.dropdown').find('.dropdown-toggle').text(
-							selectedCategory);
-					alert(selecteCategory);
-					$("#category").val($(this).attr("data-category"));
-					alert($("#category").val());
-				});
-	</script>
 
 
 

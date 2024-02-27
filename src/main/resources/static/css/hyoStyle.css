@@ -1,14 +1,11 @@
 .hj-bo {
 	border: 1px solid red;
-
 }
 
 /* img 속성 cover 적용 */
-
 .hj-fit-cover {
 	object-fit: cover;
 }
-
 
 .hj-radius-30 {
 	border-radius: 30px;
@@ -18,20 +15,16 @@
 	border-radius: 30px 30px 0 0;
 }
 
-.hj-cardImg-left{
-
-	top:0; left: 0;
+.hj-cardImg-left {
+	top: 0;
+	left: 0;
 	width: 100%;
 	border-radius: 30px 0 0 30px;
 }
 
-
-
 /* footer style */
 
-
 /* a 태그 호버시 적용될 스타일 */
-
 .hj-footer-a:hover {
 	text-decoration: none;
 	font-weight: bold;
@@ -39,16 +32,12 @@
 }
 
 
-/* 하단 span 태그 가상선택자 적용 */
 
-#pie_info span:not(:last-child)::after{
+/* 하단 span 태그 가상선택자 적용 */
+#pie_info span:not(:last-child)::after {
 	content: " |";
 	margin: 0 2px;
 }
-
-
-
-
 
 /* ####################################
 
@@ -56,32 +45,28 @@
 
 ####################################*/
 
-
 /* 프리미엄 회원 공구 card 전체 height 값 */
-.hj-sub1-card-h {
+.hj-sub1-card-h-400 {
 	height: 400px;
 }
 
+.hj-sub1-card-h-170 {
+	height: 170px;
+}
 
 .hj-sub1-card-part-h {
 	height: 60%;
 }
 
-
 .hj-sub-icon-size {
 	font-size: 50px !important;
 }
-
-
-
 
 /* ####################################
 
 제품 상세페이지 css
 
 ####################################*/
-
-
 .hj-detail-img {
 	width: 100%;
 	height: 400px;
@@ -89,21 +74,14 @@
 	object-position: center;
 }
 
-
-
-
 /* ####################################
 
 글쓰기 버튼 - 배너 스타일
 
 ####################################*/
-
 .hj-wirte-btn {
 	background: url(../imgs/potato.jpg);
-	
 }
-
-
 
 /* ####################################
 
@@ -111,71 +89,56 @@
 
 ####################################*/
 
-
-
 /* 미디어 사이즈별 대화상자 이미지 css */
-
-
 .hj-chat-img-lg {
 	width: 100%;
 	height: 100%;
 }
 
-
 .hj-chat-img {
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-
 }
 
-
-
 /* 채팅 목록 스크롤 보여주기 위한 css */
-
 .hj-chat-scroll-y {
 	overflow-y: scroll;
 	height: 70vh;
 }
-
-
-
 
 .hj-chat-scroll-x {
 	overflow-x: auto;
 	width: 100vh;
 }
 
-
-
-.chating{
+.chating {
 	height: 500px;
 	overflow: auto;
 	scroll-behavior: auto;
 }
-		
-		
-#yourMsg{
+
+#yourMsg {
 	display: none;
 }
 
-
-.chatBallon{
+.chatBallon {
 	max-width: 75%;
 }
-		
-			
-.roomContainer{
+
+.roomContainer {
 	height: 500px;
 	overflow: auto;
 }
 
-
-
 .hj-chat-toast-position {
-	position: absolute; top: 10px; right: 10px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
-		
-		
-		
-		
+
+.hj-text-truncate, .hj-text-truncate>p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
