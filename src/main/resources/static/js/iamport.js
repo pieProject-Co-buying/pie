@@ -247,6 +247,7 @@ function tossPay() {
 		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
 		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
 
+
 		IMP.request_pay(
 			{
 				pg: "tosspay.tosstest",
@@ -285,6 +286,7 @@ function tossPay() {
 						},
 						success: function(response) {
 							alert("결제에 성공하였습니다");
+
 							if (response == 'Share') {
 								document.location.href = "shareServiceFinish?num=" + numID + '&merchant_uid='+makeMerchantUid+"&category=" + response;
 							} else if (response == 'Proxy') {
