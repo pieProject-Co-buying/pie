@@ -32,22 +32,21 @@
         <thead>
         <tr>
           <th scope="col" class="th-num">번호</th>
-          <th scope="col" class="th-title" th:text="${board.getSh_title()}"></th>
+          <th scope="col" class="th-title">제목</th>
           <th scope="col" class="th-date">등록일</th>
-          <th scope="col" class="th-date">삭제</th>
+          <th scope="col" class="th-date">진행현황</th>
         </tr>
         </thead>
         <tbody>
         <tr>
           <td th:text="${board.getSh_num()}"></td>
           <th>
-            <a th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_content()}"></a>
+            <a th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
           </th>
           <td th:text="${board.getSh_registDay()}"></td>
-          <td>
-          	<a href="deleteConsole" class="badge badge-danger">삭제</a>
-          </td>
-        </tr>
+		  <td><small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small>
+		  	  <small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}"> 모집완료</small></td>
+		</tr>
         </tbody>
       </table>
     </div>
