@@ -5,6 +5,8 @@ let getURL = window.location.href;
 const url = new URL(getURL);
 const urlParams = url.searchParams;
 let num = urlParams.get('num');
+const token = $("meta[name='_csrf']").attr("content")
+const header = $("meta[name='_csrf_header']").attr("content");
 
 $(".pie-heart-icon").click(function() {
 	$.ajax({
@@ -21,6 +23,7 @@ $(".pie-heart-icon").click(function() {
 		success: function(response) {
 			console.log(response);
 			$("#likeCount").text(response);
+			$(".pie-heart-icon").toggleClass("active");
 		},
 		error: function(xhr, desc, err) {
 			console.error('전송 실패', err);
@@ -28,6 +31,27 @@ $(".pie-heart-icon").click(function() {
 	});
 })
 
-$(".pie-heart-icon").click(function() {
-	$(this).toggleClass("active");
-})
+$(".pie-thumbsUp-icon").click(function() {
+			$.ajax({
+				data : {
+					you : $("#yourId").val()
+				},
+				dataType : 'json',
+				type : "POST",
+				url : "/Follwing",
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader(header, token);
+				},
+				success : function(response) {
+					console.log(response);
+					if(response){
+						$(".pie-thumbsUp-icon").addClass("active");
+					}else{
+						$(".pie-thumbsUp-icon").removeClass("active");
+					}
+				},
+				error : function(xhr, desc, err) {
+					console.error('전송 실패', err);
+				}
+			});
+		})

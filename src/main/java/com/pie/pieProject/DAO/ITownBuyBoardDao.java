@@ -48,7 +48,12 @@ public interface ITownBuyBoardDao {
 	
 	public List<TownBuyBoardDto> categoryDaoNum(String category, int num);
 	
+	
+	public List<TownBuyBoardDto> listPremiumDao(String category, int num);
+	
+	
 	public void updatePer(String num);
+	
 	
 	public void updateProcess(String num);
 	
@@ -68,7 +73,7 @@ public interface ITownBuyBoardDao {
 	
 	//조회수
 	public void updateHit(String num);
-	
+
 	
 	
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/chatting}">
 
 
@@ -11,50 +12,77 @@
 
 
 	<div class="container-fluid p-0">
-			
-			 
-						
-			<div class="row">
-				<!-- 알람기능을 위해 추가 & 테스트중 -->
-				
-				
-				
-			</div>
+
+
+
+		<div class="row">
+			<!-- 알람기능을 위해 추가 & 테스트중 -->
+
+
+
+		</div>
 
 
 
 
 		<div class="container my-5">
-				
-	
+
+
 
 
 
 			<div class="row mb-3">
 
-				<div class="col-12 col-lg-6 offset-lg-3">
-					
-					
+				<div class="col-12 col-lg-4">
+
+					<div class=" border rounded shadow p-4">
+						<h2>팔로잉 목록</h2>
+
+						<th:block th:if="${fl!=null&&fl.size()!=0}">
+							<ul class="list-unstyled">
+								<li th:each="f : ${fl}" class="border-bottom py-2">
+									<a th:href="@{'room?mem='+${f.getId()}}" class="d-flex justify-content-start align-items-center"> <img
+										th:src="@{'/imgs/profiles/'+${f.getProfile_pic()}}" alt=""
+										class="pie-profilePic-mid mr-2" /> <span
+										th:text="${f.getNickname()}"></span>
+								</a>
+								</li>
+							</ul>
+
+						</th:block>
+
+
+					</div>
+
+
+
+				</div>
+
+
+
+
+				<div class="col-12 col-lg-8">
+
+
 
 					<h2 class="mb-5 text-center">대화상대를 선택해주세요</h2>
-						
-					<div id="roomContainer" class="roomContainer border rounded shadow p-4">
-						
+
+					<div id="roomContainer"
+						class="roomContainer border rounded shadow p-4">
+
 						<!-- 값 테스트용 -->
 						<input type="hidden" th:value="${session.userId}" id="nowLogin" />
 						<input type="hidden" id="userId" th:value="${session.userId}">
 						<input type="hidden" id="sessionId" th:value="${session.nickName}">
 						<input type="hidden" id="roomNumber" th:value="${roomNumber}">
-						<input type="hidden" id="mem1" th:value="${param.mem1}">
-						<input type="hidden" id="mem2" th:value="${param.mem2}">
-						<input type="hidden" id="sendDate" th:value="${sendDate}">
-						<input type="hidden" id="realNick" th:value="${session.nickName}">
+						<input type="hidden" id="mem1" th:value="${param.mem1}"> <input
+							type="hidden" id="mem2" th:value="${param.mem2}"> <input
+							type="hidden" id="sendDate" th:value="${sendDate}"> <input
+							type="hidden" id="realNick" th:value="${session.nickName}">
 
 
 
-						<div id="roomList" class="roomList">
-							
-						</div>
+						<div id="roomList" class="roomList"></div>
 
 
 
@@ -83,26 +111,22 @@
 		const token = $("meta[name='_csrf']").attr("content")
 		const header = $("meta[name='_csrf_header']").attr("content");
 
-
 		var ws;
 
-		window.onload = function () {
+		window.onload = function() {
 			let id = $("#nowLogin").val()
 			let nickName = $("#nowLoginName").val()
 			createRoom();
 		}
 
-
-
-
 		function createRoom() {
 
 			var msg = {
-				mem1: me,
-				mem2: you,
+				mem1 : me,
+				mem2 : you,
 			};
 
-			commonAjax('/createRoom', msg, 'post', function (result) {
+			commonAjax('/createRoom', msg, 'post', function(result) {
 				createChatingRoom(result);
 
 			});
@@ -110,71 +134,74 @@
 			$("#roomName").val("");
 		}
 
-
-
 		function goRoom(number) {
 			location.href = "/moveChating?roomNumber=" + number;
 			alert(name1 + name2)
 		}
 
-
-		
 		function createChatingRoom(res) {
-		    if (res != null) {
-		        var tag = "";
-		        var sessionNick = $("#realNick").val(); // 현재 세션의 닉네임 가져오기
-		        res.forEach(function (d, idx) {
-		            var roomNumber = d.roomNumber;
-		            var nickName = d.nickname;
-		            var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
-		            
-		            // 닉네임과 버튼을 중앙 정렬하여 추가
-		            tag += "<div class='row mb-3 justify-content-center'>" +
-		                "<div class='room col-6 text-center'>" + "<span class='h3'>" + (isMyChat ? nickName + "(나)" : nickName) + "</span>" + "</div>" +
-		                "<div class='go col-6 text-center'>" +
-		                (isMyChat ? "<button type='button' class='btn pie-btn-red'' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>" : "<button type='button' class='btn pie-btn-red' onclick='goRoom(\"" + roomNumber + "\")'>대화하기</button>") +
-		                "</div>" +
-		                "</div>";
-		        });
-		
-		        $("#roomList").append(tag); // 방 목록 업데이트
-		    }
-		}
+			if (res != null) {
+				var tag = "";
+				var sessionNick = $("#realNick").val(); // 현재 세션의 닉네임 가져오기
+				res
+						.forEach(function(d, idx) {
+							var roomNumber = d.roomNumber;
+							var nickName = d.nickname;
+							var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
 
+							// 닉네임과 버튼을 중앙 정렬하여 추가
+							tag += "<div class='row mb-3 justify-content-center'>"
+									+ "<div class='room col-6 text-center'>"
+									+ "<span class='h3'>"
+									+ (isMyChat ? nickName + "(나)" : nickName)
+									+ "</span>"
+									+ "</div>"
+									+ "<div class='go col-6 text-center'>"
+									+ (isMyChat ? "<button type='button' class='btn pie-btn-red'' onclick='goRoom(\""
+											+ roomNumber + "\")'>대화하기</button>"
+											: "<button type='button' class='btn pie-btn-red' onclick='goRoom(\""
+													+ roomNumber
+													+ "\")'>대화하기</button>")
+									+ "</div>" + "</div>";
+						});
+
+				$("#roomList").append(tag); // 방 목록 업데이트
+			}
+		}
 
 		function commonAjax(url, parameter, type, calbak, contentType) {
 
 			$.ajax({
-				url: url,
-				data: parameter,
-				type: type,
-				contentType: contentType != null ? contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
-				beforeSend: function (xhr) {
+				url : url,
+				data : parameter,
+				type : type,
+				contentType : contentType != null ? contentType
+						: 'application/x-www-form-urlencoded; charset=UTF-8',
+				beforeSend : function(xhr) {
 					xhr.setRequestHeader(header, token);
 				},
-				
-				success: function (res) {
+
+				success : function(res) {
 					calbak(res);
 					console.log(res)
 					console.log(res[0].partyMem.split("@")[1])
 					console.log(res[0].partyMem.split("@")[2])
 				},
-				error: function (err) {
+				error : function(err) {
 					console.log('error');
 					calbak(err);
 				}
 			});
 		}
-
 	</script>
 
 
-	
-	
+
+
 	<!-- 알람기능을 위해 추가 & 테스트중-->
 	<!-- 현재 테스트 중-->
 	<!-- 메세지 수신시에만 토스트 동작해야 되는데 예상으로는 연결될때마다 undefined라는 이름으로 계속 호출되는 현상 수정중 -->
-<!-- 	<script type="text/javascript">
+	<!-- 	<script type="text/javascript">
 	    var isConnected = false; // 웹소켓 연결 상태 변수 추가
 	    
 	    function connect() {

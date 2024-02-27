@@ -167,7 +167,7 @@ public class SocketHandler extends TextWebSocketHandler {
       //소켓 연결
       super.afterConnectionEstablished(session);
       WebSocketSessionDto dto = new WebSocketSessionDto();
-      if (session.getUri().getQuery() != null) {
+      if (session.getUri().getQuery() != null && !session.getUri().getQuery().equals("")) {
           String queryString = session.getUri().getQuery();
           String[] queryArr = queryString.split("&");
           for (String item : queryArr) {
