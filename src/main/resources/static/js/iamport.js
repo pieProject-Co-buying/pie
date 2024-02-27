@@ -267,6 +267,9 @@ function paycoPay() {
 		}
 	);
 }
+const unixTimestamp = Date.now();
+			console.log(unixTimestamp);
+
 function sub(){
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
 	IMP.request_pay({
@@ -278,9 +281,12 @@ function sub(){
 	customer_uid : makeMerchantUid, // 필수 입력.
 	buyer_email : mem.email,
 	buyer_name : mem.name,
-	buyer_tel : mem.phone
+	buyer_tel : mem.phone,
+	schedules:[15]
 	}, function(rsp) {
 		if (rsp.success) {
+			
+			console.log(rsp)
 			var result = {
 				"buyer_id": mem.id,
 				"buyer_name": mem.name,
@@ -294,7 +300,7 @@ function sub(){
 				"sub_name": '프리미엄 구독',
 				"sub_amount": 17000,
 				"sub_premium": "pro",
-				"schedules": [15]
+				"schedules": 15
 			}
 			console.log(makeMerchantUid);
 			$.ajax({

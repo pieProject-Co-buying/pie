@@ -107,7 +107,7 @@ public class PaymentController {
 		
 		model.addAttribute("pay", list);
 		return "pieContents/shareService/shareServiceApplyConsole";
-	}
+	} 
 	/**********admin 결제내역 페이지 id,nickname 기반 검색**********/
 	@RequestMapping("/searchBuyerName")
 	public String searchBuyer(HttpServletRequest request, Model model) {

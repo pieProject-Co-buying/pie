@@ -13,7 +13,7 @@ public class SubScribeDTO {
 	private String buyer_nickname; // 구매자 닉네임
 	private String buyer_tel; // 구매자 전화번호
 	private String buyer_email; // 구매자 이메일
-	private int[] schedules; // 정기결제일
+	private int schedules; // 정기결제일
 	private String sub_uid; // 거래번호
 	private String sub_customer_uid; // 구매자 고유 번호
 	private String sub_method; // 결제 수단
