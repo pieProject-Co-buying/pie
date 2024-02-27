@@ -10,6 +10,8 @@ import lombok.Setter;
 public class BusinessApplyDto {
 	
 	private int bus_apply_num;
+	private String bus_title;
+	private String bus_content;
 	private String bus_name;
 	private String bus_num;
 	private String bus_adress;
@@ -20,7 +22,7 @@ public class BusinessApplyDto {
 	private String bus_phone;
 	private String bus_img;
 	private String bus_password;
+	private String bus_writeDay;
 	private int bus_hit;
-	
 	
 }
