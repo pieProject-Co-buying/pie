@@ -21,6 +21,7 @@ create table member_user
     preEndDate date default sysdate+30
 );
 
+select * from member_user;
 
 
 drop table member_user;
