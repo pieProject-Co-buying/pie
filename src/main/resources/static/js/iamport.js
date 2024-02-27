@@ -335,4 +335,3 @@ function sub(){
 		return;
 	}
 }
->>>>>>> branch 'develop' of https://github.com/pieProject-Co-buying/pie.git
