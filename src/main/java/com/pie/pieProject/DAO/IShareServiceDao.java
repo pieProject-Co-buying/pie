@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ShareServiceDto;
 
 @Mapper
@@ -27,7 +28,12 @@ public interface IShareServiceDao {
 	public ArrayList<ShareServiceDto> completePay(int num);
 	// 현재 인원 증가
 	public void updateNow(int num);
-	//
+	// 최대인원 여부
 	public void maxChk(int num);
-	
+	// 조회수 증가
+	public void updateHit(String num);
+	// 게시물 정렬
+	public ArrayList<ShareServiceDto> desc();
+	// 구매자 이름 및 아이디로 검색
+	public ArrayList<ShareServiceDto> searchBuyer(String keyword);
 }

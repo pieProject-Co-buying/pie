@@ -1,4 +1,3 @@
-
 create table subScribe(
     sub_num integer unique not null,
     buyer_id varchar2(100),
@@ -22,5 +21,4 @@ drop table subScribe;
 select * from subScribe;
 insert into subScribe values(sub_num.nextval,'buyer_id','buyer_name','buyer_nickname','buyer_tel','buyer_email',15,'sub_uid','sub_customer_uid','sub_method','sub_merchant_uid','sub_name',100,sysdate,'sub_premium');
 
->>>>>>> branch 'develop' of https://github.com/pieProject-Co-buying/pie.git
 commit;
