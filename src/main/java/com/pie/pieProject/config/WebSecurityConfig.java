@@ -37,7 +37,7 @@ public class WebSecurityConfig {
 				.permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember", "/complete", "/shareServiceBoardConsole", "/shareServiceApplyConsole",
-						"/searchBuyerName")
+						"/searchBuyerName","feedAnalize","/resetFeed","/noneFeed","/redirectChkFeed")
 				.authenticated()
 				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct",
 						"/deleteTownProduct", "/searchProducts", "/townBuyingCategoryChoice", "/writeTownBoard",
@@ -51,7 +51,7 @@ public class WebSecurityConfig {
 						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
-						"/shareService")
+						"/shareService","/chkFeed","/noneFeed")
 				.permitAll()
 				.requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/test",
 						"/search")

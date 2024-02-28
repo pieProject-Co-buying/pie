@@ -87,4 +87,7 @@
 	<update id="maxChk">
 		update proxyBuyBoard set pr_process = '0' where pr_num = #{param1}
 	</update>
+		<select id="chkFeed" resultType="_int">
+	select count (id) from makeFeed where id = #{param1}
+	</select>
 </mapper>
