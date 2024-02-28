@@ -20,6 +20,7 @@ public interface ITownBuyBoardDao {
 	//TownBuyBoardDto 값을 list 타입으로 리턴
 
 	
+	
 	// 목록 - 조회수 순
 	public List<TownBuyBoardDto> bestListDao();
 	//TownBuyBoardDto 값을 list 타입으로 리턴
