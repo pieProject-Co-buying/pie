@@ -23,7 +23,7 @@
 		SELECT member_user.nickname, member_user.id, member_user.profile_pic
 		FROM friendTable
 		JOIN member_user ON friendTable.followedId = member_user.id
-		WHERE friendTable.followingid = 'test'
+		WHERE friendTable.followingid = #{param1}
 	</select>
 
 </mapper>

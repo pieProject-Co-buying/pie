@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
+import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 @Controller
@@ -23,6 +25,8 @@ public class MainController {
 	ILikeDao ldao;
 	@Autowired
 	BoardComp Bcomp;
+	@Autowired
+	ITownBuyBoardDao tdao;
 
 	@RequestMapping("/")
 	public String mainPage(Model model) {
@@ -41,7 +45,14 @@ public class MainController {
 		plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
 				
 		model.addAttribute("list", plist);
+		
+		
+		List<TownBuyBoardDto> tlist = tdao.bestListDao();
+		model.addAttribute("tlist", tlist);
 
+		List<TownBuyBoardDto> tlist2 = tdao.likeListDao();
+		model.addAttribute("tlist2", tlist2);		
+		
 		return "Index";
 	}
 

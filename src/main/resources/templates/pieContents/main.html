@@ -25,91 +25,232 @@
 
 <!-- main fragment -->
 <div th:fragment="mainPageContents">
+
+
+
+	<!-- ###############################################
+secion1 #sec1 - 우리동네 공동구매 영역
+############################################### -->
+	<section class="pie-section-py mt-5">
+
+
+		<div class="container-fluid my-5">
+
+			<div class="row">
+
+				<div class="col-12">
+
+					<div id="section1Carousel" class="carousel slide"
+						data-ride="carousel">
+
+						<div class="carousel-inner">
+
+							<div class="row">
+
+								<div class="carousel-item active col">
+
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<img src="imgs/index-share.jpg"
+												class="img-fluid hj-img-round hj-radius-30" alt="...">
+										</div>
+										<div class="col-12 col-md-6 mt-5 mt-md-0">
+											<img src="imgs/share.jpg" alt=""
+												class="d-block img-fluid w-100" />
+
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="carousel-item col">
+
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<img src="imgs/index-comu.jpg"
+												class="d-block w-100 img-fluid hj-img-round hj-radius-30"
+												alt="...">
+										</div>
+										<div class="col-12 col-md-6 mt-5 mt-md-0">
+											<img src="imgs/together.jpg" alt=""
+												class="d-block img-fluid w-100" />
+
+										</div>
+									</div>
+
+								</div>
+
+
+
+								<div class="carousel-item col">
+
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<img src="imgs/index-baby.jpg"
+												class="d-block w-100 img-fluid hj-img-round hj-radius-30"
+												alt="...">
+										</div>
+										<div class="col-12 col-md-6 mt-5 mt-md-0">
+											<img src="imgs/shareTogetherPie.jpg" alt=""
+												class="d-block img-fluid w-100" />
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+
+			<div class="row mt-5">
+
+				<div class="col-12 col-md-6 d-none d-md-block">
+					<button class="carousel-control-prev" type="button"
+						data-target="#section1Carousel" data-slide="prev">
+						<span class="hj-carousel-control-prev-icon" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="black"
+								class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+							  <path fill-rule="evenodd"
+									d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+							</svg>
+						</span> <span class="sr-only">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button"
+						data-target="#section1Carousel" data-slide="next">
+						<span class="hj-carousel-control-next-icon" aria-hidden="true">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="black"
+								class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+							  <path fill-rule="evenodd"
+									d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+							</svg>
+						</span> <span class="sr-only">Next</span>
+					</button>
+				</div>
+
+				<div class="col-12 col-md-6">
+					<div class="row  justify-content-center">
+						<div
+							class="text-center font-weight-bold text-carousel-item hj-carousel-txt h5 mx-4 mx-md-3 mx-lg-5"
+							role="button">나누다</div>
+						<div
+							class="text-center font-weight-bold text-carousel-item hj-carousel-txt h5 mx-4 mx-md-3 mx-lg-5"
+							role="button">함께하다</div>
+						<div
+							class="text-center font-weight-bold text-carousel-item hj-carousel-txt h5 mx-4 mx-md-3 mx-lg-5"
+							role="button">파이하다</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
 	<!-- ###############################################
 secion1 #sec1 - 우리동네 공동구매 영역
 ############################################### -->
 	<section class="pie-section-py">
 		<div class="container">
+		
+		
 			<div class="row">
 				<div class="col">
 					<div
 						class="d-flex align-items-center justify-content-between w-100">
-						<h1 class="mb-5 mt-5 text-center text-sm-left">대리공구(가제)</h1>
-						<a class="btn border"> <small>더보기</small>
+						<h1 class="mb-5 mt-5 text-center text--left">조회수순 기준 공구(가제)</h1>
 						</a>
 					</div>
+                                                                         
 
 					<div class="card-columns">
-						<div class="card">
-							<img src="imgs/img1.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title that wraps to a new line</h5>
-								<p class="card-text">This is a longer card with supporting
-									text below as a natural lead-in to additional content. This
-									content is a little bit longer.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
+			
+	
+						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
+						
+						<div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 6">
+						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
+						        <img th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
+						             class="card-img-top hj-radius-30"
+						             alt="...">
+
+				                    <div class="position-absolute d-none" style="top: 0; left: 0;">
+				                        <h3 th:text="${tBoard.getTo_title}" class=""></h3>
+				                        <!-- <h5 th:text="${tBoard.getTo_writer}"></h5> -->
+				                    </div>
+
+						    </a>
+						    
+						    
+						    
+						    
 						</div>
-						<div class="card">
-							<img src="imgs/img2.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img src="imgs/img3.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img src="imgs/img4.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img src="imgs/img5.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
-						</div>
-						<div class="card">
-							<img src="imgs/img6.jpg" class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">This card has supporting text below as
-									a natural lead-in to additional content.</p>
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
+			
+			
+			
+			
+		
+		
+			<div class="row mb5">
+				<div class="col">
+					<div
+						class="d-flex align-items-center justify-content-between w-100">
+						<h1 class="mb-5 mt-5 text-center text--left">좋아요 기준 공구(가제)</h1>
+						</a>
+					</div>
+                                                                         
+
+					<div class="card-columns">
+			
+	
+						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
+						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 6">
+						    <a class="card hj-radius-30  hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
+						    	<div class="card-body p-0">
+						    	
+						    	
+						        	<img th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
+						             class="card-img-top hj-radius-30"
+						             alt="...">
+						             
+						             
+				                    <div class="position-absolute d-none" style="top: 0; left: 0;">
+				                        <h3 th:text="${t2Board.getTo_title}"></h3>
+				                    </div>
+				                    
+				                    
+								</div>
+						    </a>
+						    
+
+						</div>
+						
+
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row mt-5">
+				<div class="col text-center">
+					<a class="btn pie-btn-red" th:href="@{'townBuySearch'}">더 보러가기 GO!</a>
+				</div>
+			</div>	
+			
 		</div>
 
 	</section>
@@ -124,7 +265,8 @@ secion2 #sec2 - 대리공구 영역
 
 		<div class="container ">
 
-			<div class="d-flex align-items-center justify-content-between w-100 my-4">
+			<div
+				class="d-flex align-items-center justify-content-between w-100 my-4">
 				<h1
 					class="mb-5 mt-5 text-center text-sm-left font-weight-bolder pie-c-red">대리공구(가제)</h1>
 				<a class="btn btn-light" href="proxyBuyProducts"> <small>┼</small>
@@ -246,10 +388,12 @@ secion2 #sec2 - 대리공구 영역
 									<div class="hyej-custom-img-box position-relative">
 										<img
 											th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
-											alt="" class="shadow"/>
+											alt="" class="shadow" />
 										<div class="hyej-cover">
-											<p class="d-none d-lg-block m-0" th:text="${board.getPr_category()}"></p>
-											<h3 class="d-none d-lg-block text-truncate" th:text="${board.getPr_title()}"></h3>
+											<p class="d-none d-lg-block m-0"
+												th:text="${board.getPr_category()}"></p>
+											<h3 class="d-none d-lg-block text-truncate"
+												th:text="${board.getPr_title()}"></h3>
 										</div>
 									</div>
 								</div>
@@ -410,7 +554,26 @@ secion2 #sec2 - 대리공구 영역
 		})
 	</script>
 
+	<script src="js/main_town_caruousel.js"></script>
+	
 
+<script>
+	
+	/* 호버시 제품 제목 보이게 */
+    $(document).ready(function() {
+        $('.hj-main_town_hover').hover(
+        		
+            function() {
+                $(this).find('.position-absolute').removeClass('d-none');
+            },
+            
+            function() {
+                $(this).find('.position-absolute').addClass('d-none');
+            }
+        );
+    });
+    
+</script>
 </div>
 
 </html>
