@@ -2,11 +2,17 @@ package com.pie.pieProject.components;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
+
+import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -33,7 +39,6 @@ public class BoardComp {
 	}
 
 	public String translate(String str) {
-
 		String text = "";
 		if (str.equals("food"))
 			text = "식품";
@@ -69,7 +74,6 @@ public class BoardComp {
 			text = "공구진행중";
 		if (str.equals("4"))
 			text = "공구종료";
-
 		return text;
 	}
 
@@ -86,5 +90,33 @@ public class BoardComp {
         String text = document.text();
 
 		return text;
+	}
+	
+	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list){
+		for(ProxyBuyBoardDto d : list) {
+			d.setPr_category(translate(d.getPr_category()));
+		}
+		return list;
+	}
+	
+	public String lastUpdateMessage(String str) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime updatedate = LocalDateTime.parse(str, formatter);
+
+		LocalDateTime now = LocalDateTime.now();
+		Duration duration = Duration.between(updatedate, now);
+
+		long days = duration.toDays();
+		long hours = duration.toHours() % 24;
+		long minutes = duration.toMinutes() % 60;
+
+		if (days > 0) {
+			return String.format("%d일 전 업데이트", days);
+		} else if (hours > 0) {
+			return String.format("%d시간 전 업데이트", hours);
+		} else {
+			return String.format("%d분 전 업데이트", minutes);
+		}
 	}
 }

@@ -2,16 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.ISearchDao">
 	<select id="bestKeyword" resultType="string">
-	select keyWord from ( select * from searchKey where tableName=#{param1} order by hit desc)
-		where ROWNUM <![CDATA[ <= ]]> 5
+		select keyWord from ( select * from searchKey where
+		tableName=#{param1} order by hit desc)
+		where ROWNUM <![CDATA[ <= ]]>
+		5
 	</select>
 	<select id="findkey" resultType="_int">
-	select count (*) from searchKey where keyWord = #{param1} and tableName = #{param2}
+		select count (*) from searchKey where keyWord = #{param1} and tableName =
+		#{param2}
 	</select>
-	<insert id = "inputNew">
-	insert into searchKey values(#{param1},#{param2},0)
+	<insert id="inputNew">
+		insert into searchKey values(#{param1},#{param2},0)
 	</insert>
-	<update id = "upHit">
-	update searchKey set hit = hit+1 where keyWord = #{param1} and tableName = #{param2}
+	<update id="upHit">
+		update searchKey set hit = hit+1 where keyWord = #{param1} and tableName =
+		#{param2}
 	</update>
+	<select id="KeywordAll" resultType="string">
+		select DISTINCT keyWord from ( select * from searchKey order by hit
+		desc)
+		where ROWNUM <![CDATA[ <= ]]>
+		30
+	</select>
+	<select id="searchT"
+		resultType="string">
+		select to_category from townBuyBoard where to_title like
+		'%${param1}%' or
+		to_content like '%${param1}%' or to_tag like
+		'%${param1}%'
+	</select>
+	<select id="searchP"
+		resultType="string">
+		select pr_category from proxyBuyBoard where pr_title like
+		'%${param1}%' or
+		pr_content like '%${param1}%' or pr_tag like
+		'%${param1}%'
+	</select>
 </mapper>

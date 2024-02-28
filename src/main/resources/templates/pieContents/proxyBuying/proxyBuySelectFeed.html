@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/proxyBuying}">
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="proxyBuyContent" class="col p-0">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container">
+		<div class="row">
+			<div class="col text-center mt-5">
+				<h1>원하는 게시글만 쏙쏙! 원하는 대로 피드를 구성할 수 있어요!</h1>
+				<p>파이와 함께 즐거운 공구를 즐기세요!</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col">
+				<h3>다음 중 관심있는 키워드를 최대 10개까지 골라주세요!</h3>
+				<th:block th:each="tag : ${list}">
+					<button class="btn tagbuttons btn-primary" th:text="|#${tag}|"></button>
+				</th:block>
+			</div>
+		</div>
+
+		<div class="row my-3">
+			<div class="col">
+				<form action="feedAnalize">
+					<input type="text" id="feedCategory" name="feedCategory" />
+					<input type="submit" class="btn btn-block btn-primary" value="피드 만들기">
+				</form>
+
+			</div>
+		</div>
+		<div class="row my-3">
+			<div class="col">
+					<a href="noneFeed" class="btn btn-block btn-secondary">피드 설정하지 않고 보기</a>
+			</div>
+		</div>
+
+
+
+
+
+		<!-- <div class="row text-center">
+			<a class="col-lg-4" href="proxyBuyProducts"> <span
+				class="border btn p-4 mb-2 w-100"> 지금 진행하는 공구 보기 </span>
+			</a> <a class="col-lg-4" href="proxyBuyApply?page=1"> <span
+				class="border btn p-4 mb-2 w-100"> 입점 원하는 물품 신청하러가기 </span>
+			</a> <a class="col-lg-4" href="townBuying"> <span
+				class="border btn p-4 mb-2 w-100"> 직접 공구 모집하기 </span>
+			</a>
+		</div> -->
+	</div>
+
+
+	<script>
+		$(".tagbuttons").click(function() {
+			$(this).toggleClass("active");
+			let feedC = $("#feedCategory").val();
+			feedC += $(this).text();
+			$("#feedCategory").val(feedC);
+		})
+	</script>
+
+</div>
+
+</html>

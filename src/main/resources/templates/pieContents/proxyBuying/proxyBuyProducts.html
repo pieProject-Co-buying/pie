@@ -9,79 +9,235 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		<div class="row mb-5">
-			<div class="col text-center">
-				<h1>오늘의 추천 테마</h1>
-				<p>파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요!</p>
+		<th:block th:if="${haveFeed}">
+			<div class="row mb-5">
+				<div class="col text-center">
+					<h1>내게 딱 맞는 피드!</h1>
+					<p th:text="|${session.nickName}님이 고르신 키워드를 바탕으로 피드를 구성해봤어요!|"></p>
+				</div>
 			</div>
-		</div>
-
-		<section class="my-5">
 			<div class="row">
 				<div class="col">
-					<h3>#현재 진행중</h3>
+					<a href="resetFeed" class="btn btn-outline-secondary">피드 초기화</a>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<img src="imgs/img1.jpg" alt="" class="img-fluid" />
-					<div>
-						<h4>현재 진행중인 공구</h4>
-						<p>현재 파이가 모집하고 있어요! 서두르세요!</p>
-					</div>
-				</div>
-				<div class="col-md-8">
-					<div class="row">
-						<th:block th:each="board:${list1}">
-							<div class="col-4">
-								<a class="card"
-									th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-									th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
-									class="card-img-top" alt="...">
-									<div class="card-body">
-										<p class="card-text" th:text="${board.getPr_title()}"></p>
-									</div>
-								</a>
-							</div>
-
-						</th:block>
-					</div>
+		</th:block>
+		<th:block th:if="${!haveFeed}">
+			<div class="row mb-5">
+				<div class="col text-center">
+					<h1>내게 딱 맞는 피드!</h1>
+					<p th:text="|원하는 내용만 쏙쏙 골라볼 수 있도록 피드를 구성할 수 있어요!|"></p>
 				</div>
 			</div>
-		</section>
-
-		<section class="my-5">
 			<div class="row">
 				<div class="col">
-					<h3>#달콤한 디저트 파이?</h3>
+					<a sec:authorize="!isAuthenticated()" href="redirectChkFeed"
+						class="btn btn-outline-secondary">맞춤 피드 만들기</a> <a
+						sec:authorize="isAuthenticated()" href="reset"
+						class="btn btn-outline-secondary">맞춤 피드 만들기</a>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<img src="imgs/img1.jpg" alt="" class="img-fluid" />
-					<div>
-						<h4>달콤한 디저트 어떠세요?</h4>
-						<p>#인스타 감성 #홈카페</p>
+		</th:block>
+
+
+		<th:block th:if="${list1!=null}">
+			<section class="my-5 py-5 hyej-lists">
+				<div class="row py-2">
+					<div class="col">
+						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
 					</div>
 				</div>
-				<div class="col-md-8">
-					<div class="row">
-						<th:block th:each="board:${list2}">
-							<div class="col-4">
-								<a class="card"
-									th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-									th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
-									class="card-img-top" alt="...">
-									<div class="card-body">
-										<p class="card-text" th:text="${board.getPr_title()}"></p>
-									</div>
-								</a>
-							</div>
-						</th:block>
+				<div class="row align-items-center">
+					<div class="col-md-4">
+						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
+						<div class="py-4 px-1 pie-c-brown">
+							<h4>파이는 현재 진행중!</h4>
+							<p>
+								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+									몰라요!
+								</small>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="owl-carousel owl-theme">
+							<th:block th:each="board:${list1}">
+								<div class="item">
+									<a class="card pie-radius position-relatvie"
+										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										class="card-img-top" alt="...">
+										<div
+											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
+											<div class="hyej-cardheader">
+												<small class="hyej-boardcategory pie-c-red"
+													th:text="${board.getPr_category()}"></small>
+												<p class="card-text text-truncate"
+													th:text="${board.getPr_title()}"></p>
+											</div>
+											<div class="hyej-cardcontent">
+												<div class="d-flex justify-content-end">
+													<div class="d-flex align-items-center">
+														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestLike"
+															th:text=${board.getPr_like()}></span></small>
+													</div>
+													<div class="d-flex align-items-center mx-2">
+														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestHit"
+															th:text=${board.getPr_hit()}></span></small>
+													</div>
+													<div class="d-flex align-items-center">
+														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
+														<small> <span id="bestNow"
+															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+														</small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</th:block>
+						</div>
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</th:block>
+
+		<th:block th:if="${list2!=null}">
+			<section class="my-5 py-5 hyej-lists">
+				<div class="row py-2">
+					<div class="col">
+						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
+					</div>
+				</div>
+				<div class="row align-items-center flex-row-reverse">
+					<div class="col-md-4">
+						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
+						<div class="py-4 px-1 pie-c-brown">
+							<h4>파이는 현재 진행중!</h4>
+							<p>
+								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+									몰라요!
+								</small>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="owl-carousel owl-theme">
+							<th:block th:each="board:${list2}">
+								<div class="item">
+									<a class="card pie-radius position-relatvie"
+										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										class="card-img-top" alt="...">
+										<div
+											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
+											<div class="hyej-cardheader">
+												<small class="hyej-boardcategory pie-c-red"
+													th:text="${board.getPr_category()}"></small>
+												<p class="card-text text-truncate"
+													th:text="${board.getPr_title()}"></p>
+											</div>
+											<div class="hyej-cardcontent">
+												<div class="d-flex justify-content-end">
+													<div class="d-flex align-items-center">
+														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestLike"
+															th:text=${board.getPr_like()}></span></small>
+													</div>
+													<div class="d-flex align-items-center mx-2">
+														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestHit"
+															th:text=${board.getPr_hit()}></span></small>
+													</div>
+													<div class="d-flex align-items-center">
+														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
+														<small> <span id="bestNow"
+															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+														</small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</th:block>
+
+						</div>
+					</div>
+				</div>
+			</section>
+		</th:block>
+
+		<th:block th:if="${list3!=null}">
+			<section class="my-5 py-5 hyej-lists">
+				<div class="row py-2">
+					<div class="col">
+						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
+					</div>
+				</div>
+				<div class="row align-items-center">
+					<div class="col-md-4">
+						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
+						<div class="py-4 px-1 pie-c-brown">
+							<h4>파이는 현재 진행중!</h4>
+							<p>
+								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+									몰라요!
+								</small>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-8">
+						<div class="owl-carousel owl-theme">
+							<th:block th:each="board:${list3}">
+								<div class="item">
+									<a class="card pie-radius position-relatvie"
+										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										class="card-img-top" alt="...">
+										<div
+											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
+											<div class="hyej-cardheader">
+												<small class="hyej-boardcategory pie-c-red"
+													th:text="${board.getPr_category()}"></small>
+												<p class="card-text text-truncate"
+													th:text="${board.getPr_title()}"></p>
+											</div>
+											<div class="hyej-cardcontent">
+												<div class="d-flex justify-content-end">
+													<div class="d-flex align-items-center">
+														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestLike"
+															th:text=${board.getPr_like()}></span></small>
+													</div>
+													<div class="d-flex align-items-center mx-2">
+														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
+														<small><span id="bestHit"
+															th:text=${board.getPr_hit()}></span></small>
+													</div>
+													<div class="d-flex align-items-center">
+														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
+														<small> <span id="bestNow"
+															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+														</small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</section>
+		</th:block>
 
 		<div class="row mb-5">
 			<div class="col text-center">
@@ -89,6 +245,19 @@
 				<p>파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요!</p>
 			</div>
 		</div>
+		<div class="row">
+		<div class="col">
+		<div class="btn btn-outline-primary">모집 완료된 글 제외하기</div>
+		<div class="btn btn-outline-primary">전체</div>
+		<div class="btn btn-outline-primary">식품</div>
+		<div class="btn btn-outline-primary">육아</div>
+		<div class="btn btn-outline-primary">뷰티/패션/</div>
+		<div class="btn btn-outline-primary">반려동물</div>
+		<div class="btn btn-outline-primary">생활</div>
+		<div class="btn btn-outline-primary">기타</div>
+		</div>
+		</div>
+		
 		<div class="row py-3">
 			<div class="col text-right">
 				<a href="proxyWriteForm" class="btn btn-primary"> 글쓰기 </a>
@@ -98,18 +267,38 @@
 			<div class="col">
 				<div class="card-columns" id="allCards">
 					<th:block th:each="board:${allList}">
-						<a class="card"
+						<th:block th:if = "${board.getPr_process().equals('0')}">
+						<a class="card pie-radius-small overflow-hidden position-relative pie-close"
 							th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
 							th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
 							class="card-img-top" alt="...">
-							<div class="card-body">
-								<h5 class="card-title" th:text="${board.getPr_title()}">Card
-									title that wraps to a new line</h5>
+							<div class="card-body position-absolute w-100">
+								<small><span class="pie-c-red" th:text="${board.getPr_category()}"></span></small>
+								<h5 class="card-title text-truncate font-weight-bolder"
+									th:text="${board.getPr_title()}">Card title that wraps to
+									a new line</h5>
 								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
+									<small class="text-muted" th:text="${@boardComp.lastUpdateMessage(board.getPr_updateDay())}">Last updated 3 mins ago</small>
 								</p>
 							</div>
 						</a>
+						</th:block>
+						<th:block th:if = "${board.getPr_process().equals('1')}">
+						<a class="card pie-radius-small overflow-hidden position-relative"
+							th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
+							th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+							class="card-img-top" alt="...">
+							<div class="card-body position-absolute w-100">
+								<small><span class="pie-c-red" th:text="${board.getPr_category()}"></span></small>
+								<h5 class="card-title text-truncate font-weight-bolder"
+									th:text="${board.getPr_title()}">Card title that wraps to
+									a new line</h5>
+								<p class="card-text">
+									<small class="text-muted" th:text="${@boardComp.lastUpdateMessage(board.getPr_updateDay())}">Last updated 3 mins ago</small>
+								</p>
+							</div>
+						</a>
+						</th:block>
 					</th:block>
 				</div>
 			</div>
@@ -145,6 +334,22 @@
 							$("#showMoreButton").hide();
 						}
 					});
+		})
+
+		$('.owl-carousel').owlCarousel({
+			margin : 10,
+			nav : true,
+			responsive : {
+				0 : {
+					items : 1
+				},
+				600 : {
+					items : 2
+				},
+				1000 : {
+					items : 3
+				}
+			}
 		})
 	</script>
 
