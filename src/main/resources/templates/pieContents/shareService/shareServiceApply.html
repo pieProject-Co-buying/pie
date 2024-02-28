@@ -14,9 +14,9 @@
 				<span><h5>내가 작성한 게시물</h5></span>
 			</div>
 			<div class="col-6 mb-1 d-flex justify-content-end">
-				<small id="on" style="cursor: pointer">진행중&nbsp;</small>
+				<small id="on" style="cursor: pointer">모집중&nbsp;</small>
 				<small>|</small>
-				<small id="off" style="cursor: pointer">&nbsp;진행마감</small>
+				<small id="off" style="cursor: pointer">&nbsp;모집마감</small>
 			</div>
 		</div>
 		<!--row-->
@@ -30,20 +30,29 @@
 				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getSh_process}">
 					<div class="row no-gutters">
 						<div class="col-md-4 mt-2">
-							<img th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}" alt="..." class="img-fluid">
+							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}" alt="..." class="img-fluid">
 						</div>
 						<!--col-->
 						<div class="col-md-8">
 							<div class="card-body">
-								<h5 class="card-title" th:text="${board.getSh_title}"></h5>
-								<p class="card-text" th:utext="${board.getSh_content}"></p>
 								<th:block th:if="${board.getSh_process().equals('1')}">
-                        			<small class="badge badge-success" th:text="진행중"></small>                       	
+                        			<small class="badge badge-success" th:text="모집진행중"></small>                       	
                         		</th:block>
                         		<th:block th:if="${board.getSh_process().equals('0')}">
-                        			<small class="badge badge-danger" th:text="진행마감"></small>                      	
+                        			<small class="badge badge-danger" th:text="모집마감"></small>                      	
                         		</th:block>
-								<span class="d-block" th:text="${board.getSh_registDay}"></span>
+								<h5 class="card-title mt-3" th:text="${board.getSh_title}"></h5>
+                        		<small class="d-flex">
+                        			<span><b>진행일 :&nbsp;</b></span>
+                        			<span th:text="${board.getSh_registDay}"></span>
+                        			<span>&nbsp;~&nbsp;</span>
+									<span th:text="${board.getSh_deadLine}"></span>
+                        		</small>
+                        		<small class="d-flex">
+                        			<span><b>모집인원 :&nbsp;</b></span>
+                        			<span th:text="${board.getSh_personnelNow}"></span>
+                        			<span th:text="'&nbsp;/ '+${board.getSh_personnelMax}"></span>
+                        		</small>
 								<a th:href="'boardList?num='+${board.getSh_num()}"
 									class="btn custom-btn3 mt-3 d-block">상세보기</a>
 							</div>
@@ -104,13 +113,13 @@
 			});
 			/*************모집중인 게시물 확인*************/
 			on.click(function() {
-	            $(".ApplyList[data-pieCate!='on']").hide();
-	            $(".ApplyList[data-pieCate='on']").slice(0, 3).show();
+	            $(".ApplyList[data-pieCate!='1']").hide();
+	            $(".ApplyList[data-pieCate='1']").slice(0, 3).show();
 	            
 	            $("#load").off().click(function(e) {
 	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='on']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='on']:hidden").slice(0, 3).show();
+	                if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
+	                    $(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
 	                } else {
 	                    alert("마지막 게시물입니다.");
 	                }

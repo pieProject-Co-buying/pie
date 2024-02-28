@@ -16,7 +16,7 @@
 	</select>
 	<!--내가 쓴 게시글-->
 	<select id="myBoard" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_id=#{param1}
+		select * from shareServiceBoard where sh_id=#{param1} order by sh_registDay desc
 	</select>
 	<!--결제 완료 페이지-->
 	<select id="completePay" resultType="com.pie.pieProject.DTO.ShareServiceDto">

@@ -45,7 +45,7 @@
 			<!--col-4-->
 			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}"
 				th:attr="data-category=${board.getSh_category()}"
-				class="col-md-4 col-sm-12 movie" style="cursor: pointer;">
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
 				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
@@ -53,23 +53,24 @@
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<h5 class="card-title">
+						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getSh_tags()!=null}">
-									<th:block
-										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
-										<span class="badge badge-light"
-											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									<th:block th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getSh_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getSh_category()}"></small> <small
+						<small th:text="${board.getSh_category()}"></small>
+						<small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" /> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
 							th:text="${board.getSh_nickname()}"></span>
 						</small>
 					</div>

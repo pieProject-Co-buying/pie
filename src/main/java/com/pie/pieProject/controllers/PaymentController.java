@@ -124,9 +124,6 @@ public class PaymentController {
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
 		
-		
-		
-		
 		return "pieContents/shareService/shareServiceApplyConsole";
 	} 
 	/**********admin 결제내역 페이지 id,nickname 기반 검색**********/
@@ -134,6 +131,31 @@ public class PaymentController {
 	public String searchBuyer(HttpServletRequest request, Model model) {
 		String search = request.getParameter("search");
 		model.addAttribute("list", dao.searchBuyer(search));
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		List<PaymentDTO> list = dao.searchBuyer(search);
+		
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		
+		List<PaymentDTO> templist = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
+		for (int i = minPage; i < maxPage; i++) {
+			templist.add(list.get(i));
+		}
+		
+		System.out.println(templist.size());
+		
+		model.addAttribute("payList", templist);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		
+		model.addAttribute("list", templist);
+		
+		
 		return "pieContents/shareService/shareServiceApplyConsole";
 	}
 }

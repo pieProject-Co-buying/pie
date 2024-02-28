@@ -7,9 +7,6 @@ var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
 var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}`;
-const token = $("meta[name='_csrf']").attr("content")
-const header = $("meta[name='_csrf_header']").attr("content");
-const name = $("#userName").val();
 
 function kgPay() {
 	if (confirm("kg 이니시스로 결제 하시겠습니까?") == true) {
@@ -336,9 +333,6 @@ function paycoPay() {
 		}
 	);
 }
-const unixTimestamp = Date.now();
-			console.log(unixTimestamp);
-
 function sub(){
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
 	IMP.request_pay({

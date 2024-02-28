@@ -101,6 +101,11 @@ function boardval() {
 			return false;
 		}
 	}
+	/*태그 최소 갯수*/
+	if($(pie_tagsOutput).val()<1){
+		alert('태그는 1개 이상 지정해주세요.')
+		return false;
+	}
 
 	console.log("총합 : " + $("#price_total").val())
 

@@ -22,6 +22,7 @@
 	--brown-hover: #8C5A38;
 	--brown-dis: #A38D7E;
 	--yellow : #f4bf4f;
+	--custom:#C74A35;
 }
 
 html {
@@ -822,4 +823,30 @@ input::placeholder, textarea::placeholder {
 
 #proxyBuyTitle{
 	background: url("../imgs/sheri-silver-tWOt1vRvob4-unsplash.jpg") center/cover no-repeat;
+}
+/**************************************서비스 공유 상세페이지 캐러셀 임시 버튼*********************************************/
+.pie-btn-custom {
+	color: #fff;
+	background-color: var(--custom);
+	border-color: var(--custom);
+	border-radius:40%;
+}
+.pie-btn-custom.disabled, .pie-btn-custom:disabled {
+	background-color: var(--custom-dis);
+	border-color: var(--custom-dis);
+}
+
+.pie-btn-custom:not(:disabled):not(.disabled).active,
+	.pie-btn-custom:not(:disabled):not(.disabled):active, .show>.pie-btn-custom.dropdown-toggle
+	{
+	background-color: darkred;
+}
+
+.pie-btn-custom:not(:disabled):not(.disabled).active:focus,
+	.pie-btn-custom:not(:disabled):not(.disabled):active:focus, .show>.pie-btn-custom.dropdown-toggle:focus
+	{
+	box-shadow: none;
+}
+.shareActive{
+	opacity:0.4;
 }
