@@ -22,6 +22,7 @@
 			<div class="col-sm-6">
 				<input type="text" class="form-control" id="name" name="name"
 					th:value="${mem.getName()}" required>
+					<div class="invalid-feedback nameFeedBack">이름을 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -29,6 +30,7 @@
 			<div class="col-sm-6">
 				<input type="text" class="form-control" id="nickname"
 					name="nickname" th:value="${mem.getNickname()}" required>
+					<div class="invalid-feedback">닉네임을 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -151,6 +153,7 @@
 							<div class="input-group-append">
 								<div class="input-group-text">@</div>
 							</div>
+							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
 					</div>
 					<div class="form-group col-6 pl-0">
@@ -180,6 +183,7 @@
 					type="button" onclick="findPostCode()" value="우편번호 찾기"
 					class="btn pie-btn-red">
 			</div>
+			<div class="invalid-feedback">우편번호를 입력해주세요.</div>
 		</div>
 
 		<div class="form-group pie-address row">
@@ -187,7 +191,8 @@
 			<div class="col-sm-9">
 				<input type="text" class="form-control" id="address_main"
 					placeholder="주소" name="address_main"
-					th:value="${mem.getAddress_main()}">
+					th:value="${mem.getAddress_main()}" required>
+					<div class="invalid-feedback">주소를 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">

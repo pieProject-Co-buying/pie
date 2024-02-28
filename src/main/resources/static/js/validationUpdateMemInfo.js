@@ -249,17 +249,24 @@ emailInput.blur(function() {
 })
 
 emailId.blur(function() {
+	let chkStr;
 	emailIdVal = emailId.val();
-	if (emailSelect.val() != '') {
-		email.val(emailIdVal + "@" + emailSelect.val());
-		if (inputedemail != email.val()) {
-			checkEmailAjax(emailIdVal + "@" + emailSelect.val())
-		}
+
+	if (emailSelect.val() != '' && emailInput.val() == '') {
+		console.log(1);
+		chkStr = emailIdVal + "@" + emailSelect.val();
+		email.val(chkStr);
+		
+
 	} else if (emailInput.val() != '') {
-		email.val(emailIdVal + "@" + emailInput.val());
-		if (inputedemail != email.val()) {
-			checkEmailAjax(emailIdVal + "@" + emailInput.val())
-		}
+		console.log(2);
+		chkStr = emailIdVal + "@" + emailInput.val();
+		email.val(chkStr);
+	}
+	console.log(chkStr);
+
+	if (chkStr != inputedemail) {
+		checkEmailAjax(chkStr);
 	}
 
 })

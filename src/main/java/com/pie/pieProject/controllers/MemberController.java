@@ -360,7 +360,7 @@ public class MemberController {
 		return ResponseEntity.ok(dao.chkNDuplicate(chkName) > 0);
 	}
 	
-	@PostMapping("/chkPhone")
+	@PostMapping("/checkPhone")
 	public ResponseEntity<Boolean> chkPhone(@RequestParam("chkPhone") String chkPhone) {
 		System.out.println(chkPhone);
 		return ResponseEntity.ok(dao.chkPDuplicate(chkPhone) > 0);
