@@ -20,20 +20,31 @@
 	<div class="row">
 		<div class="col py-5">
 
-				<div class="jumbotron jumbotron-fluid">
-					<div class="container">
-						<p class="lead" th:if="${msg==1}">
-							고객님의 ID는 <span th:text="${id}"></span> 입니다.
-						</p>
+			<div class="jumbotron jumbotron-fluid">
+				<div class="container">
+					<p class="lead" th:if="${msg==1}">
+						고객님의 ID는 <span th:text="${id}"></span> 입니다.
+					</p>
 
-						<p class="lead" th:if="${msg==0}">입력한 정보와 일치하는 회원이 존재하지 않습니다.</p>
+					<p class="lead" th:if="${msg==0}">입력한 정보와 일치하는 회원이 존재하지 않습니다.</p>
 
-						<p class="lead" th:if="${msg==2}">비밀번호가 변경되었습니다. 다시 로그인해주세요.</p>
+					<p class="lead" th:if="${msg==2}">비밀번호가 변경되었습니다. 다시 로그인해주세요.</p>
 
-						<a href="login" class="btn btn-outline-primary">로그인화면</a> <a
-							th:if="${msg==1}" href="findPW" class="btn btn-outline-primary">비밀번호찾기</a>
-					</div>
+					<th:block th:if="${session.userId==null}">
+						<a href="login" class="btn btn-outline-primary">로그인화면</a>
+					</th:block>
+					<th:block th:if="${session.userId!=null}">
+
+						<form action="logout" method="post">
+							<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <input
+								type="submit" value="로그인 화면" class="btn btn-outline-primary" />
+						</form>
+
+					</th:block>
+
+					<a th:if="${msg==1}" href="findPW" class="btn btn-outline-primary">비밀번호찾기</a>
 				</div>
+			</div>
 
 		</div>
 	</div>

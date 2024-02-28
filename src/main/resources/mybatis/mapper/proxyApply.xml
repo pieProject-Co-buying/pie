@@ -7,8 +7,8 @@
 		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
 		select * from proxyApplyBoard order by pr_registDay desc
 	</select>
-	<select id="getView" resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">>
-		select * from proxyApplyBoard where pr_num = #{param1}
+	<select id="getView" resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
+		SELECT * FROM proxyApplyBoard where pr_num = #{param1}
 	</select>
 	<insert id="insertProxyBoard">
 		insert into proxyApplyBoard values(
