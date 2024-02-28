@@ -38,6 +38,8 @@
 	color: transparent;
 	padding: 30px 40px;
 	font-weight: bolder;
+	opacity: 0;
+	transition : opacity 0.5s;
 }
 
 .hyej-custom-img-box:hover>.hyej-cover{
@@ -47,6 +49,7 @@
 	border-radius: 30px;
 	cursor: pointer;
 	color: white;
+	opacity: 1;
 }
 .hyej-custom-img-box:hover>.hyej-cover h3{
 	display: block;
@@ -195,6 +198,20 @@
 	display: -webkit-box;
 	-webkit-line-clamp : 3;
 	-webkit-box-orient : vertical;
+}
+
+#categoryBtns.hyej-customs-btnset {
+	position: absolute;
+	z-index: 9999;
+	top: -50px;
+	left: 50px;
+	opacity: 0;
+	transition : all 1s;
+}
+
+.hyej-haveMap:hover #categoryBtns.hyej-customs-btnset{
+	top: 20px;
+	opacity: 1;
 }
 
 @media screen and (max-width: 999px) {
