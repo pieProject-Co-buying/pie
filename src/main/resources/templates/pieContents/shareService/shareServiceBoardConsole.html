@@ -14,8 +14,14 @@
 		<!-------------------------------------------------------------->
 		<div id="board-search">
 			<div class="container">
+					<small>
+						<a href="shareServiceBoardConsole?category=Proxy">동네공구</a>
+						<small> / </small>
+						<a href="shareServiceBoardConsole?category=Share">서비스공유</a>
+					</small>
 				<div class="search-window">
-					<form action="searchBoardName">
+					<form action="searchBoardName" >
+					<input type="hidden" name = "page" value="1" />
 						<div class="search-wrap">
 							<label for="search" class="blind">게시글 검색</label> <input
 								type="text" id="search" name="search" placeholder="검색어를 입력해주세요.">
@@ -33,6 +39,8 @@
 						<tr>
 							<th scope="col" class="th-num">번호</th>
 							<th scope="col" class="th-title">제목</th>
+							<th scope="col" class="th-num">작성자ID</th>
+							<th scope="col" class="th-num">닉네임</th>
 							<th scope="col" class="th-date">등록일</th>
 							<th scope="col" class="th-date">마감일</th>
 							<th scope="col" class="th-date">진행현황</th>
@@ -42,14 +50,22 @@
 						<th:block th:each="board:${list}">
 							<tr>
 								<td th:text="${board.getSh_num()}"></td>
-								<th><a th:href="'boardList?num='+${board.getSh_num()}"
-									th:text="${board.getSh_title()}"></a></th>
+								<th>
+									<b>
+										<a th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
+									</b>
+								</th>
+								<td th:text="${board.getSh_id}"></td>
+								<td th:text="${board.getSh_nickname()}"></td>
 								<td th:text="${board.getSh_registDay()}"></td>
 								<td th:text="${board.getSh_deadLine()}"></td>
 								<td><small class="badge badge-success"
-									th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> <small
+									th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
+									<small
 									class="badge badge-danger"
-									th:if="${board.getSh_process().equals('0')}"> 모집완료</small></td>
+									th:if="${board.getSh_process().equals('0')}"> 모집완료
+									</small>
+								</td>
 							</tr>
 						</th:block>
 					</tbody>

@@ -8,18 +8,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.yaml.snakeyaml.tokens.DocumentEndToken;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
+import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ProxyApplyBoardDto;
+import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShareServiceController {
@@ -33,6 +37,8 @@ public class ShareServiceController {
 	IPaymentDAO Pdao;
 	@Autowired
 	BoardComp Bcomp;
+	@Autowired
+	IProxyBuyDao rdao;
 
 
 	/********** 전체 게시물 조회 **********/
@@ -66,6 +72,7 @@ public class ShareServiceController {
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		List<ShareServiceDto> list = dao.getBoardList();
+		dao.updateHit(num);
 		
 		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
 		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
@@ -73,7 +80,6 @@ public class ShareServiceController {
 		}else {
 			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
-		/* dao.updateHit(sId); */
 
 		String table = "shareServiceBoard";
 		if (ldao.checkLike(Bcomp.getSession(request, "userId"), sId, table) > 0) {
@@ -81,7 +87,7 @@ public class ShareServiceController {
 		} else {
 			model.addAttribute("like", false);
 		}
-		dao.updateHit(num);
+		
 		model.addAttribute("board", dto);
 		model.addAttribute("member",mdto);
 		model.addAttribute("list",list);
@@ -260,7 +266,7 @@ public class ShareServiceController {
 	}
 	/**********************admin 게시글 관리**********************/
 	@RequestMapping("/shareServiceBoardConsole")
-	public String boardConsole(@RequestParam("page") int page, Model model) {
+	public String boardConsole(@RequestParam("page") int page, @RequestParam(value="search", required=false) String search, Model model) {
 		List<ShareServiceDto> list = dao.getBoardList();
 		
 		int pageLimit = 10;
@@ -286,7 +292,57 @@ public class ShareServiceController {
 	@RequestMapping("/searchBoardName")
 	public String searchBuyer(HttpServletRequest request, Model model) {
 		String search = request.getParameter("search");
-		model.addAttribute("list", dao.searchBuyer(search));
-		return "pieContents/shareService/shareServiceApplyConsole";
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		List<ShareServiceDto> list = dao.searchBuyer(search);
+		
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		
+		List<ShareServiceDto> templist = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
+		for (int i = minPage; i < maxPage; i++) {
+			templist.add(list.get(i));
+		}
+		
+		System.out.println(templist.size());
+		
+		model.addAttribute("list", templist);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		
+		model.addAttribute("list", templist);
+		return"pieContents/shareService/shareServiceBoardConsole";
 	}
+	/********** admin 게시글 관리 필터 **********/
+	/*
+	 * @RequestMapping("/consoleFilter") public String goFinish(HttpServletRequest
+	 * request, Model model) { String category = request.getParameter("category");
+	 * 
+	 * int num = 0; String id = null; String nickname = null; String title = null;
+	 * String registDay = null; String deadLine = null; String process = null;
+	 * 
+	 * if(category.equals("Share")) { List<ShareServiceDto> list =
+	 * dao.getBoardList(); for(ShareServiceDto dto : list) { num=dto.getSh_num();
+	 * id=dto.getSh_id(); nickname=dto.getSh_nickname(); title=dto.getSh_title();
+	 * registDay=dto.getSh_registDay(); deadLine=dto.getSh_deadLine();
+	 * process=dto.getSh_process(); }
+	 * 
+	 * }else if(category.equals("Proxy")) {; List<ProxyBuyBoardDto> list =
+	 * rdao.listDao(); for(ProxyBuyBoardDto dto : list) {
+	 * num=Integer.parseInt(dto.getPr_num()); id=dto.getPr_id();
+	 * nickname=dto.getPr_nickname(); title=dto.getPr_title();
+	 * registDay=dto.getPr_registDay(); deadLine=dto.getPr_deadLine();
+	 * process=dto.getPr_process(); } }
+	 * 
+	 * model.addAttribute("num",num); model.addAttribute("id",id);
+	 * model.addAttribute("nickname",nickname); model.addAttribute("title",title);
+	 * model.addAttribute("registDay",registDay);
+	 * model.addAttribute("deadLine",deadLine);
+	 * model.addAttribute("process",process); return
+	 * "pieContents/shareService/shareServiceFinish?category="; }
+	 */
 }

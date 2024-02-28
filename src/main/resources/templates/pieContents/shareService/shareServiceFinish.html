@@ -49,10 +49,15 @@
 				<form action="">
 					<button type="button" class="custom-btn">주문내역</button>
 					<button type="button" class="custom-btn2">신청취소</button>
-					<button type="button" class="custom-btn3" onclick='history.go(-3)'>목록으로</button>
+					<button type="button" class="custom-btn3" onclick="shareServiceBoard()">목록으로</button>
 				</form>
 			</div>
 		</div><!--row-->
 	</div><!--container-->
+	<script>
+		function shareServiceBoard(){
+			location.href="shareServiceBoard";
+		}
+	</script>
 </div>
 </html>
