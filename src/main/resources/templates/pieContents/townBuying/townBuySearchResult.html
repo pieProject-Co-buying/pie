@@ -2,10 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
-<head>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-</head>
 
 <div layout:fragment="townBuyContent" class="col">
 
@@ -198,7 +194,8 @@
 
 						<div class="col-12 mb-2" th:each="board:${list}">
 
-							<a class="card hj-radius-30" th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
+							<a class="card hj-radius-30"
+								th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
 
 								<div class="row">
 
@@ -216,7 +213,7 @@
 											<h3 th:text="${board.getTo_title()}"></h3>
 											<p class="" th:utext="${board.getTo_content()}">.</p>
 
-<!-- 											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
+											<!-- 											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
 												class="btn btn-outline-dark">같이 사러가기 &raquo;</a> -->
 										</div>
 
@@ -247,8 +244,10 @@
 			<div class="row row-cols-1 row-cols-md-5" id="serachResult"></div>
 
 
-	<script src="js/townBuying.js"></script>
-	<script src="js/townBuyingSearch.js"></script>
+			<script src="js/townBuying.js"></script>
+			<script src="js/townBuyingSearch.js"></script>
 
+		</div>
+	</div>
 </div>
 </html>

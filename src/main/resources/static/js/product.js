@@ -5,8 +5,6 @@ let getURL = window.location.href;
 const url = new URL(getURL);
 const urlParams = url.searchParams;
 let num = urlParams.get('num');
-const token = $("meta[name='_csrf']").attr("content")
-const header = $("meta[name='_csrf_header']").attr("content");
 
 $(".pie-heart-icon").click(function() {
 	$.ajax({
@@ -32,26 +30,26 @@ $(".pie-heart-icon").click(function() {
 })
 
 $(".pie-thumbsUp-icon").click(function() {
-			$.ajax({
-				data : {
-					you : $("#yourId").val()
-				},
-				dataType : 'json',
-				type : "POST",
-				url : "/Follwing",
-				beforeSend : function(xhr) {
-					xhr.setRequestHeader(header, token);
-				},
-				success : function(response) {
-					console.log(response);
-					if(response){
-						$(".pie-thumbsUp-icon").addClass("active");
-					}else{
-						$(".pie-thumbsUp-icon").removeClass("active");
-					}
-				},
-				error : function(xhr, desc, err) {
-					console.error('전송 실패', err);
-				}
-			});
-		})
+	$.ajax({
+		data: {
+			you: $("#yourId").val()
+		},
+		dataType: 'json',
+		type: "POST",
+		url: "/Follwing",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(response) {
+			console.log(response);
+			if (response) {
+				$(".pie-thumbsUp-icon").addClass("active");
+			} else {
+				$(".pie-thumbsUp-icon").removeClass("active");
+			}
+		},
+		error: function(xhr, desc, err) {
+			console.error('전송 실패', err);
+		}
+	});
+})

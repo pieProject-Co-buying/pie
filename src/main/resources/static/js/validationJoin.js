@@ -1,8 +1,5 @@
 (function() {
 	'use strict';
-	const token = $("meta[name='_csrf']").attr("content")
-	const header = $("meta[name='_csrf_header']").attr("content");
-
 	window.addEventListener('load',
 		function() {
 			document.querySelector("#name").addEventListener("blur", function() {
@@ -133,7 +130,7 @@
 			document.querySelector("#passwordChk").addEventListener("blur", function() {
 				let input = this.value.trim();
 				let pinput = document.querySelector("#password").value.trim();
-				
+
 				console.log(input);
 				console.log(pinput);
 				// 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
@@ -148,6 +145,7 @@
 			});
 
 			document.querySelector("#phone").addEventListener("blur", function() {
+				let thisphone = this;
 				// 입력한 value 값을 읽어온다.
 				let input = this.value.trim();
 				// 유효성 검증을 위한 정규식 패턴
@@ -159,12 +157,32 @@
 				} else if (!pattern.test(input)) {
 					this.setCustomValidity("올바른 전화번호인지 확인해주세요.");
 				} else {
-					this.setCustomValidity("");
-
 					let phone = $("#phone");
 					let inputPhone = input
 					inputPhone = phoneForm(inputPhone);
 					phone.val(inputPhone);
+					$.ajax({
+						url: "checkPhone",
+						type: 'POST',
+						data: {
+							"chkPhone": inputPhone
+						},
+						cache: false,
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader(header, token);
+						},
+						success: function(response) {
+							if (response) {
+								thisphone.setCustomValidity("동일한 회원정보로 가입한 내역이 존재합니다.")
+								setErrorMessage(findAncestorWithClass(thisphone, 'form-group'), thisphone.validationMessage);
+							} else {
+								thisphone.setCustomValidity("");
+							}
+						},
+						error: function(xhr, status, error) {
+							console.log('error:' + error);
+						}
+					});
 				}
 				setErrorMessage(findAncestorWithClass(this, 'form-group'), this.validationMessage);
 				checkGroup(this);
@@ -232,32 +250,6 @@
 					}, false);
 				});
 		}, false);
-
-	function checkGroup(inputName) {
-		if (!inputName.checkValidity()) {
-			event.preventDefault();
-			event.stopPropagation();
-		}
-
-		let group = findAncestorWithClass(inputName, 'form-group');
-
-		if (group) {
-			group.classList.add('was-validated');
-		}
-		// 부모 요소 중에 특정 클래스를 찾는 함수
-	}
-
-	function findAncestorWithClass(element, className) {
-		while ((element = element.parentElement) && !element.classList.contains(className));
-		return element;
-	}
-
-	function setErrorMessage(parentElement, message) {
-		let invalidFeedback = parentElement.querySelector('.invalid-feedback');
-		if (invalidFeedback) {
-			invalidFeedback.textContent = message;
-		}
-	}
 })();
 
 /*비밀번호 보이기 / 숨기기*/
@@ -279,6 +271,7 @@ let emailSelect = $("#email2");
 let emailInput = $("#emailAddressInput");
 let email = $("#emailCom");
 let emailId = $("#email1");
+let emailAlert = document.querySelector("#email1");
 let emailIdVal;
 
 emailInput.hide();
@@ -287,24 +280,27 @@ emailSelect.change(function() {
 	if (emailSelect.val() === "") {
 		$(this).hide();
 		emailInput.show();
-		emailInput.attr("readonly",false);
+		emailInput.attr("readonly", false);
 	} else {
 		$(this).show();
 		emailInput.hide();
-		emailInput.attr("readonly",true);
+		emailInput.attr("readonly", true);
 	}
 	email.val(emailIdVal + "@" + emailSelect.val());
+	checkEmailAjax(emailIdVal + "@" + emailSelect.val())
 })
 
 emailInput.change(function() {
 	if (emailInput.val() != "") {
 		email.val(emailIdVal + "@" + emailInput.val());
+		checkEmailAjax(emailIdVal + "@" + emailInput.val())
 	}
 })
 
 emailId.change(function() {
 	emailIdVal = emailId.val();
 	email.val(emailIdVal + "@" + emailSelect.val());
+	checkEmailAjax(emailIdVal + "@" + emailSelect.val())
 })
 
 
@@ -327,7 +323,7 @@ $("#profilePic").hide();
 function setThumbnail(event) {
 	var reader = new FileReader();
 
-	
+
 	reader.onload = function(event) {
 		$(".btn-upload").hide();
 		$("#profilePic").show();
@@ -337,3 +333,55 @@ function setThumbnail(event) {
 
 	reader.readAsDataURL(event.target.files[0]);
 }
+
+function findAncestorWithClass(element, className) {
+	while ((element = element.parentElement) && !element.classList.contains(className));
+	return element;
+}
+
+function setErrorMessage(parentElement, message) {
+	let invalidFeedback = parentElement.querySelector('.invalid-feedback');
+	if (invalidFeedback) {
+		invalidFeedback.textContent = message;
+	}
+}
+
+function checkGroup(inputName) {
+		if (!inputName.checkValidity()) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+
+		let group = findAncestorWithClass(inputName, 'form-group');
+
+		if (group) {
+			group.classList.add('was-validated');
+		}
+		// 부모 요소 중에 특정 클래스를 찾는 함수
+	}
+	
+	function checkEmailAjax(inputEmail){
+		$.ajax({
+		url: "chkEmail",
+		type: 'POST',
+		data: {
+			"chkEmail": inputEmail
+		},
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(response) {
+			if (response) {
+				emailAlert.setCustomValidity("동일한 회원정보로 가입한 내역이 존재합니다.")
+				setErrorMessage(findAncestorWithClass(emailAlert, 'form-group'), emailAlert.validationMessage);
+				checkGroup(emailAlert);
+			} else {
+				emailAlert.setCustomValidity("");
+			}
+		},
+		error: function(xhr, status, error) {
+			console.log('error:' + error);
+		}
+	});
+	}

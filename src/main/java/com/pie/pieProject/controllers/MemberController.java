@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -257,7 +259,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/updateAction")
-	public String updateProcess(@RequestParam("password") String password, @RequestParam("name") String name,
+	public String updateProcess(@RequestParam("name") String name,
 			@RequestParam("nickname") String nickname, @RequestParam("gender") String gender,
 			@RequestParam("email") String email, @RequestParam("phone") String phone,
 			@RequestParam("postCode") String postCode, @RequestParam("address_main") String address_main,
@@ -285,11 +287,7 @@ public class MemberController {
 				dto.setProfile_pic(profile_pic);
 			}
 
-			String salt = now.getSalt();
-			String password_salt = SHA256.encrypt(password, salt);
-
 			dto.setId(bcomp.getSession(request, "userId"));
-			dto.setPassword(password_salt);
 			dto.setName(name);
 			dto.setNickname(nickname);
 			dto.setGender(gender);
@@ -361,6 +359,18 @@ public class MemberController {
 		System.out.println(chkName);
 		return ResponseEntity.ok(dao.chkNDuplicate(chkName) > 0);
 	}
+	
+	@PostMapping("/chkPhone")
+	public ResponseEntity<Boolean> chkPhone(@RequestParam("chkPhone") String chkPhone) {
+		System.out.println(chkPhone);
+		return ResponseEntity.ok(dao.chkPDuplicate(chkPhone) > 0);
+	}
+	
+	@PostMapping("/chkEmail")
+	public ResponseEntity<Boolean> chkEmail(@RequestParam("chkEmail") String chkEmail) {
+		System.out.println(chkEmail);
+		return ResponseEntity.ok(dao.chkEDuplicate(chkEmail) > 0);
+	}
 
 	@GetMapping("/findID")
 	public String findID(Model model) {
@@ -422,6 +432,11 @@ public class MemberController {
 		model.addAttribute("msg", msg);
 		return "/pieContents/members/findResult";
 	}
+	
+	@GetMapping("changePw_form")
+	public String changePw() {
+		return "/pieContents/members/ChangePw_form";
+	}
 
 	@PostMapping("/changePwAction")
 	public String findPwAction(@RequestParam("id") String id, @RequestParam("password") String pw, Model model) {
@@ -434,4 +449,5 @@ public class MemberController {
 		model.addAttribute("msg", msg);
 		return "/pieContents/members/findResult";
 	}
+	
 }
