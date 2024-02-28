@@ -144,3 +144,23 @@
 	white-space: nowrap;
 }
 
+
+
+
+
+.hj-carousel-control-prev-icon,
+.hj-carousel-control-next-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: 50% / 100% 100% no-repeat;
+}
+
+
+
+
+
+.hj-text-big {
+	font-size: 50px;
+}
+
