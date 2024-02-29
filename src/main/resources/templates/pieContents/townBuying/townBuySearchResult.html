@@ -210,11 +210,18 @@
 									<div class="col-12 col-md-6">
 
 										<div class="card-body">
-											<h3 th:text="${board.getTo_title()}"></h3>
-											<p class="" th:utext="${board.getTo_content()}">.</p>
+											<h4 th:text="${board.getTo_title()}"></h4>
 
-											<!-- 											<a th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}"
-												class="btn btn-outline-dark">같이 사러가기 &raquo;</a> -->
+
+										<div class="row mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${board.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
+										
+										
 										</div>
 
 									</div>

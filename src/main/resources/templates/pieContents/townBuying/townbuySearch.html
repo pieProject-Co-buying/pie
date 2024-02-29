@@ -191,18 +191,22 @@
 
 									<img
 										th:src="@{'/imgs/test/' + ${Fboard.getTo_productImg().substring(0,Fboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid  hj-radius-img-30" alt="...">
+										class="card-img-top  hj-sub1-card-part-h img-fluid  hj-radius-img-30 hj-fit-cover" alt="...">
 
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Fboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Fboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Fboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
+
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Fboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Fboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 
 									</div>
 
@@ -264,17 +268,21 @@
 
 									<img
 										th:src="@{'/imgs/test/' + ${Bboard.getTo_productImg().substring(0,Bboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30" alt="...">
+										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover" alt="...">
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Bboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Bboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Bboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
+
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Bboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Bboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 
 									</div>
 
@@ -327,22 +335,22 @@
 
 									<img
 										th:src="@{'/imgs/test/' + ${Lboard.getTo_productImg().substring(0,Lboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30" alt="...">
+										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover" alt="...">
 
 
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Lboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Lboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Lboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
 
-
-
-
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Lboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Lboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 									</div>
 
 								</a>
@@ -377,7 +385,7 @@
 
 		<div class="container">
 				<!-- 공구 게시글 작성 - 배너스타일 -->
-		<div class="col-12">
+		<div class="col-12 px-0">
 
 			<a href="townForm" class="btn border w-100 py-5 mb-5 pie-btn-red hj-radius-30">
 				<span class="h2 d-block text-white">누구나 가능한 파이!</span> <span
@@ -411,16 +419,22 @@
  								<div class="col-5">
 
 									<img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" 
-									class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170" alt="...">
+									class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170 hj-fit-cover" alt="...">
 
  								</div>
 
 								<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
  
 									<h5 class="card-title pr-3" th:text="${board.getTo_title()}"></h5>
-									<div class="card-text w-100 hj-text-truncate  pr-3" th:utext="${board.getTo_content()}"></div>
 
 
+										<div class="row mt-5 mr-3">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${board.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 								</div>
 
 

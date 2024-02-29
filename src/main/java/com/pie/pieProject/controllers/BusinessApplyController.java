@@ -1,45 +1,219 @@
 
 package com.pie.pieProject.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.IBusinessApplyDao;
 import com.pie.pieProject.DTO.BusinessApplyDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class BusinessApplyController {
-	
-	/*
-	 * @Autowired IBusinessApplyDao dao;
-	 */
+
+	@Autowired
+	IBusinessApplyDao dao;
+
 	@RequestMapping("/businessApplyForm")
 	public String apply(HttpServletRequest request, Model model) {
-		
-		/*
-		 * BusinessApplyDto dto = new BusinessApplyDto();
-		 * 
-		 * dto.setBus_name(request.getParameter("bus_name")); //회사명
-		 * dto.setBus_num(request.getParameter("bus_num")); //사업자번호
-		 * dto.setBus_adress(request.getParameter("bus_adress")); //회사주소
-		 * dto.setBus_maxqnt(Integer.parseInt(request.getParameter("bus_maxqnt"))); //공구
-		 * 수량
-		 * dto.setBus_unitPrice(Integer.parseInt(request.getParameter("bus_unitPrice")))
-		 * ; //단가 dto.setBus_chargePerson(request.getParameter("bus_chargePerson"));
-		 * //담당자 dto.setBus_phone(request.getParameter("bus_phone")); //전화번호
-		 * dto.setBus_img(request.getParameter("bus_img"));
-		 * dto.setBus_password(request.getParameter("bus_password"));
-		 * dto.setBus_productName(request.getParameter("bus_productName"));
-		 * 
-		 * dao.bus_apply(dto);
-		 */
-		
+
+
+
 		return "pieContents/businessApply/businessApplyForm";
 	}
+
+	
+	@RequestMapping("/busApply")
+	public String saveApply(HttpServletRequest request, Model model,
+			@RequestParam(value = "bus_title") String bus_title,
+			@RequestParam(value = "bus_content") String bus_content,
+			@RequestParam(value = "bus_img") String bus_img,
+			@RequestParam(value = "bus_name") String bus_name,
+			@RequestParam(value = "bus_num") String bus_num,
+			@RequestParam(value = "postCode") String postCode,
+			@RequestParam(value = "address_main") String address_main,			
+			@RequestParam(value = "address_sub") String address_sub,			
+			@RequestParam(value = "bus_productName") String bus_productName,
+			@RequestParam(value = "bus_maxqnt") Integer bus_maxqnt,
+			@RequestParam(value = "bus_unitPrice") Integer bus_unitPrice,
+			@RequestParam(value = "bus_chargePerson") String bus_chargePerson,
+			@RequestParam(value = "bus_phone") String bus_phone,
+			@RequestParam(value = "email1") String bus_email1,
+			@RequestParam(value = "email2") String bus_email2,
+			@RequestParam(value = "bus_password") String bus_password
+			
+
+			) {
+
+
+		
+		
+		 BusinessApplyDto dto = new BusinessApplyDto();
+		 
+		 String bus_email = bus_email1 + "@" + bus_email2;
+
+		
+		 
+		 //내용
+		 dto.setBus_title(bus_title); 
+		 dto.setBus_content(bus_content);
+		 dto.setBus_img(bus_img);
+
+		 
+		 
+		 
+		 //제품정보
+		 dto.setBus_productName(bus_productName);
+		 dto.setBus_maxqnt(bus_maxqnt); 		 
+		 dto.setBus_unitPrice(bus_unitPrice);
+		 
+		 
+		 //회사정보
+		 dto.setBus_name(bus_name);  //회사이름
+		 dto.setBus_num(bus_num); //사업자등록번호
+		 dto.setPostCode(postCode);
+		 dto.setAddress_main(address_main);
+		 dto.setAddress_sub(address_sub);
+		 
+		 
+		 
+		 //담당자정보
+		 dto.setBus_chargePerson(bus_chargePerson);
+		 dto.setBus_email(bus_email);
+		 dto.setBus_phone(bus_phone);
+		 
+		 
+		 //비밀번호
+		 dto.setBus_password(bus_password);
+		 
+		 
+		 dao.saveApply(dto);
+		 
+		 
+		 System.out.println(dto);
+		 
+		 return "redirect:/businessApplyBoard";
+
+	}
+	
+	
+	@RequestMapping("/businessApplyBoard")
+	public String readApply(Model model) {
+		
+		model.addAttribute("list", dao.applyBoard());
+		
+		return "pieContents/businessApply/businessApplyBoard";
+	}
+
+	
+	@RequestMapping("/readApplyBoard")
+	public String readApplydetail(Model model, HttpServletRequest request, @RequestParam("bus_apply_num") int bus_apply_num) {
+		
+		String sId = request.getParameter("bus_apply_num");
+		
+		
+		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
+		model.addAttribute("board", dto);
+		 
+		return "pieContents/businessApply/readApplyBoard";
+		
+		
+	}
+	
+	
+	
+	@RequestMapping("/deletebusApply")
+	public String delete(HttpServletRequest request) {
+
+		String sId = request.getParameter("bus_apply_num");
+		dao.deleteDao(sId);
+
+		return "redirect:/businessApplyBoard";
+
+	}
+	
+	
+	@RequestMapping("/businessApplyUpdateForm")
+	public String updateApply(HttpServletRequest request, Model model) {	
+		String sId = request.getParameter("bus_apply_num");
+		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
+		model.addAttribute("board", dto);
+		
+		return "pieContents/businessApply/businessApplyUpdateForm";
+	}
+	
+	
+	
+	@RequestMapping("/busApplyUpdate")
+	public String update(HttpServletRequest request,
+			@RequestParam("bus_title") String bus_title,
+			@RequestParam("bus_content") String bus_content,
+			@RequestParam("bus_img") String bus_img,
+			@RequestParam("bus_name") String bus_name,
+			@RequestParam("bus_num") String bus_num,
+			@RequestParam("postCode") String postCode,
+			@RequestParam("address_main") String address_main,			
+			@RequestParam("address_sub") String address_sub,			
+			@RequestParam("bus_productName") String bus_productName,
+			@RequestParam("bus_maxqnt") Integer bus_maxqnt,
+			@RequestParam("bus_unitPrice") Integer bus_unitPrice,
+			@RequestParam("bus_chargePerson") String bus_chargePerson,
+			@RequestParam("bus_phone") String bus_phone,
+			@RequestParam("email1") String bus_email1,
+			@RequestParam("email2") String bus_email2,
+			@RequestParam("bus_password") String bus_password
+			) {
+
+		
+		 BusinessApplyDto dto = new BusinessApplyDto();
+		 
+		 String bus_email = bus_email1 + "@" + bus_email2;
+		
+		 dto.setBus_title(bus_title); 
+		 dto.setBus_content(bus_content);
+		 dto.setBus_img(bus_img);
+
+		 
+		 
+		 //제품정보
+		 dto.setBus_productName(bus_productName);
+		 dto.setBus_maxqnt(bus_maxqnt); 		 
+		 dto.setBus_unitPrice(bus_unitPrice);
+		 
+		 
+		 //회사정보
+		 dto.setBus_name(bus_name);  //회사이름
+		 dto.setBus_num(bus_num); //사업자등록번호
+		 dto.setPostCode(postCode);
+		 dto.setAddress_main(address_main);
+		 dto.setAddress_sub(address_sub);
+		 
+		 
+		 
+		 //담당자정보
+		 dto.setBus_chargePerson(bus_chargePerson);
+		 dto.setBus_email(bus_email);
+		 dto.setBus_phone(bus_phone);
+		 
+		 
+		 //비밀번호
+		 dto.setBus_password(bus_password);
+		 	
+		 
+		 dao.updateDao(dto);
+		
+		
+		return "redirect:/businessApplyBoard";
+	}
+
+
+	
 	
 }
-

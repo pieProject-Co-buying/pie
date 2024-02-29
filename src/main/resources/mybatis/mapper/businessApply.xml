@@ -5,26 +5,73 @@
 <mapper namespace="com.pie.pieProject.DAO.IBusinessApplyDao">
 	
 	
-	<insert id="bus_apply">
+	<insert id="saveApply">
 		
 		insert into businessApplyForm values(
+		
 		bus_apply_num.nextval, 
+        
+		#{bus_title},
+		#{bus_content},
+		#{bus_img},
 		#{bus_name},
 		#{bus_num},
-		#{bus_adress},
-		#{bus_Maxqnt},
+		#{postCode},
+		#{address_main},
+		#{address_sub},
 		#{bus_productName},
+		#{bus_maxqnt},
 		#{bus_unitPrice},
 		#{bus_chargePerson},
-		#{bus_img},
-		#{bus_password},
-		#{bus_productName},
-		sysdate,
-		0);		
+		#{bus_phone},
+		#{bus_email},
+		#{bus_password},		
+        0,
+		sysdate
+		
+		)	
 			
 	</insert>
+	
+	
+ 	<select id="applyBoard"  resultType="com.pie.pieProject.DTO.BusinessApplyDto">
+		select * from businessApplyForm order by bus_writeDay desc
+	</select>
 
+	
+ 	<select id="applyBoardDetail"  resultType="com.pie.pieProject.DTO.BusinessApplyDto">
+		select * from businessApplyForm where bus_apply_num = #{bus_apply_num} order by bus_writeDay desc
+	</select>
+	
+	
+	<delete id="deleteDao">
 
+		delete businessApplyForm where bus_apply_num = #{param1}
+
+	</delete>
+	
+	
+	<update id="updateDao">
+	    UPDATE businessApplyForm SET 
+	        bus_title = #{bus_title},
+	        bus_content = #{bus_content},
+	        bus_img = #{bus_img},
+	        bus_name = #{bus_name},
+	        bus_num = #{bus_num},
+	        postCode = #{postCode},
+	        address_main = #{address_main},
+	        address_sub = #{address_sub},
+	        bus_productName = #{bus_productName},
+	        bus_maxqnt = #{bus_maxqnt},
+	        bus_unitPrice = #{bus_unitPrice},
+	        bus_chargePerson = #{bus_chargePerson},
+	        bus_phone = #{bus_phone},
+	        bus_email = #{bus_email}
+	    WHERE to_num=#{to_num}
+	</update>
+	
+	
+	
 	
 
 </mapper>

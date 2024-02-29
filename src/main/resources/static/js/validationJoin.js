@@ -242,7 +242,6 @@
 							inputs.forEach(function(input) {
 								input.dispatchEvent(new Event('blur', { bubbles: true }));
 							});
-
 						}
 
 

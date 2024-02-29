@@ -341,8 +341,9 @@
 @media ( min-width : 1000px) {
 		#allCards .card {
 		width: calc(( 100% - 40px)/4);
+
 	}
-}
+} 
 
 @media screen and (max-width: 999px) {
 	/*캐로셀 관련 커스텀-Main*/

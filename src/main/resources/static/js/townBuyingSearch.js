@@ -22,11 +22,13 @@ $(function() {
 						function(index, item) {
 							$('#serachResult')
 								.append(
-									'<div class="col mb-4"><a href="' + item.link + '" class="card  hj-radius-30"><img src="' + item.image + '" class="card-img-top  hj-radius-img-30" alt="..."><div class="card-body"><h5 class="card-title">'
+									'<div class="col mb-4"><a href="' + item.link + '" class="card  hj-radius-30 shadow"><img src="' 
+									+ item.image 
+									+ '" class="card-img-top  hj-radius-img-30" alt="..."><div class="card-body"><h6 class="card-title">'
 									+ item.title
-									+ '</h5><p class="card-text">'
+									+ '</h6><p class="card-text">'
 									+ item.lprice
-									+ '</p></div></a></div>');
+									+ ' 원</p></div></a></div>');
 						});
 			},
 			error: function(xhr, desc, err) {
