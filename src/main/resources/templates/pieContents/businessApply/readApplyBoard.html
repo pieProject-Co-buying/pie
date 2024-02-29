@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layouts/applyboardForm}">
+
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="applyFormContent" class="col">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container">
+		<div class="row">
+			<div class="col">
+
+
+				<h1 th:text="${board.get(0).getBus_title()}" value="bus_title">제목</h1>
+				<div th:utext="${board.get(0).getBus_content()}">타이틀</div>
+				
+				
+				<!-- <div th:utext="${board.get(0).getBus_img()}">이미지</div> -->
+				<!-- <img th:src="@{'/imgs/test/' + ${board.getBus_img()}}" alt="" class="img-fluid">		 -->	
+				
+				<div th:text="${board.get(0).getBus_name()}">회사명</div>
+				<div th:text="${board.get(0).getBus_num()}">사업자번호</div>
+
+				<div th:text="${board.get(0).getBus_productName()}">제품명</div>
+				<div th:text="${board.get(0).getBus_maxqnt()}">공급가능수량</div>
+				<div th:text="${board.get(0).getBus_unitPrice()}">개별단가</div>
+				<div th:text="${board.get(0).getBus_chargePerson()}">담당자</div>
+				<div th:text="${board.get(0).getBus_phone()}">핸드폰번호</div>
+				<div th:text="${board.get(0).getBus_email()}">이메일주소</div>						
+				
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col">
+				 <a class="btn pie-btn-red" th:href="@{'businessApplyUpdateForm?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">수정</a>
+				 <a class="btn pie-btn-red"th:href="@{'deletebusApply?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">삭제</a>
+			</div>
+		</div>
+	</div>
+
+	<!--게시글 로직 container-->
+	<!--wrapper-->
+	
+	<script src="js/PostCode.js"></script>
+	
+	
+</div>
+
+</html>

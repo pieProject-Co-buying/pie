@@ -197,12 +197,16 @@
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Fboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Fboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Fboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
+
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Fboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Fboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 
 									</div>
 
@@ -269,12 +273,16 @@
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Bboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Bboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Bboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
+
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Bboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Bboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 
 									</div>
 
@@ -333,16 +341,16 @@
 
 									<div class="card-body">
 
-										<h5 class="card-title" th:text="${Lboard.getTo_title()}">Card
+										<h5 class="card-title mt-1" th:text="${Lboard.getTo_title()}">Card
 											title</h5>
-										<div class="card-text hj-text-truncate"
-											th:utext="${Lboard.getTo_content()}">Some quick example
-											text to build on the card title and make up the bulk of the
-											card's content.</div>
 
-
-
-
+										<div class="row  mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${Lboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${Lboard.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 									</div>
 
 								</a>
@@ -418,9 +426,15 @@
 								<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
  
 									<h5 class="card-title pr-3" th:text="${board.getTo_title()}"></h5>
-									<div class="card-text w-100 hj-text-truncate  pr-3" th:utext="${board.getTo_content()}"></div>
 
 
+										<div class="row mt-5 mr-3">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${board.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 								</div>
 
 
