@@ -9,36 +9,53 @@
 	</select>
 	<select id="listDaoByNewer"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from proxyBuyBoard order by pr_registDay desc
+		select * from proxyBuyBoard order by pr_updateDay desc
 	</select>
 	<select id="listDaoByNewerNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from ( select * from proxyBuyBoard order by pr_registDay desc)
-		where ROWNUM <![CDATA[ <= ]]> #{param1}
+		select * from ( select * from proxyBuyBoard order by pr_updateDay
+		desc)
+		where ROWNUM <![CDATA[ <= ]]>
+		#{param1}
 	</select>
-	
+
 	<select id="listDaoByFavorite"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from ( select * from proxyBuyBoard order by pr_like desc, pr_hit desc)
-		where ROWNUM <![CDATA[ <= ]]> 5
+		select * from ( select * from proxyBuyBoard order by pr_like desc,
+		pr_hit desc)
+		where ROWNUM <![CDATA[ <= ]]>
+		5
 	</select>
-	
+
+	<select id="listDaoByNext"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		SELECT *
+		FROM (
+		SELECT t.*, ROW_NUMBER() OVER (ORDER BY pr_num DESC) AS rnum
+		FROM proxyBuyBoard t
+		)
+		WHERE rnum BETWEEN #{param1} AND #{param2}
+	</select>
+
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_title like
 		'%${param1}%' or
-		to_content like '%${param1}%' or to_tag like '%${param1}%'
+		to_content like '%${param1}%' or to_tag like
+		'%${param1}%'
 	</select>
-	
+
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from proxyBuyBoard where pr_category=#{param1} order by
+		select * from proxyBuyBoard where pr_category=#{param1}
+		order by
 		pr_updateDay desc
 	</select>
 	<select id="listDaoByCategoryNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from (select * from proxyBuyBoard where pr_category=#{param1}
-		order by pr_updateDay desc) where ROWNUM <![CDATA[ <= ]]> #{param2}
+		order by pr_updateDay desc) where ROWNUM <![CDATA[ <= ]]>
+		#{param2}
 	</select>
 	<select id="getView">
 		select * from proxyBuyBoard where pr_num = #{param1}
@@ -68,26 +85,35 @@
 		)
 	</insert>
 	<update id="updateHit">
-		update proxyBuyBoard set pr_hit = pr_hit+1 where pr_num = #{param1}
+		update proxyBuyBoard set pr_hit = pr_hit+1 where
+		pr_num = #{param1}
 	</update>
 	<update id="updateProxyBoard">
-		update proxybuyboard set pr_category=#{pr_category}, pr_title=#{pr_title},
-		pr_content=#{pr_content}, pr_productImg=#{pr_productImg}, pr_tag=#{pr_tag},
-		pr_deadLine=TO_DATE(#{pr_deadLine}, 'YYYY-MM-DD'), pr_personnelMax=#{pr_personnelMax},
-		pr_priceTotal=#{pr_priceTotal}, pr_pricePer=#{pr_pricePer}, pr_ip=#{pr_ip}, pr_updateDay=sysdate where pr_num=#{pr_num}
+		update proxybuyboard set pr_category=#{pr_category},
+		pr_title=#{pr_title},
+		pr_content=#{pr_content},
+		pr_productImg=#{pr_productImg}, pr_tag=#{pr_tag},
+		pr_deadLine=TO_DATE(#{pr_deadLine}, 'YYYY-MM-DD'),
+		pr_personnelMax=#{pr_personnelMax},
+		pr_priceTotal=#{pr_priceTotal},
+		pr_pricePer=#{pr_pricePer}, pr_ip=#{pr_ip}, pr_updateDay=sysdate where
+		pr_num=#{pr_num}
 	</update>
 	<delete id="deleteProxyBoard">
 		delete proxyBuyBoard where pr_num = #{param1}
 	</delete>
 	<!-- 현재 인원 증가 -->
 	<update id="updateNow">
-		update proxyBuyBoard set pr_personnelNow = pr_personnelNow + 1 where pr_num = #{param1}
+		update proxyBuyBoard set pr_personnelNow =
+		pr_personnelNow + 1 where pr_num = #{param1}
 	</update>
-	<!--  -->
+	<!-- -->
 	<update id="maxChk">
-		update proxyBuyBoard set pr_process = '0' where pr_num = #{param1}
+		update proxyBuyBoard set pr_process = '0' where
+		pr_num = #{param1}
 	</update>
-		<select id="chkFeed" resultType="_int">
-	select count (id) from makeFeed where id = #{param1}
+	<select id="chkFeed" resultType="_int">
+		select count (id) from makeFeed
+		where id = #{param1}
 	</select>
 </mapper>

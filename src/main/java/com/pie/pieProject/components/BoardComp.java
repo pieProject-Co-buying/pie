@@ -83,22 +83,22 @@ public class BoardComp {
 
 	public String parsingHtml(String html) {
 
-		  // Jsoup을 사용하여 HTML 파싱
-        Document document = Jsoup.parse(html);
+		// Jsoup을 사용하여 HTML 파싱
+		Document document = Jsoup.parse(html);
 
-        // HTML에서 텍스트만 추출
-        String text = document.text();
+		// HTML에서 텍스트만 추출
+		String text = document.text();
 
 		return text;
 	}
-	
-	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list){
-		for(ProxyBuyBoardDto d : list) {
+
+	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list) {
+		for (ProxyBuyBoardDto d : list) {
 			d.setPr_category(translate(d.getPr_category()));
 		}
 		return list;
 	}
-	
+
 	public String lastUpdateMessage(String str) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -118,5 +118,27 @@ public class BoardComp {
 		} else {
 			return String.format("%d분 전 업데이트", minutes);
 		}
+	}
+
+	public boolean closeClosely(ProxyBuyBoardDto dto) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		LocalDateTime updatedate = LocalDateTime.parse(dto.getPr_deadLine(), formatter);
+
+		LocalDateTime now = LocalDateTime.now();
+		Duration duration = Duration.between(updatedate, now);
+
+		long minutes = duration.toMinutes(); // 변경된 부분
+
+		int remains = dto.getPr_personnelMax() - dto.getPr_personnelNow();
+		System.out.println("r : " + remains);
+		System.out.println("m : " + minutes); // 변경된 부분
+
+		if (((minutes > 0 && minutes < 1440) && remains > 0) || (minutes > 0 && (remains <= 5 && remains > 0))) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }
