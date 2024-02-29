@@ -38,7 +38,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 
 			<div class="row">
 
-				<div class="col-12">
+				<div class="col-12 p-0">
 
 					<div id="section1Carousel" class="carousel slide"
 						data-ride="carousel">
@@ -52,7 +52,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 									<div class="row">
 										<div class="col-12 col-md-6">
 											<img src="imgs/index-share.jpg"
-												class="img-fluid hj-img-round hj-radius-30" alt="...">
+												class="img-fluid" alt="...">
 										</div>
 										<div class="col-12 col-md-6 mt-5 mt-md-0">
 											<img src="imgs/share.jpg" alt=""
@@ -69,7 +69,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 									<div class="row">
 										<div class="col-12 col-md-6">
 											<img src="imgs/index-comu.jpg"
-												class="d-block w-100 img-fluid hj-img-round hj-radius-30"
+												class="d-block w-100 img-fluid"
 												alt="...">
 										</div>
 										<div class="col-12 col-md-6 mt-5 mt-md-0">
@@ -88,7 +88,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 									<div class="row">
 										<div class="col-12 col-md-6">
 											<img src="imgs/index-baby.jpg"
-												class="d-block w-100 img-fluid hj-img-round hj-radius-30"
+												class="d-block w-100 img-fluid"
 												alt="...">
 										</div>
 										<div class="col-12 col-md-6 mt-5 mt-md-0">
@@ -165,11 +165,30 @@ secion1 #sec1 - 우리동네 공동구매 영역
 		
 		
 			<div class="row">
+
 				<div class="col">
+				
+				
+					<div class="row">
+						<div class="col-9">
+							<h1 class="text-center text-md-left">우리동네 즐거움 한조각</h1>
+						</div>
+
+						<div class="col-3 text-center">
+								<a class="btn pie-btn-red w-100" th:href="@{'townBuySearch'}">더 보러가기 GO!</a>
+						
+						</div>							
+						
+					</div>
+					
+					
+
+					<h4 class="mb-5 mt-5 text-center text-md-left">실시간 파이회원들의 관심도 급증 파이를 보여드려요!</h4>
+					
 					<div
 						class="d-flex align-items-center justify-content-between w-100">
-						<h1 class="mb-5 mt-5 text-center text--left">조회수순 기준 공구(가제)</h1>
-						</a>
+
+						
 					</div>
                                                                          
 
@@ -178,7 +197,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 	
 						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
 						
-						<div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 6">
+						<div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 12">
 						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
 						        <img th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
 						             class="card-img-top hj-radius-30"
@@ -209,8 +228,8 @@ secion1 #sec1 - 우리동네 공동구매 영역
 				<div class="col">
 					<div
 						class="d-flex align-items-center justify-content-between w-100">
-						<h1 class="mb-5 mt-5 text-center text--left">좋아요 기준 공구(가제)</h1>
-						</a>
+						<h4 class="mb-5 mt-5 text-center text-md-left">파이회원들에게 사랑받고 있는 파이들을 보여드려요!</h4>
+						
 					</div>
                                                                          
 
@@ -218,7 +237,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 			
 	
 						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
-						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 6">
+						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 12">
 						    <a class="card hj-radius-30  hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
 						    	<div class="card-body p-0">
 						    	
@@ -245,11 +264,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 			</div>
 			
 			
-			<div class="row mt-5">
-				<div class="col text-center">
-					<a class="btn pie-btn-red" th:href="@{'townBuySearch'}">더 보러가기 GO!</a>
-				</div>
-			</div>	
+
 			
 		</div>
 

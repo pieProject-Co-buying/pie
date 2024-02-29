@@ -318,13 +318,13 @@
 		column-count: 3;
 	}
 }
-@media (min-width : 1000px){
+/* @media (min-width : 1000px){
 	.card-columns {
 		-webkit-column-count: 4;
 		-moz-column-count: 4;
 		column-count: 4;
 	}
-}
+} */
 
 @media screen and (max-width: 999px) {
 	/*캐로셀 관련 커스텀-Main*/

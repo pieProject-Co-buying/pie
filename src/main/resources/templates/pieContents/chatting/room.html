@@ -107,10 +107,10 @@
 
 
 
-	<script type="text/javascript">
+	<script type="text/javascript" th:inline="javascript">
 	
-		const token = $("meta[name='_csrf']").attr("content")
-		const header = $("meta[name='_csrf_header']").attr("content");
+		/* const token = $("meta[name='_csrf']").attr("content") */
+		/* const header = $("meta[name='_csrf_header']").attr("content"); */
 
 		var ws;
 
@@ -165,10 +165,13 @@
 				
 				
 				res.forEach(function(d, idx) {
+					console.log(d)
 					
 					var roomNumber = d.roomNumber;
 					var nickName = d.nickname;
 					var isMyChat = (sessionNick === nickName); // 현재 방이 나와의 채팅인지 확인
+					
+					/* console.log(d.userId); */
 					
 					
 										
@@ -176,17 +179,14 @@
 		            var profileImg = "";
 		            
 					list.forEach(function(item) {
-					    if (item.nickName === nickName) {
+
+					    if (item.to_nickname === nickName) {
 					        profileImg = item.to_profileImg;
-					        return;
+					     return;
 					    }
 					});
 
-		            
-		            
-		
-			
-			
+
 					tag += "<div class='row mb-3 justify-content-center mx-4'>"	
 					     + "<div class='room col-9')>"
 					     + "<img src='imgs/profiles/" + profileImg + "' class='hj-chat-proImg mr-4'/>"
@@ -229,8 +229,6 @@
 				success : function(res) {
 					calbak(res);
 					console.log(res)
-					console.log(res[0].partyMem.split("@")[1])
-					console.log(res[0].partyMem.split("@")[2])
 				},
 				error : function(err) {
 					console.log('error');
