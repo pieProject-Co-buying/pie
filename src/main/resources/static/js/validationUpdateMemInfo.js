@@ -88,19 +88,20 @@ emailInput.hide();
 				// 입력한 value 값을 읽어온다.
 				let input = this.value.trim();
 				// 유효성 검증을 위한 정규식 패턴
-				if (input != inputednickname) {
-					let pattern = /^01[0-9]{1}-?[0-9]{3,4}-?[0-9]{4}$/;
+				let pattern = /^01[0-9]{1}-?[0-9]{3,4}-?[0-9]{4}$/;
 
-					// 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
-					if (input == '') {
-						this.setCustomValidity("전화번호를 입력해주세요.");
-					} else if (!pattern.test(input)) {
-						this.setCustomValidity("올바른 전화번호인지 확인해주세요.");
-					} else {
-						let phone = $("#phone");
-						let inputPhone = input
-						inputPhone = phoneForm(inputPhone);
-						phone.val(inputPhone);
+				// 유효하다면 input 요소에 is-valid 클래스 추가, 아니라면 is-invalid 클래스 추가
+				if (input == '') {
+					this.setCustomValidity("전화번호를 입력해주세요.");
+				} else if (!pattern.test(input)) {
+					this.setCustomValidity("올바른 전화번호인지 확인해주세요.");
+				} else {
+
+					let phone = $("#phone");
+					let inputPhone = input
+					inputPhone = phoneForm(inputPhone);
+					phone.val(inputPhone);
+					if (inputPhone != inputedphone) {
 						$.ajax({
 							url: "checkPhone",
 							type: 'POST',
@@ -256,7 +257,7 @@ emailId.blur(function() {
 		console.log(1);
 		chkStr = emailIdVal + "@" + emailSelect.val();
 		email.val(chkStr);
-		
+
 
 	} else if (emailInput.val() != '') {
 		console.log(2);

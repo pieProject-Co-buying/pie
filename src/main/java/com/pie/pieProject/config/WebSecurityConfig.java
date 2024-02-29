@@ -34,6 +34,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
 				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm", "/findID",
 						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm", "/businessApplyForm","/checkPhone","/chkEmail","/redirectlogin", "/busApply", "/businessApplyBoard", "/readApplyBoard", "/businessApplyUpdateForm", "/deletebusApply")
+
 				.permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember", "/complete", "/shareServiceBoardConsole", "/shareServiceApplyConsole",
@@ -48,7 +49,7 @@ public class WebSecurityConfig {
 						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm", "/proxyApplyFormUpload",
 						"/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate",
 						"/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult", "/shareServiceBoardConsole",
-						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage")
+						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage","/shareServicebuyBoard")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService","/chkFeed","/noneFeed")

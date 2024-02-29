@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -180,13 +181,26 @@ public class ProxyBuyController {
 			model.addAttribute("haveFeed", true);
 		}
 
-		List<ProxyBuyBoardDto> allList = dao.listDao();
+		/* List<ProxyBuyBoardDto> allList = dao.listDaoByNewerNumber(20); */
 
-		Bcomp.translateProxyList(allList);
-
-		model.addAttribute("allList", allList);
+		/*
+		 * Bcomp.translateProxyList(allList);
+		 * 
+		 * model.addAttribute("allList", allList);
+		 */
 		return "pieContents/proxyBuying/proxyBuyProducts";
 	}
+	
+	@PostMapping("/infiniteLoading")
+	public ResponseEntity<List<ProxyBuyBoardDto>> getpagingList (@RequestParam("page")String page){
+		int p = Integer.parseInt(page);
+		p = ((p-1)*20)+1;
+		int m = p+19;
+		
+		List<ProxyBuyBoardDto> list = dao.listDaoByNext(p,m);
+		return ResponseEntity.ok(list);
+	}
+	
 
 	@GetMapping("/viewProxyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
