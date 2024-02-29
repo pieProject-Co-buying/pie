@@ -3,18 +3,22 @@
 
 }
 
+
 /* img 속성 cover 적용 */
 .hj-fit-cover {
 	object-fit: cover;
 }
 
+
 .hj-radius-30 {
 	border-radius: 30px !important;
 }
 
+
 .hj-radius-img-30 {
 	border-radius: 30px 30px 0 0;
 }
+
 
 .hj-cardImg-left {
 	top: 0;
@@ -36,6 +40,13 @@
 .hj-chat-proImg {
 	width: 40px;
 	height: 40px;
+	border-radius: 100%;
+}
+
+
+.hj-chat-proImg-small {
+	width: 30px;
+	height: 30px;
 	border-radius: 100%;
 }
 
@@ -86,9 +97,6 @@
 글쓰기 버튼 - 배너 스타일
 
 ####################################*/
-.hj-wirte-btn {
-	background: url(../imgs/potato.jpg);
-}
 
 /* ####################################
 
@@ -161,11 +169,14 @@
     
 }
 
-.hj-main_town_hover:hover img {
-    transform: scale(1.1);
-    opacity: 0.5;
+.hj-main_town_hover .hj-main-product-img {
+    transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+.hj-main_town_hover:hover>.hj-main-product-img {
+    transform: scale(1.1);
+    opacity: 0.2;
+}
 
 
 .hj-carousel-control-prev-icon,
@@ -175,8 +186,6 @@
   height: 40px;
   background: 50% / 100% 100% no-repeat;
 }
-
-
 
 
 
