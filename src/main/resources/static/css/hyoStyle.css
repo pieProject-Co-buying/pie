@@ -9,7 +9,7 @@
 }
 
 .hj-radius-30 {
-	border-radius: 30px;
+	border-radius: 30px !important;
 }
 
 .hj-radius-img-30 {
@@ -32,6 +32,12 @@
 	font-size: 1.2em;
 }
 
+
+.hj-chat-proImg {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
 
 
 /* 하단 span 태그 가상선택자 적용 */
@@ -142,5 +148,39 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+
+
+/* 메인 동네공구 물품 호버시 애니메이션 */
+
+.hj-main_town_hover {
+    overflow: hidden;
+    position: relative;
+    transition: transform 1s ease;
+    
+}
+
+.hj-main_town_hover:hover img {
+    transform: scale(1.1);
+    opacity: 0.5;
+}
+
+
+
+.hj-carousel-control-prev-icon,
+.hj-carousel-control-next-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: 50% / 100% 100% no-repeat;
+}
+
+
+
+
+
+.hj-text-big {
+	font-size: 50px;
 }
 

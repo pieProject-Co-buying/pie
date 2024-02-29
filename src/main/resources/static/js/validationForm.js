@@ -1,46 +1,3 @@
-/* 폼 전송 */
-function submitForm() {
-
-	if (!boardval()) {
-		return false;
-	}
-	const url = window.location.href;
-	const str = url.substring(url.lastIndexOf('/') + 1);
-	var form;
-
-	if (str == 'townForm') form = document.townForm;
-	else if (str == 'proxyWriteForm') form = document.proxyForm;
-	else if (str == 'writePost') form = document.shareForm;
-
-	// 폼데이터 담기
-
-	var formData = new FormData(form);
-	for (var i = 0; i < filesArr.length; i++) {
-		// 삭제되지 않은 파일만 폼데이터에 담기
-		if (!filesArr[i].is_delete) {
-			formData.append("attach_file", filesArr[i]);
-		}
-	}
-	$.ajax({
-		method: 'POST',
-		url: '/imageUploading',
-		data: formData,
-		contentType: false,
-		processData: false,
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-		success: function(response) {
-			console.log('전송 성공', response);
-			$("#files").val(response);
-			form.submit();
-		},
-		error: function(xhr, desc, err) {
-			console.error('전송 실패', err);
-		}
-	});
-}
-
 function boardval() {
 	const url = window.location.href;
 	const str = url.substring(url.lastIndexOf('/') + 1);
@@ -102,7 +59,7 @@ function boardval() {
 		}
 	}
 	/*태그 최소 갯수*/
-	if($(pie_tagsOutput).val()<1){
+	if ($(pie_tagsOutput).val() < 1) {
 		alert('태그는 1개 이상 지정해주세요.')
 		return false;
 	}
@@ -114,8 +71,8 @@ function boardval() {
 		alert("모집가격은 공란으로 할 수없습니다.")
 		return false;
 	}
-	
-	if (($("#pie_tagsOutput").val() == '' && $("#pie_tags_input").val() != '')||($("#pie_tagsOutput").val() != '' && $("#pie_tags_input").val() != '')) {
+
+	if (($("#pie_tagsOutput").val() == '' && $("#pie_tags_input").val() != '') || ($("#pie_tagsOutput").val() != '' && $("#pie_tags_input").val() != '')) {
 		insertTag("#pie_tags_input");
 	} else if ($("#pie_tagsOutput").val() == '' && $("#pie_tags_input").val() == '') {
 		$("#pie_tagsOutput").val("#");

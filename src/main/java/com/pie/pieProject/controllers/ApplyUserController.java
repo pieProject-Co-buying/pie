@@ -62,7 +62,7 @@ public class ApplyUserController {
 		dto.setPr_ip(request.getRemoteAddr());
 		dao.insertProxyBoard(dto);
 
-		return "redirect:/proxyBuyApply";
+		return "redirect:/proxyBuyApply?page=1";
 	}
 
 	@RequestMapping("/proxyBuyApply")
@@ -97,7 +97,8 @@ public class ApplyUserController {
 	@GetMapping("/viewProxyApplyBoard")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
-
+		System.out.println("넘버:"+num);
+		
 		ProxyApplyBoardDto dto = dao.getView(num);
 		
 		int process = Integer.parseInt(dto.getPr_process());

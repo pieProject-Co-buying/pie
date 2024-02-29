@@ -3,14 +3,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/applyForm}">
 
-<head>
-<!-- include summernote css/js -->
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-	rel="stylesheet">
-</head>
-
-
 <!--<h1>Bootstrap 기본설정완료</h1>-->
 <div layout:fragment="formContent" class="col">
 	<!--------------------------------게시글 타이틀-------------------------------->
@@ -108,9 +100,10 @@
 	<!--게시글 로직 container-->
 	<!--wrapper-->
 
-	<script src="/js/applyForm.js"></script>
-	<script src="/js/validationApply.js"></script>
-	
+
+	<script src="/js/FileUpload.js"></script>
+	<script src="/js/submitForm.js"></script>
+
 </div>
 
 </html>

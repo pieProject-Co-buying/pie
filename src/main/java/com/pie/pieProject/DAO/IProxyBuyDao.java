@@ -36,4 +36,6 @@ public interface IProxyBuyDao {
 	public void updateNow(int num);
 	
 	public void maxChk(int num);
+	
+	public int chkFeed(String id);
 }

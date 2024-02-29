@@ -2,11 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head th:replace="~{pieFragments/head::head}" />
-<head>
-	<meta name="_csrf" th:content="${_csrf.token}" />
-	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-</head>
-
 <body>
 	<!--<h1>Bootstrap 기본설정완료</h1>-->
 	<div id="wrapper" class="container-fluid p-0">
@@ -41,8 +36,14 @@
 
 		<div th:replace="~{pieFragments/footer::footer}" />
 	</div>
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-	<script src="js/form.js"></script>
+	
+	<script src="/js/imageGallery-DragEvent.js"></script>
+	<script src="/js/FileUpload.js"></script>
+	<script src="/js/insertTags.js"></script>
+	<script src="js/calculatePrice.js"></script>
+	<script src="/js/summerNote.js"></script>
+	<script src="/js/selectDropdown.js"></script>
+	<script src="/js/submitForm.js"></script>
 	<script src="js/validationForm.js"></script>
 </body>
 

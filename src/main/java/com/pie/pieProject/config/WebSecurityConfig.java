@@ -33,11 +33,11 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
 				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm", "/findID",
-						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm", "/businessApplyForm")
+						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm", "/businessApplyForm","/checkPhone","/chkEmail","/redirectlogin")
 				.permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
 						"/outMember", "/complete", "/shareServiceBoardConsole", "/shareServiceApplyConsole",
-						"/searchBuyerName")
+						"/searchBuyerName","feedAnalize","/resetFeed","/noneFeed","/redirectChkFeed","changePw_form")
 				.authenticated()
 				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct",
 						"/deleteTownProduct", "/searchProducts", "/townBuyingCategoryChoice", "/writeTownBoard",
@@ -51,7 +51,7 @@ public class WebSecurityConfig {
 						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
-						"/shareService")
+						"/shareService","/chkFeed","/noneFeed")
 				.permitAll()
 				.requestMatchers("/room", "chat", "/getRoom", "/createRoom", "/moveChating", "/chating/**", "/test",
 						"/search")
