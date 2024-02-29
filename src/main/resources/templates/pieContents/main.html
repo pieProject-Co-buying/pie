@@ -160,7 +160,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 	<!-- ###############################################
 secion1 #sec1 - 우리동네 공동구매 영역
 ############################################### -->
-	<section class="pie-section-py">
+	<!-- <section class="pie-section-py">
 		<div class="container">
 		
 		
@@ -176,7 +176,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					<div class="card-columns">
 			
 	
-						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
+						최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동
 						
 						<div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 6">
 						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
@@ -186,7 +186,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 
 				                    <div class="position-absolute d-none" style="top: 0; left: 0;">
 				                        <h3 th:text="${tBoard.getTo_title}" class=""></h3>
-				                        <!-- <h5 th:text="${tBoard.getTo_writer}"></h5> -->
+				                        <h5 th:text="${tBoard.getTo_writer}"></h5>
 				                    </div>
 
 						    </a>
@@ -217,7 +217,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					<div class="card-columns">
 			
 	
-						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
+						최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동
 						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 6">
 						    <a class="card hj-radius-30  hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
 						    	<div class="card-body p-0">
@@ -253,7 +253,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 			
 		</div>
 
-	</section>
+	</section> -->
 
 
 	<!-- ###############################################

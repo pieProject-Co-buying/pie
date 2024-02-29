@@ -228,9 +228,8 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save
-													changes</button>
+													data-dismiss="modal">닫기</button>
+												<button type="button" class="btn btn-primary">공유하기</button>
 											</div>
 										</div>
 									</div>
@@ -287,8 +286,7 @@
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
 											<img src="imgs/product3.jpg" alt="" class="img-fluid">
-											<h5 class="mb-3 mt-5 text-center">함께하면 4000원에 구매할 수 있어요
-												😘</h5>
+											<h5 class="mb-3 mt-5 text-center" th:text="'함께하면 '+${board.getPr_pricePer()}+'원에 구매할 수 있어요😘'"></h5>
 										</div>
 
 

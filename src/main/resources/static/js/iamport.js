@@ -62,6 +62,7 @@ function kgPay() {
 				if (rsp.success) {
 
 					var result = {
+						"pay_num" : numID,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -161,6 +162,7 @@ function kakaoPay() {
 				if (rsp.success) {
 
 					var result = {
+						"pay_num" : numID,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -260,6 +262,7 @@ function tossPay() {
 				if (rsp.success) {
 
 					var result = {
+						"pay_num" : numID,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -351,6 +354,7 @@ function sub(){
 			
 			console.log(rsp)
 			var result = {
+				"pay_num" : numID,
 				"buyer_id": mem.id,
 				"buyer_name": mem.name,
 				"buyer_nickname": mem.nickname,

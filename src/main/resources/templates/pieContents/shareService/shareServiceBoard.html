@@ -35,7 +35,7 @@
 					</div>
 					<input type="text" name="search" id="search" class="flex-fill"
 						placeholder="검색">
-					<button type="submit"></button>
+					<button type="submit" id="searchBtn"></button>
 				</form>
 			</div>
 			<!--col-->
@@ -247,7 +247,6 @@
 			card.slice(0, 6).show();
 
 			selectInit.text("OTT서비스");
-			
 		}else if(numValue==2){
 			$(".col-md-4").hide();
 			card = $(".col-md-4[data-category='게임']");
@@ -273,7 +272,7 @@
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.")
+                	alert("마지막 게시물입니다.");
                 }
             } else if (numValue === '2') {
             	 // 게임 이외의 카테고리 숨김
@@ -281,7 +280,7 @@
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.")
+                	alert("마지막 게시물입니다.");
                 }
             } else if (numValue === '3') {
             	 // 도서/음악 이외의 카테고리 숨김
@@ -289,13 +288,11 @@
                 if($(strCard).length>0){
                 	$(strCard).slice(0, 3).show();
                 }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.")
+                	alert("마지막 게시물입니다.");
                 }
             }
         });
-		
 	})
-	
 	</script>
 </div>
 

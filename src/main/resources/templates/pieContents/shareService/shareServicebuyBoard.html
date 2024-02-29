@@ -5,14 +5,11 @@
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
 <div layout:fragment="shareServiceContent" class="col">
-
-
-	<!--------------------------최신/오래된 순-------------------------->
 	<div class="container p-0 mt-5">
 		<div class="row border-bottom">
 			<div class="col-6 mb-1">
-				<span><h5>작성한 게시물</h5></span>
-				<div>
+				<span><h5>신청한 게시물</h5></span>
+				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						data-toggle="dropdown" aria-expanded="false">메뉴 선택</button>
 					<div class="dropdown-menu">
@@ -26,40 +23,46 @@
 				<small>|</small>
 				<small id="off" style="cursor: pointer">&nbsp;모집마감</small>
 			</div>
-		</div><!--row-->
-	</div><!--container-->
+		</div>
+		<!--row-->
+	</div>
 	<!--------------------------컨텐츠-------------------------->
 	<div class="container p-0 mt-5">
 		<div class="row">
-			<th:block th:if="${list.size()!=0}" th:each="board:${list}">
+	 		<th:block th:if="${list.size()!=0}" th:each="board:${list}">
 				<!------------게시물이 있는 경우------------>
-				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getSh_process}">
+				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getProcess()}">
 					<div class="row no-gutters">
 						<div class="col-md-4 mt-2">
-							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}" alt="..." class="img-fluid">
+							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}" alt="..." class="img-fluid">
 						</div>
 						<!--col-->
 						<div class="col-md-8">
 							<div class="card-body">
-								<th:block th:if="${board.getSh_process().equals('1')}">
+								<h3 th:text="${board.getPay_name}"></h3>
+								<th:block th:if="${board.getProcess().equals('1')}">
                         			<small class="badge badge-success" th:text="모집진행중"></small>                       	
                         		</th:block>
-                        		<th:block th:if="${board.getSh_process().equals('0')}">
+                        		<th:block th:if="${board.getProcess().equals('0')}">
                         			<small class="badge badge-danger" th:text="모집마감"></small>                      	
                         		</th:block>
-								<h5 class="card-title mt-3" th:text="${board.getSh_title}"></h5>
                         		<small class="d-flex">
-                        			<span><b>진행일 :&nbsp;</b></span>
-                        			<span th:text="${board.getSh_registDay}"></span>
-                        			<span>&nbsp;~&nbsp;</span>
-									<span th:text="${board.getSh_deadLine}"></span>
+                        			<span><b>상품코드 :&nbsp;</b></span>
+                        			<span th:text="${board.getPay_Merchant_uid}"></span>
                         		</small>
                         		<small class="d-flex">
-                        			<span><b>모집인원 :&nbsp;</b></span>
-                        			<span th:text="${board.getSh_personnelNow}"></span>
-                        			<span th:text="'&nbsp;/ '+${board.getSh_personnelMax}"></span>
+                        			<span><b>결제일시 :&nbsp;</b></span>
+                        			<span th:text="${board.getPay_date}"></span>
                         		</small>
-								<a th:href="'boardList?num='+${board.getSh_num()}"
+                        		<small class="d-flex">
+                        			<span><b>결제수단 :&nbsp;</b></span>
+                        			<span th:text="${board.getPay_method}"></span>
+                        		</small>
+                        		<small class="d-flex">
+                        			<span><b>결제금액 :&nbsp;</b></span>
+                        			<span th:text="${board.getPay_amount}+'원'"></span>
+                        		</small>
+                        		<a th:href="'boardList?num='+${board.getPay_num()}"
 									class="btn custom-btn3 mt-3 d-block">상세보기</a>
 							</div>
 							<div class="col d-flex justify-content-end content-div mt-4">
@@ -87,12 +90,12 @@
 		<div class="row">
 			<div class="col-12 btn btn-block border" id="load">
 				<div class="">
-					<span> 더보기 
-						<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+					<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg"
+							width="10" height="10" fill="currentColor"
 							class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 							<path
-							d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-						</svg>
+								d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+							</svg>
 					</span>
 				</div>
 			</div>
@@ -109,43 +112,44 @@
 
 			applyCard.hide();
 			applyCard.slice(0, 3).show();
-			
+
 			$("#load").click(function(e) {
 				e.preventDefault();
 				if ($(applyStrCard).length > 0) {
-					$(applyStrCard).slice(0, 3).show(); 
+					$(applyStrCard).slice(0, 3).show();
 				} else if ($(applyStrCard).length == 0) {
 					alert("마지막 게시물입니다.");
 				}
 			});
-			/*************모집중인 게시물 확인*************/
+			
+		/*************모집중인 게시물 확인*************/
 			on.click(function() {
-	            $(".ApplyList[data-pieCate!='1']").hide();
-	            $(".ApplyList[data-pieCate='1']").slice(0, 3).show();
-	            
-	            $("#load").off().click(function(e) {
-	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
-	                } else {
-	                    alert("마지막 게시물입니다.");
-	                }
-	            });
-	        });
+				$(".ApplyList[data-pieCate!='1']").hide();
+				$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
+
+				$("#load").off().click(function(e) {
+					e.preventDefault();
+					if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
+						$(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
+						} else {
+							alert("마지막 게시물입니다.");
+						}
+					});
+				});
 			/*************모집마감 게시물 확인*************/
-	        off.click(function() {
-	            $(".ApplyList[data-pieCate!='0']").hide();
-	            $(".ApplyList[data-pieCate='0']").slice(0, 3).show();
-	            
-	            $("#load").off().click(function(e) {
-	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
-	                } else {
-	                    alert("마지막 게시물입니다.");
-	                }
-	            });
-	        });
+			off.click(function() {
+				$(".ApplyList[data-pieCate!='0']").hide();
+				$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
+
+				$("#load").off().click(function(e) {
+					e.preventDefault();
+					if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
+						$(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
+						} else {
+							alert("마지막 게시물입니다.");
+						}
+					});
+				});
 		})
 	</script>
 </div>
