@@ -14,6 +14,8 @@ public interface IProxyBuyDao {
 	public List<ProxyBuyBoardDto> listDaoByNewer();
 
 	public List<ProxyBuyBoardDto> listDaoByNewerNumber(int num);
+	
+	public List<ProxyBuyBoardDto> listDaoByNext(int page,int max);
 
 	public List<ProxyBuyBoardDto> listDaoByCategory(String category);
 
