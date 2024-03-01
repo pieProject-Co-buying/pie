@@ -28,6 +28,7 @@ public class BusinessApplyDto {
 	private int bus_unitPrice;
 
 	
+	
 	private String bus_chargePerson;
 	private String bus_phone;
 	private String bus_email;
