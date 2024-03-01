@@ -52,9 +52,13 @@
 							<td th:text="${list.getBuyer_name()}"></td>
 							<td
 								th:text="${list.getPay_method()}+' / '+${list.getPay_amount()}+'KRW'"></td>
-							<td><small class="badge badge-danger"> <a
-									href="https://admin.portone.io/payments" target="_blank">환불하기</a>
-							</small></td>
+							<td>
+							<th:block th:if="${list.getPay_refund()==1}">
+								<small class="badge badge-danger"> 
+									<a href="https://admin.portone.io/payments" target="_blank">환불하기</a>
+								</small>
+							</th:block>
+							</td>
 						</tr>
 					</th:block>
 				</tbody>

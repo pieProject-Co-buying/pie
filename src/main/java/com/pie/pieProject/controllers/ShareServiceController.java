@@ -278,11 +278,14 @@ public class ShareServiceController {
 		List<PaymentDTO> list = Pdao.buyList(sId);
 		List<String> piclist = Pdao.buyListpic(sId);
 		List<String> processList = Pdao.buyListpro(sId);
+		List<String> buyNum = Pdao.buyListNum(sId);
+		
 		
 		
 		for(int i = 0; i<list.size(); i++) {
 			list.get(i).setProductImg(piclist.get(i));
 			list.get(i).setProcess(processList.get(i));
+			list.get(i).setNum(buyNum.get(i));
 			
 		}
 		

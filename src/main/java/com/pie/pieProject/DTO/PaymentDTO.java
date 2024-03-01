@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PaymentDTO {
+	private String buyer_id; // 구매자 아이디
 	private String buyer_name; // 구매자 이름
 	private String buyer_nickname; // 구매자 닉네임
 	private String buyer_tel; // 구매자 전화번호
@@ -22,7 +23,9 @@ public class PaymentDTO {
     private String pay_num; // 게시물 번호
     private String pay_category; // 카테고리
     private String pay_date; // 구매일자
+    private int pay_refund; // 환불여부
     
     private String productImg;
     private String process;
+    private String num;
 }

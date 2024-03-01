@@ -44,6 +44,7 @@ public class PaymentController {
     @PreAuthorize("ADMIN")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
     	dao.insertPayment(dto);
+    	System.out.println("pay_refund : "+dto.getPay_refund());
         // 응답 반환
         return new ResponseEntity<>(dto.getPay_category(), HttpStatus.OK);
     }
@@ -147,7 +148,6 @@ public class PaymentController {
 			templist.add(list.get(i));
 		}
 		
-		System.out.println(templist.size());
 		
 		model.addAttribute("payList", templist);
 		model.addAttribute("page", page);
@@ -157,6 +157,18 @@ public class PaymentController {
 		
 		
 		return "pieContents/shareService/shareServiceApplyConsole";
+	}
+	/**********환불요청**********/
+	@RequestMapping("/refundPay")
+	public String refundPay(HttpServletRequest request,Model model) {
+		PaymentDTO dto=new PaymentDTO();
+		String num = request.getParameter("num");
+		System.out.println("num="+num);
+		
+		dto.setPay_refund(1);
+		dao.refundPay(Integer.parseInt(num));
+		return "redirect:/shareServicebuyBoard";
+		
 	}
 }
 

@@ -46,6 +46,11 @@
                         		<th:block th:if="${board.getProcess().equals('0')}">
                         			<small class="badge badge-danger" th:text="모집마감"></small>                      	
                         		</th:block>
+                        		<!--환불여부-->
+                        		<th:block th:if="${board.getPay_refund.equals('1')}">
+                        			<small class="badge badge-success" th:text="환불"></small>                       	
+                        		</th:block>
+                        		<small class="badge badge-success" th:text="${board.getPay_refund}"></small>  
                         		<small class="d-flex">
                         			<span><b>상품코드 :&nbsp;</b></span>
                         			<span th:text="${board.getPay_Merchant_uid}"></span>
@@ -62,8 +67,10 @@
                         			<span><b>결제금액 :&nbsp;</b></span>
                         			<span th:text="${board.getPay_amount}+'원'"></span>
                         		</small>
-                        		<a th:href="'boardList?num='+${board.getPay_num()}"
-									class="btn custom-btn3 mt-3 d-block">상세보기</a>
+                        		<a th:href="'boardList?num='+${board.getNum()}" class="btn btn-info mt-3">상세보기</a>
+								<a th:href="'refundPay?num='+${board.getNum()}" class="btn btn-danger mt-3">환불하기</a>
+								<!-- <a th:href="'boardList?num='+${board.getNum()}"
+									class="btn btn-danger mt-3">환불하기</a> -->
 							</div>
 							<div class="col d-flex justify-content-end content-div mt-4">
 							</div>
@@ -151,6 +158,14 @@
 					});
 				});
 		})
+		/* function Refund(){
+			if (confirm("환불 하시겠습니까?") == true){
+			     document.location.href="refundPay?num=";
+			     document.location.href="'refundPay?num='+${board.getNum()}";
+			 }else{
+			     return false;
+			 }
+		} */
 	</script>
 </div>
 <!--wrapper-->
