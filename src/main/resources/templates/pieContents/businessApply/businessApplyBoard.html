@@ -39,11 +39,16 @@
 				  
 				  
 				    <tr th:each="list:${list}">
-				      <th scope="row" th:text="${list.getBus_apply_num}">1</th>
+				      <th scope="row" th:text="${list.getBus_apply_num}"><span th:text="${list.getBus_apply_num}">1</span></th>
 				      <td th:text="${list.getBus_name}">회사명</td>
-				      <td><a th:href="@{/readApplyBoard(bus_apply_num=${list.getBus_apply_num})}"><span th:text="${list.getBus_title}" class="text-success">제목</span></a></td>
-				      <td th:text="${list.getBus_writeDay}"></td>
-				      
+                        <td>
+                            <a href="javascript:void(0);"
+                               onclick="checkPassword(this, document.getElementById('bus_password_${list.getBus_apply_num}').textContent)">
+                                <span th:text="${list.getBus_title}" class="text-success">제목</span>
+                            </a>
+                        </td>
+                        <td th:text="${list.getBus_writeDay}"></td>
+                        <td id="bus_password_${list.getBus_apply_num}" th:text="${list.getBus_password}" style="display: none;"></td>
 				    </tr>
 
 				  </tbody>
@@ -56,9 +61,24 @@
 			</div>
 		</div>
 	</div>
+	
+
 
 	<!--게시글 로직 container-->
 	<!--wrapper-->
+    <script>
+        function checkPassword(element, correctPassword) {
+            var inputPassword = prompt("비밀번호를 입력해주세요:");
+            var bus_apply_num = element.parentNode.parentNode.getElementsByTagName('th')[0].textContent;
+            if (inputPassword === correctPassword) {
+                window.location.href = '/readApplyBoard?bus_apply_num=' + bus_apply_num;
+            } else {
+                alert("비밀번호가 틀렸습니다.");
+            }
+        }
+    </script>
+
+		
 </div>
 
 </html>

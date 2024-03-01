@@ -158,7 +158,7 @@ public class BusinessApplyController {
 			@RequestParam("bus_num") String bus_num,
 			@RequestParam("postCode") String postCode,
 			@RequestParam("address_main") String address_main,			
-			@RequestParam("address_sub") String address_sub,			
+			@RequestParam("address_sub") String address_sub,	
 			@RequestParam("bus_productName") String bus_productName,
 			@RequestParam("bus_maxqnt") Integer bus_maxqnt,
 			@RequestParam("bus_unitPrice") Integer bus_unitPrice,
