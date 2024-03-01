@@ -70,9 +70,11 @@
 							
 							<label for="bus_productName">
 								<small class="pl-1">제품명</small>
+								
 							</label>
 							
 							<input type="text" class="form-control" id="" name="bus_productName">
+							<div class="invalid-feedback">제목을 입력해주세요.</div>
 						</div>
 	
 					</div>
@@ -125,11 +127,24 @@
 					
 						<div class="col-md-6 pt-3">
 <!-- bus_num  -->							
-							<label for="bus_num">
-								<small class="pl-1">사업자번호</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_num" name="bus_num">
+
+									
+									<label for="bus_num">
+										<small class="pl-1">사업자번호</small>
+									</label>
+							<div class="row">
+								
+								<div class="col-10">									
+									<input type="text" class="form-control" id="bus_num" name="bus_num">
+								</div>	
+								<div class="col-2">		
+									<button type="button" class="btn pie-btn-red checknum w-100" onclick="businessNumber()">확인</button>
+									
+								</div>
+								
+								
+							</div>
+
 
 						</div>	
 						
@@ -223,37 +238,15 @@
 					</div>
 					
 <!-- email1  -->		
-						<div class="form-group row">
-							<label for="email1" class="col-sm-3 col-form-label">이메일</label> <input
-								type="hidden" name="email" id="emailCom" />
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="form-group col-6 pr-1">
-										<div class="input-group">
-											<input type="text" class="form-control" id="email1"
-												placeholder="이메일" required name="email1">
-											<div class="input-group-append">
-												<div class="input-group-text">@</div>
-											</div>
-											<div class="invalid-feedback">이메일을 입력해주세요.</div>
-										</div>
-									</div>
-									<div class="form-group col-6 pl-0">
-										<label for="email2" class="sr-only">Example multiple
-											select</label> <select class="form-control px-0" id="email2" required name="email2">
-											<option>gmail.com</option>
-											<option>naver.com</option>
-											<option>daum.net</option>
-											<option>hotmail.com</option>
-											<option value="">직접입력</option>
-										</select> <input type="text" class="form-control" id="emailAddressInput"
-											placeholder="직접입력" required readOnly>
-										<div class="invalid-feedback">이메일을 입력해주세요.</div>
-				
-									</div>
-								</div>
-							</div>
+					<div class="form-group row">
+						<div class="col">
+							<label for="bus_email">
+								<small class="pl-1">이메일</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_email" name="bus_email">
 						</div>
+					</div>		
 						
 													
 					<hr />
@@ -290,7 +283,52 @@
 
 	<!--게시글 로직 container-->
 	<!--wrapper-->
+	<script>
+	    function businessNumber() {
+	        let num = document.getElementById('bus_num').value;  //사업자번호
 	
+	        const data = {
+	            "b_no": [num] 
+	        };
+	
+	        console.log(data); //확인용
+	
+	        // AJAX 요청
+	        $.ajax({
+	            url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=fNENBTZU38Lra4iyqhwseIWwuKhfrHvxcBnYRr6Y3D2dHHRdYa0EctJfEvM0S7%2FCrz7R4DgIKAst1XaVTrtIAw%3D%3D", // 서비스 키 값을 입력
+	            type: "POST",
+	            data: JSON.stringify(data), 
+	            dataType: "JSON",
+	            contentType: "application/json",
+	            accept: "application/json",
+	            success: function(result) {
+	                console.log(result);
+
+	                if (result.status_code === 'OK') {
+	                    if (result.data[0].tax_type === '부가가치세 일반과세자') {
+	                        alert("확인되었습니다."); // 조회성공
+	                         document.getElementById('bus_num').readOnly = true;
+	                    } else {
+	                        alert("확인되지 않았습니다."); 
+	                    }
+	
+	                } else {
+	                    alert("확인되지 않았습니다."); // 조회되지 않은 경우
+	                }
+	            },
+	            error: function(result) {
+	                console.log(result.responseText); 
+	                alert("에러가 발생했습니다."); 
+	            }
+	        });
+	    }
+	</script>
+	
+	<script>
+
+		
+	</script>
+		
 	<script src="js/PostCode.js"></script>
 	<script src="/js/imageGallery-DragEvent.js"></script>
 	<script src="/js/FileUpload.js"></script>

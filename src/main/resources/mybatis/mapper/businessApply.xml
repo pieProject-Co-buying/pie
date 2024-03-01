@@ -67,7 +67,7 @@
 	        bus_chargePerson = #{bus_chargePerson},
 	        bus_phone = #{bus_phone},
 	        bus_email = #{bus_email}
-	    WHERE to_num=#{to_num}
+	    WHERE bus_num=#{bus_num}
 	</update>
 	
 	
