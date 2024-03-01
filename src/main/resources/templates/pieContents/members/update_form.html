@@ -22,7 +22,7 @@
 			<div class="col-sm-6">
 				<input type="text" class="form-control" id="name" name="name"
 					th:value="${mem.getName()}" required>
-					<div class="invalid-feedback nameFeedBack">이름을 입력해주세요.</div>
+				<div class="invalid-feedback nameFeedBack">이름을 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -30,7 +30,7 @@
 			<div class="col-sm-6">
 				<input type="text" class="form-control" id="nickname"
 					name="nickname" th:value="${mem.getNickname()}" required>
-					<div class="invalid-feedback">닉네임을 입력해주세요.</div>
+				<div class="invalid-feedback">닉네임을 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -75,9 +75,10 @@
 						<th:block th:unless="${mem.getGender().equals('female')}">
 							<input class="form-check-input d-none" type="radio" name="gender"
 								id="female" value="female" required>
+							<label class="form-check-label" for="female"> <small>여성</small>
+							</label>
 						</th:block>
-						<label class="form-check-label" for="female"> <small>여성</small>
-						</label>
+
 					</div>
 					<div class="form-check">
 						<th:block th:if="${mem.getGender().equals('none')}">
@@ -142,7 +143,8 @@
 
 		<div class="form-group row">
 			<label for="inputPassword3" class="col-sm-3 col-form-label">이메일</label>
-			<input type="hidden" name="email" id="emailCom" th:value="${mem.getEmail()}"/>
+			<input type="hidden" name="email" id="emailCom"
+				th:value="${mem.getEmail()}" />
 			<div class="col-sm-9">
 				<div class="row">
 					<div class="form-group col-6 pr-1">
@@ -158,9 +160,9 @@
 					</div>
 					<div class="form-group col-6 pl-0">
 						<label for="email2" class="sr-only">Example multiple
-							select</label> 
-							<input type="hidden" id="email2value" th:value="${mem.getEmail().contains('@') ? mem.getEmail().substring(mem.getEmail().indexOf('@') + 1) : ''}" />
-							<select class="form-control px-0" id="email2" required>
+							select</label> <input type="hidden" id="email2value"
+							th:value="${mem.getEmail().contains('@') ? mem.getEmail().substring(mem.getEmail().indexOf('@') + 1) : ''}" />
+						<select class="form-control px-0" id="email2" required>
 							<option>gmail.com</option>
 							<option>naver.com</option>
 							<option>daum.net</option>
@@ -177,7 +179,7 @@
 		<div class="form-group row">
 			<label for="inputPassword3" class="col-sm-3 col-form-label">우편번호</label>
 			<div class="col-sm-9 d-flex justify-content-between">
-				<input type="text" class="form-control mr-1" id="sample6_postcode"
+				<input type="text" class="form-control mr-1" id="postCode"
 					placeholder="우편번호" name="postCode" onclick="findPostCode()"
 					required th:value="${mem.getPostCode()}"> <input
 					type="button" onclick="findPostCode()" value="우편번호 찾기"
@@ -192,7 +194,7 @@
 				<input type="text" class="form-control" id="address_main"
 					placeholder="주소" name="address_main"
 					th:value="${mem.getAddress_main()}" required>
-					<div class="invalid-feedback">주소를 입력해주세요.</div>
+				<div class="invalid-feedback">주소를 입력해주세요.</div>
 			</div>
 		</div>
 		<div class="form-group row">
@@ -378,13 +380,15 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<script src="js/PostCode.js"></script>
 	<script type="text/javascript" th:inline="javascript">
 		var mem = /*[[${mem}]]*/
 		console.log(mem.nickname);
 	</script>
 	<script th:src="@{js/iamport.js}"></script>
 	<script src="/js/validationUpdateMemInfo.js"></script>
+
 
 
 </div>

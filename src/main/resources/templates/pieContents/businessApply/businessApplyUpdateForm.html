@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	layout:decorate="~{layouts/applyboardForm}">
+
+
+<!--<h1>Bootstrap 기본설정완료</h1>-->
+<div layout:fragment="applyFormContent" class="col">
+	<!--------------------------------게시글 타이틀-------------------------------->
+	<!--container-->
+	<!--------------------------------게시글 로직-------------------------------->
+	<div class="container border hj-radius-30 shadow p-5">
+		<div class="row">
+			<div class="col">
+
+
+
+				<div class="row">
+					<div class="col text-center mb-5">
+						<h1>기업신청 게시판</h1>
+						<div>파이에 판매하고 싶은 상품을 신청해주세요</div>
+						<div>내부 검토 진행 후 승인시 공구가 진행됩니다</div>
+					</div>
+				</div>
+
+				<form action="busApplyUpdate" enctype="multipart/form-data" method="post" name="busApply">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />				
+						
+<!-- bus_title  -->
+					<div class="form-group">
+						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title">
+					</div>
+					
+					
+					
+<!-- bus_img  -->					
+					<!-- 이거는 다시보자 -->
+					<div class="form-group d-flex">
+					
+						<label for="file">
+							<div class="btn-upload">
+								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+								</svg>
+							</div>
+						</label>
+						
+						<div class="file-uploadGroup"></div>
+						<input type="file" name="to_pic[]" id="file" multiple onchange="addFile(event)"> <input type="hidden" name="bus_img" id="files" />
+					</div>
+					
+					
+					
+					
+<!-- bus_content  -->							
+					<textarea id="summernote" name="bus_content"></textarea>
+					
+					<div class="text-right">
+						<small>잔여 bytes :: </small>
+						<small id="messagebyte">11</small>
+						<small> / 2000</small>
+					</div>
+					
+					
+					
+					<div class="form-group row pt-3">
+					
+<!-- bus_productName  -->					
+						<div class="col-md-12 pt-3">
+							
+							<label for="bus_productName">
+								<small class="pl-1">제품명</small>
+							</label>
+							
+							<input type="text" class="form-control" id="" name="bus_productName">
+						</div>
+	
+					</div>
+					
+					
+
+					<div class="form-group row">
+					
+<!-- bus_maxqnt  -->							
+						<div class="col-md-6 pt-3">
+							<label for="bus_maxqnt">
+								<small class="pl-1">최대공급가능수량</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_maxqnt" name="bus_maxqnt">
+						</div>
+						
+<!-- bus_unitPrice  -->							
+						<div class="col-md-6 pt-3">
+						
+							<label for="bus_unitPrice">
+								<small class="pl-1">단위가격</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_unitPrice" name="bus_unitPrice">
+
+						</div>
+					</div>
+
+
+					
+					
+					
+					<hr />
+					
+					
+					<!-- 회사정보 -->
+					<div class="form-group row">
+					
+						
+						<div class="col-md-6 pt-3">
+<!-- bus_name  -->							
+							<label for="bus_name">
+								<small class="pl-1">회사명</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_name" name="bus_name">
+
+						</div>					
+					
+						<div class="col-md-6 pt-3">
+<!-- bus_num  -->							
+							<label for="bus_num">
+								<small class="pl-1">사업자번호</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_num" name="bus_num">
+
+						</div>	
+						
+											
+					</div>
+
+
+
+					
+					<!-- 이것도 다시보자 -->
+					<div class="form-group pie-address row">
+					
+<!-- postCode  -->						
+						<label for="postCode" class="col-sm-3 col-form-label">우편번호</label>
+						<div class="col-sm-9">
+							<div class="d-flex justify-content-between">
+								<input type="text" class="form-control mr-1" id="postCode"
+									placeholder="우편번호" name="postCode" onclick="findPostCode()"
+									required> <input type="button" onclick="findPostCode()"
+									value="우편번호 찾기" class="btn pie-btn-red">
+							</div>
+							<div class="invalid-feedback">우편번호를 입력해주세요.</div>
+						</div>
+			
+					</div>
+			
+			
+<!-- address_main  -->				
+			
+					<div class="form-group pie-address row">
+					
+					
+						<label for="address_main" class="col-sm-3 col-form-label">주소</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="address_main"
+								placeholder="주소" name="address_main" onclick="findPostCode()"
+								required>
+							<div class="invalid-feedback">주소를 입력해주세요.</div>
+						</div>
+			
+					</div>
+					
+					
+<!-- address_sub  -->							
+					<div class="form-group row">
+						<label for="address_sub" class="col-sm-3 col-form-label">상세주소</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="address_sub"
+								placeholder="상세주소" name="address_sub">
+						</div>
+			
+					</div>
+					
+					
+					
+					
+					
+					<hr />
+					
+					
+					
+					
+					<!-- 담당자 정보 -->
+					<div class="form-group row">
+					
+					
+<!-- bus_chargePerson  -->						
+						<div class="col-md-6 pt-3">
+						
+							<label for="bus_chargePerson">
+								<small class="pl-1">담당자</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson">
+
+						</div>	
+						
+<!-- bus_phone  -->							
+						<div class="col-md-6 pt-3">
+						
+							<label for="bus_phone">
+								<small class="pl-1">담당자 전화번호</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_phone" name="bus_phone">
+
+						</div>							
+						
+	
+					
+					</div>
+					
+<!-- email1  -->		
+						<div class="form-group row">
+							<label for="email1" class="col-sm-3 col-form-label">이메일</label> <input
+								type="hidden" name="email" id="emailCom" />
+							<div class="col-sm-9">
+								<div class="row">
+									<div class="form-group col-6 pr-1">
+										<div class="input-group">
+											<input type="text" class="form-control" id="email1"
+												placeholder="이메일" required name="email1">
+											<div class="input-group-append">
+												<div class="input-group-text">@</div>
+											</div>
+											<div class="invalid-feedback">이메일을 입력해주세요.</div>
+										</div>
+									</div>
+									<div class="form-group col-6 pl-0">
+										<label for="email2" class="sr-only">Example multiple
+											select</label> <select class="form-control px-0" id="email2" required name="email2">
+											<option>gmail.com</option>
+											<option>naver.com</option>
+											<option>daum.net</option>
+											<option>hotmail.com</option>
+											<option value="">직접입력</option>
+										</select> <input type="text" class="form-control" id="emailAddressInput"
+											placeholder="직접입력" required readOnly>
+										<div class="invalid-feedback">이메일을 입력해주세요.</div>
+				
+									</div>
+								</div>
+							</div>
+						</div>
+						
+													
+					<hr />
+					
+
+<!-- bus_password  -->					
+					<div class="form-group row">
+						<div class="col">
+							<label for="bus_password">
+								<small class="pl-1">비밀번호</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 전화번호는 찾을 수 없으니 신중하게 입력해주세요">
+						</div>
+					</div>					
+					
+								
+								
+					<div class="form-group row justify-content-center mt-5">
+						<div class="col">
+							<button type="button" class="btn btn-block pie-btn-red" id="uploadBtn">등록</button>
+						</div>
+					</div>
+					
+					
+					
+				</form>
+				
+				
+				
+			</div>
+		</div>
+	</div>
+
+	<!--게시글 로직 container-->
+	<!--wrapper-->
+	
+	<script src="js/PostCode.js"></script>
+	
+	
+</div>
+
+</html>

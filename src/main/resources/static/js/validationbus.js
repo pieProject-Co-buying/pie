@@ -1,0 +1,3 @@
+function boardval() {
+	return true;
+}

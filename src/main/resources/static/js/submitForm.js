@@ -13,6 +13,7 @@ function submitForm() {
 	else if (str == 'proxyWriteForm') form = document.proxyForm;
 	else if (str == 'writePost') form = document.shareForm;
 	else if (str == 'proxyApplyForm') form = document.proxyApplyForm;
+	else if (str == 'businessApplyForm') form = document.busApply;
 	
 	// 폼데이터 담기
 

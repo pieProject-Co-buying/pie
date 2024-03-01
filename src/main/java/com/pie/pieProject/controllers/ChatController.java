@@ -136,6 +136,9 @@ public class ChatController {
 
 		
 		List<TownBuyBoardDto> tboard = tbdao.listDao();
+		System.out.println(tboard);
+		
+		
 		model.addAttribute("tboard", tboard);
 		
 		

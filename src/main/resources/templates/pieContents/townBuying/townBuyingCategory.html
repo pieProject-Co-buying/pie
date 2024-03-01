@@ -175,7 +175,15 @@
 								class="card-img-top hj-radius-img-30" alt="...">
 							<div class="card-body">
 								<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
-								<p class="card-text" th:utext="${list.getTo_content()}"></p>
+
+
+										<div class="row mt-5">
+											<div class="col d-flex justify-content-end">
+												<img th:src="@{'/imgs/profiles/' + ${list.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
+												<h6 class="card-title ml-3 mt-2" th:text="${list.getTo_nickname()}"}></h6>
+											</div>										
+										
+										</div>
 
 							</div>
 						</a>
