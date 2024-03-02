@@ -27,7 +27,12 @@
 						
 <!-- bus_title  -->
 					<div class="form-group">
-						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title">
+						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title" required>
+						
+					    <div class="invalid-feedback">
+					        제목을 입력해주세요.
+					    </div>	
+					    					
 					</div>
 					
 					
@@ -70,11 +75,14 @@
 							
 							<label for="bus_productName">
 								<small class="pl-1">제품명</small>
-								
+
 							</label>
 							
-							<input type="text" class="form-control" id="" name="bus_productName">
-							<div class="invalid-feedback">제목을 입력해주세요.</div>
+							<input type="text" class="form-control" id="" name="bus_productName" required>
+							<div class="invalid-feedback">제품명을 입력해주세요.</div>
+		
+					    					
+								
 						</div>
 	
 					</div>
@@ -90,6 +98,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_maxqnt" name="bus_maxqnt">
+							<div class="invalid-feedback">최대 공급 가능수량을 입력해주세요. 숫자만 가능합니다.</div>
 						</div>
 						
 <!-- bus_unitPrice  -->							
@@ -100,6 +109,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_unitPrice" name="bus_unitPrice">
+							<div class="invalid-feedback">제품 단위가격을 입력해주세요. 숫자만 가능합니다.</div>
 
 						</div>
 					</div>
@@ -122,7 +132,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_name" name="bus_name">
-
+							<div class="invalid-feedback">회사명을 입력해주세요. 숫자만 가능합니다.</div>
 						</div>					
 					
 						<div class="col-md-6 pt-3">
@@ -219,7 +229,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson">
-
+							<div class="invalid-feedback">담당자 성명을 입력해주세요</div>
 						</div>	
 						
 <!-- bus_phone  -->							
@@ -230,7 +240,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_phone" name="bus_phone">
-
+							<div class="invalid-feedback">담당자 전화번호를 입력해주세요. 숫자만 가능합니다.</div>
 						</div>							
 						
 	
@@ -245,6 +255,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_email" name="bus_email">
+							<div class="invalid-feedback">이메일을 입력해주세요</div>
 						</div>
 					</div>		
 						
@@ -260,6 +271,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 전화번호는 찾을 수 없으니 신중하게 입력해주세요">
+							<div class="invalid-feedback">비민번호를 입력해주세요</div>
 						</div>
 					</div>					
 					
@@ -309,7 +321,7 @@
 	                        alert("확인되었습니다."); // 조회성공
 	                         document.getElementById('bus_num').readOnly = true;
 	                    } else {
-	                        alert("확인되지 않았습니다."); 
+	                        alert("정상 사업자번호가 아닙니다. 다시 한번 확인해주세요"); 
 	                    }
 	
 	                } else {
@@ -324,9 +336,9 @@
 	    }
 	</script>
 	
+	
 	<script>
 
-		
 	</script>
 		
 	<script src="js/PostCode.js"></script>
