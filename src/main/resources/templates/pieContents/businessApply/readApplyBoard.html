@@ -8,34 +8,82 @@
 	<!--------------------------------게시글 타이틀-------------------------------->
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
-	<div class="container">
+	<div class="container border hj-radius-30 shadow p-5">
 		<div class="row">
-			<div class="col">
+			<div class="col text-center">
 
 
-				<h1 th:text="${board.get(0).getBus_title()}" value="bus_title">제목</h1>
-				<div th:utext="${board.get(0).getBus_content()}">타이틀</div>
+				<h1 th:text="${board.get(0).getBus_title()}" value="bus_title" class="my-5">제목</h1>
+				
+				<hr>
+				<div class="row">
+					<div class="col-md-6">
+						<img th:src="@{'/imgs/test/' + ${board.get(0).getBus_img()}}" alt="" class="img-fluid w-100">		
+					</div>
+					
+					
+					<div class="col-md-6 mt-5 mt-md-0">
+						
+						
+						<div class="mb-4"><span th:utext="${board.get(0).getBus_content()}"></span></div>
+						
+
+					</div>		
+					
+				</div>
+
+						
+
 				
 				
 				<!-- <div th:utext="${board.get(0).getBus_img()}">이미지</div> -->
-				<!-- <img th:src="@{'/imgs/test/' + ${board.getBus_img()}}" alt="" class="img-fluid">		 -->	
+				 
 				
-				<div th:text="${board.get(0).getBus_name()}">회사명</div>
-				<div th:text="${board.get(0).getBus_num()}">사업자번호</div>
 
-				<div th:text="${board.get(0).getBus_productName()}">제품명</div>
-				<div th:text="${board.get(0).getBus_maxqnt()}">공급가능수량</div>
-				<div th:text="${board.get(0).getBus_unitPrice()}">개별단가</div>
-				<div th:text="${board.get(0).getBus_chargePerson()}">담당자</div>
-				<div th:text="${board.get(0).getBus_phone()}">핸드폰번호</div>
-				<div th:text="${board.get(0).getBus_email()}">이메일주소</div>						
 				
+				<hr>
+				
+				<div class="row my-5">
+					<div class="col-md-6">
+						
+						<h3 class="my-5">납품 정보</h3>	
+						
+						<div class="">제품명: <span th:text="${board.get(0).getBus_productName()}"></span></div>						
+						<div class="">공급가능수량: <span th:text="${board.get(0).getBus_maxqnt()}"></span></div>
+						<div class="">개별단가: <span th:text="${board.get(0).getBus_unitPrice()}"></span></div>
+												
+					</div>
+					
+					
+					<div class="col-md-6">
+						
+						<h3 class="my-5">회사 정보</h3>	
+					
+						<div class="">회사명: <span th:text="${board.get(0).getBus_name()}"></span></div>
+						<div class="">사업자번호: <span th:text="${board.get(0).getBus_num()}"></span></div>
+						<div class="">담당자: <span th:text="${board.get(0).getBus_chargePerson()}"></span></div>
+						<div class="">핸드폰번호: <span th:text="${board.get(0).getBus_phone()}"></span></div>
+						<div class="">이메일주소: <span th:text="${board.get(0).getBus_email()}"></span></div>
+												
+					</div>
+										
+					
+					
+				</div>
+										
+
+				
+		
+
+						
+				
+		
 			</div>
 		</div>
 		
 		
-		<div class="row">
-			<div class="col">
+		<div class="row mt-5">
+			<div class="col text-right">
 				 <a class="btn pie-btn-red" th:href="@{'businessApplyUpdateForm?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">수정</a>
 				 <a class="btn pie-btn-red"th:href="@{'deletebusApply?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">삭제</a>
 			</div>
