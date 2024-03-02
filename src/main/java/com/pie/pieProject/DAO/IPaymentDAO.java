@@ -27,4 +27,5 @@ public interface IPaymentDAO {
 	public ArrayList<String> buyListNum(String num);
 	// 환불
 	public int refundPay(int num);
+	public int refundPayCheck(int num);
 }

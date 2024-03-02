@@ -46,11 +46,15 @@
                         		<th:block th:if="${board.getProcess().equals('0')}">
                         			<small class="badge badge-danger" th:text="모집마감"></small>                      	
                         		</th:block>
-                        		<!--환불여부-->
-                        		<th:block th:if="${board.getPay_refund.equals('1')}">
-                        			<small class="badge badge-success" th:text="환불"></small>                       	
+                        		<th:block th:if="${board.getPay_refund.equals('0')}">                        		
+	                        		<small class="badge badge-info" th:text="정상처리"></small>  
                         		</th:block>
-                        		<small class="badge badge-success" th:text="${board.getPay_refund}"></small>  
+                        		<th:block th:if="${board.getPay_refund.equals('1')}">                        		
+	                        		<small class="badge badge-danger" th:text="환불요청중"></small>  
+                        		</th:block>
+                        		<th:block th:if="${board.getPay_refund.equals('2')}">                        		
+	                        		<small class="badge badge-success" th:text="환불완료"></small>  
+                        		</th:block>
                         		<small class="d-flex">
                         			<span><b>상품코드 :&nbsp;</b></span>
                         			<span th:text="${board.getPay_Merchant_uid}"></span>
@@ -68,7 +72,9 @@
                         			<span th:text="${board.getPay_amount}+'원'"></span>
                         		</small>
                         		<a th:href="'boardList?num='+${board.getNum()}" class="btn btn-info mt-3">상세보기</a>
-								<a th:href="'refundPay?num='+${board.getNum()}" class="btn btn-danger mt-3">환불하기</a>
+                        		<th:block th:if="${board.getPay_refund.equals('0')}">                        		
+	                        		<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}" class="btn btn-danger mt-3">환불하기</a>
+	                        	</th:block>
 								<!-- <a th:href="'boardList?num='+${board.getNum()}"
 									class="btn btn-danger mt-3">환불하기</a> -->
 							</div>

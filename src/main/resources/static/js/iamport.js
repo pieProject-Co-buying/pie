@@ -178,7 +178,7 @@ function kakaoPay() {
 						"pay_name": Title,
 						"pay_amount": Price,
 						"pay_category": category,
-						"pay_refund": 0	
+						"pay_refund": '0'	
 					}
 					$.ajax({
 						url: "payCheck",

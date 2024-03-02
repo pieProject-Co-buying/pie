@@ -23,7 +23,7 @@ public class PaymentDTO {
     private String pay_num; // 게시물 번호
     private String pay_category; // 카테고리
     private String pay_date; // 구매일자
-    private int pay_refund; // 환불여부
+    private String pay_refund; // 환불여부/
     
     private String productImg;
     private String process;

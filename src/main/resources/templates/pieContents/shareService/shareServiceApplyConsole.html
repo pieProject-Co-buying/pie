@@ -33,19 +33,19 @@
 			<table class="board-table mt-1">
 				<thead>
 					<tr>
-						<th scope="col" class="th-num">번호</th>
+						<th scope="col" class="th-num">상품코드</th>
 						<th scope="col" class="th-title">제목</th>
 						<th scope="col" class="th-date">결제일</th>
 						<th scope="col" class="th-num">구매자 ID</th>
 						<th scope="col" class="th-num">구매자 이름</th>
 						<th scope="col" class="th-date">결제수단 / 금액</th>
-						<th scope="col" class="th-num">환불</th>
+						<th scope="col" class="th-num">환불여부</th>
 					</tr>
 				</thead>
 				<tbody>
 					<th:block th:each="list:${payList}">
 						<tr>
-							<td th:text="${list.getPay_num()}"></td>
+							<td th:text="${list.getPay_Merchant_uid()}"></td>
 							<td th:text="${list.getPay_name()}"></td>
 							<td th:text="${list.getPay_date()}"></td>
 							<td th:text="${list.getBuyer_nickname()}"></td>
@@ -53,11 +53,17 @@
 							<td
 								th:text="${list.getPay_method()}+' / '+${list.getPay_amount()}+'KRW'"></td>
 							<td>
-							<th:block th:if="${list.getPay_refund()==1}">
-								<small class="badge badge-danger"> 
-									<a href="https://admin.portone.io/payments" target="_blank">환불하기</a>
-								</small>
-							</th:block>
+								<th:block th:if="${list.getPay_refund().equals('0')}">
+									<small class="badge badge-secondary" th:text="요청없음"></small>
+								</th:block>
+								<th:block th:if="${list.getPay_refund().equals('1')}">
+									<small class="badge badge-danger"> 
+										<a class="text-white" th:href="'refundPayCheck?page=1&num=' + ${list.getPay_Merchant_uid()}">환불요청</a>
+									</small>
+								</th:block>
+								<th:block th:if="${list.getPay_refund().equals('2')}">
+									<small class="badge badge-success" th:text="환불완료"></small>
+								</th:block>
 							</td>
 						</tr>
 					</th:block>

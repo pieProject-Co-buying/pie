@@ -44,6 +44,10 @@ SELECT shareServiceBoard.sh_process
 </select>
 <!--환불-->
 <update id="refundPay">
-	update payment set pay_refund = 1 where pay_num = #{param1}
+	update payment set pay_refund = '1' where pay_merchant_uid = #{param1}
+</update>
+<!--환불여부-->
+<update id="refundPayCheck">
+	update payment set pay_refund = '2' where pay_merchant_uid = #{param1}
 </update>
 </mapper>

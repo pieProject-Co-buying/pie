@@ -165,10 +165,43 @@ public class PaymentController {
 		String num = request.getParameter("num");
 		System.out.println("num="+num);
 		
-		dto.setPay_refund(1);
+		dto.setPay_refund("1");
+		System.out.println("refund="+dto.getPay_refund());
 		dao.refundPay(Integer.parseInt(num));
 		return "redirect:/shareServicebuyBoard";
-		
 	}
+	/**********환불요청 확인**********/
+	 @RequestMapping("/refundPayCheck")
+	 public String refundPayCheck(@RequestParam("page") int page,HttpServletRequest request,Model model) { 
+		 PaymentDTO dto=new PaymentDTO(); 
+		 ShareServiceDto sdto =new ShareServiceDto();
+		 String num = request.getParameter("num");
+		 
+		 sdto.setSh_personnelNow(sdto.getSh_personnelNow()-1);
+		 dto.setPay_refund("2");
+		 dao.refundPayCheck(Integer.parseInt(num));
+		 
+		 List<PaymentDTO> list = dao.paymentList();
+			model.addAttribute("pay", list);
+
+			int pageLimit = 10;
+			int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+			
+			List<PaymentDTO> templist = new ArrayList<>();
+
+			int minPage = (page - 1) * pageLimit;
+			int maxPage = Math.min(page * pageLimit, list.size());
+			
+			for (int i = minPage; i < maxPage; i++) {
+				templist.add(list.get(i));
+			}
+			
+			System.out.println(templist.size());
+
+			model.addAttribute("payList", templist);
+			model.addAttribute("page", page);
+			model.addAttribute("pageNum", pageNum);
+		 return "pieContents/shareService/shareServiceApplyConsole";
+	 }
 }
 

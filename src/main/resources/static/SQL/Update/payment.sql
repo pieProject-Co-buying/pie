@@ -15,7 +15,7 @@ create table payment(
     pay_amount number,
     pay_date date default sysdate,
     pay_category varchar2(100),
-    pay_refund number default 0
+    pay_refund varchar2(10) default '0'
 );
 --테이블 관련
 drop table payment;
