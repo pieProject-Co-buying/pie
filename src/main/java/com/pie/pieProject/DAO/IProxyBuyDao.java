@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 
 @Mapper
 public interface IProxyBuyDao {
@@ -15,7 +16,7 @@ public interface IProxyBuyDao {
 
 	public List<ProxyBuyBoardDto> listDaoByNewerNumber(int num);
 	
-	public List<ProxyBuyBoardDto> listDaoByNext(int page,int max);
+	public List<ScrollProxyBuyBoardDto> listDaoByNext(int page,int max);
 
 	public List<ProxyBuyBoardDto> listDaoByCategory(String category);
 

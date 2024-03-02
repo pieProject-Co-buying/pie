@@ -263,6 +263,10 @@
 	overflow-anchor: none
 }
 
+#allCards {
+	min-height: 200px;
+}
+
 #allCards .card {
 	width: calc(( 100% - 20px)/2);
 	float: left;
@@ -276,6 +280,13 @@
 	-ms-transition: all 0.5s;
 	-o-transition: all 0.5s;
 	transition: all 0.5s;
+	padding: 0.75rem 1.25rem;
+}
+#allCards img{
+	max-height: 400px;
+	width: 100%;
+	object-fit : cover;
+	object-position : center;
 }
 
 .pie-radius-small {
@@ -323,7 +334,12 @@
 }
 
 
-
+.test{
+	width: 500px;
+	height: 500px;
+	background: yellow;
+}
+	
 #allCards .card:hover .card-body {
 	bottom: 0;
 	left: 0;
