@@ -19,10 +19,19 @@
 				<div id="container" class="container">
 
 					<div clas="row">
-						<img src="imgs/logo_color_C_red.png" class="col-6 offset-3 d-md-none">
-						<h1 class="mb-5 text-center text-md-left">함께해요 파이채팅</h1>
+						<div class="col  text-center mb-4">
+							<img src="imgs/logo_color_C_red.png" class="">
+							<h2 class="mb-2">함께해요 파이채팅</h2>
+							<div>
+								파이는 실시간 알림기능만 제공드려요
+								<br>
+								편안하게 필요한 내용만 소통해요						
+							</div>
+							
+						</div>
 					</div>
 					
+					<hr>
 					
 					<div class="row mb-3">
 
@@ -37,59 +46,54 @@
 							<input type="hidden" id="sendDate" th:value="${sendDate}">
 							<input type="hidden" id="realNick" th:value="${session.nickName}">
 							<input type="hidden" id="roomName" th:value="${session.roomName}">
-								
 
-	
-							<p class="text-center text-md-right" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
+
+						
+						<div class="row mb-3">
+							<div class="col-12 col-md-6 text-center text-md-left mb-4 mb-md-0">
+								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red">뒤로가기</button>
+							</div>
+							<div class="col-12 col-md">
+								<p class="text-center text-md-right h4" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
+								
+							</div>
+						</div>
+
 							<div id="chating" class="chating border py-2 px-2 rounded shadow">
 
 
 
 
-								<div th:each="message:${chatList}">
-
-
-									<div th:if="${session.nickName == message.getSender()}">
-
-
-										<!-- 내가보낸 대화목록 -->
-										<div class='me d-flex w-100 justify-content-end my-2'>
-
-											<div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
-												<p class='w-100' th:text="${message.message}"></p>
-											</div>
-
-										</div>
-
-										<div>
-											<p class="text-right" th:text="${message.sendTime}"></p>
-										</div>
-
-									</div>
-
-
-
-									<div th:unless="${session.nickName == message.sender}" >
-
-
-										<!-- 상대방이 보낸 대화목록 -->
-										<div class='others w-100 text-left my-2'>
-											<div class='mb-2 chatBallon' th:text="${message.sender}"></div> <!-- sender -->
-											<div
-												class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
-												<p class='w-100' th:text="${message.message}"></p>
-											</div>
-										</div>
-
-										<div>
-											<p class="text-left" th:text="${message.sendTime}"></p>
-										</div>
-
-
-									</div>
-
-
-								</div>
+						<div th:each="message:${chatList}">
+						    <div th:if="${session.nickName == message.getSender()}">
+						        <!-- 내가 보낸 대화목록 -->
+						        <div class='me d-flex w-100 justify-content-end my-2'>
+						            <div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+						                <p class='w-100 my-2' th:text="${message.message}"></p>
+						            </div>
+						        </div>
+						        <div>
+						            <p class="text-right" th:text="${message.sendTime}"></p>
+						        </div>
+						    </div>
+						    <div th:unless="${session.nickName == message.sender}">
+						        <!-- 상대방이 보낸 대화목록 -->
+						        <div class='others w-100 text-left my-2'>
+									
+									
+							            <div class='mb-2 chatBallon h5' th:text="${message.sender}"></div> <!-- sender -->
+							            <div class="  d-flex flex-wrap text-wrap text-break chatBallon">
+							            <div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+							                <p class='w-100  my-2' th:text="${message.message}"></p>
+							            </div>	            
+						            </div>
+						            
+						        </div>
+						        <div>
+						            <p class="text-left" th:text="${message.sendTime}"></p>
+						        </div>
+						    </div>
+						</div>
 
 
 							</div>
@@ -142,12 +146,7 @@
 
 					</div>
 					
-					
-					<div class="row mt-4">
-						<div class="col">
-							<button  onclick="goBack()" id="goBack" class="btn pie-btn-red w-100">뒤로가기</button>
-						</div>
-					</div>
+
 
 
 				</div>
@@ -266,9 +265,9 @@
 							
 							console.log(d.sessionId == $("#sessionId").val())
 							if (d.sessionId == $("#sessionId").val()) {
-								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
 							} else {
-								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100'>" + d.msg + "</p></div></div><div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
+								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='d-flex flex-wrap text-wrap text-break chatBallon'><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div></div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
 							}
 						}
 
