@@ -45,8 +45,7 @@ public class BusinessApplyController {
 			@RequestParam(value = "bus_unitPrice") Integer bus_unitPrice,
 			@RequestParam(value = "bus_chargePerson") String bus_chargePerson,
 			@RequestParam(value = "bus_phone") String bus_phone,
-			@RequestParam(value = "email1") String bus_email1,
-			@RequestParam(value = "email2") String bus_email2,
+			@RequestParam(value = "bus_email") String bus_email,
 			@RequestParam(value = "bus_password") String bus_password
 			
 
@@ -57,7 +56,6 @@ public class BusinessApplyController {
 		
 		 BusinessApplyDto dto = new BusinessApplyDto();
 		 
-		 String bus_email = bus_email1 + "@" + bus_email2;
 
 		
 		 
@@ -160,21 +158,19 @@ public class BusinessApplyController {
 			@RequestParam("bus_num") String bus_num,
 			@RequestParam("postCode") String postCode,
 			@RequestParam("address_main") String address_main,			
-			@RequestParam("address_sub") String address_sub,			
+			@RequestParam("address_sub") String address_sub,	
 			@RequestParam("bus_productName") String bus_productName,
 			@RequestParam("bus_maxqnt") Integer bus_maxqnt,
 			@RequestParam("bus_unitPrice") Integer bus_unitPrice,
 			@RequestParam("bus_chargePerson") String bus_chargePerson,
 			@RequestParam("bus_phone") String bus_phone,
-			@RequestParam("email1") String bus_email1,
-			@RequestParam("email2") String bus_email2,
+			@RequestParam("bus_email") String bus_email,
 			@RequestParam("bus_password") String bus_password
 			) {
 
 		
 		 BusinessApplyDto dto = new BusinessApplyDto();
 		 
-		 String bus_email = bus_email1 + "@" + bus_email2;
 		
 		 dto.setBus_title(bus_title); 
 		 dto.setBus_content(bus_content);

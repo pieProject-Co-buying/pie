@@ -197,41 +197,41 @@ secion1 #sec1 - 우리동네 공동구매 영역
 	
 						<!-- 최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함  -->
 						
-						<div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 12">
-						
-						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
-						        <img th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
-						             class="card-img-top hj-radius-30 hj-main-product-img"
-						             alt="...">
-						             
-						             <div class="position-absolute d-none p-3" style="top: 0; right: 0;">
-						             	<div>
-						             		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
-											  <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
-											</svg>
-						             		<span th:text="${tBoard.getTo_hit()}" class="h5 ml-2"></span>
-						             	</div>
-						             </div>
-
-				                    <div class="position-absolute d-none p-3" style="bottom: 0; left: 0;">
-				                    
-				                    	<div th:text="${tBoard.getTo_category}"></div>
-				                        <h5 th:text="${tBoard.getTo_title}" class="text-bold"></h5>
-				                        
-				                        <div class="row">
-				                        	<div class="col w-100 d-flex">
-				                        		<img th:src="@{'imgs/profiles/'+${tBoard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small mr-3"/>
-						                        <h5 th:text="${tBoard.getTo_nickname}"></h5>
-				                        	</div>
-				                        </div>
-				                    </div>
-		
-
-						    </a>
-		
-						    
-						    
-						</div>
+						<div th:if="${#lists.isEmpty(tlist)}">
+							    <!-- 리스트가 비어있을 때 표시할 내용 -->
+							    <p>게시글이 없습니다.</p>
+							</div>
+							<div th:if="${not #lists.isEmpty(tlist)}">
+							    <div th:each="tBoard, iterStat : ${tlist}" th:if="${iterStat.index} &lt; 12">
+							        <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
+							            <img th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
+							                 class="card-img-top hj-radius-30 hj-main-product-img"
+							                 alt="...">
+							                 
+							                 <div class="position-absolute d-none p-3" style="top: 0; right: 0;">
+							                 	<div>
+							                 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+							    						  <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+							    						</svg>
+							                 		<span th:text="${tBoard.getTo_hit()}" class="h5 ml-2"></span>
+							                 	</div>
+							                 </div>
+							
+							                <div class="position-absolute d-none p-3" style="bottom: 0; left: 0;">
+							                
+							                	<div th:text="${tBoard.getTo_category}"></div>
+							                    <h5 th:text="${tBoard.getTo_title}" class="text-bold"></h5>
+							                    
+							                    <div class="row">
+							                    	<div class="col w-100 d-flex">
+							                    		<img th:src="@{'imgs/profiles/'+${tBoard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small mr-3"/>
+							                            <h5 th:text="${tBoard.getTo_nickname}"></h5>
+							                    	</div>
+							                    </div>
+							                </div>
+							        </a>
+							    </div>
+							</div>
 
 					</div>
 				</div>
@@ -248,48 +248,47 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					<h4 class="mb-5 mt-5 text-center text-md-left">좋아요 BEST 12</h4>
 
 					<div class="card-columns">
-			
-	
-
-						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
-						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 12">
-						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
-						        <img th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
-						             class="card-img-top hj-radius-30 hj-main-product-img" alt="...">
-						             
-						             <div class="position-absolute d-none p-3" style="top: 0; right: 0;">
-						             	<div>
-						             		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
+											
+					<div th:if="${#lists.isEmpty(tlist2)}">
+					    <!-- 리스트가 비어있을 때 표시할 내용 -->
+					    <p>게시글이 없습니다.</p>
+					</div>
+					<div th:if="${not #lists.isEmpty(tlist2)}">
+					    <div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 12">
+					        <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
+					            <img th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
+					                 class="card-img-top hj-radius-30 hj-main-product-img" alt="...">
+					                 
+					                 <div class="position-absolute d-none p-3" style="top: 0; right: 0;">
+					                 	<div>
+					                 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-heart-fill" viewBox="0 0 16 16">
 											  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
 											</svg>
-						             		<span th:text="${t2Board.getTo_like()}" class="ml-2 h5"></span>
-						             	</div>
-						             </div>
-
-				                    <div class="position-absolute d-none p-3" style="bottom: 0; left: 0;">
-				                    
-				                    	<div th:text="${t2Board.getTo_category}"></div>
-				                        <h5 th:text="${t2Board.getTo_title}" class="text-bold"></h5>
-				                        
-				                        <div class="row">
-				                        	<div class="col w-100 d-flex">
-				                        		<img th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small mr-3"/>
-						                        <h5 th:text="${t2Board.getTo_nickname}"></h5>
-				                        	</div>
-				                        </div>
-
-				                      
-				                        
-				                        
-
-				                    </div>
-		
-
-						    </a>
-						    
-
-						</div>
-						
+					                 		<span th:text="${t2Board.getTo_like()}" class="ml-2 h5"></span>
+					                 	</div>
+					                 </div>
+					
+					                <div class="position-absolute d-none p-3" style="bottom: 0; left: 0;">
+					                
+					                	<div th:text="${t2Board.getTo_category}"></div>
+					                    <h5 th:text="${t2Board.getTo_title}" class="text-bold"></h5>
+					                    
+					                    <div class="row">
+					                    	<div class="col w-100 d-flex">
+					                    		<img th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small mr-3"/>
+					                            <h5 th:text="${t2Board.getTo_nickname}"></h5>
+					                    	</div>
+					                    </div>
+					
+					                  
+					                    
+					                    
+					
+					                </div>
+					        </a>
+					    </div>
+					</div>
+											
 
 					</div>
 				</div>

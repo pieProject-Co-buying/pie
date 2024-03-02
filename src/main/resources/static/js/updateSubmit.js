@@ -13,7 +13,9 @@ function submitForm() {
 	else if (str == 'updateProxyForm') form = proxyUpdateForm
 	else if (str == 'updateShareBoardForm') form = document.shareUpdateForm;
 	else if (str == 'proxyApplyupdateForm') document.proxyApplyUpdateForm;
-
+	else if (str == 'proxyApplyupdateForm') document.proxyApplyUpdateForm;
+	else if (str == 'businessApplyUpdateForm') form = document.busApplyUpdate;	
+	
 	var formData = new FormData(form);
 	for (var i = 0; i < filesArr.length; i++) {
 		// 삭제되지 않은 파일만 폼데이터에 담기

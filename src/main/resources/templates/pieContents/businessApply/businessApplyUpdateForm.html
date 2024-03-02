@@ -22,12 +22,12 @@
 					</div>
 				</div>
 
-				<form action="busApplyUpdate" enctype="multipart/form-data" method="post" name="busApply">
+				<form action="busApplyUpdate" enctype="multipart/form-data" method="post" name="busApplyUpdate">
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />				
 						
 <!-- bus_title  -->
 					<div class="form-group">
-						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title">
+						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title" th:value="${board.get(0).getBus_title()}">
 					</div>
 					
 					
@@ -45,15 +45,17 @@
 							</div>
 						</label>
 						
+						
+						<!--############# 이미지 불러오기 모르겠어요 -->
 						<div class="file-uploadGroup"></div>
-						<input type="file" name="to_pic[]" id="file" multiple onchange="addFile(event)"> <input type="hidden" name="bus_img" id="files" />
+						<input type="file" name="to_pic[]" id="file" multiple onchange="addFile(event)"> <input type="hidden" name="bus_img" id="files" th:value="${board.get(0).getBus_img()}"/>
 					</div>
 					
 					
 					
 					
 <!-- bus_content  -->							
-					<textarea id="summernote" name="bus_content"></textarea>
+					<textarea id="summernote" name="bus_content" th:text="${board.get(0).getBus_content()}"></textarea>
 					
 					<div class="text-right">
 						<small>잔여 bytes :: </small>
@@ -69,10 +71,10 @@
 						<div class="col-md-12 pt-3">
 							
 							<label for="bus_productName">
-								<small class="pl-1">제품명</small>
+								<small class="pl-1" >제품명</small>
 							</label>
 							
-							<input type="text" class="form-control" id="" name="bus_productName">
+							<input type="text" class="form-control" id="" name="bus_productName" th:value="${board.get(0).getBus_productName()}">
 						</div>
 	
 					</div>
@@ -87,7 +89,7 @@
 								<small class="pl-1">최대공급가능수량</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_maxqnt" name="bus_maxqnt">
+							<input type="text" class="form-control" id="bus_maxqnt" name="bus_maxqnt" th:value="${board.get(0).getBus_maxqnt()}">
 						</div>
 						
 <!-- bus_unitPrice  -->							
@@ -97,7 +99,7 @@
 								<small class="pl-1">단위가격</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_unitPrice" name="bus_unitPrice">
+							<input type="text" class="form-control" id="bus_unitPrice" name="bus_unitPrice" th:value="${board.get(0).getBus_unitPrice()}">
 
 						</div>
 					</div>
@@ -119,7 +121,7 @@
 								<small class="pl-1">회사명</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_name" name="bus_name">
+							<input type="text" class="form-control" id="bus_name" name="bus_name" th:value="${board.get(0).getBus_name()}">
 
 						</div>					
 					
@@ -129,7 +131,7 @@
 								<small class="pl-1">사업자번호</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_num" name="bus_num">
+							<input type="text" class="form-control" id="bus_num" name="bus_num" th:value="${board.get(0).getBus_num()}" readonly>
 
 						</div>	
 						
@@ -147,9 +149,8 @@
 						<div class="col-sm-9">
 							<div class="d-flex justify-content-between">
 								<input type="text" class="form-control mr-1" id="postCode"
-									placeholder="우편번호" name="postCode" onclick="findPostCode()"
-									required> <input type="button" onclick="findPostCode()"
-									value="우편번호 찾기" class="btn pie-btn-red">
+									placeholder="우편번호" name="postCode" onclick="findPostCode()" required th:value="${board.get(0).getPostCode()}">
+									<input type="button" onclick="findPostCode()" value="우편번호 찾기" class="btn pie-btn-red">
 							</div>
 							<div class="invalid-feedback">우편번호를 입력해주세요.</div>
 						</div>
@@ -166,7 +167,7 @@
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="address_main"
 								placeholder="주소" name="address_main" onclick="findPostCode()"
-								required>
+								required  th:value="${board.get(0).getAddress_main()}">
 							<div class="invalid-feedback">주소를 입력해주세요.</div>
 						</div>
 			
@@ -178,7 +179,7 @@
 						<label for="address_sub" class="col-sm-3 col-form-label">상세주소</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="address_sub"
-								placeholder="상세주소" name="address_sub">
+								placeholder="상세주소" name="address_sub" th:value="${board.get(0).getAddress_sub()}">
 						</div>
 			
 					</div>
@@ -203,8 +204,7 @@
 								<small class="pl-1">담당자</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson">
-
+							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson" th:value="${board.get(0).getBus_chargePerson()}">
 						</div>	
 						
 <!-- bus_phone  -->							
@@ -214,7 +214,7 @@
 								<small class="pl-1">담당자 전화번호</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_phone" name="bus_phone">
+							<input type="text" class="form-control" id="bus_phone" name="bus_phone" th:value="${board.get(0).getBus_phone()}">
 
 						</div>							
 						
@@ -223,39 +223,16 @@
 					</div>
 					
 <!-- email1  -->		
-						<div class="form-group row">
-							<label for="email1" class="col-sm-3 col-form-label">이메일</label> <input
-								type="hidden" name="email" id="emailCom" />
-							<div class="col-sm-9">
-								<div class="row">
-									<div class="form-group col-6 pr-1">
-										<div class="input-group">
-											<input type="text" class="form-control" id="email1"
-												placeholder="이메일" required name="email1">
-											<div class="input-group-append">
-												<div class="input-group-text">@</div>
-											</div>
-											<div class="invalid-feedback">이메일을 입력해주세요.</div>
-										</div>
-									</div>
-									<div class="form-group col-6 pl-0">
-										<label for="email2" class="sr-only">Example multiple
-											select</label> <select class="form-control px-0" id="email2" required name="email2">
-											<option>gmail.com</option>
-											<option>naver.com</option>
-											<option>daum.net</option>
-											<option>hotmail.com</option>
-											<option value="">직접입력</option>
-										</select> <input type="text" class="form-control" id="emailAddressInput"
-											placeholder="직접입력" required readOnly>
-										<div class="invalid-feedback">이메일을 입력해주세요.</div>
-				
-									</div>
-								</div>
-							</div>
+					<div class="form-group row">
+						<div class="col">
+							<label for="bus_email">
+								<small class="pl-1">이메일</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_email" name="bus_email" th:value="${board.get(0).getBus_email()}">
 						</div>
-						
-													
+					</div>		
+										
 					<hr />
 					
 
@@ -266,7 +243,7 @@
 								<small class="pl-1">비밀번호</small>
 							</label>
 							
-							<input type="text" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 전화번호는 찾을 수 없으니 신중하게 입력해주세요">
+							<input type="password" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 비밀번호는 찾을 수 없으니 신중하게 입력해주세요"  th:value="${board.get(0).getBus_password()}" readonly>
 						</div>
 					</div>					
 					
@@ -291,8 +268,24 @@
 	<!--게시글 로직 container-->
 	<!--wrapper-->
 	
-	<script src="js/PostCode.js"></script>
 	
+	<!-- 강제로 보내줌 -->
+	<script>
+			document.getElementById("uploadBtn").addEventListener("click", function() {
+	    document.busApplyUpdate.submit();
+	});
+		
+	</script>
+	
+	<script src="js/PostCode.js"></script>
+	<script src="/js/imageGallery-DragEvent.js"></script>
+	<script src="/js/FileUpload.js"></script>
+	<!--<script src="/js/insertTags.js"></script>-->
+	<script src="js/calculatePrice.js"></script>
+	<script src="/js/summerNote.js"></script>
+	<script src="/js/selectDropdown.js"></script>
+	<script src="/js/submitForm.js"></script>
+	<script src="/js/validationbus.js"></script>
 	
 </div>
 
