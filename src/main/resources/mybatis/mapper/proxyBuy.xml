@@ -28,7 +28,7 @@
 	</select>
 
 	<select id="listDaoByNext"
-		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		resultType="com.pie.pieProject.DTO.ScrollProxyBuyBoardDto">
 		SELECT *
 		FROM (
 		SELECT t.*, ROW_NUMBER() OVER (ORDER BY pr_num DESC) AS rnum
