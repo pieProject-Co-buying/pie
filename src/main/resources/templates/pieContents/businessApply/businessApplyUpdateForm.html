@@ -45,6 +45,8 @@
 							</div>
 						</label>
 						
+						
+						<!--############# 이미지 불러오기 모르겠어요 -->
 						<div class="file-uploadGroup"></div>
 						<input type="file" name="to_pic[]" id="file" multiple onchange="addFile(event)"> <input type="hidden" name="bus_img" id="files" th:value="${board.get(0).getBus_img()}"/>
 					</div>
@@ -53,7 +55,7 @@
 					
 					
 <!-- bus_content  -->							
-					<textarea id="summernote" name="bus_content" th:value="${board.get(0).getBus_content()}"></textarea>
+					<textarea id="summernote" name="bus_content" th:text="${board.get(0).getBus_content()}"></textarea>
 					
 					<div class="text-right">
 						<small>잔여 bytes :: </small>
