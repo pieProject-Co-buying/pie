@@ -22,7 +22,9 @@
 						<div class="col  text-center mb-4">
 							<img src="imgs/logo_color_C_red.png" class="">
 							<h2 class="mb-2">함께해요 파이채팅</h2>
-							<div>
+							<div class="my-3">
+								읽음/안읽음 기능 피곤하셨죠?
+								<br>
 								파이는 실시간 알림기능만 제공드려요
 								<br>
 								편안하게 필요한 내용만 소통해요						
@@ -49,9 +51,9 @@
 
 
 						
-						<div class="row mb-3">
+						<div class="row my-3">
 							<div class="col-12 col-md-6 text-center text-md-left mb-4 mb-md-0">
-								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red">뒤로가기</button>
+								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red  hj-radius-30">뒤로가기</button>
 							</div>
 							<div class="col-12 col-md">
 								<p class="text-center text-md-right h4" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
@@ -59,7 +61,7 @@
 							</div>
 						</div>
 
-							<div id="chating" class="chating border py-2 px-2 rounded shadow">
+							<div id="chating" class="chating border p-4 hj-radius-30 shadow">
 
 
 
@@ -69,6 +71,7 @@
 						        <!-- 내가 보낸 대화목록 -->
 						        <div class='me d-flex w-100 justify-content-end my-2'>
 						            <div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
+										
 						                <p class='w-100 my-2' th:text="${message.message}"></p>
 						            </div>
 						        </div>
@@ -112,7 +115,7 @@
 
 						<div class="inputTable col-9">
 
-							대화명은 세션 아이디로 시작
+							
 							<input type="text" name="userName" id="userName" placeholder="" class="form-control"
 								th:value="${session.nickName}" readonly>
 
@@ -133,14 +136,14 @@
 
 						<div class="inputTable col-9">
 
-							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control"
+							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control hj-radius-30"
 								name="chat_messages">
 
 						</div>
 
 						<div class="inputTable col-3">
 
-							<button onclick="send()" id="sendBtn" class="btn pie-btn-red w-100">전송</button>
+							<button onclick="send()" id="sendBtn" class="btn pie-btn-red w-100  hj-radius-30">전송</button>
 
 						</div>
 
