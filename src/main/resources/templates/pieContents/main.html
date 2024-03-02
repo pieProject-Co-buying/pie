@@ -160,7 +160,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 	<!-- ###############################################
 secion1 #sec1 - 우리동네 공동구매 영역
 ############################################### -->
-	<!-- <section class="pie-section-py">
+	<section class="pie-section-py">
 		<div class="container">
 		
 		
@@ -248,9 +248,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					<h4 class="mb-5 mt-5 text-center text-md-left">좋아요 BEST 12</h4>
 
 					<div class="card-columns">
-			
-	
-
+						
 						<!-- 최대 노출은 9개까지만 하고, 더보기 버튼으로 페이지 이동 -->
 						<div th:each="t2Board, iterStat : ${tlist2}" th:if="${iterStat.index} &lt; 12">
 						    <a class="card hj-radius-30 hj-main_town_hover" th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
