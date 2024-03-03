@@ -7,216 +7,62 @@
 
 <div layout:fragment="townBuyContent" class="col">
 
-	<div class="container-fluid px-0">
+	<div
+		th:replace="~{pieContents/townBuying/townbuySearchSpot::searchSpot}" />
 
+	<div class="container mb-5">
 
-		<div class="container">
+		<div class="row mb-5">
 
-			<div class="row mt-5 mb-4">
+			<div class="col">
 
 
-				<div class="col-12">
+				<div class="card-columns">
 
-					<h1 class="text-center">어떤 공구를 찾으세요?</h1>
+					<a class="card hj-radius-30" th:each="list:${list}"
+						th:href="@{'townBuyproduct?num=' + ${list.getTo_num()}}"> <img
+						th:src="@{'/imgs/test/' + ${list.getTo_productImg().substring(0,list.getTo_productImg().indexOf('/'))}}"
+						class="card-img-top hj-radius-img-30" alt="...">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
 
-				</div>
 
-
-			</div>
-
-		</div>
-
-
-		<!-- 검색창 및 #태그 -->
-
-		<div class="container mb-5">
-
-
-			<form action="searchTownBuy" class="pie-search mb-4" method="get"
-				name="searchForm">
-				<input type="hidden" name="category" id="category" />
-
-				<div class="dropdown" id="selectCategory">
-
-					<a class="btn dropdown-toggle" href="#" role="button"
-						data-toggle="dropdown" aria-expanded="false">카테고리 </a>
-
-					<div class="dropdown-menu">
-						<a class="dropdown-item" data-category="">전체</a> <a
-							class="dropdown-item" data-category="food">식품</a> <a
-							class="dropdown-item" data-category="baby">육아</a> <a
-							class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
-						<a class="dropdown-item" data-category="pet">반려동물</a> <a
-							class="dropdown-item" data-category="life">생활</a> <a
-							class="dropdown-item" data-category="etc">기타</a>
-					</div>
-
-
-
-				</div>
-
-				<input type="text" name="townKeyword" id="townKeyword"
-					class="flex-fill">
-
-				<button type="submit"></button>
-
-			</form>
-
-
-
-
-			<div class="row">
-
-				<!-- 클릭시 검색어 자동 완성 -->
-				<div class="col text-center mb-3">
-
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=코스트코">#코스트코</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=트레이더스">#트레이더스</a>
-					<a type="button" class="m-1" href="searchTownBuy?category=&townKeyword=이마트">#이마트</a>
-
-				</div>
-			</div>
-
-
-		</div>
-		<!-- 검색창 및 #태그 -->
-
-
-
-		<!-- 카테고리 -->
-		<!-- 이미지 아닌 특수문자로 배치 예정 -->
-
-
-
-
-		<div class="container w-75 mb-5 border-bottom">
-
-			<div class="row mb-5">
-
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=food" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">dinner_dining</span>
-								<p class="hj-category_active">식품</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=baby" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">child_care</span>
-								<p class="text-center">육아</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=beautyAndFashion" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">apparel</span>
-								<p class="text-center">뷰티/패션</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=pet" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">pets</span>
-								<p class="text-center">반려동물</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=life" class="text-dark text-centerr">
-							<span class="material-symbols-outlined hj-sub-icon-size">favorite</span>
-								<p class="text-center">생활</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=etc" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">more_horiz</span>
-								<p class="text-center">기타</p>
-							</a>
-				</div>
-
-
-			</div>
-
-
-
-
-
-		</div>
-
-
-
-
-
-
-
-		<div class="container mb-5">
-
-			<div class="row mb-5">
-
-				<div class="col">
-
-
-					<div class="card-columns">
-
-						<a class="card hj-radius-30" th:each="list:${list}" th:href="@{'townBuyproduct?num=' + ${list.getTo_num()}}">
-							<img
-								th:src="@{'/imgs/test/' + ${list.getTo_productImg().substring(0,list.getTo_productImg().indexOf('/'))}}"
-								class="card-img-top hj-radius-img-30" alt="...">
-							<div class="card-body">
-								<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
-
-
-										<div class="row mt-5">
-											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${list.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${list.getTo_nickname()}"}></h6>
-											</div>										
-										
-										</div>
+							<div class="row mt-5">
+								<div class="col d-flex justify-content-end">
+									<img th:src="@{'/imgs/profiles/' + ${list.getTo_profileImg()}}"
+										alt="" class="hj-chat-proImg-small" />
+									<h6 class="card-title ml-3 mt-2"
+										th:text="${list.getTo_nickname()}"}></h6>
+								</div>
 
 							</div>
-						</a>
 
-					</div>
+						</div>
+					</a>
+
 				</div>
 			</div>
-
-
-
-			<div class="row mt-5">
-				<div class="col text-center">
-					<button type="button" class="btn w-20"
-						id="loadMoreButton">더보기</button>
-					<div id="cardContainer"></div>
-				</div>
-			</div>
-
-
 		</div>
 
+
+
+		<div class="row mt-5">
+			<div class="col text-center">
+				<button type="button" class="btn border btn-block"
+					id="loadMoreButton">더보기</button>
+				<div id="cardContainer"></div>
+			</div>
+		</div>
 
 
 
 	</div>
 
-
 	<script src="js/townBuying.js"></script>
-	
-	
 
 
 </div>
+
 
 
 </html>
