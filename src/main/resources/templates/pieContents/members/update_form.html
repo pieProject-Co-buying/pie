@@ -213,7 +213,7 @@
 				<th:block
 					th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()<#dates.createNow()}">
 					<button type="button" class="btn pie-btn-red flex-shrink-0 mr-2"
-						data-toggle="modal" data-target="#subScribe">구독하기</button>
+						data-toggle="modal" data-target="#subscribe">구독하기</button>
 				</th:block>
 				<th:block
 					th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()>#dates.createNow()}">
@@ -269,8 +269,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
-						<a data-toggle="modal" data-target="#subScribe" type="button"
-							class="btn btn-primary">구독하기</a>
+						<button type="button" class="btn btn-primary" onclick="sub()">구독하기</button>
 						<!-- href="subScribe" -->
 					</div>
 				</div>
@@ -314,7 +313,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
-						<a data-toggle="modal" data-target="#subScribe" type="button"
+						<a href="subScribe" type="button"
 							class="btn btn-primary">구독하기</a>
 						<!-- href="reSubScribe" -->
 					</div>
@@ -340,47 +339,6 @@
 		</div>
 
 	</form>
-	<div class="modal fade mt-5" id="subScribe" tabindex="-1"
-		aria-labelledby="paymentModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body d-flex justify-content-around text-center">
-					<div class="m-3">
-						<!-- onclick="kgPay()" -->
-						<small class="d-block"><b>kg 이니시스</b></small> <img
-							src="imgs/kg.png" alt="" class="payLogo">
-					</div>
-					<div class="m-3" onclick="sub()">
-						<small class="d-block"><b>카카오페이</b></small> <img
-							src="imgs/kakaopay.jpg" alt="" class="payLogo">
-					</div>
-					<div class="m-3">
-						<!-- onclick="tossPay()" -->
-						<small class="d-block"><b>토스페이</b></small> <img
-							src="imgs/toss.jpg" alt="" class="payLogo">
-					</div>
-					<div class="m-3">
-						<!-- onclick="paycoPay()" -->
-						<small class="d-block"><b>페이코</b></small> <img
-							src="imgs/payco.jpg" alt="" class="payLogo">
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<script src="js/PostCode.js"></script>
 	<script type="text/javascript" th:inline="javascript">
 		var mem = /*[[${mem}]]*/
