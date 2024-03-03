@@ -8,11 +8,7 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		<div class="row mb-3">
-			<div class="col text-center">
-				<h1>나의 쉐어메이트를 찾아보세요!</h1>
-			</div> 
-		</div>
+		
 		<div class="row justify-content-center">
 			<div class="col pie-tab-box">
 				<ul class="list-unstyled d-flex justify-content-between">
@@ -25,27 +21,189 @@
 			<!--col-->
 		</div>
 
-		<div class="row mb-5 justify-content-center">
-			<div class="col-md-8">
-				<form action="searchTitle" class="pie-search">
-					<div class="dropdown" id="selectCategory">
-						<a class="btn dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
-						<div class="dropdown-menu"></div>
-					</div>
-					<input type="text" name="search" id="search" class="flex-fill"
-						placeholder="검색">
-					<button type="submit" id="searchBtn"></button>
-				</form>
-			</div>
-			<!--col-->
-		</div>
+		
 		<!--row-->
 		<div class="row category jh-cards">
-			<!--col-4-->
-			<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}"
+		
+		<div th:if="${not #lists.isEmpty(list1) && table.equals('all')}" th:each="board:${list1}"
+				th:attr="data-category=${board.getTo_category()}"
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>동네공구 좋아요글</h3>
+
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?num='+${board.getTo_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
+					th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+					class="card-img-top img-fluid" alt="..." height="300px">
+					<div class="card-body">
+						<small class="badge badge-success" th:if="${board.getTo_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getTo_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
+							<b th:text="${board.getTo_title()}"></b>
+						</h5>
+						<p class="card-text">
+							<small> <th:block th:if="${board.getTo_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getTo_tags()[i]}|">#태그</span>
+									</th:block>
+								</th:block>
+							</small>
+						</p>
+						<small th:text="${board.getTo_category()}"></small>
+						<small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							th:text="${board.getTo_nickname()}"></span>
+						</small>
+					</div>
+				</a>
+			</div>
+		
+		
+		<div th:if="${not #lists.isEmpty(list1) && table.equals('town')}" th:each="board:${list1}"
+				th:attr="data-category=${board.getTo_category()}"
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>동네공구 좋아요글</h3>
+
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?num='+${board.getTo_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
+					th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+					class="card-img-top img-fluid" alt="..." height="300px">
+					<div class="card-body">
+						<small class="badge badge-success" th:if="${board.getTo_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getTo_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
+							<b th:text="${board.getTo_title()}"></b>
+						</h5>
+						<p class="card-text">
+							<small> <th:block th:if="${board.getTo_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getTo_tags()[i]}|">#태그</span>
+									</th:block>
+								</th:block>
+							</small>
+						</p>
+						<small th:text="${board.getTo_category()}"></small>
+						<small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							th:text="${board.getTo_nickname()}"></span>
+						</small>
+					</div>
+				</a>
+			</div>
+		
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('proxy')}" th:each="board:${list1}"
+				th:attr="data-category=${board.getPr_category()}"
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>대리구매 좋아요글</h3>
+
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?num='+${board.getPr_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
+					th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+					class="card-img-top img-fluid" alt="..." height="300px">
+					<div class="card-body">
+						<small class="badge badge-success" th:if="${board.getPr_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getPr_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
+							<b th:text="${board.getPr_title()}"></b>
+						</h5>
+						<p class="card-text">
+							<small> <th:block th:if="${board.getPr_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+									</th:block>
+								</th:block>
+							</small>
+						</p>
+						<small th:text="${board.getPr_category()}"></small>
+						<small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							th:text="${board.getPr_nickname()}"></span>
+						</small>
+					</div>
+				</a>
+			</div>
+			
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('share')}" th:each="board:${list1}"
 				th:attr="data-category=${board.getSh_category()}"
 				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>서비스확인 좋아요글</h3>
+
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
+					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
+					class="card-img-top img-fluid" alt="..." height="300px">
+					<div class="card-body">
+						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
+							<b th:text="${board.getSh_title()}"></b>
+						</h5>
+						<p class="card-text">
+							<small> <th:block th:if="${board.getSh_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									</th:block>
+								</th:block>
+							</small>
+						</p>
+						<small th:text="${board.getSh_category()}"></small>
+						<small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							th:text="${board.getSh_nickname()}"></span>
+						</small>
+					</div>
+				</a>
+			</div>
+			
+			<div th:if="${not #lists.isEmpty(list2) && table.equals('all')}" th:each="board:${list2}"
+				th:attr="data-category=${board.getPr_category()}"
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>대리구매 좋아요글</h3>
+
+				<!--등록 게시물이 있을 경우-->
+				<a th:href="'boardList?num='+${board.getPr_num()}" class="card"
+					style="cursor: pointer; text-decoration: none; color: black;"> <img
+					th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+					class="card-img-top img-fluid" alt="..." height="300px">
+					<div class="card-body">
+						<small class="badge badge-success" th:if="${board.getPr_process().equals('1')}">모집진행중</small> 
+						<small class="badge badge-danger" th:if="${board.getPr_process().equals('0')}">모집완료</small>
+						<h5 class="card-title mt-2">
+							<b th:text="${board.getPr_title()}"></b>
+						</h5>
+						<p class="card-text">
+							<small> <th:block th:if="${board.getPr_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+									</th:block>
+								</th:block>
+							</small>
+						</p>
+						<small th:text="${board.getPr_category()}"></small>
+						<small
+							class="pie-writer"> <img
+							th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}" alt=""
+							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							th:text="${board.getPr_nickname()}"></span>
+						</small>
+					</div>
+				</a>
+			</div>
+			<div th:if="${not #lists.isEmpty(list3) && table.equals('all')}" th:each="board:${list3}"
+				th:attr="data-category=${board.getSh_category()}"
+				class="col-md-4 col-sm-12" style="cursor: pointer;">
+				<h3>서비스공유 좋아요글</h3>
 
 				<!--등록 게시물이 있을 경우-->
 				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
@@ -77,14 +235,6 @@
 				</a>
 			</div>
 			<!--col-4-->
-		</div>
-		<!-- 등록된 게시물이 없을 경우 -->
-		<div class="container" th:if="${#lists.isEmpty(list)}">
-			<div class="row">
-				<div class="col-12 p-5 alert-danger text-center">
-					<h2>아직 등록된 게시물이 없습니다 !</h2>
-				</div>
-			</div>
 		</div>
 		<!--게시글 row-->
 		<div class="container text-center mb-3 mt-5">

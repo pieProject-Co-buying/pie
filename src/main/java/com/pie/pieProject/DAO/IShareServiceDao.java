@@ -40,4 +40,6 @@ public interface IShareServiceDao {
 	public ArrayList<ShareServiceDto> searchBuyer(String keyword);
 	// 환불 시 현재 인원 감소
 	public void refundNowPerson(int num);
+	// 0시마다 마감 체크
+	public void expireShareServiceBoard();
 }

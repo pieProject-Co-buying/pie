@@ -29,7 +29,7 @@ $(".pie-heart-icon").click(function() {
 	});
 })
 
-$(".pie-thumbsUp-icon").click(function() {
+$(".btn>.pie-thumbsUp-icon").click(function() {
 	$.ajax({
 		data: {
 			you: $("#yourId").val()
@@ -43,9 +43,9 @@ $(".pie-thumbsUp-icon").click(function() {
 		success: function(response) {
 			console.log(response);
 			if (response) {
-				$(".pie-thumbsUp-icon").addClass("active");
+				$(".btn>.pie-thumbsUp-icon").addClass("active");
 			} else {
-				$(".pie-thumbsUp-icon").removeClass("active");
+				$(".btn>.pie-thumbsUp-icon").removeClass("active");
 			}
 		},
 		error: function(xhr, desc, err) {
