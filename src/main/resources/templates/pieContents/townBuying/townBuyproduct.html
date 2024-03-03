@@ -287,11 +287,13 @@
 
 										<div class="modal-footer">
 
-
-
-											<a type="button" class="btn btn-outline-secondary"
+<!--											<a type="button" class="btn btn-outline-secondary"
 												th:href="@{'townBuyResult?num='+${board.getTo_num()}}">좋아요!
-												함께해요</a>
+												함께해요</a>-->
+
+											<button type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+												>좋아요!
+												함께해요</button>
 
 											<button type="button" class="btn btn-outline-secondary"
 												data-dismiss="modal">다시생각해볼게요</button>
@@ -350,9 +352,18 @@
 
 		})
 	</script>
-	<script>
-		
-	</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the button element
+        var button = document.querySelector('.btn-outline-secondary');
+
+        // Add click event listener to the button
+        button.addEventListener('click', function () {
+            // Display alert when the button is clicked
+            alert('신청이 완료되었습니다.');
+        });
+    });
+</script>
 	<script src="js/product.js"></script>
 </div>
 
