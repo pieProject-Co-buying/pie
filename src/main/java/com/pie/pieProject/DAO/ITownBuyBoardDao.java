@@ -59,8 +59,8 @@ public interface ITownBuyBoardDao {
 	public List<TownBuyBoardDto> categoryDaoNum(String category, int num);
 	
 	
-	public List<TownBuyBoardDto> listPremiumDao(String category, int num);
-	
+	/* public List<TownBuyBoardDto> listPremiumDao(String category, int num); */
+	public List<TownBuyBoardDto> listPremiumDao(String category, int num);	
 	
 	public void updatePer(String num);
 	
