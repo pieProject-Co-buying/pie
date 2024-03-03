@@ -15,6 +15,7 @@ import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -26,11 +27,13 @@ public class SearchController {
 	IProxyBuyDao pdao;
 	@Autowired
 	ISearchDao sdao;
+	@Autowired
+	BoardComp bcomp;
 
 	@GetMapping("/searchProducts")
 	public String search(HttpServletRequest request, Model model) {
 		String townKeyword = request.getParameter("townKeyword");
-		String towncategory = request.getParameter("towncategory");
+		String category = request.getParameter("category");
 		String table = request.getParameter("table");
 		System.out.println(table);
 
@@ -51,8 +54,20 @@ public class SearchController {
 				}else {
 					sdao.upHit(townKeyword, "townBuy");
 				}
+				
+				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword);;
+				List<TownBuyBoardDto> templist;
 
-				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword);
+				if(category==null||category.equals("")) {
+					model.addAttribute("list", list);
+				}else {
+					templist = tdao.searchCateDao(townKeyword,category);
+					for(TownBuyBoardDto b : templist) {
+						b.setTo_category(bcomp.translate(b.getTo_category()));
+					}
+					
+					model.addAttribute("list", templist);
+				}
 
 				for (TownBuyBoardDto b : list) {
 					String c = b.getTo_category();
@@ -68,9 +83,10 @@ public class SearchController {
 						life++;
 					else if (c.equals("etc"))
 						etc++;
+					b.setTo_category(bcomp.translate(b.getTo_category()));
 				}
 				
-				model.addAttribute("list", list);
+				model.addAttribute("key",townKeyword);
 				model.addAttribute("food", food);
 				model.addAttribute("baby", baby);
 				model.addAttribute("beautyAndFashion", beautyAndFashion);
@@ -88,6 +104,17 @@ public class SearchController {
 				}
 				
 				List<ProxyBuyBoardDto> list = pdao.searchDao(townKeyword);
+				List<ProxyBuyBoardDto> templist;
+				
+				if(category==null||category.equals("")) {
+					model.addAttribute("list", list);
+				}else {
+					templist = pdao.searchCateDao(townKeyword,category);
+					for(ProxyBuyBoardDto b : templist) {
+						b.setPr_category(bcomp.translate(b.getPr_category()));
+					}
+					model.addAttribute("list", templist);
+				}
 
 				for (ProxyBuyBoardDto b : list) {
 					String c = b.getPr_category();
@@ -106,7 +133,7 @@ public class SearchController {
 
 				}
 				
-				model.addAttribute("list", list);
+				model.addAttribute("key",townKeyword);
 				model.addAttribute("food", food);
 				model.addAttribute("baby", baby);
 				model.addAttribute("beautyAndFashion", beautyAndFashion);

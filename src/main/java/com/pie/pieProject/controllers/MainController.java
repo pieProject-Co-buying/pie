@@ -48,9 +48,18 @@ public class MainController {
 		
 		
 		List<TownBuyBoardDto> tlist = tdao.bestListDao();
+		
+		for(TownBuyBoardDto d : tlist) {
+			d.setTo_category(Bcomp.translate(d.getTo_category()));
+		}
+		
 		model.addAttribute("tlist", tlist);
 
 		List<TownBuyBoardDto> tlist2 = tdao.likeListDao();
+		for(TownBuyBoardDto d : tlist2) {
+			d.setTo_category(Bcomp.translate(d.getTo_category()));
+		}
+		
 		model.addAttribute("tlist2", tlist2);		
 		
 		return "Index";

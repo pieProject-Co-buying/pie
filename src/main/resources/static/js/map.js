@@ -6,7 +6,7 @@ $.ajax({
 	url: "/map",
 	dataType: "json", // 서버에서 JSON으로 반환되는 것을 명시적으로 지정
 	success: function(response) {
-		try {  
+		try {
 			var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 			var mapOption = {
 				center: new kakao.maps.LatLng(
@@ -14,9 +14,26 @@ $.ajax({
 				level: 3
 				// 지도의 확대 레벨
 			};
+
+
 			// 지도를 생성합니다    
 			var map = new kakao.maps.Map(mapContainer,
 				mapOption);
+
+			var geocoder = new kakao.maps.services.Geocoder();
+
+			geocoder.addressSearch(nowlocation, function(result, status) {
+
+				// 정상적으로 검색이 완료됐으면 
+				if (status === kakao.maps.services.Status.OK) {
+					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+					// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					map.setCenter(coords);
+				}
+			});
+
+
 
 			var jsonArray = response.addressList;
 			var resultArray = [];
@@ -37,9 +54,11 @@ $.ajax({
 							latlng: new kakao.maps.LatLng(
 								parseFloat(jsonObject.y),
 								parseFloat(jsonObject.x)),
-							content: '<div data-category="' + jsonObject.category + '">'
-								+ jsonObject.title
-								+ '</div>',
+							content: '<div class="customoverlay" data-category="' + jsonObject.category + '">' +
+								'  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
+								'    <span class="title text-truncate">' + jsonObject.title + '</span>' +
+								'  </a>' +
+								'</div>',
 							num: jsonObject.num,
 							category: jsonObject.category,
 							endSoon: jsonObject.endSoon
