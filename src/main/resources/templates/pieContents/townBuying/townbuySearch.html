@@ -1,164 +1,25 @@
-
-
 <!DOCTYPE html>
 
 
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/townBuying}">
-	
-	
+
+
 
 <div layout:fragment="townBuyContent" class="col">
-
-	<div class="container-fluid px-0">
-
-
-		<div class="container">
-
-			<div class="row mt-5 mb-4">
-
-
-
-				<div class="col-12">
-
-					<h1 class="text-center">어떤 공구를 찾으세요?</h1>
-
-				</div>
-
-
-			</div>
-
-		</div>
-
-
-		<!-- 검색창 및 #태그 -->
-
-		<div class="container mb-5">
-
-			<form action="searchProducts" class="pie-search mb-4" method="get"
-				name="searchForm">
-				<input type="hidden" name="category" id="category" />
-				<input type="hidden" name="table" value="t" />
-
-				<div class="dropdown" id="selectCategory">
-
-					<a class="btn dropdown-toggle" href="#" role="button"
-						data-toggle="dropdown" aria-expanded="false">카테고리 </a>
-
-					<div class="dropdown-menu">
-						<a class="dropdown-item" data-category="">전체</a> <a
-							class="dropdown-item" data-category="food">식품</a> <a
-							class="dropdown-item" data-category="baby">육아</a> <a
-							class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
-						<a class="dropdown-item" data-category="pet">반려동물</a> <a
-							class="dropdown-item" data-category="life">생활</a> <a
-							class="dropdown-item" data-category="etc">기타</a>
-					</div>
-
-
-
-				</div>
-
-				<input type="text" name="townKeyword" id="townKeyword"
-					class="flex-fill">
-
-				<button type="submit"></button>
-
-			</form>
+<div th:replace="~{pieContents/townBuying/townbuySearchSpot::searchSpot}" />
 
 
 
 
-			<div class="row mb-5">
-			
-
-				<!-- 클릭시 검색어 자동 완성 -->
-				<div class="col text-center">
-				
-					<a th:each = "keyWord : ${bestKey}" type="button" class="m-1" th:href="@{'searchTownBuy?category=&townKeyword='+${keyWord}}" th:text="|#${keyWord}|"></a>
 
 
-				</div>
+		<div class="container my-5 py-5">
 
-
-			</div>
-
-
-		</div>
-
-
-
-		<div class="container w-75 mb-5 border-bottom">
-
-			<div class="row mb-5">
-
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=food" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">dinner_dining</span>
-								<p class="">식품</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=baby" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">child_care</span>
-								<p class="text-center">육아</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=beautyAndFashion" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">apparel</span>
-								<p class="text-center">뷰티/패션</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=petf" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">pets</span>
-								<p class="text-center">반려동물</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=life" class="text-dark text-center">
-							<span class="material-symbols-outlined hj-sub-icon-size">favorite</span>
-								<p class="text-center">생활</p>
-							</a>
-				</div>
-
-				<div
-					class="col-4 col-md-2 d-flex justify-content-center align-items-center">
-							<a href="/townBuyingCategoryChoice?category=etc" class="text-dark text-center">
-								<span class="material-symbols-outlined hj-sub-icon-size">more_horiz</span>
-								<p class="text-center">기타</p>
-							</a>
-				</div>
-
-
-			
-			</div>
-
-		</div>
-		
-		
-		
-
-
-
-		<div class="container my-5">
-
-			<h1 class="mb-3 mt-5 text-center text-md-left">프리미엄 회원 공구</h1>
-			<h5 class="mb-5 text-center text-md-left text-sm-small">
-				프리미엄 회원이 진행하는 특별한 공구!
-			</h5>
+			<h3 class="font-weight-bolder pie-c-red"># 프리미엄 회원 공구</h3>
+			<h6 class="mb-5 text-center text-md-left text-sm-small">프리미엄 회원이
+				진행하는 특별한 공구!</h6>
 
 			<div class="row">
 
@@ -186,12 +47,14 @@
 
 							<div class="carousel-item" th:each="Fboard:${PFoodList}">
 
-								<a class="card hj-sub1-card-h-400 hj-radius-30" th:href="@{'townBuyproduct?num=' + ${Fboard.getTo_num()}}">
+								<a class="card hj-sub1-card-h-400 hj-radius-30"
+									th:href="@{'townBuyproduct?num=' + ${Fboard.getTo_num()}}">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${Fboard.getTo_productImg().substring(0,Fboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid  hj-radius-img-30 hj-fit-cover" alt="...">
+									th:src="@{'/imgs/test/' + ${Fboard.getTo_productImg().substring(0,Fboard.getTo_productImg().indexOf('/'))}}"
+									class="card-img-top  hj-sub1-card-part-h img-fluid  hj-radius-img-30 hj-fit-cover"
+									alt="...">
 
 
 
@@ -202,10 +65,13 @@
 
 										<div class="row  mt-5">
 											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${Fboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${Fboard.getTo_nickname()}"}></h6>
-											</div>										
-										
+												<img
+													th:src="@{'/imgs/profiles/' + ${Fboard.getTo_profileImg()}}"
+													alt="" class="hj-chat-proImg-small" />
+												<h6 class="card-title ml-3 mt-2"
+													th:text="${Fboard.getTo_nickname()}"}></h6>
+											</div>
+
 										</div>
 
 									</div>
@@ -263,12 +129,14 @@
 
 							<div class="carousel-item" th:each="Bboard:${PBabyList}">
 
-								<a class="card hj-sub1-card-h-400 hj-radius-30" th:href="@{'townBuyproduct?num=' + ${Bboard.getTo_num()}}">
+								<a class="card hj-sub1-card-h-400 hj-radius-30"
+									th:href="@{'townBuyproduct?num=' + ${Bboard.getTo_num()}}">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${Bboard.getTo_productImg().substring(0,Bboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover" alt="...">
+									th:src="@{'/imgs/test/' + ${Bboard.getTo_productImg().substring(0,Bboard.getTo_productImg().indexOf('/'))}}"
+									class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover"
+									alt="...">
 
 
 									<div class="card-body">
@@ -278,10 +146,13 @@
 
 										<div class="row  mt-5">
 											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${Bboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${Bboard.getTo_nickname()}"}></h6>
-											</div>										
-										
+												<img
+													th:src="@{'/imgs/profiles/' + ${Bboard.getTo_profileImg()}}"
+													alt="" class="hj-chat-proImg-small" />
+												<h6 class="card-title ml-3 mt-2"
+													th:text="${Bboard.getTo_nickname()}"}></h6>
+											</div>
+
 										</div>
 
 									</div>
@@ -330,26 +201,31 @@
 
 							<div class="carousel-item" th:each="Lboard:${PLifeList}">
 
-								<a class="card hj-sub1-card-h-400 hj-radius-30" th:href="@{'townBuyproduct?num=' + ${Lboard.getTo_num()}}">
+								<a class="card hj-sub1-card-h-400 hj-radius-30"
+									th:href="@{'townBuyproduct?num=' + ${Lboard.getTo_num()}}">
 
 
 									<img
-										th:src="@{'/imgs/test/' + ${Lboard.getTo_productImg().substring(0,Lboard.getTo_productImg().indexOf('/'))}}"
-										class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover" alt="...">
+									th:src="@{'/imgs/test/' + ${Lboard.getTo_productImg().substring(0,Lboard.getTo_productImg().indexOf('/'))}}"
+									class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover"
+									alt="...">
 
 
 
 									<div class="card-body">
 
-										<h5 class="card-title mt-1" th:text="${Lboard.getTo_title()}">Card
-											title</h5>
+										<h5 class="card-title mt-1 text-truncate"
+											th:text="${Lboard.getTo_title()}">Card title</h5>
 
 										<div class="row  mt-5">
 											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${Lboard.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${Lboard.getTo_nickname()}"}></h6>
-											</div>										
-										
+												<img
+													th:src="@{'/imgs/profiles/' + ${Lboard.getTo_profileImg()}}"
+													alt="" class="hj-chat-proImg-small" />
+												<h6 class="card-title ml-3 mt-2"
+													th:text="${Lboard.getTo_nickname()}"}></h6>
+											</div>
+
 										</div>
 									</div>
 
@@ -384,16 +260,21 @@
 
 
 		<div class="container">
-				<!-- 공구 게시글 작성 - 배너스타일 -->
-		<div class="col-12 px-0">
+			<!-- 공구 게시글 작성 - 배너스타일 -->
+			<div class="row">
+			
+			<div class="col-12 px-0">
 
-			<a href="townForm" class="btn border w-100 py-5 mb-5 pie-btn-red hj-radius-30">
-				<span class="h2 d-block text-white">누구나 가능한 파이!</span> <span
-				class="text-white">바로가기</span>
-			</a>
+				<a href="townForm"
+					class="btn border w-100 py-5 mb-5 pie-btn-red hj-radius-30"> <span
+					class="h2 d-block text-white">누구나 가능한 파이!</span> <span
+					class="text-white">바로가기</span>
+				</a>
 
-		</div>
-		
+			</div>
+			
+			</div>
+
 		</div>
 
 
@@ -402,39 +283,47 @@
 
 		<div class="container my-5">
 
-			<h1 class="mb-3">우리동네 파이</h1>
+			<h3 class="font-weight-bolder pie-c-red"># 우리 동네 파이</h3>
 			<small></small>
 
-			<div class="row">
+			<div class="row mt-4">
 
 
 				<div class="col-12 col-lg-6 townBuyCard" th:each="board:${list}">
 
-					<a class="card mb-3 hj-radius-30 p-0" th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
+					<a class="card mb-3 hj-radius-30 p-0 shadow border-0"
+						th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
 
 						<div class="card-body p-0 hj-sub1-card-h-170">
 
 							<div class="row">
 
- 								<div class="col-5">
+								<div class="col-5">
 
-									<img th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}" 
-									class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170 hj-fit-cover" alt="...">
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170 hj-fit-cover"
+										alt="...">
 
- 								</div>
+								</div>
 
 								<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
- 
-									<h5 class="card-title pr-3" th:text="${board.getTo_title()}"></h5>
+
+									<p class="m-0 pie-c-red small" th:text="${board.getTo_category()}"></p>
+									<h5 class="card-title pr-3 text-truncate"
+										th:text="${board.getTo_title()}"></h5>
 
 
-										<div class="row mt-5 mr-3">
-											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${board.getTo_nickname()}"}></h6>
-											</div>										
-										
+									<div class="row mt-5 mr-3">
+										<div class="col d-flex align-items-center">
+											<img
+												th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}"
+												alt="" class="pie-profilePic" />
+											<h6 class="card-title ml-2 mb-0"
+												th:text="${board.getTo_nickname()}"}></h6>
 										</div>
+
+									</div>
 								</div>
 
 
@@ -457,8 +346,7 @@
 
 			<div class="row mt-5">
 				<div class="col text-center">
-					<button type="button" class="btn w-20"
-						id="loadMoreButton">더보기</button>
+					<button type="button" class="btn border btn-block" id="loadMoreButton">더보기</button>
 					<div id="cardContainer"></div>
 				</div>
 			</div>

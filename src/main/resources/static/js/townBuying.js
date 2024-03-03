@@ -46,6 +46,9 @@
 			}
 
 		}
+		
+	/*	$("#selectCategory").val($("#category").val())
+		
 
 		// 선택한 카테고리 보여지게 하는 기능
 		$(document).on(
@@ -59,15 +62,11 @@
 					$("#category").val($(this).attr("data-category"));
 					alert($("#category").val());
 				});
-		
-
-		
-		
-		
+		*/
 		
 		
 		// townBuySearch
-		
+
 		/* 캐로셀 첫 index active 적용하는 js */
 
 		$(function() {

@@ -5,256 +5,281 @@
 
 <div layout:fragment="townBuyContent" class="col">
 
+	<div class="container mt-5">
+
+		<div class="row mb-2 mb-lg-5 flex-wrap">
+
+			<div class="col-12 col-lg-3 mb-lg-0 mb-3">
+				<h3 class="text-center text-lg-left">검색결과</h3>
+			</div>
 
 
+			<div class="col-12 col-lg-9">
 
-	<div class="container-fluid px-0">
+				<form action="searchProducts" class="pie-search" method="get"
+					name="searchForm">
+					<input type="hidden" name="category" id="h-input"
+						th:value="${param.category}" /> <input type="hidden" name="table"
+						value="t" />
 
-
-
-		<div class="container mt-5">
-
-			<div class="row mb-2 mb-lg-5 flex-wrap">
-
-				<div class="col-12 col-lg-3 mb-lg-0 mb-3">
-					<h1 class="text-center text-lg-left">검색결과</h1>
-				</div>
-
-
-				<div class="col-12 col-lg-9">
-
-					<form action="searchProducts" class="pie-search" method="get"
-						name="searchForm">
-						<input type="hidden" name="category" id="category"
-							th:value="${param.category}" /> <input type="hidden"
-							name="table" value="t" />
-
-						<div class="dropdown" id="selectCategory">
-
-							<a class="btn dropdown-toggle" href="#" role="button"
-								data-toggle="dropdown" aria-expanded="false">카테고리 </a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" data-category="">전체</a> <a
-									class="dropdown-item" data-category="food">식품</a> <a
-									class="dropdown-item" data-category="baby">육아</a> <a
-									class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
-								<a class="dropdown-item" data-category="pet">반려동물</a> <a
-									class="dropdown-item" data-category="life">생활</a> <a
-									class="dropdown-item" data-category="etc">기타</a>
-							</div>
-
-
-
+					<div class="dropdown" id="selectCategory">
+						<a class="btn dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false">카테고리 </a>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" data-category="">전체</a> <a
+								class="dropdown-item" data-category="food">식품</a> <a
+								class="dropdown-item" data-category="baby">육아</a> <a
+								class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
+							<a class="dropdown-item" data-category="pet">반려동물</a> <a
+								class="dropdown-item" data-category="life">생활</a> <a
+								class="dropdown-item" data-category="etc">기타</a>
 						</div>
-						<input type="text" name="townKeyword" id="townKeyword"
-							class="flex-fill" th:value="${param.townKeyword}">
-						<button type="submit"></button>
-					</form>
 
-				</div>
+
+
+					</div>
+					<input type="text" name="townKeyword" id="townKeyword"
+						class="flex-fill" th:value="${param.townKeyword}">
+					<button type="submit"></button>
+				</form>
+
+			</div>
+
+
+		</div>
+
+
+
+		<div class="row mb-5">
+
+
+
+
+
+
+			<!-- 검색결과 카테고리로 색인 가능하도록 -->
+
+			<!-- lg 이상 화면 -->
+			<div
+				class="col-12 col-lg-3 border-right text-center text-lg-left mb-5 mb-lg-0 d-none d-lg-block">
+
+
+				<h4 class="mb-3">카테고리</h4>
+
+
+				<ul class="list-unstyled">
+
+					<a
+						th:href="@{'searchProducts?table=t&category=&townKeyword=' + ${key}}"
+						class="text-dark"> <!-- 건수 불러오기 이하 동일-->
+						<li class="mb-2" th:text="|전체(${list.size()}건)|">전체 (n건)</li>
+					</a>
+
+
+					<a
+						th:href="@{'searchProducts?table=t&category=food&townKeyword=' + ${key}}"
+						class="text-dark "> <!-- 건수 불러오기 이하 동일-->
+						<li class="mb-2" th:text="|식품(${food}건)|">식품 (n건)</li>
+					</a>
+
+
+					<a
+						th:href="@{'searchProducts?table=t&category=baby&townKeyword=' + ${key}}"
+						class="text-dark ">
+						<li class="mb-2" th:text="|육아(${baby}건)|">육아 (n건)</li>
+					</a>
+
+
+
+					<a
+						th:href="@{'searchProducts?table=t&category=beautyAndFashion&townKeyword=' + ${key}}"
+						class="text-dark ">
+						<li class="mb-2" th:text="|뷰티/패션(${beautyAndFashion}건)|">뷰티/패션
+							(n건)</li>
+					</a>
+
+
+
+					<a
+						th:href="@{'searchProducts?table=t&category=pet&townKeyword=' + ${key}}"
+						class="text-dark ">
+						<li class="mb-2" th:text="|반려동물(${pet}건)|">반려동물 (n건)</li>
+					</a>
+
+
+
+					<a
+						th:href="@{'searchProducts?table=t&category=life&townKeyword=' + ${key}}"
+						class="text-dark">
+						<li class="mb-2" th:text="|생활(${life}건)|">생활 (n건)</li>
+					</a>
+
+					<a
+						th:href="@{'searchProducts?table=t&category=etc&townKeyword=' + ${key}}"
+						class="text-dark">
+						<li class="mb-2" th:text="|기타(${etc}건)|">기타 (n건)</li>
+					</a>
+
+				</ul>
+
 
 
 			</div>
 
 
 
-			<div class="row mb-5">
+			<!-- md 이하 화면 -->
+			<div
+				class="col-12 col-lg-3 border-bottom text-center text-lg-left mb-5 mb-lg-0 d-lg-none">
 
 
+				<ul class="list-unstyled text-dark">
 
+					<a
+						th:href="@{'searchProducts?table=t&category=&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1"> <!-- 건수 불러오기 이하 동일-->
+						<li th:text="|전체(${list.size()}건)|">전체 (n건)</li>
+					</a>
 
 
+					<a
+						th:href="@{'searchProducts?table=t&category=food&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1 "> <!-- 건수 불러오기 이하 동일-->
+						<li th:text="|식품(${food}건)|">식품 (n건)</li>
+					</a>
 
-				<!-- 검색결과 카테고리로 색인 가능하도록 -->
 
-				<!-- lg 이상 화면 -->
-				<div
-					class="col-12 col-lg-3 border-right text-center text-lg-left mb-5 mb-lg-0 d-none d-lg-block">
+					<a
+						th:href="@{'searchProducts?table=t&category=baby&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1 ">
+						<li th:text="|육아(${baby}건)|">육아 (n건)</li>
+					</a>
 
 
-					<h3 class="mb-3">카테고리</h3>
 
+					<a
+						th:href="@{'searchProducts?table=t&category=beautyAndFashion&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1 ">
+						<li th:text="|뷰티/패션(${beautyAndFashion}건)|">뷰티/패션 (n건)</li>
+					</a>
 
-					<ul class="list-unstyled">
 
-						<a th:href="@{'searchProducts?category=&townKeyword=' + ${key}}"
-							class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
-							<li class="mb-2" th:text="|전체(${list.size()}건)|">전체 (n건)</li>
-						</a>
 
+					<a
+						th:href="@{'searchProducts?table=t&category=pet&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1 ">
+						<li th:text="|반려동물(${pet}건)|">반려동물 (n건)</li>
+					</a>
 
-						<a
-							th:href="@{'searchProducts?category=food&townKeyword=' + ${key}}"
-							class="text-dark h5"> <!-- 건수 불러오기 이하 동일-->
-							<li class="mb-2" th:text="|식품(${food}건)|">식품 (n건)</li>
-						</a>
 
 
-						<a
-							th:href="@{'searchProducts?category=baby&townKeyword=' + ${key}}"
-							class="text-dark h5">
-							<li class="mb-2" th:text="|육아(${baby}건)|">육아 (n건)</li>
-						</a>
+					<a
+						th:href="@{'searchProducts?table=t&category=life&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1">
+						<li th:text="|생활(${life}건)|">생활 (n건)</li>
+					</a>
 
+					<a
+						th:href="@{'searchProducts?table=t&category=etc&townKeyword=' + ${key}}"
+						class="badge badge-pill badge-light p-2 m-1">
+						<li th:text="|기타(${etc}건)|">기타 (n건)</li>
+					</a>
 
 
-						<a
-							th:href="@{'searchProducts?category=beautyAndFashion&townKeyword=' + ${key}}"
-							class="text-dark h5">
-							<li class="mb-2" th:text="|뷰티/패션(${beautyAndFashion}건)|">뷰티/패션
-								(n건)</li>
-						</a>
+				</ul>
 
 
 
-						<a
-							th:href="@{'searchProducts?category=pet&townKeyword=' + ${key}}"
-							class="text-dark h5">
-							<li class="mb-2" th:text="|반려동물(${pet}건)|">반려동물 (n건)</li>
-						</a>
+			</div>
 
 
 
-						<a
-							th:href="@{'searchProducts?category=life&townKeyword=' + ${key}}"
-							class="text-dark h5">
-							<li class="mb-2" th:text="|생활(${life}건)|">생활 (n건)</li>
-						</a>
+			<!-- 검색결과 보여질 페이지 -->
+			<div class="col-12 col-lg-9 pl-4 pl-lg-5">
 
-						<a
-							th:href="@{'searchProducts?category=etc&townKeyword=' + ${key}}"
-							class="text-dark h5">
-							<li class="mb-2" th:text="|기타(${etc}건)|">기타 (n건)</li>
-						</a>
 
-					</ul>
+				<!-- 건수 불러오기 -->
+				<h4 class="mb-3" th:text="|${list.size()}건이 검색됐어요!|"></h4>
 
 
 
-				</div>
+				<div class="row">
 
 
+					<div class="col-12 mb-2" id="searchResult" th:each="board:${list}">
 
-				<!-- md 이하 화면 -->
-				<div
-					class="col-12 col-lg-3 border-bottom text-center text-lg-left mb-5 mb-lg-0 d-lg-none">
+						<a class="card hj-radius-30 border-0 shadow"
+							th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
 
+							<div class="row">
 
-					<ul class="list-unstyled text-dark">
+								<div class="col-6">
 
-						<a href="" class="badge badge-pill badge-light p-2 m-1"> <!-- 건수 불러오기 이하 동일-->
-							<li th:text="|식품(${food}건)|">식품 (n건)</li>
-						</a>
+									<img
+										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+										alt="" class="hyej-custom-towncard-img hj-cardImg-left">
 
+								</div>
 
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li th:text="|육아(${baby}건)|">생필품 (n건)</li>
-						</a>
+								<div class="col-6">
 
-
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li th:text="|뷰티/패션(${beautyAndFashion}건)|">아기용품 (n건)</li>
-						</a>
-
-
-
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li th:text="|반려동물(${pet}건)|">의류 (n건)</li>
-						</a>
-
-
-
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li th:text="|생활(${life}건)|">화장품 (n건)</li>
-						</a>
-
-						<a href="" class="badge badge-pill badge-light p-2 m-1">
-							<li th:text="|기타(${etc}건)|">화장품 (n건)</li>
-						</a>
-
-					</ul>
-
-
-
-				</div>
-
-
-
-				<!-- 검색결과 보여질 페이지 -->
-				<div class="col-12 col-lg-9 pl-4 pl-lg-5">
-
-
-					<!-- 건수 불러오기 -->
-					<h3 class="mb-3" th:text="|${list.size()}건이 검색됐어요!|"></h3>
-
-
-
-					<div class="row">
-
-
-						<div class="col-12 mb-2" th:each="board:${list}">
-
-							<a class="card hj-radius-30"
-								th:href="@{'townBuyproduct?num=' + ${board.getTo_num()}}">
-
-								<div class="row">
-
-									<div class="col-12 col-md-6">
-
-										<img
-											th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
-											alt="" class="img-fluid hj-cardImg-left">
-
-									</div>
-
-									<div class="col-12 col-md-6">
-
-										<div class="card-body">
-											<h4 th:text="${board.getTo_title()}"></h4>
+									<div
+										class="card-body h-100 pl-0 d-flex flex-column justify-content-between">
+										<div class="row">
+											<div class="col">
+												<p class="m-0 pie-c-red small"
+													th:text="${board.getTo_category()}"></p>
+												<h5 class="text-truncate" th:text="${board.getTo_title()}"></h5>
+											</div>
+										</div>
 
 
 										<div class="row mt-5">
-											<div class="col d-flex justify-content-end">
-												<img th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}" alt="" class="hj-chat-proImg-small"/>
-												<h6 class="card-title ml-3 mt-2" th:text="${board.getTo_nickname()}"}></h6>
-											</div>										
-										
+											<div
+												class="col d-flex justify-content-end align-items-center">
+												<img
+													th:src="@{'/imgs/profiles/' + ${board.getTo_profileImg()}}"
+													alt="" class="pie-profilePic" />
+												<h6 class="card-title ml-2 m-0"
+													th:text="${board.getTo_nickname()}"></h6>
+											</div>
+
 										</div>
-										
-										
-										</div>
+
 
 									</div>
 
 								</div>
 
-							</a>
+							</div>
 
-						</div>
+						</a>
 
 					</div>
 
-
-
-
-
 				</div>
 
+
+
+
+
 			</div>
-
-			<div class="row">
-				<div class="col mt-5 mb-3">
-					<h1 class="mb-3">동일제품 가격비교!</h1>
-					<p>현재 쇼핑몰에서 판매중인 상품과 가격비교해서 똑똑하고 알뜰하게 구매하세요!</p>
-				</div>
-			</div>
-			<div class="row row-cols-1 row-cols-md-5" id="serachResult"></div>
-
-
-			<script src="js/townBuying.js"></script>
-			<script src="js/townBuyingSearch.js"></script>
 
 		</div>
+
+		<div class="row">
+			<div class="col mt-5 mb-3">
+				<h3 class="font-weight-bolder pie-c-red"># 동일 제품 가격비교</h3>
+				<p>현재 쇼핑몰에서 판매중인 상품과 가격비교해서 똑똑하고 알뜰하게 구매하세요!</p>
+			</div>
+		</div>
+		<div class="row row-cols-1 row-cols-md-5" id="serachResult"></div>
+
+
+		<script src="js/selectDropdown.js"></script>
+		<script src="js/townBuying.js"></script>
+		<script src="js/townBuyingSearch.js"></script>
+
 	</div>
 </div>
 </html>

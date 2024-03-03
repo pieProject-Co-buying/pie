@@ -41,4 +41,6 @@ public interface IProxyBuyDao {
 	public void maxChk(int num);
 	
 	public int chkFeed(String id);
+
+	public List<ProxyBuyBoardDto> searchCateDao(String townKeyword, String category);
 }

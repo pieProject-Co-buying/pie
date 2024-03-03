@@ -39,9 +39,10 @@ const onIntersect = (entries, observer) => {
 				$('#allCards').isotope().append($newItems)
 				$('#allCards').isotope('appended', $newItems).isotope('layout');
 			});
-			$('#allCards').isotope('layout');
 		}
+		
 	});
+	
 };
 
 const observer = new IntersectionObserver(onIntersect, options);
