@@ -72,6 +72,8 @@ public class PaymentController {
 			bl = Sdao.selectBoard(Integer.parseInt(nid));
 			if(bl.getSh_personnelMax()<=bl.getSh_personnelNow()) {
 				Sdao.maxChk(Integer.parseInt(nid));
+			}else if(bl.getSh_personnelMax()>bl.getSh_personnelNow()) {
+				Sdao.minChk(Integer.parseInt(nid));
 			}
 			
 		}else if(category.equals("Proxy")) {
@@ -163,10 +165,9 @@ public class PaymentController {
 	public String refundPay(HttpServletRequest request,Model model) {
 		PaymentDTO dto=new PaymentDTO();
 		String num = request.getParameter("num");
-		System.out.println("num="+num);
-		
+
 		dto.setPay_refund("1");
-		System.out.println("refund="+dto.getPay_refund());
+		
 		dao.refundPay(Integer.parseInt(num));
 		return "redirect:/shareServicebuyBoard";
 	}
@@ -176,9 +177,12 @@ public class PaymentController {
 		 PaymentDTO dto=new PaymentDTO(); 
 		 ShareServiceDto sdto =new ShareServiceDto();
 		 String num = request.getParameter("num");
+		 String pnum = request.getParameter("pnum");
 		 
 		 sdto.setSh_personnelNow(sdto.getSh_personnelNow()-1);
 		 dto.setPay_refund("2");
+		 
+		 Sdao.refundNowPerson(Integer.parseInt(pnum));
 		 dao.refundPayCheck(Integer.parseInt(num));
 		 
 		 List<PaymentDTO> list = dao.paymentList();

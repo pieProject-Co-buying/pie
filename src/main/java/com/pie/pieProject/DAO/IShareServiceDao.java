@@ -30,10 +30,14 @@ public interface IShareServiceDao {
 	public void updateNow(int num);
 	// 최대인원 여부
 	public void maxChk(int num);
+	// 최소인원 여부
+	public void minChk(int num);
 	// 조회수 증가
 	public void updateHit(String num);
 	// 게시물 정렬
 	public ArrayList<ShareServiceDto> desc();
 	// 구매자 이름 및 아이디로 검색
 	public ArrayList<ShareServiceDto> searchBuyer(String keyword);
+	// 환불 시 현재 인원 감소
+	public void refundNowPerson(int num);
 }

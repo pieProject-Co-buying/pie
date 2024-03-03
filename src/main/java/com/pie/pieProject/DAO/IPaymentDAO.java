@@ -25,7 +25,8 @@ public interface IPaymentDAO {
 	public ArrayList<String> buyListpro(String process);
 	// 구매 상품 넘버 가져오기
 	public ArrayList<String> buyListNum(String num);
-	// 환불
+	// 환불 신청
 	public int refundPay(int num);
+	// 환불 여부
 	public int refundPayCheck(int num);
 }
