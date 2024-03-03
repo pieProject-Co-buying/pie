@@ -279,7 +279,8 @@ function tossPay() {
 						"pay_Merchant_uid": makeMerchantUid,
 						"pay_name": Title,
 						"pay_amount": Price,
-						"pay_category": category
+						"pay_category": category,
+						"pay_refund": '0'	
 					}
 					$.ajax({
 						url: "payCheck",
@@ -342,7 +343,7 @@ function paycoPay() {
 	);
 }
 function sub(){
-	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
+	if (confirm("구독 하시겠습니까?") == true) {
 	IMP.request_pay({
 	pg : "kakaopay.TCSUBSCRIP", // 실제 계약 후에는 실제 상점아이디로 변경
 	pay_method : 'card', // 'card'만 지원됩니다.
@@ -359,7 +360,6 @@ function sub(){
 			
 			console.log(rsp)
 			var result = {
-				"pay_num" : numID,
 				"buyer_id": mem.id,
 				"buyer_name": mem.name,
 				"buyer_nickname": mem.nickname,

@@ -136,7 +136,7 @@
 	<!-- ###############################################
 secion1 #sec1 - 우리동네 공동구매 영역
 ############################################### -->
-
+	
 	<section class="pie-section-py pie-bg-red-light">
 		<div class="container">
 
@@ -240,8 +240,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 									th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
 									class="card-img-top hj-radius-30 hj-main-product-img" alt="...">
 
-									<div
-										class="position-absolute d-none p-4 hj-main_town_hover_text">
+									<div class="position-absolute d-none p-4 hj-main_town_hover_text">
 										<div class="d-flex align-items-center">
 											<span class="pie-heart-icon active pie-icons"></span> <span
 												th:text="${t2Board.getTo_like()}"
@@ -249,8 +248,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 										</div>
 									</div>
 
-									<div
-										class="position-absolute d-none p-4 hj-main_town_hover_text">
+									<div class="position-absolute d-none p-4 hj-main_town_hover_text">
 
 										<p class="pie-c-red small m-0 small"
 											th:text="${t2Board.getTo_category}"></p>
@@ -450,59 +448,78 @@ secion2 #sec3 - 서비스 공유 영역
 			</div>
 		</div>
 
-		<div class="container-fluid">
-			<div class="row position-relative hyej-carousel-custom pb-5 mb-5">
-				<div class="col pb-5 mb-5 px-0">
-					<div class="owl-carousel owl-theme">
-						<div class="item">
-
-							<img src="imgs/netflix2.png" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/watcha.jpg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/xbox.jpg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/ridibooks.jpg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/youtube.webp" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-							<img src="imgs/disney.png" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/steam.jpg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/spotify.jpg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid">
-
-						</div>
-						<div class="item">
-
-							<img src="imgs/milli.jpg" alt="" class="img-fluid">
-
-						</div>
+		<div class="row position-relative hyej-carousel-custom pb-5 mb-5">
+			<div class="col pb-5 mb-5">
+				<div class="owl-carousel owl-theme">
+					<div class="item">
+						<h4>
+							<a href="shareServiceBoard?num=1">													
+								<img src="imgs/netflix2.png" alt="" class="img-fluid" style="height:500px">
+							</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=1">													
+							<img src="imgs/watcha.jpg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+							<a href="shareServiceBoard?num=2">							
+								<img src="imgs/xbox.jpg" alt="" class="img-fluid" style="height:500px">
+							</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=3">													
+							<img src="imgs/ridibooks.jpg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=1">													
+							<img src="imgs/youtube.webp" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4 class="">
+						<a href="shareServiceBoard?num=1">													
+							<img src="imgs/disney.png" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=2">													
+							<img src="imgs/steam.jpg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=3">													
+							<img src="imgs/spotify.jpg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=2">													
+							<img src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+						<a href="shareServiceBoard?num=3">													
+							<img src="imgs/milli.jpg" alt="" class="img-fluid" style="height:500px">
+						</a>
+						</h4>
 					</div>
 				</div>
 			</div>
