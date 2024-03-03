@@ -80,7 +80,13 @@ public class ShareServiceController {
 		}else {
 			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
-
+		
+		if(dto.getSh_personnelMax()==dto.getSh_personnelNow()) {
+			dao.maxChk(Integer.parseInt(sId));
+		}else{
+			dao.minChk(Integer.parseInt(sId));
+		}
+		
 		String table = "shareServiceBoard";
 		if (ldao.checkLike(Bcomp.getSession(request, "userId"), sId, table) > 0) {
 			model.addAttribute("like", true);
@@ -132,16 +138,6 @@ public class ShareServiceController {
 		String sh_DeadLine = request.getParameter("sh_deadLine");
 
 		int tempNumId = Integer.parseInt(sh_numID);
-		
-		System.out.println(sh_numID);
-		System.out.println(sh_title);
-		System.out.println(sh_content);
-		System.out.println(sh_personnelMax);
-		System.out.println(sh_DeadLine);
-		System.out.println(request.getParameter("price_per"));
-		System.out.println(request.getParameter("price_total"));
-		System.out.println(request.getParameter("sh_files"));
-		System.out.println(request.getParameter("pie_tagsOutput"));
 
 		dto.setSh_num(tempNumId);
 		dto.setSh_title(sh_title);
@@ -221,7 +217,6 @@ public class ShareServiceController {
 
 		dto.setSh_id(Bcomp.getSession(request, "userId"));
 
-		System.out.println(request.getParameter("sh_category"));
 		dto.setSh_category(request.getParameter("sh_category"));
 
 		if (mdto.getPremium().equals("pro")) {
@@ -260,7 +255,6 @@ public class ShareServiceController {
 		// 모델에 추가
 		model.addAttribute("list", dao.myBoard(sId));
 
-		System.out.println(dao.myBoard(sId));
 		// 뷰 이름 반환
 		return "pieContents/shareService/shareServiceApply";
 	}
@@ -278,11 +272,14 @@ public class ShareServiceController {
 		List<PaymentDTO> list = Pdao.buyList(sId);
 		List<String> piclist = Pdao.buyListpic(sId);
 		List<String> processList = Pdao.buyListpro(sId);
+		List<String> buyNum = Pdao.buyListNum(sId);
+		
 		
 		
 		for(int i = 0; i<list.size(); i++) {
 			list.get(i).setProductImg(piclist.get(i));
 			list.get(i).setProcess(processList.get(i));
+			list.get(i).setNum(buyNum.get(i));
 			
 		}
 		
@@ -307,7 +304,6 @@ public class ShareServiceController {
 			templist.add(list.get(i));
 		}
 		
-		System.out.println(templist.size());
 		
 		model.addAttribute("list", templist);
 		model.addAttribute("page", page);
@@ -334,7 +330,6 @@ public class ShareServiceController {
 			templist.add(list.get(i));
 		}
 		
-		System.out.println(templist.size());
 		
 		model.addAttribute("list", templist);
 		model.addAttribute("page", page);

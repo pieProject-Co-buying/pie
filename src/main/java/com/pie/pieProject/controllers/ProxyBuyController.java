@@ -25,6 +25,7 @@ import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DTO.FeedDto;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -181,23 +182,32 @@ public class ProxyBuyController {
 			model.addAttribute("haveFeed", true);
 		}
 
-		/* List<ProxyBuyBoardDto> allList = dao.listDaoByNewerNumber(20); */
-
 		/*
+		 * List<ProxyBuyBoardDto> allList = dao.listDaoByNewerNumber(8);
+		 * 
+		 * 
 		 * Bcomp.translateProxyList(allList);
 		 * 
 		 * model.addAttribute("allList", allList);
 		 */
+		 
 		return "pieContents/proxyBuying/proxyBuyProducts";
 	}
 	
 	@PostMapping("/infiniteLoading")
-	public ResponseEntity<List<ProxyBuyBoardDto>> getpagingList (@RequestParam("page")String page){
+	public ResponseEntity<List<ScrollProxyBuyBoardDto>> getpagingList (@RequestParam("page")String page){
 		int p = Integer.parseInt(page);
-		p = ((p-1)*20)+1;
-		int m = p+19;
+		p = ((p-1)*8);
+		int m = p+8;
 		
-		List<ProxyBuyBoardDto> list = dao.listDaoByNext(p,m);
+		List<ScrollProxyBuyBoardDto> list = dao.listDaoByNext(p,m);
+		for(ScrollProxyBuyBoardDto d : list) {
+			d.setPr_soon(Bcomp.closeClosely(d));
+			d.setPr_updateinfo(Bcomp.lastUpdateMessage(d.getPr_updateDay()));
+			d.setPr_productImg(d.getPr_productImg().substring(0, d.getPr_productImg().indexOf('/')));
+			d.setPr_category(Bcomp.translate(d.getPr_category()));
+		}
+		
 		return ResponseEntity.ok(list);
 	}
 	

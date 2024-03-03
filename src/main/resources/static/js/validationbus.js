@@ -109,7 +109,7 @@ function boardval() {
 	}
 		
 
-	/*  이메일 */
+	/*  비밀번호 */
 	if ($(bus_password).val() == '') {
 		alert("비밀번호를 입력해주세요");
 		return false;

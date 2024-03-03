@@ -33,7 +33,8 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/", "/main", "/css/**", "/pieFragments/**", "/imgs/**", "/js/**").permitAll()
 				.requestMatchers("/join", "/joinAction", "/error", "checkId", "/checkNickName", "/loginForm", "/findID",
-						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm", "/businessApplyForm","/checkPhone","/chkEmail","/redirectlogin", "/busApply", "/businessApplyBoard", "/readApplyBoard", "/businessApplyUpdateForm", "/deletebusApply", "busApplyUpdate")
+						"/findIdAction", "/findPW", "/findPwAction", "/changePwAction", "/loginOauth2", "/socialJoinForm", "/businessApplyForm","/checkPhone","/chkEmail","/redirectlogin", "/busApply", "/businessApplyBoard", "/readApplyBoard", "/businessApplyUpdateForm", "/deletebusApply", "/infiniteLoading", "busApplyUpdate")
+
 
 				.permitAll()
 				.requestMatchers("/updateForm", "/updateAction", "/subScribe", "/reSubScribe", "/deleteSubScribe",
@@ -49,7 +50,7 @@ public class WebSecurityConfig {
 						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm", "/proxyApplyFormUpload",
 						"/viewProxyApplyBoard", "/proxyApplyupdateForm", "/proxyApplyFormUpdate",
 						"/deleteProxyApplyAction", "/stateUpdateAction", "/townBuyResult", "/shareServiceBoardConsole",
-						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage","/shareServicebuyBoard")
+						"/shareServiceApplyConsole", "/searchBuyerName", "/searchBoardName", "/Follwing","/adminPage","/shareServicebuyBoard","/refundPay","/refundPayCheck")
 				.authenticated()
 				.requestMatchers("/proxyBuyProducts", "/proxyBuyMain", "/proxyBuyBest", "/shareServiceBoard",
 						"/shareService","/chkFeed","/noneFeed")

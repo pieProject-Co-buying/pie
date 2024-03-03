@@ -28,21 +28,32 @@
 	</select>
 
 	<select id="listDaoByNext"
-		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		resultType="com.pie.pieProject.DTO.ScrollProxyBuyBoardDto">
 		SELECT *
 		FROM (
-		SELECT t.*, ROW_NUMBER() OVER (ORDER BY pr_num DESC) AS rnum
+		SELECT t.*, ROW_NUMBER() OVER (ORDER BY
+		pr_num DESC) AS rnum
 		FROM proxyBuyBoard t
 		)
-		WHERE rnum BETWEEN #{param1} AND #{param2}
+		WHERE rnum BETWEEN #{param1}
+		AND #{param2}
 	</select>
 
 	<select id="searchDao"
-		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where to_title like
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard where pr_title like
 		'%${param1}%' or
-		to_content like '%${param1}%' or to_tag like
+		pr_content like '%${param1}%' or pr_tag like
 		'%${param1}%'
+	</select>
+
+	<select id="searchCateDao"
+		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
+		select * from proxyBuyBoard where pr_category = #{param2}
+		and (pr_title like
+		'%${param1}%' or
+		pr_content like '%${param1}%' or
+		pr_tag like '%${param1}%')
 	</select>
 
 	<select id="listDaoByCategory"

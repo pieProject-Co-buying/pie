@@ -40,13 +40,22 @@ public class TownBuyController {
 	ISearchDao sdao;
 	@Value("${kakao.api.mapkey}")
 	String kakaoMapApiKey;
+	@Autowired
+	BoardComp bcomp;
 	
 
 
 	@RequestMapping("/townBuySearch")
 	public String toBoardList(HttpServletRequest request, Model model) {
 
-		model.addAttribute("list", dao.listDao());
+		
+		List <TownBuyBoardDto> tlist = dao.listDao();
+		
+		for(TownBuyBoardDto d : tlist) {
+			d.setTo_category(bcomp.translate(d.getTo_category()));
+		}
+		
+		model.addAttribute("list", tlist);
 		
 		model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
 		model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
@@ -174,8 +183,10 @@ public class TownBuyController {
 	public String category(HttpServletRequest request, Model model) {
 
 		String category = request.getParameter("category");
+		
 
 		model.addAttribute("list", dao.categoryDao(category));
+		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";
 
@@ -218,6 +229,7 @@ public class TownBuyController {
 
 	}
 	
+	// 동네 공구 메인페이지
 	@RequestMapping("/townBuying")
 	public String townBPage(HttpServletRequest request, Model model) {
 		MemberDto mdto = mdao.find(getSession(request, "userId"));

@@ -4,11 +4,11 @@
 
 <!-- gnb fragment -->
 <div th:fragment="gnb">
-	<div class="row fixed-top no-gutters">
-		<div class="col">
-			<nav class="navbar navbar-expand-lg navbar-dark w-100" id="gnb">
+	<div class="row fixed-top no-gutters px-xl-5 py-1">
+		<div class="col px-xl-5">
+			<nav class="navbar navbar-expand-lg w-100" id="gnb">
 				<a class="navbar-brand" href="/"> <img
-					src="imgs/logo_color_C_white.png" alt="" class="pie-logo-gnb" />
+					src="imgs/logo_color_C_red.png" alt="" class="pie-logo-gnb" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
@@ -17,9 +17,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-						<li class="nav-item active"><a class="nav-link" href="/">Home
+<!--						<li class="nav-item active"><a class="nav-link" href="/">Home
 								<span class="sr-only">(current)</span>
-						</a></li>
+						</a></li>-->
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 동네 공구 </a>
@@ -53,7 +53,11 @@
 									<a class="dropdown-item" href="https://classic-admin.portone.io/payments" target="_blank">결제통합관리</a>
 								</div>
 							</li>
-							
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{businessApplyBoard}">기업신청
+								<span class="sr-only">businessApply</span>
+							</a>
+						</li>							
 				
 						<!-- <li class="nav-item">
 							<a class="nav-link"   th:href="@{'room?mem='+${session.userId}}">파이채팅
@@ -72,7 +76,7 @@
 								th:src="@{'imgs/profiles/'+${session.pic}}" alt=""
 								class="pie-profilePic mr-2"
 								onerror="this.onerror=null; this.src='imgs/default.png';" /><span
-								th:text="|${session.nickName}님 로그인중|" class=""></span>
+								th:text="|${session.nickName}님|" class=""></span>
 								<span id="noti" class="badge badge-warning"></span>
 								</a>
 							<div class="dropdown-menu dropdown-menu-right">

@@ -22,9 +22,9 @@ $(function() {
 						function(index, item) {
 							$('#serachResult')
 								.append(
-									'<div class="col mb-4"><a href="' + item.link + '" class="card  hj-radius-30 shadow"><img src="' 
+									'<div class="col mb-4"><a href="' + item.link + '" class="card border-0 shadow hj-radius-30 shadow"><img src="' 
 									+ item.image 
-									+ '" class="card-img-top  hj-radius-img-30" alt="..."><div class="card-body"><h6 class="card-title">'
+									+ '" class="hyej-custom-town-naversearch-img card-img-top hj-radius-img-30" alt="..."><div class="card-body"><h6 class="card-title hyej-text-truncate2">'
 									+ item.title
 									+ '</h6><p class="card-text">'
 									+ item.lprice

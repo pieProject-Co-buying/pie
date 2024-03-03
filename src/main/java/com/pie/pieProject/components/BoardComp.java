@@ -13,6 +13,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -120,7 +121,7 @@ public class BoardComp {
 		}
 	}
 
-	public boolean closeClosely(ProxyBuyBoardDto dto) {
+	public boolean closeClosely(ScrollProxyBuyBoardDto dto) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		LocalDateTime updatedate = LocalDateTime.parse(dto.getPr_deadLine(), formatter);
@@ -131,8 +132,6 @@ public class BoardComp {
 		long minutes = duration.toMinutes(); // 변경된 부분
 
 		int remains = dto.getPr_personnelMax() - dto.getPr_personnelNow();
-		System.out.println("r : " + remains);
-		System.out.println("m : " + minutes); // 변경된 부분
 
 		if (((minutes > 0 && minutes < 1440) && remains > 0) || (minutes > 0 && (remains <= 5 && remains > 0))) {
 			return true;

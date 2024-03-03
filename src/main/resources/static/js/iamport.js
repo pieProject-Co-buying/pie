@@ -63,6 +63,7 @@ function kgPay() {
 
 					var result = {
 						"pay_num" : numID,
+						"buyer_id": member.id,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -74,7 +75,8 @@ function kgPay() {
 						"pay_Merchant_uid": makeMerchantUid,
 						"pay_name": Title,
 						"pay_amount": Price,
-						"pay_category": category
+						"pay_category": category,
+						"pay_refund": 0						
 					}
 					$.ajax({
 						url: "payCheck",
@@ -163,6 +165,7 @@ function kakaoPay() {
 
 					var result = {
 						"pay_num" : numID,
+						"buyer_id": member.id,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -174,7 +177,8 @@ function kakaoPay() {
 						"pay_Merchant_uid": makeMerchantUid,
 						"pay_name": Title,
 						"pay_amount": Price,
-						"pay_category": category
+						"pay_category": category,
+						"pay_refund": '0'	
 					}
 					$.ajax({
 						url: "payCheck",
@@ -263,6 +267,7 @@ function tossPay() {
 
 					var result = {
 						"pay_num" : numID,
+						"buyer_id": member.id,
 						"buyer_name": rsp.buyer_name,
 						"buyer_nickname": member.nickname,
 						"buyer_tel": rsp.buyer_tel,
@@ -380,11 +385,8 @@ function sub(){
 				},
 				success: function(response) {
 					if(response == 'pro'){						
-						alert('빌링키 발급 성공 다시 로그인하소');
+						alert('구독이 완료되었습니다.');
 						document.location.href='subScribe'
-					}else{
-						alert('빌링키 발급 실패');
-						return false;
 					}
 				},
 				error: function(xhr, status, error) {

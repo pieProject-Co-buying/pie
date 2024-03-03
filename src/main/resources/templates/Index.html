@@ -8,9 +8,9 @@
 	<div id="wrapper" class="container-fluid p-0">
 		<header>
 			<div th:replace="~{pieFragments/gnb::gnb}" />
-			<main th:replace="~{pieContents/main::mainPageCarousel}" />
 		</header>
 
+		<div th:replace="~{pieContents/main::mainPageCarousel}" />
 
 		<main th:replace="~{pieContents/main::mainPageContents}" />
 
@@ -20,22 +20,25 @@
 
 		<div th:replace="~{pieFragments/footer::footer}" />
 	</div>
-	
+
 	<script>
-	$('.owl-carousel').owlCarousel({
-		loop: true,
-		margin: 10,
-		responsiveClass: true,
-		responsive: {
-			0: {
-				items: 1
+		$('.owl-carousel').owlCarousel({
+			loop : true,
+			margin : 10,
+			responsiveClass : true,
+			responsive : {
+				0 : {
+					items : 3
+				},
+				576 : {
+					items : 5
+				},
+				1000 : {
+					items : 7
+				}
 			},
-			1000: {
-				items: 3
-			}
-		},
-		nav: true
-	})
+			nav : true
+		})
 	</script>
 
 </body>

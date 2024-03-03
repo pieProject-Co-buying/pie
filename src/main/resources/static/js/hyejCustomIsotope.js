@@ -8,7 +8,9 @@ $('#allCards').isotope({
 		date: '[data-date]',
 		like: '[data-like]',
 		hit: '[data-hit]',
-	}
+	},
+	// fast transitions
+	transitionDuration: '0.2s'
 });
 
 // bind sort button click
@@ -42,25 +44,25 @@ $('.filters-button-group').on('click', 'button', function() {
 });*/
 var filters = {};
 
-$(document).on( 'click', '.filter-btn', function() {
-  var $this = $(this);
-  // get group key
-  var $buttonGroup = $this.parents('.button-group');
-  var filterGroup = $buttonGroup.attr('data-filter-group');
-  // set filter for group
-  filters[ filterGroup ] = $this.attr('data-filter');
-  // combine filters
-  var filterValue = concatValues( filters );
-  $('#allCards').isotope({ filter: filterValue });
+$(document).on('click', '.filter-btn', function() {
+	var $this = $(this);
+	// get group key
+	var $buttonGroup = $this.parents('.button-group');
+	var filterGroup = $buttonGroup.attr('data-filter-group');
+	// set filter for group
+	filters[filterGroup] = $this.attr('data-filter');
+	// combine filters
+	var filterValue = concatValues(filters);
+	$('#allCards').isotope({ filter: filterValue });
 });
 
 // flatten object by concatting values
-function concatValues( obj ) {
-  var value = '';
-  for ( var prop in obj ) {
-    value += obj[ prop ];
-  }
-  return value;
+function concatValues(obj) {
+	var value = '';
+	for (var prop in obj) {
+		value += obj[prop];
+	}
+	return value;
 }
 
 

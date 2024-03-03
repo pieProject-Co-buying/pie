@@ -16,37 +16,37 @@ const onIntersect = (entries, observer) => {
 			const products = await getData( // 상품의 데이터를 가져오는 함수
 				page
 			);
-			if (products.length < 1) {
-				if (page === 1) productList.innerHTML = noSearchResultPage;
-				observer.unobserve(listEnd); // 특정 대상(요소)에 대한 관찰 중단
-				return;
-			}
-
-			console.log(products);
-			console.log(products.pr_productImg);
 			products.forEach(pro => {
 				var close = '';
 				if(pro.pr_process==0) close='pie-close'
 				
-				productList.insertAdjacentHTML(
-					'beforeend',
-					'<a class="card pie-radius-small overflow-hidden '+close+'" href="viewProxyBoard?num=' + pro.pr_num +
+				const $newItems = $('<a class="card pie-radius-small overflow-hidden '+close+'" href="viewProxyBoard?num=' + pro.pr_num +
 					'" data-end="' + pro.pr_process +
-					'" data-soon="' + closeClosely(pro.pr_deadLine, pro.pr_personnelMax,pro.pr_personnelNow) +
+					'" data-soon="' + pro.pr_soon +
 					'" data-category="' + pro.pr_category +
 					'" data-date="' + pro.pr_updateDay +
 					'" data-like="' + pro.pr_like +
 					'" data-hit="' + pro.pr_hit + '"><img src="/imgs/test/' +
-					(pro.pr_productImg ? pro.pr_productImg.substring(0, pro.pr_productImg.indexOf('/')) : '') +
+					pro.pr_productImg +
 					'" class="card-img-top" alt="..."><div class="card-body position-absolute w-100"><small><span class="pie-c-red">' +
 					pro.pr_category + '</span></small><h5 class="card-title text-truncate font-weight-bolder">' +
 					pro.pr_title + '</h5><p class="card-text"><small class="text-muted">' +
-					pro.pr_updateDay + '</small></p></div></a>'
-				);
+                pro.pr_updateinfo + '</small></p></div></a>');
+					
+				/*productList.insertAdjacentHTML(
+					'beforeend',$newItems
+				);*/
+				$('#allCards').isotope().append($newItems)
+				$('#allCards').isotope('appended', $newItems).isotope('layout');
 			});
 		}
+		
 	});
+	
 };
+
+const observer = new IntersectionObserver(onIntersect, options);
+observer.observe(listEnd);
 
 function closeClosely(str1, a, b) {
     // str1을 'yyyy-MM-dd HH:mm:ss' 형식으로 파싱
@@ -91,5 +91,3 @@ function getData(page) {
 	});
 }
 
-const observer = new IntersectionObserver(onIntersect, options); // 관찰자 초기화
-observer.observe(listEnd); // 관찰할 대상(요소) 등록

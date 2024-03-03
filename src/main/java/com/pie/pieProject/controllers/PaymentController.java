@@ -44,6 +44,7 @@ public class PaymentController {
     @PreAuthorize("ADMIN")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
     	dao.insertPayment(dto);
+    	System.out.println("pay_refund : "+dto.getPay_refund());
         // 응답 반환
         return new ResponseEntity<>(dto.getPay_category(), HttpStatus.OK);
     }
@@ -71,6 +72,8 @@ public class PaymentController {
 			bl = Sdao.selectBoard(Integer.parseInt(nid));
 			if(bl.getSh_personnelMax()<=bl.getSh_personnelNow()) {
 				Sdao.maxChk(Integer.parseInt(nid));
+			}else if(bl.getSh_personnelMax()>bl.getSh_personnelNow()) {
+				Sdao.minChk(Integer.parseInt(nid));
 			}
 			
 		}else if(category.equals("Proxy")) {
@@ -147,7 +150,6 @@ public class PaymentController {
 			templist.add(list.get(i));
 		}
 		
-		System.out.println(templist.size());
 		
 		model.addAttribute("payList", templist);
 		model.addAttribute("page", page);
@@ -158,5 +160,52 @@ public class PaymentController {
 		
 		return "pieContents/shareService/shareServiceApplyConsole";
 	}
+	/**********환불요청**********/
+	@RequestMapping("/refundPay")
+	public String refundPay(HttpServletRequest request,Model model) {
+		PaymentDTO dto=new PaymentDTO();
+		String num = request.getParameter("num");
+
+		dto.setPay_refund("1");
+		
+		dao.refundPay(Integer.parseInt(num));
+		return "redirect:/shareServicebuyBoard";
+	}
+	/**********환불요청 확인**********/
+	 @RequestMapping("/refundPayCheck")
+	 public String refundPayCheck(@RequestParam("page") int page,HttpServletRequest request,Model model) { 
+		 PaymentDTO dto=new PaymentDTO(); 
+		 ShareServiceDto sdto =new ShareServiceDto();
+		 String num = request.getParameter("num");
+		 String pnum = request.getParameter("pnum");
+		 
+		 sdto.setSh_personnelNow(sdto.getSh_personnelNow()-1);
+		 dto.setPay_refund("2");
+		 
+		 Sdao.refundNowPerson(Integer.parseInt(pnum));
+		 dao.refundPayCheck(Integer.parseInt(num));
+		 
+		 List<PaymentDTO> list = dao.paymentList();
+			model.addAttribute("pay", list);
+
+			int pageLimit = 10;
+			int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+			
+			List<PaymentDTO> templist = new ArrayList<>();
+
+			int minPage = (page - 1) * pageLimit;
+			int maxPage = Math.min(page * pageLimit, list.size());
+			
+			for (int i = minPage; i < maxPage; i++) {
+				templist.add(list.get(i));
+			}
+			
+			System.out.println(templist.size());
+
+			model.addAttribute("payList", templist);
+			model.addAttribute("page", page);
+			model.addAttribute("pageNum", pageNum);
+		 return "pieContents/shareService/shareServiceApplyConsole";
+	 }
 }
 
