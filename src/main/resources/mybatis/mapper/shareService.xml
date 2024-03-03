@@ -58,6 +58,10 @@
 	<update id="maxChk">
 		update shareServiceBoard set sh_process = '0' where sh_num = #{param1}
 	</update>
+	<!--최소인원 체크-->
+	<update id="minChk">
+		update shareServiceBoard set sh_process = '1' where sh_num = #{param1}
+	</update>
 	<!--조회수 증가-->
 	<update id="updateHit">
 		update shareServiceBoard set sh_hit = sh_hit+1 where sh_num = #{param1}
@@ -66,4 +70,8 @@
 	<select id="searchBuyer">
 		select * from shareServiceBoard where sh_id like '%${param1}%' or sh_nickname like '%${param1}%' 
 	</select>
+	<!--환불시 인원 감소-->
+	<update id="refundNowPerson">
+		update shareServiceBoard set sh_personnelNow = sh_personnelNow - 1 where sh_num = #{param1}
+	</update>
 </mapper>

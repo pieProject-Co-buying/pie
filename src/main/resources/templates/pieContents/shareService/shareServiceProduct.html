@@ -61,11 +61,13 @@
 								th:text="${board.getSh_personnelMax()}+' 명'"></small>
 						</p>
 						<p>
-							<small class="font-weight-bold">진행현황</small><br /> <small
-								class="badge badge-success"
-								th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> <small
-								class="badge badge-danger"
-								th:if="${board.getSh_process().equals('0')}"> 모집완료</small>
+							<small class="font-weight-bold">진행현황</small><br />
+							<th:block th:if="${board.getSh_process().equals('1')}">
+                        		<small class="badge badge-success" th:text="모집진행중"></small>                       	
+                        	</th:block>
+                        	<th:block th:if="${board.getSh_process().equals('0')}">
+                        		<small class="badge badge-danger" th:text="모집마감"></small>
+                        	</th:block>
 						</p>
 
 						<p>
@@ -152,9 +154,13 @@
 										</p>
 										<p>
 
-											<small class="font-weight-bold">진행현황</small><br /> <small
-												class="badge badge-success"
-												th:text="${board.getSh_process()}"></small>
+											<small class="font-weight-bold">진행현황</small><br />
+											<th:block th:if="${board.getSh_process().equals('1')}">
+                        						<small class="badge badge-success" th:text="모집진행중"></small>                       	
+                        					</th:block>
+                        					<th:block th:if="${board.getSh_process().equals('0')}">
+                        						<small class="badge badge-danger" th:text="모집마감"></small>
+                        					</th:block>
 										</p>
 									</div>
 									<div class="col-6">
@@ -262,12 +268,12 @@
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button th:if="${board.getSh_process().equals('1')}"
+							<button th:if="${board.getSh_personnelNow()<board.getSh_personnelMax()}"
 								type="button" class="btn pie-btn-red btn-block"
 								data-toggle="modal" data-target="#staticBackdrop">
 								<small>참여하기</small>
 							</button>
-							<button th:if="${board.getSh_process().equals('0')}"
+							<button th:if="${board.getSh_personnelNow()>=board.getSh_personnelMax()}"
 								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
