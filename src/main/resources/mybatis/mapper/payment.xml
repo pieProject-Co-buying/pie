@@ -13,9 +13,9 @@
 <select id="paymentList" resultType="com.pie.pieProject.DTO.PaymentDTO"> 
 	select * from payment order by pay_date desc
 </select>
-<!--구매자 이름 및 아이디로 검색-->
+<!--구매자 이름 및 아이디, 상품번호로 검색-->
 <select id="searchBuyer">
-	select * from payment where buyer_name like '%${param1}%' or buyer_id like '%${param1}%' 
+	select * from payment where buyer_name like '%${param1}%' or buyer_id like '%${param1}%' or pay_merchant_uid like '%${param1}%'
 </select>
 <!-- 사용자 구매 내역 -->
 <select id="buyList">
