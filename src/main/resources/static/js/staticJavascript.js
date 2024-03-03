@@ -5,13 +5,24 @@ const header = $("meta[name='_csrf_header']").attr("content");
 $(function() {
 	/*gnb wheel Effect*/
 	let gnb = $("header nav").parents(".row");
+	let logo = $(".pie-logo-gnb")
+
+	$(".pie-otherGnbStyled .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
+	$(".pie-otherGnbStyled .row:has(#gnb)").removeClass("bg-white");
+	$(".pie-otherGnbStyled2 .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
+	$(".pie-otherGnbStyled2 .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
 
 	$(window).scroll(function() {
 		let scrollNow = $(window).scrollTop();
 		if (scrollNow >= 120) {
-			gnb.addClass("pie-bg-red");
+			logo.attr("src", "imgs/logo_color_C_white.png");
+			gnb.addClass("pie-bg-red").addClass("navbar-dark").removeClass("navbar-light");
 		} else {
-			gnb.removeClass("pie-bg-red");
+			logo.attr("src", "imgs/logo_color_C_red.png");
+			gnb.removeClass("pie-bg-red").removeClass("navbar-dark").addClass("navbar-light");
+
+			$(".pie-otherGnbStyled2 .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
+			$(".pie-otherGnbStyled2 .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
 		}
 	})
 

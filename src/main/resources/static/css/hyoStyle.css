@@ -1,24 +1,19 @@
 .hj-bo {
 	border: 1px solid red;
-
 }
-
 
 /* img 속성 cover 적용 */
 .hj-fit-cover {
 	object-fit: cover;
 }
 
-
 .hj-radius-30 {
 	border-radius: 30px !important;
 }
 
-
 .hj-radius-img-30 {
 	border-radius: 30px 30px 0 0;
 }
-
 
 .hj-cardImg-left {
 	top: 0;
@@ -36,20 +31,17 @@
 	font-size: 1.2em;
 }
 
-
 .hj-chat-proImg {
 	width: 40px;
 	height: 40px;
 	border-radius: 100%;
 }
 
-
 .hj-chat-proImg-small {
 	width: 30px;
 	height: 30px;
 	border-radius: 100%;
 }
-
 
 /* 하단 span 태그 가상선택자 적용 */
 #pie_info span:not(:last-child)::after {
@@ -158,38 +150,56 @@
 	white-space: nowrap;
 }
 
-
-
 /* 메인 동네공구 물품 호버시 애니메이션 */
-
 .hj-main_town_hover {
-    overflow: hidden;
-    position: relative;
-    transition: transform 1s ease;
-    
+	overflow: hidden;
+	position: relative;
+	transition: transform 1s ease;
+	position: relative;
+}
+
+.hj-main_town_hover .hj-main_town_hover_text:nth-of-type(1) {
+	top: 0;
+	right: 0;
+}
+
+.hj-main_town_hover .hj-main_town_hover_text:nth-of-type(2) {
+	bottom: 0;
+	left: 0;
 }
 
 .hj-main_town_hover .hj-main-product-img {
-    transition: transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .hj-main_town_hover:hover>.hj-main-product-img {
-    transform: scale(1.1);
-    opacity: 0.2;
+	transform: scale(1.1);
+	opacity: 0.2;
 }
 
-
-.hj-carousel-control-prev-icon,
-.hj-carousel-control-next-icon {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: 50% / 100% 100% no-repeat;
+.hj-carousel-control-prev-icon, .hj-carousel-control-next-icon {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	background: 50%/100% 100% no-repeat;
 }
-
-
 
 .hj-text-big {
 	font-size: 50px;
 }
 
+.pie-town-tabs .card-columns {
+	column-count: 1;
+}
+
+@media ( min-width :576px) {
+	.pie-town-tabs .card-columns {
+		column-count: 2;
+	}
+}
+
+@media ( min-width :1000px) {
+	.pie-town-tabs .card-columns {
+		column-count: 3;
+	}
+}
