@@ -120,6 +120,8 @@ public class ProxyBuyController {
 				map.put(str, count + 1);
 			}
 		}
+		
+		System.out.println("카테고리 개수 : "+map.size());
 
 		List<String> keySet = new ArrayList<>(map.keySet());
 		// Value 값으로 오름차순 정렬
@@ -128,12 +130,24 @@ public class ProxyBuyController {
 			System.out.print("Key : " + key);
 			System.out.println(", Val : " + map.get(key));
 		}
+		
 
 		FeedDto feed = new FeedDto();
 		feed.setId(Bcomp.getSession(request, "userId"));
-		feed.setFeed1(keySet.get(0));
-		feed.setFeed2(keySet.get(1));
-		feed.setFeed3(keySet.get(2));
+		
+		String[] set = {"none", "none", "none"};
+		
+		int max = 3;
+		if(keySet.size()<=3) {
+			max = keySet.size();
+		}
+		for(int i = 0; i<max; i++) {
+			if(keySet.get(i)!=null) set[i] = keySet.get(i);
+		}
+		
+		feed.setFeed1(set[0]);
+		feed.setFeed2(set[1]);
+		feed.setFeed3(set[2]);
 
 		fdao.makeFeed(feed);
 

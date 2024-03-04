@@ -274,15 +274,20 @@ public class ShareServiceController {
 		List<String> processList = Pdao.buyListpro(sId);
 		List<String> buyNum = Pdao.buyListNum(sId);
 		
+		System.out.println("전체 : "+list.size());
+		System.out.println("사진 : "+piclist.size());
+		System.out.println("진행중 : "+processList.size());
+		System.out.println("넘버 : "+buyNum.size());	
 		
 		
-		for(int i = 0; i<list.size(); i++) {
-			list.get(i).setProductImg(piclist.get(i));
-			list.get(i).setProcess(processList.get(i));
-			list.get(i).setNum(buyNum.get(i));
-			
-		}
 		
+		 for(int i = 0; i<list.size(); i++) {
+		 list.get(i).setProductImg(piclist.get(i));
+		 list.get(i).setProcess(processList.get(i));
+		 list.get(i).setNum(buyNum.get(i));
+		 
+		 }
+	
 		model.addAttribute("list", list);
 		// 뷰 이름 반환
 		return "pieContents/shareService/shareServicebuyBoard";
