@@ -273,14 +273,16 @@ public class ShareServiceController {
 		List<String> piclist = Pdao.buyListpic(sId);
 		List<String> processList = Pdao.buyListpro(sId);
 		List<String> buyNum = Pdao.buyListNum(sId);
-		
+		System.out.println("리스트 : "+list.size());
+		System.out.println("사진 : "+piclist.size());
+		System.out.println("진행 : "+processList.size());
+		System.out.println("넘버 : "+buyNum.size());
 		
 		
 		for(int i = 0; i<list.size(); i++) {
 			list.get(i).setProductImg(piclist.get(i));
 			list.get(i).setProcess(processList.get(i));
 			list.get(i).setNum(buyNum.get(i));
-			
 		}
 		
 		model.addAttribute("list", list);
@@ -338,32 +340,35 @@ public class ShareServiceController {
 		model.addAttribute("list", templist);
 		return"pieContents/shareService/shareServiceBoardConsole";
 	}
-	/********** admin 게시글 관리 필터 **********/
-	/*
-	 * @RequestMapping("/consoleFilter") public String goFinish(HttpServletRequest
-	 * request, Model model) { String category = request.getParameter("category");
-	 * 
-	 * int num = 0; String id = null; String nickname = null; String title = null;
-	 * String registDay = null; String deadLine = null; String process = null;
-	 * 
-	 * if(category.equals("Share")) { List<ShareServiceDto> list =
-	 * dao.getBoardList(); for(ShareServiceDto dto : list) { num=dto.getSh_num();
-	 * id=dto.getSh_id(); nickname=dto.getSh_nickname(); title=dto.getSh_title();
-	 * registDay=dto.getSh_registDay(); deadLine=dto.getSh_deadLine();
-	 * process=dto.getSh_process(); }
-	 * 
-	 * }else if(category.equals("Proxy")) {; List<ProxyBuyBoardDto> list =
-	 * rdao.listDao(); for(ProxyBuyBoardDto dto : list) {
-	 * num=Integer.parseInt(dto.getPr_num()); id=dto.getPr_id();
-	 * nickname=dto.getPr_nickname(); title=dto.getPr_title();
-	 * registDay=dto.getPr_registDay(); deadLine=dto.getPr_deadLine();
-	 * process=dto.getPr_process(); } }
-	 * 
-	 * model.addAttribute("num",num); model.addAttribute("id",id);
-	 * model.addAttribute("nickname",nickname); model.addAttribute("title",title);
-	 * model.addAttribute("registDay",registDay);
-	 * model.addAttribute("deadLine",deadLine);
-	 * model.addAttribute("process",process); return
-	 * "pieContents/shareService/shareServiceFinish?category="; }
-	 */
+	/**********admin 게시물관리 페이지 진행여부**********/
+	@RequestMapping("/processRemote")
+	public String processRemote(HttpServletRequest request, Model model) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		String search = request.getParameter("search");
+		int page = Integer.parseInt(request.getParameter("page"));
+		
+		dao.maxChk(num);
+		
+		List<ShareServiceDto> list = dao.searchBuyer(search);
+		
+		int pageLimit = 10;
+		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		
+		List<ShareServiceDto> templist = new ArrayList<>();
+
+		int minPage = (page - 1) * pageLimit;
+		int maxPage = Math.min(page * pageLimit, list.size());
+		
+		for (int i = minPage; i < maxPage; i++) {
+			templist.add(list.get(i));
+		}
+		
+		
+		model.addAttribute("list", templist);
+		model.addAttribute("page", page);
+		model.addAttribute("pageNum", pageNum);
+		
+		model.addAttribute("list", templist);
+		return "redirect:/shareServiceBoardConsole";
+	}
 }

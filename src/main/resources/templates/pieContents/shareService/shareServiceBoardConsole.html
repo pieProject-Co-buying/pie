@@ -38,35 +38,38 @@
 					<thead>
 						<tr>
 							<th scope="col" class="th-num">번호</th>
-							<th scope="col" class="th-title">제목</th>
+							<th scope="col" class="th-num">카테고리</th>
 							<th scope="col" class="th-num">작성자ID</th>
-							<th scope="col" class="th-num">닉네임</th>
-							<th scope="col" class="th-date">등록일</th>
+							<th scope="col" class="th-num">제목</th>
+							<!-- <th scope="col" class="th-num d-none d-md-block">닉네임</th>
+							<th scope="col" class="th-date d-none d-md-block">등록일</th> -->
 							<th scope="col" class="th-date">마감일</th>
-							<th scope="col" class="th-date">진행현황</th>
+							<th scope="col" class="th-num">진행현황</th>
+							<th scope="col" class="th-num">현황변경</th>
 						</tr>
 					</thead>
 					<tbody>
 						<th:block th:each="board:${list}">
-							<tr>
-								<td th:text="${board.getSh_num()}"></td>
-								<th>
-									<b>
-										<a th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
-									</b>
-								</th>
-								<td th:text="${board.getSh_id}"></td>
-								<td th:text="${board.getSh_nickname()}"></td>
-								<td th:text="${board.getSh_registDay()}"></td>
-								<td th:text="${board.getSh_deadLine()}"></td>
-								<td><small class="badge badge-success"
-									th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
-									<small
-									class="badge badge-danger"
-									th:if="${board.getSh_process().equals('0')}"> 모집완료
-									</small>
-								</td>
-							</tr>
+								<tr>
+									<td th:text="${board.getSh_num()}"></td>
+									<td th:text="${board.getSh_category()}"></td>
+									<td th:text="${board.getSh_id}"></td>
+									<th>
+										<b>
+											<a class="d-block text-truncate" style="max-width:100px" th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
+										</b>
+									</th>
+									<!-- <td class="d-none d-md-block" th:text="${board.getSh_nickname()}"></td>
+									<td class="d-none d-md-block" th:text="${#strings.substring(board.getSh_registDay(), 0, 10)}"></td> -->
+									<td th:text="${#strings.substring(board.getSh_deadLine(), 0, 10)}"></td>
+									<td>
+										<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
+										<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}"> 모집완료</small>
+									</td>
+									<td>
+										<a th:href="'processRemote?page=1'+'&num='+${board.getSh_num()}" class="badge badge-warning">변경</a>
+									</td>
+								</tr>
 						</th:block>
 					</tbody>
 				</table>
