@@ -8,34 +8,23 @@
 	<div class="container p-0 mb-5 mt-5">
 		<div class="row border">
 			<div class="col-12 d-flex justify-content-center border-bottom">
-				<img src="imgs/check.png" alt="" width="40px" height="40px" class="mt-2">
-				<h2 class="mt-2"><b>결제 및 신청 완료</b></h2>
+				<img src="imgs/check.png" alt="" width="40px" height="40px" class="mt-3 mb-3">
+				<h2 class="mt-3 mb-3"><b>결제 및 신청 완료</b></h2>
 			</div><!--col-->
-			<div class="col-12 text-center mt-3">
-				<h5><b>신청 정보</b></h5>
+			<div class="col-12 text-center mt-3 mb-3">
+				<h5 class="mt-3"><b>신청 정보</b></h5>
 			</div>
 			<div class="col-9 m-auto border-bottom">
-				<div class="border d-inline-block mb-3">
-					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid"
-						width="200" height="200">
+				<div class="text-center d-block mb-3">
+					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid border" width="300" height="300">
 				</div>
-				<p>
-					상품코드 : <span th:text="${pay.getPay_Merchant_uid()}"></span>
-				</p>
-				<p>
-					제품명 : <span th:attr="data-title=${title}" th:text="${title}">감자</span>
-				</p>
-				<p>
-					결제일시 : <span th:text="${pay.getPay_date()}"></span>
-				</p>
-				<p>
-					결제금액 : <span th:attr="data-price=${price}" th:text="${price}+' 원'"></span>
-				</p>
-				<div>
-					<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
-				</div>
+				<p>상품코드 : <span th:text="${pay.getPay_Merchant_uid()}"></span></p>
+				<p>제품명 : <span th:attr="data-title=${title}" th:text="${title}">감자</span></p>
+				<p>결제일시 : <span th:text="${pay.getPay_date()}"></span></p>
+				<p>결제금액 : <span th:attr="data-price=${price}" th:text="${price}+' 원'"></span></p>
+				<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
 			</div>
-			<div class="col-12 text-center mt-3">
+			<div class="col-12 text-center mt-5">
 				<h5><b>주문자 정보</b></h5>
 			</div>
 			<div class="col-9 m-auto" th:each="member:${find}">

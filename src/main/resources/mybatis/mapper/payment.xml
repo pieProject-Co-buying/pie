@@ -27,7 +27,7 @@ SELECT shareServiceBoard.sh_productImg
 		FROM payment
 		JOIN shareServiceBoard ON payment.pay_num = shareServiceBoard.sh_num
 		WHERE payment.buyer_id = #{param1} and payment.pay_category='Share' order by payment.pay_date
-</select>
+</select> 
 <!--해당 게시물 현황 가져오기-->
 <select id="buyListpro" resultType="string">
 SELECT shareServiceBoard.sh_process

@@ -137,7 +137,7 @@
 secion1 #sec1 - 우리동네 공동구매 영역
 ############################################### -->
 	
-	<section class="pie-section-py pie-bg-red-light">
+	<!-- <section class="pie-section-py pie-bg-red-light">
 		<div class="container">
 
 
@@ -168,10 +168,10 @@ secion1 #sec1 - 우리동네 공동구매 영역
 						<div class="col">
 							<div class="card-columns">
 
-								<!-- 최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함  -->
+								최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함 
 
 								<div th:if="${#lists.isEmpty(tlist)}">
-									<!-- 리스트가 비어있을 때 표시할 내용 -->
+									리스트가 비어있을 때 표시할 내용
 									<p>게시글이 없습니다.</p>
 								</div>
 								<div th:if="${not #lists.isEmpty(tlist)}">
@@ -228,7 +228,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 					<div class="card-columns">
 
 						<div th:if="${#lists.isEmpty(tlist2)}">
-							<!-- 리스트가 비어있을 때 표시할 내용 -->
+							리스트가 비어있을 때 표시할 내용
 							<p>게시글이 없습니다.</p>
 						</div>
 						<div th:if="${not #lists.isEmpty(tlist2)}">
@@ -257,7 +257,8 @@ secion1 #sec1 - 우리동네 공동구매 영역
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
 												<img
-													th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}"
+									 
+									 				th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}"
 													alt="" class="hj-chat-proImg-small mr-2" />
 												<h6 class="m-0" th:text="${t2Board.getTo_nickname}"></h6>
 											</div>
@@ -276,7 +277,7 @@ secion1 #sec1 - 우리동네 공동구매 영역
 
 		</div>
 
-	</section>
+	</section> -->
 
 
 	<!-- ###############################################
