@@ -360,7 +360,6 @@ function sub(){
 			
 			console.log(rsp)
 			var result = {
-				"pay_num" : numID,
 				"buyer_id": mem.id,
 				"buyer_name": mem.name,
 				"buyer_nickname": mem.nickname,
