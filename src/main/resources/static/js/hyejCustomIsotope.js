@@ -3,11 +3,14 @@ $('#allCards').isotope({
 	itemSelector: '.card',
 	layoutMode: 'masonry',
 	getSortData: {
-		name: '.name', // text from querySelector
-		category: '[data-category]', // value of attribute
-		date: '[data-date]',
-		like: '[data-like]',
-		hit: '[data-hit]',
+		date: '[data-date] ',
+		like: '[data-like] parseInt',
+		hit: '[data-hit] parseInt',
+	},
+	sortAscending: {
+		date: false,
+		like: false,
+		hit: false,
 	},
 	// fast transitions
 	transitionDuration: '0.2s'
