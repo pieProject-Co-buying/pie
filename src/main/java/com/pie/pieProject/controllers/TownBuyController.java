@@ -93,6 +93,8 @@ public class TownBuyController {
 			}else {
 				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
 			}
+			
+			
 			/* dao.updateHit(sId); */
 			
 			String table = "townBuyBoard";
@@ -102,12 +104,39 @@ public class TownBuyController {
 				model.addAttribute("like", false);
 			}
 			
-		model.addAttribute("board", dto);
+			
+			
+		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
+		    	
+		    	System.out.println(dto.getTo_personnelNow());
+		        dao.updateTownProcess(sId);
+		    }
+			
+			
+			
+
+			
+			model.addAttribute("board", dto);
 
 		return "pieContents/townBuying/townBuyproduct";
 
 	}
+	
+	
+	
+	// 참여인원 증가
+	@RequestMapping("/updatePersonnelNow")
+	public String updatePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {
 
+		dao.updatePersonnelNow(num);
+		System.out.println("체크" + num);
+		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
+	}
+
+	
+	
+	
+	
 	@RequestMapping("/updateTownProduct")
 
 	public String update(HttpServletRequest request) {

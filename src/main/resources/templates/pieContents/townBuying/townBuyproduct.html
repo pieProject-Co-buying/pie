@@ -35,8 +35,8 @@
 				<div class="row">
 					<div class="col">
 						<p>
-							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
+							<small class="font-weight-bold">모집인원</small><br />
+							<small th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
 						</p>
 						<p id="processNow">
 
@@ -126,9 +126,9 @@
 												class="badge badge-success"
 												th:text="${board.getTo_process()}"></small> <small
 												class="badge badge-success"
-												th:if="${board.getTo_process().equals('1')}">진행중</small> <small
+												th:if="${board.getTo_process().equals(1)}">진행중</small> <small
 												class="badge badge-danger"
-												th:if="${board.getTo_process().equals('0')}">완료</small>
+												th:if="${board.getTo_process().equals(0)}">완료</small>
 
 										</p>
 									</div>
@@ -246,7 +246,7 @@
 
 							<!-- 모달 동작 버튼 -->
 							<button type="button" class="btn pie-btn-red btn-block"
-								data-toggle="modal" data-target="#staticBackdrop">
+								data-toggle="modal" data-target="#staticBackdrop" id="applyBtn">
 								<small>참여하기</small>
 							</button>
 
@@ -332,10 +332,12 @@
 			alert("모집이 완료된 게시글이예요!")
 		}
 	</script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+		
 	<script>
 		$(function() {
+			
 			/***************************************************
 			 * URL 복사기능
 			 * *************************************************/
@@ -352,19 +354,74 @@
 			})
 
 		})
+		
 	</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Get the button element
-        var button = document.querySelector('.btn-outline-secondary');
+	
+	
+	
+	<!-- 모두 완료되면 참여버튼 숨기도록 만드는 JS -->
+	<script type="text/javascript" th:inline="javascript">
+	
+		var board = /*[[${board}]]*/null;
+		
+		var to_personnelMax = null;
+		var to_personnelNow = null;
 
-        // Add click event listener to the button
-        button.addEventListener('click', function () {
-            // Display alert when the button is clicked
-            alert('신청이 완료되었습니다.');
-        });
-    });
-</script>
+
+		if (board) {
+		    to_personnelMax = board.to_personnelMax;
+		    to_personnelNow = board.to_personnelNow;
+		}
+
+		
+		
+		$(document).ready(function() {
+	
+		    var applyButton = $("#applyBtn");
+
+		    if (to_personnelNow >= to_personnelMax) {
+		        applyButton.prop('disabled', true);
+		        applyButton.addClass('btn-secondary');
+		        applyButton.text('모집마감');		        
+				
+		    }
+		});
+		
+		
+
+
+		
+		
+		$(document).ready(function() {
+	
+		    var applyButton = $("#applyBtn");
+
+		    if (to_personnelNow >= to_personnelMax) {
+		        applyButton.prop('disabled', true);
+		        applyButton.addClass('btn-secondary');
+		        applyButton.text('모집마감');		        
+				
+				console.log(board.to_personnelMax);
+				console.log(board.to_personnelNow);
+		    }
+		    
+		    $(document).ready(function() {
+			    var applyButton = $("#applyBtn");
+			
+			    if (to_personnelNow >= to_personnelMax) {
+			        // 모집이 마감되었을 때 버튼의 속성과 텍스트를 변경합니다.
+			        applyButton.prop('disabled', true);
+			        applyButton.addClass('btn-secondary');
+			        applyButton.text('모집마감');
+			    }
+			});
+					});
+		
+	</script>
+
+
+		
+	</script>
 	<script src="js/product.js"></script>
 </div>
 

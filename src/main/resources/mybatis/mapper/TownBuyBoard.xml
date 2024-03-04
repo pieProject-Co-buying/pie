@@ -147,6 +147,7 @@
 		update townBuyBoard set to_hit = to_hit+1 where
 		to_num = #{param1}
 	</update>
+	
 	<!-- 0시마다 마감체크 -->
 	<update id="expireTownBuyBoard">
 		UPDATE townBuyBoard
@@ -154,6 +155,23 @@
 		WHERE to_deadLine <![CDATA[ <= ]]>
 		sysdate
 	</update>
+
+
+	<!-- 참여자수 증가 -->
+	<update id="updatePersonnelNow">
+		UPDATE townBuyBoard
+		SET to_personnelNow = to_personnelNow + 1
+		WHERE to_num = #{param1}
+	</update>
+	
+
+	<!-- 진행상태 변경 -->
+	<update id="updateTownProcess">
+		UPDATE townBuyBoard
+		SET to_process =  0
+		WHERE to_num = #{param1}
+	</update>
+
 
 
 </mapper>

@@ -41,17 +41,23 @@ public class KaKaoMapController {
 	public ResponseEntity<String> getKaKaoApiFromAddress(@RequestParam("nowlogin") String userId,
 			HttpServletRequest request) {
 		
+		System.out.println("접속중:"+userId);
+		
 		String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json";
 		String jsonString = null;
 		MemberDto mdto = mdao.find(userId);
 		String ad = mdto.getAddress_main().substring(0, 6);
 		List<TownBuyBoardDto> list = tdao.listLocal(ad);
+		
+		System.out.println("검색된 리스트" + list.size());
+		
 		JSONObject obj = new JSONObject();
 		JSONArray itemList = new JSONArray();
 		String roadFullAddr;
 
 		for (TownBuyBoardDto dto : list) {
 			try {
+				System.out.println("검색된 주소 : "+dto.getTo_address());
 				roadFullAddr = URLEncoder.encode(dto.getTo_address(), "UTF-8");
 				String addr = apiUrl + "?query=" + roadFullAddr; // 수정
 				URL url = new URL(addr);
@@ -73,6 +79,8 @@ public class KaKaoMapController {
 			}
 			
 			JSONParser parser = new JSONParser();
+			
+			System.out.println("json : "+jsonString);
 
 			try {
 				JSONObject jsonMain = (JSONObject) parser.parse(jsonString);
