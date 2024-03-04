@@ -1,12 +1,20 @@
 package com.pie.pieProject.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
+import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
+import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +23,8 @@ import jakarta.servlet.http.HttpSession;
 public class LikeController {
 	@Autowired
 	ILikeDao ldao;
+	@Autowired
+	BoardComp bcomp;
 	
 	@PostMapping("/updateHeart")
 	public ResponseEntity<Integer> updateHeartAction(@RequestParam("num") String num,
@@ -34,10 +44,10 @@ public class LikeController {
 			prefix = "sh_";
 		}
 
-		if (ldao.checkLike(getSession(request, "userId"), num, table) > 0) {
-			ldao.LikeMinus(getSession(request, "userId"), num, table);
+		if (ldao.checkLike(bcomp.getSession(request, "userId"), num, table) > 0) {
+			ldao.LikeMinus(bcomp.getSession(request, "userId"), num, table);
 		} else {
-			ldao.LikePlus(getSession(request, "userId"), num, table);
+			ldao.LikePlus(bcomp.getSession(request, "userId"), num, table);
 		}
 		ldao.countLike(num, table, prefix+"like", prefix+"num");
 		
@@ -46,8 +56,50 @@ public class LikeController {
 		return ResponseEntity.ok(result);
 	}
 	
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
-	}
+	@GetMapping("/likeList")
+	public String likeList(@RequestParam(value = "category", required = false) String category, HttpServletRequest request, Model model) {
+		
+		String id = bcomp.getSession(request, "userId");
+		if(category.equals("town")) {
+			List<TownBuyBoardDto> list = ldao.likeTListById(id);
+			for(TownBuyBoardDto d : list) {
+				d.setTo_category(bcomp.translate(d.getTo_category()));
+			}
+			model.addAttribute("list1",list);
+			model.addAttribute("table","town");
+		}else if(category.equals("proxy")) {
+			List<ProxyBuyBoardDto> list = ldao.likePListById(id);
+			for(ProxyBuyBoardDto d : list) {
+				d.setPr_category(bcomp.translate(d.getPr_category()));
+			}
+			model.addAttribute("list1",list);
+			model.addAttribute("table","proxy");
+		}else if(category.equals("share")) {
+			List<ShareServiceDto> list = ldao.likeSListById(id);
+			for(ShareServiceDto d : list) {
+				d.setSh_category(bcomp.translate(d.getSh_category()));
+			}
+			model.addAttribute("list1",list);
+			model.addAttribute("table","share");
+		}else if(category.equals("all")) {
+			List<TownBuyBoardDto> list1 = ldao.likeTListById(id);
+			for(TownBuyBoardDto d : list1) {
+				d.setTo_category(bcomp.translate(d.getTo_category()));
+			}
+			List<ProxyBuyBoardDto> list2 = ldao.likePListById(id);
+			for(ProxyBuyBoardDto d : list2) {
+				d.setPr_category(bcomp.translate(d.getPr_category()));
+			}
+			List<ShareServiceDto> list3 = ldao.likeSListById(id);
+			for(ShareServiceDto d : list3) {
+				d.setSh_category(bcomp.translate(d.getSh_category()));
+			}
+			model.addAttribute("list1",list1);
+			model.addAttribute("list2",list2);
+			model.addAttribute("list3",list3);
+			model.addAttribute("table","all");
+		}
+		
+		return "/pieContents/members/likeList";
+	}	
 }

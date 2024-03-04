@@ -2,20 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pie.pieProject.DAO.ILikeDao">
-		
+
 	<select id="checkLike" resultType="_int">
-	select count(*)from likeTable where likingId = #{param1} and boardNum=  #{param2} and boardTable = #{param3}
+		select count(*)from likeTable where likingId = #{param1} and boardNum=
+		#{param2} and boardTable = #{param3}
 	</select>
 	<insert id="LikePlus">
-	insert into likeTable values(#{param1}, #{param2}, #{param3})
+		insert into likeTable values(#{param1}, #{param2}, #{param3})
 	</insert>
 	<delete id="LikeMinus">
-	delete likeTable where likingId = #{param1} and boardNum=  #{param2} and boardTable = #{param3}
+		delete likeTable where likingId = #{param1} and boardNum= #{param2} and
+		boardTable = #{param3}
 	</delete>
 	<update id="countLike">
-	update ${param2} set ${param3} = (select count(*) from likeTable where boardNum = #{param1}) where ${param4} = #{param1}
+		update ${param2} set ${param3} = (select count(*) from likeTable where
+		boardNum = #{param1}) where ${param4} = #{param1}
 	</update>
 	<select id="getLike" resultType="_int">
-		select ${param1} from ${param2} where ${param3} = #{param4}
+		select ${param1} from ${param2}
+		where ${param3} = #{param4}
+	</select>
+
+	<select id="likeTListById">
+		SELECT *
+		FROM townBuyBoard
+		WHERE to_num IN (SELECT boardNum FROM likeTable) and to_id=#{param1}
+	</select>
+	<select id="likePListById">
+		SELECT *
+		FROM proxybuyboard
+		WHERE pr_num IN (SELECT boardNum FROM likeTable) and pr_id=#{param1}
+	</select>
+	<select id="likeSListById">
+		SELECT *
+		FROM shareServiceBoard
+		WHERE sh_num IN (SELECT boardNum FROM likeTable) and sh_id=#{param1}
 	</select>
 </mapper>

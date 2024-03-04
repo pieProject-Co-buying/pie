@@ -10,27 +10,27 @@
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
 		<th:block th:if="${haveFeed}">
-			<div class="row mb-5">
+			<div class="row">
 				<div class="col text-center">
 					<h1>내게 딱 맞는 피드!</h1>
 					<p th:text="|${session.nickName}님이 고르신 키워드를 바탕으로 피드를 구성해봤어요!|"></p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col">
-					<a href="resetFeed" class="btn btn-outline-secondary">피드 초기화</a>
+				<div class="col text-center">
+					<a href="resetFeed" class="btn btn-outline-secondary">피드 재설정하기</a>
 				</div>
 			</div>
 		</th:block>
 		<th:block th:if="${!haveFeed}">
-			<div class="row mb-5">
+			<div class="row">
 				<div class="col text-center">
 					<h1>내게 딱 맞는 피드!</h1>
 					<p th:text="|원하는 내용만 쏙쏙 골라볼 수 있도록 피드를 구성할 수 있어요!|"></p>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col">
+				<div class="col text-center">
 					<a sec:authorize="!isAuthenticated()" href="redirectChkFeed"
 						class="btn btn-outline-secondary">맞춤 피드 만들기</a> <a
 						sec:authorize="isAuthenticated()" href="resetFeed"
@@ -44,16 +44,16 @@
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
+						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text1.get(0)}|"></h3>
 					</div>
 				</div>
 				<div class="row align-items-center">
 					<div class="col-md-4">
 						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
 						<div class="py-4 px-1 pie-c-brown">
-							<h4>파이는 현재 진행중!</h4>
+							<h4 th:text="${text1.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
 									몰라요!
 								</small>
 							</p>
@@ -110,16 +110,16 @@
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
+						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text2.get(0)}|"># 현재 진행중</h3>
 					</div>
 				</div>
 				<div class="row align-items-center flex-row-reverse">
 					<div class="col-md-4">
 						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
 						<div class="py-4 px-1 pie-c-brown">
-							<h4>파이는 현재 진행중!</h4>
+							<h4 th:text="${text2.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
 									몰라요!
 								</small>
 							</p>
@@ -177,16 +177,16 @@
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red"># 현재 진행중</h3>
+						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text3.get(0)}|"># 현재 진행중</h3>
 					</div>
 				</div>
 				<div class="row align-items-center">
 					<div class="col-md-4">
 						<img src="imgs/nowing.png" alt="" class="img-fluid pie-radius" />
 						<div class="py-4 px-1 pie-c-brown">
-							<h4>파이는 현재 진행중!</h4>
+							<h4 th:text="${text3.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
+								<small th:utext="${text3.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
 									몰라요!
 								</small>
 							</p>
@@ -239,7 +239,7 @@
 			</section>
 		</th:block>
 
-		<div class="row mb-4">
+		<div class="row mb-4 mt-5 pt-5">
 			<div class="col text-center">
 				<h1>공구 전체보기</h1>
 				<p>파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요!</p>

@@ -65,6 +65,7 @@
 	<select id="listDaoByCategoryNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from (select * from proxyBuyBoard where pr_category=#{param1}
+		and pr_process=1
 		order by pr_updateDay desc) where ROWNUM <![CDATA[ <= ]]>
 		#{param2}
 	</select>
@@ -127,4 +128,12 @@
 		select count (id) from makeFeed
 		where id = #{param1}
 	</select>
+<!-- 0시마다 마감체크 -->
+	<update id="expireProxyBuyBoard">
+		UPDATE proxyBuyBoard
+		SET pr_process = 0
+		WHERE pr_deadLine <![CDATA[ <= ]]>
+		sysdate
+	</update>
+
 </mapper>

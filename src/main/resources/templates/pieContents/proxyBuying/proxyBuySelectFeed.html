@@ -9,34 +9,48 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		<div class="row">
-			<div class="col text-center mt-5">
-				<h1>원하는 게시글만 쏙쏙! 원하는 대로 피드를 구성할 수 있어요!</h1>
+		<div class="row <mb-5></mb-5>">
+			<div class="col text-center mb-5">
+				<h1>
+					원하는 게시글만 쏙쏙! <br>원하는 대로 피드를 구성할 수 있어요!
+				</h1>
 				<p>파이와 함께 즐거운 공구를 즐기세요!</p>
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col">
-				<h3>다음 중 관심있는 키워드를 최대 10개까지 골라주세요!</h3>
-				<th:block th:each="tag : ${list}">
-					<button class="btn tagbuttons btn-primary" th:text="|#${tag}|"></button>
-				</th:block>
+		<div class="row my-3">
+			<div class="col text-center">
+				<h3 class="font-weight-bolder pie-c-red">다음 중 관심있는 키워드를 최대
+					10개까지 골라주세요!</h3>
 			</div>
 		</div>
 
-		<div class="row my-3">
+		<div class="row mb-5 pb-5">
 			<div class="col">
-				<form action="feedAnalize">
-					<input type="text" id="feedCategory" name="feedCategory" />
-					<input type="submit" class="btn btn-block btn-primary" value="피드 만들기">
+				<div class="row justify-content-center">
+					<th:block th:each="tag : ${list}">
+						<div role="button"
+							class="col-2 tagbuttons d-flex justify-content-center align-items-center m-1 py-5 pie-btn-outline-red-custom border pie-radius"
+							th:text="|#${tag}|"></div>
+					</th:block>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row my-3 mt-5">
+			<div class="col">
+				<form action="feedAnalize" name="feedAnalize">
+					<input type="hidden" id="feedCategory" name="feedCategory" /> <input
+						type="button" id="makeFeedbtn" class="btn btn-block pie-btn-red" value="피드 만들기">
 				</form>
 
 			</div>
 		</div>
 		<div class="row my-3">
 			<div class="col">
-					<a href="noneFeed" class="btn btn-block btn-secondary">피드 설정하지 않고 보기</a>
+				<a href="noneFeed" class="btn btn-block pie-btn-darkgray">피드
+					설정하지 않고 보기</a>
 			</div>
 		</div>
 
@@ -60,8 +74,27 @@
 		$(".tagbuttons").click(function() {
 			$(this).toggleClass("active");
 			let feedC = $("#feedCategory").val();
-			feedC += $(this).text();
+			
+			if(feedC.indexOf($(this).text())<0){
+				feedC += $(this).text();
+			}else{
+				feedC = feedC.replace($(this).text(),'');
+			}
+				
 			$("#feedCategory").val(feedC);
+			
+		})
+
+		$(function() {			
+			$("#makeFeedbtn").click(function(){
+				if ($("#feedCategory").val().length == 0) {
+					alert("피드를 구성하기 위해서는 1개 이상의 키워드가 필요합니다.")
+					return false;
+				}else{
+					document.feedAnalize.submit();
+				}
+			})
+			
 		})
 	</script>
 

@@ -83,6 +83,8 @@ public interface ITownBuyBoardDao {
 	
 	//조회수
 	public void updateHit(String num);
+	// 0시마다 마감 체크
+	public void expireTownBuyBoard();
 
 	
 	
