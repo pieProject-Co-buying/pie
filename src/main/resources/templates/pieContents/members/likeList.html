@@ -8,227 +8,260 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
-		
-		<div class="row justify-content-center">
-			<div class="col pie-tab-box">
-				<ul class="list-unstyled d-flex justify-content-between">
-					<li>#전체</li>
-					<li>#OTT서비스</li>
-					<li>#게임</li>
-					<li>#도서/음악</li>
-				</ul>
+
+		<div class="row">
+			<div class="col">
+			
+			<a href="likeList?category=all" class="btn pie-btn-outline-red-custom rounded-pill">#전체</a>
+			<a href="likeList?category=town" class="btn pie-btn-outline-red-custom rounded-pill">#동네공구</a>
+			<a href="likeList?category=proxy" class="btn pie-btn-outline-red-custom rounded-pill">#대리공구</a>
+			<a href="likeList?category=share" class="btn pie-btn-outline-red-custom rounded-pill">#서비스공유</a>
 			</div>
-			<!--col-->
 		</div>
 
-		
 		<!--row-->
 		<div class="row category jh-cards">
-		
-		<div th:if="${not #lists.isEmpty(list1) && table.equals('all')}" th:each="board:${list1}"
+
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('all')}"
+				th:each="board:${list1}"
 				th:attr="data-category=${board.getTo_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>동네공구 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getTo_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getTo_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getTo_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getTo_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getTo_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getTo_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getTo_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getTo_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getTo_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getTo_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getTo_category()}"></small>
-						<small
+						<small th:text="${board.getTo_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getTo_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
-		
-		
-		<div th:if="${not #lists.isEmpty(list1) && table.equals('town')}" th:each="board:${list1}"
+
+
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('town')}"
+				th:each="board:${list1}"
 				th:attr="data-category=${board.getTo_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>동네공구 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getTo_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getTo_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getTo_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getTo_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getTo_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getTo_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getTo_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getTo_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getTo_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getTo_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getTo_category()}"></small>
-						<small
+						<small th:text="${board.getTo_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getTo_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
-		
-			<div th:if="${not #lists.isEmpty(list1) && table.equals('proxy')}" th:each="board:${list1}"
+
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('proxy')}"
+				th:each="board:${list1}"
 				th:attr="data-category=${board.getPr_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>대리구매 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getPr_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getPr_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getPr_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getPr_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getPr_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getPr_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getPr_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getPr_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getPr_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getPr_category()}"></small>
-						<small
+						<small th:text="${board.getPr_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getPr_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
-			
-			<div th:if="${not #lists.isEmpty(list1) && table.equals('share')}" th:each="board:${list1}"
+
+			<div th:if="${not #lists.isEmpty(list1) && table.equals('share')}"
+				th:each="board:${list1}"
 				th:attr="data-category=${board.getSh_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>서비스확인 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getSh_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getSh_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getSh_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getSh_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getSh_category()}"></small>
-						<small
+						<small th:text="${board.getSh_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getSh_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
-			
-			<div th:if="${not #lists.isEmpty(list2) && table.equals('all')}" th:each="board:${list2}"
+
+			<div th:if="${not #lists.isEmpty(list2) && table.equals('all')}"
+				th:each="board:${list2}"
 				th:attr="data-category=${board.getPr_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>대리구매 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getPr_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getPr_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getPr_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getPr_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getPr_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getPr_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getPr_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getPr_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getPr_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getPr_category()}"></small>
-						<small
+						<small th:text="${board.getPr_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getPr_nickname()}"></span>
 						</small>
 					</div>
 				</a>
 			</div>
-			<div th:if="${not #lists.isEmpty(list3) && table.equals('all')}" th:each="board:${list3}"
+			<div th:if="${not #lists.isEmpty(list3) && table.equals('all')}"
+				th:each="board:${list3}"
 				th:attr="data-category=${board.getSh_category()}"
-				class="col-md-4 col-sm-12" style="cursor: pointer;">
-				<h3>서비스공유 좋아요글</h3>
+				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
-					style="cursor: pointer; text-decoration: none; color: black;"> <img
+				<a th:href="'boardList?num='+${board.getSh_num()}"
+					class="card pie-radius overflow-hidden"
+					style="cursor: pointer; text-decoration: none; color: black;">
+					<img
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
-						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
-						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>
+						<small class="badge badge-success"
+							th:if="${board.getSh_process().equals('1')}">모집진행중</small> <small
+							class="badge badge-danger"
+							th:if="${board.getSh_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getSh_tags()!=null}">
-									<th:block th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
-										<span class="badge badge-light" th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+									<th:block
+										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light"
+											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</p>
-						<small th:text="${board.getSh_category()}"></small>
-						<small
+						<small th:text="${board.getSh_category()}"></small> <small
 							class="pie-writer"> <img
 							th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';" style="width:30px; height:30px;" class="img-fluid"/> <span
+							onerror="this.onerror=null; this.src='imgs/default.png';"
+							style="width: 30px; height: 30px;" class="img-fluid" /> <span
 							th:text="${board.getSh_nickname()}"></span>
 						</small>
 					</div>
@@ -255,195 +288,9 @@
 		</div>
 		<!--더보기 row-->
 	</div>
-	<div class="container">
-		<a href="writePost" class="btn pie-btn-red">글작성</a>
-	</div>
+
 	<!--container-->
 	<!--wrapper-->
-
-	<!--더보기 스크립트-->
-	<script>
-		$(function () {
-			let categories = $(".pie-tab-box ul li");
-			let shaerHeader = $("#shareServiceTitle");
-			let categorySel = $("#selectCategory");
-			let dropdown = categorySel.find(".dropdown-menu");
-			categories.css("cursor", "pointer");
-			let category=$(".col-md-4").data("category");
-
-			let movies = ["넷플릭스", "유튜브", "왓챠", "티빙", "디즈니 플러스"];
-			let game = ["닌텐도", "스팀", "xBOX"];
-			let books = ["리디북스", "스포티파이", "yes24", "밀리"];
-
-			let all = [];
-
-			all.push(...movies);
-			all.push(...game);
-			all.push(...books);
-			for (i = 0; i < all.length; i++) {
-				dropdown.append('<a class="dropdown-item">' + all[i] + '</a>')
-			}
-
-
-			let selectInit = $("#selectCategory .dropdown-toggle");
-
-
-
-			let card = $(".col-md-4");
-			let strCard = ".col-md-4:hidden";
-
-			card.hide();
-			card.slice(0, 6).show();
-
-			categories.click(function () {
-				let movieCards = $(".col-md-4[data-category='OTT']");
-				let gameCards = $(".col-md-4[data-category='게임']");
-				let bookCards = $(".col-md-4[data-category='도서/음악']");
-				let idx = $(this).index();
-				let option = {};
-				dropdown.empty();
-				selectInit.text("카테고리");
-
-				if (idx === 0) {
-					option = {
-						"background": "url(imgs/boong.jpg) center / cover no-repeat"
-					};
-					card = $(".col-md-4");
-					strCard = ".col-md-4:hidden";
-
-					card.hide();
-					card.slice(0, 6).show();
-					list = all;
-				} else {
-					$(".col-md-4").hide();
-
-					if (idx === 1) {
-						option = {
-							"background": "url(imgs/netflix.png) center / cover no-repeat"
-						};
-						card = $(".col-md-4[data-category='OTT']");
-						strCard = ".col-md-4[data-category='OTT']:hidden";
-
-						movieCards.slice(0, 6).show();
-
-						selectInit.text("OTT서비스");
-						list = movies;
-					} else if (idx === 2) {
-						option = {
-							"background": "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
-						};
-
-						card = $(".col-md-4[data-category='게임']");
-						strCard = ".col-md-4[data-category='게임']:hidden";
-
-						gameCards.slice(0, 6).show();
-
-						selectInit.text("게임");
-						list = game;
-					} else if (idx === 3) {
-						option = {
-							"background": "url(imgs/milli.jpg) center / cover no-repeat"
-						};
-
-						card = $(".col-md-4[data-category='도서/음악']");
-						strCard = ".col-md-4[data-category='도서/음악']:hidden";
-
-						bookCards.slice(0, 6).show();
-
-						selectInit.text("도서/음악");
-						list = books;
-					}
-				}
-				shaerHeader.addClass("selected").css(option);
-
-				for (i = 0; i < list.length; i++) {
-					dropdown.append('<a class="dropdown-item">' + list[i] + '</a>')
-				}
-			});
-
-			$(document).on(
-				"click", ".dropdown-item", function () {
-					selectInit.text($(this).text());
-				}
-			)
-
-			$("#load").click(function (e) {
-				e.preventDefault();
-				if ($(strCard).length > 0) {
-					$(strCard).slice(0, 3).show();
-				} else if ($(strCard).length == 0) {
-					alert("마지막 게시물입니다.");
-				}
-			});
-		})
-	</script>
-
-	<!--------------메인 페이지에서 해당하는 카테고리로 이동했을 경우-------------->
-	<script>
-	 // 현재 URL에서 쿼리 문자열 가져오기
-    var queryString = window.location.search;
-    // URLSearchParams 객체를 사용하여 쿼리 문자열 파싱
-    var queryParams = new URLSearchParams(queryString);
-    // num 매개변수의 값을 가져오기
-    var numValue = queryParams.get('num');
-    
-	$('document').ready(function(){
-		let selectInit = $("#selectCategory .dropdown-toggle");
-		if(numValue==1){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='OTT']");
-			strCard = ".col-md-4[data-category='OTT']:hidden";
-
-			card.slice(0, 6).show();
-
-			selectInit.text("OTT서비스");
-		}else if(numValue==2){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='게임']");
-			strCard = ".col-md-4[data-category='게임']:hidden";
-
-			card.slice(0, 6).show();
-
-			selectInit.text("게임");
-		}else if(numValue==3){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='도서/음악']");
-			strCard = ".col-md-4[data-category='도서/음악']:hidden";
-
-			card.slice(0, 6).show();
-
-			selectInit.text("도서/음악");
-		}
-		$("#load").click(function (e) {
-            e.preventDefault();
-            if (numValue === '1') {
-            	 // OTT 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='OTT']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            } else if (numValue === '2') {
-            	 // 게임 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='게임']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            } else if (numValue === '3') {
-            	 // 도서/음악 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='도서/음악']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            }
-        });
-	})
-	</script>
 </div>
 
 </html>

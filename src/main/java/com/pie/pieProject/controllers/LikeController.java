@@ -86,14 +86,18 @@ public class LikeController {
 			for(TownBuyBoardDto d : list1) {
 				d.setTo_category(bcomp.translate(d.getTo_category()));
 			}
+			
+			System.out.println("list1 : "+list1.size());
 			List<ProxyBuyBoardDto> list2 = ldao.likePListById(id);
 			for(ProxyBuyBoardDto d : list2) {
 				d.setPr_category(bcomp.translate(d.getPr_category()));
 			}
+			System.out.println("list2 : "+list2.size());
 			List<ShareServiceDto> list3 = ldao.likeSListById(id);
 			for(ShareServiceDto d : list3) {
 				d.setSh_category(bcomp.translate(d.getSh_category()));
 			}
+			System.out.println("list3 : "+list3.size());
 			model.addAttribute("list1",list1);
 			model.addAttribute("list2",list2);
 			model.addAttribute("list3",list3);

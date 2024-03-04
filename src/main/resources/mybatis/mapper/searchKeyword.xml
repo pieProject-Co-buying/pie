@@ -8,14 +8,16 @@
 		5
 	</select>
 	<select id="findkey" resultType="_int">
-		select count (*) from searchKey where keyWord = #{param1} and tableName =
+		select count (*) from searchKey
+		where keyWord = #{param1} and tableName =
 		#{param2}
 	</select>
 	<insert id="inputNew">
 		insert into searchKey values(#{param1},#{param2},0)
 	</insert>
 	<update id="upHit">
-		update searchKey set hit = hit+1 where keyWord = #{param1} and tableName =
+		update searchKey set hit = hit+1 where keyWord =
+		#{param1} and tableName =
 		#{param2}
 	</update>
 	<select id="KeywordAll" resultType="string">
@@ -24,18 +26,26 @@
 		where ROWNUM <![CDATA[ <= ]]>
 		30
 	</select>
-	<select id="searchT"
-		resultType="string">
-		select to_category from townBuyBoard where to_title like
+	<select id="searchT" resultType="string">
+		select to_category from
+		townBuyBoard where to_title like
 		'%${param1}%' or
-		to_content like '%${param1}%' or to_tag like
+		to_content like
+		'%${param1}%' or to_tag like
 		'%${param1}%'
 	</select>
-	<select id="searchP"
-		resultType="string">
-		select pr_category from proxyBuyBoard where pr_title like
+	<select id="searchP" resultType="string">
+		select pr_category from
+		proxyBuyBoard where pr_title like
 		'%${param1}%' or
-		pr_content like '%${param1}%' or pr_tag like
+		pr_content like
+		'%${param1}%' or pr_tag like
 		'%${param1}%'
+	</select>
+	<select id="getCategories" resultType="string">
+		SELECT pr_category
+		FROM proxyBuyBoard
+		GROUP BY pr_category
+		ORDER BY count(*) desc;
 	</select>
 </mapper>
