@@ -15,5 +15,6 @@ public interface ISearchDao {
 	public List<String> searchP(String key);
 	
 	public void makeFeed(String id, String category1,String category2,String category3);
+	public List<String> getCategories();
 	
 }

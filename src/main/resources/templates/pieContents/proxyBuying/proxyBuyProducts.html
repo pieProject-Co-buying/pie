@@ -40,7 +40,7 @@
 		</th:block>
 
 
-		<th:block th:if="${list1!=null}">
+		<th:block th:if="${list1!=null&&list1.size()>0}">
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
@@ -106,7 +106,7 @@
 			</section>
 		</th:block>
 
-		<th:block th:if="${list2!=null}">
+		<th:block th:if="${list2!=null&&list2.size()>0}">
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
@@ -173,7 +173,7 @@
 			</section>
 		</th:block>
 
-		<th:block th:if="${list3!=null}">
+		<th:block th:if="${list3!=null&&list3.size()>0}">
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">

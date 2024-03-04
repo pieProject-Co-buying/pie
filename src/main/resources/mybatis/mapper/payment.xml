@@ -19,7 +19,7 @@
 </select>
 <!-- 사용자 구매 내역 -->
 <select id="buyList">
-	select * from payment where buyer_id=#{param1} order by pay_num desc
+	select * from payment where buyer_id=#{param1} and pay_category='Share' order by pay_num desc
 </select>
 <!--해당 게시물 사진 가져오기-->
 <select id="buyListpic" resultType="string">
@@ -27,7 +27,7 @@ SELECT shareServiceBoard.sh_productImg
 		FROM payment
 		JOIN shareServiceBoard ON payment.pay_num = shareServiceBoard.sh_num
 		WHERE payment.buyer_id = #{param1} and payment.pay_category='Share' order by payment.pay_date
-</select>
+</select> 
 <!--해당 게시물 현황 가져오기-->
 <select id="buyListpro" resultType="string">
 SELECT shareServiceBoard.sh_process

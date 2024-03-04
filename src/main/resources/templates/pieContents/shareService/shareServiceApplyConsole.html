@@ -46,7 +46,7 @@
 					<th:block th:each="list:${payList}">
 						<tr>
 							<td th:text="${list.getPay_Merchant_uid()}"></td>
-							<td th:text="${list.getPay_name()}"></td>
+							<td class="d-block text-truncate" style="max-width:100%" th:text="${list.getPay_name()}"></td>
 							<td th:text="${list.getPay_date()}"></td>
 							<td th:text="${list.getBuyer_nickname()}"></td>
 							<td th:text="${list.getBuyer_name()}"></td>

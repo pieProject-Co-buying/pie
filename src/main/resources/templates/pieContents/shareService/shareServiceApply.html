@@ -47,7 +47,7 @@
                         		<th:block th:if="${board.getSh_process().equals('0')}">
                         			<small class="badge badge-danger" th:text="모집마감"></small>                      	
                         		</th:block>
-								<h5 class="card-title mt-3" th:text="${board.getSh_title}"></h5>
+								<h5 class="card-title mt-3 d-block text-truncate" style="max-width:150px" th:text="${board.getSh_title}"></h5>
                         		<small class="d-flex">
                         			<span><b>진행일 :&nbsp;</b></span>
                         			<span th:text="${board.getSh_registDay}"></span>

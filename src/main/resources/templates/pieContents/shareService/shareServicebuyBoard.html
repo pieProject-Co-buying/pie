@@ -37,9 +37,9 @@
 							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}" alt="..." class="img-fluid">
 						</div>
 						<!--col-->
-						<div class="col-md-8">
+						<div class="col-md-8"> 
 							<div class="card-body">
-								<h3 th:text="${board.getPay_name}"></h3>
+								<h3 class="d-block text-truncate" style="max-width:150px" th:text="${board.getPay_name}"></h3>
 								<th:block th:if="${board.getProcess().equals('1')}">
                         			<small class="badge badge-success" th:text="모집진행중"></small>                       	
                         		</th:block>
@@ -73,7 +73,7 @@
                         		</small>
                         		<a th:href="'boardList?num='+${board.getNum()}" class="btn btn-info mt-3">상세보기</a>
                         		<th:block th:if="${board.getPay_refund.equals('0')}">                        		
-	                        		<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}" class="btn btn-danger mt-3">환불하기</a>
+	                        		<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}" class="btn btn-danger mt-3" id="refundButton">환불하기</a>
 	                        	</th:block>
 								<!-- <a th:href="'boardList?num='+${board.getNum()}"
 									class="btn btn-danger mt-3">환불하기</a> -->
@@ -95,7 +95,7 @@
 	<div class="container" th:if="${#lists.isEmpty(list)}">
 		<div class="row">
 			<div class="col-12 p-5 alert-danger text-center">
-				<h2>아직 작성한 게시물이 없습니다 !</h2>
+				<h2>아직 신청한 게시물이 없습니다 !</h2>
 			</div>
 		</div>
 	</div>
@@ -164,14 +164,22 @@
 					});
 				});
 		})
-		/* function Refund(){
-			if (confirm("환불 하시겠습니까?") == true){
-			     document.location.href="refundPay?num=";
-			     document.location.href="'refundPay?num='+${board.getNum()}";
-			 }else{
-			     return false;
-			 }
-		} */
+		/*************환불 여부 컨펌*************/
+		$(document).ready(function() {
+			// 링크 클릭 시
+			$('#refundButton').click(function(e) {
+				e.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
+
+				// 컨펌 창 표시
+				var confirmed = confirm("정말로 환불하시겠습니까?");
+
+				// 확인을 클릭했을 때
+				if (confirmed) {
+					// 컨펌 창에서 확인했으므로 해당 URL로 이동
+					window.location.href = $(this).attr('href');
+				}
+			});
+		});
 	</script>
 </div>
 <!--wrapper-->

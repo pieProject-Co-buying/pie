@@ -26,16 +26,16 @@
 	<select id="likeTListById">
 		SELECT *
 		FROM townBuyBoard
-		WHERE to_num IN (SELECT boardNum FROM likeTable) and to_id=#{param1}
+		WHERE to_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='townBuyBoard')
 	</select>
 	<select id="likePListById">
 		SELECT *
 		FROM proxybuyboard
-		WHERE pr_num IN (SELECT boardNum FROM likeTable) and pr_id=#{param1}
+		WHERE pr_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='proxyBuyBoard')
 	</select>
 	<select id="likeSListById">
 		SELECT *
 		FROM shareServiceBoard
-		WHERE sh_num IN (SELECT boardNum FROM likeTable) and sh_id=#{param1}
+		WHERE sh_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='shareServiceBoard')
 	</select>
 </mapper>

@@ -48,7 +48,7 @@
 				class="col-md-4 col-sm-12" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getSh_num()}" class="card"
+				<a th:href="'boardList?num='+${board.getSh_num()}" class="card pie-radius overflow-hidden"
 					style="cursor: pointer; text-decoration: none; color: black;"> <img
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
@@ -56,7 +56,7 @@
 						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
 						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>
 						<h5 class="card-title mt-2">
-							<b th:text="${board.getSh_title()}"></b>
+							<b th:text="${board.getSh_title()}" class="d-block text-truncate"></b>
 						</h5>
 						<p class="card-text">
 							<small> <th:block th:if="${board.getSh_tags()!=null}">
@@ -121,9 +121,9 @@
 			categories.css("cursor", "pointer");
 			let category=$(".col-md-4").data("category");
 
-			let movies = ["넷플릭스", "유튜브", "왓챠", "티빙", "디즈니 플러스"];
-			let game = ["닌텐도", "스팀", "xBOX"];
-			let books = ["리디북스", "스포티파이", "yes24", "밀리"];
+			let movies = ["OTT"];
+			let game = ["게임"];
+			let books = ["도서/음악"];
 
 			let all = [];
 
