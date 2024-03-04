@@ -4,13 +4,13 @@
 
 <!-- gnb fragment -->
 <div th:fragment="gnb">
-	<div class="row fixed-top no-gutters px-xl-5 py-1">
+	<div class="row fixed-top no-gutters navbar-light px-xl-5 py-1">
 		<div class="col px-xl-5">
 			<nav class="navbar navbar-expand-lg w-100" id="gnb">
 				<a class="navbar-brand" href="/"> <img
 					src="imgs/logo_color_C_red.png" alt="" class="pie-logo-gnb" />
 				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
+				<button class="navbar-toggler border-0" type="button" data-toggle="collapse"
 					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 					aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -82,7 +82,7 @@
 							<div class="dropdown-menu dropdown-menu-right">
 
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
-									class="dropdown-item" href="#">좋아요한 게시글</a> <a
+									class="dropdown-item" href="likeList?category=all">좋아요한 게시글</a> <a
 									class="dropdown-item"
 									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
 							</div>
@@ -105,9 +105,9 @@
 							<div>
 								<!-- <th:block th:if="${session.userId!=null}"> -->
 								<a sec:authorize="isAuthenticated()" class="nav-link">
-									<form action="logout" method="post">
+									<form action="logout" method="post" name="logout">
 										<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-										<input type="submit" value="로그아웃" />
+										<span role="button" onclick="document.logout.submit()">로그아웃</span>
 									</form>
 								</a>
 								<!-- </th:block> -->

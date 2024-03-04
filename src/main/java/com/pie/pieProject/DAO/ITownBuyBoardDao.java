@@ -59,8 +59,8 @@ public interface ITownBuyBoardDao {
 	public List<TownBuyBoardDto> categoryDaoNum(String category, int num);
 	
 	
-	public List<TownBuyBoardDto> listPremiumDao(String category, int num);
-	
+	/* public List<TownBuyBoardDto> listPremiumDao(String category, int num); */
+	public List<TownBuyBoardDto> listPremiumDao(String category, int num);	
 	
 	public void updatePer(String num);
 	
@@ -83,6 +83,8 @@ public interface ITownBuyBoardDao {
 	
 	//조회수
 	public void updateHit(String num);
+	// 0시마다 마감 체크
+	public void expireTownBuyBoard();
 
 	
 	

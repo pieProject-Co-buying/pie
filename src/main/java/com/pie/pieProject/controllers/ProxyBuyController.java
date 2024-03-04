@@ -164,7 +164,8 @@ public class ProxyBuyController {
 			List<ProxyBuyBoardDto> list1 = dao.listDaoByNewerNumber(10);
 
 			Bcomp.translateProxyList(list1);
-
+			
+			model.addAttribute("text1" , Bcomp.listText("now"));
 			model.addAttribute("list1", list1);
 			model.addAttribute("haveFeed", false);
 		} else {
@@ -179,6 +180,10 @@ public class ProxyBuyController {
 			model.addAttribute("list1", list1);
 			model.addAttribute("list2", list2);
 			model.addAttribute("list3", list3);
+			
+			model.addAttribute("text1" , Bcomp.listText(dto.getFeed1()));
+			model.addAttribute("text2" , Bcomp.listText(dto.getFeed2()));
+			model.addAttribute("text3" , Bcomp.listText(dto.getFeed3()));
 			model.addAttribute("haveFeed", true);
 		}
 
