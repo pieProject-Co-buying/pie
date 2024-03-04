@@ -35,27 +35,19 @@
 				      <th scope="col">작성일</th>
 				    </tr>
 				  </thead>
-				  
-				  
-				  <tbody>
-				  
-				  
-				    <tr th:each="list:${list}">
-				      <th scope="row" th:text="${list.getBus_apply_num}"><span th:text="${list.getBus_apply_num}">1</span></th>
-				      <td th:text="${list.getBus_name}">회사명</td>
-                        <td>
-                            <a href="javascript:void(0);"
-                               onclick="checkPassword(this, document.getElementById('bus_password_${list.getBus_apply_num}').textContent)">
-                                <span th:text="${list.getBus_title}" class="text-success">제목</span>
-                            </a>
-                        </td>
-                        <td th:text="${list.getBus_writeDay}"></td>
-                        <td id="bus_password_${list.getBus_apply_num}" th:text="${list.getBus_password}" style="display: none;"></td>
+								  
+								  
+				<tbody>
+				    <tr th:each="item, rowStat : ${list}" onclick="checkPassword(this, document.getElementById('bus_password_${item.getBus_apply_num()}').textContent)" role="button">
+				        <th scope="row" th:text="${item.getBus_apply_num()}" class="bus_apply_num"> </th>
+				        <td th:text="${item.getBus_name()}">회사명</td>
+				        <td th:text="${item.getBus_title()}" class="text-success"></td>
+				        <td th:text="${item.getBus_writeDay()}"></td>
+				        <td id="bus_password_${item.getBus_apply_num()}" th:text="${item.getBus_password()}" style="display: none;"></td>
 				    </tr>
-
-				  </tbody>
-				  
-				  
+				</tbody>
+								  
+								  
 				  
 				</table>
 

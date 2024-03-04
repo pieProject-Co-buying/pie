@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -47,30 +48,75 @@ public class TownBuyController {
 
 	@RequestMapping("/townBuySearch")
 	public String toBoardList(HttpServletRequest request, Model model) {
-
+		
+		
 		
 		List <TownBuyBoardDto> tlist = dao.listDao();
 		
-		for(TownBuyBoardDto d : tlist) {
+		
+		
+		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
+		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		String useraddr = mdto.getAddress_main();
+		String userMainAddr = useraddr.substring(0, 6);
+		System.out.println(userMainAddr);
+		
+		
+		
+//		for(TownBuyBoardDto towndto : tlist) {
+//			String addr = towndto.getTo_address(); //addr에 towndto.getTo_address() 담음	
+//			String mainAddr = addr.substring(0, 6);
+//			int boardNum = towndto.getTo_num();
+//			
+//			
+//			obj.put("realaddr", addr);
+//			obj.put("mainAddr", mainAddr);			
+//			obj.put("boardNum", boardNum);
+//			
+//			System.out.println(obj);		
+//		}
+//		
+		
+		
+		//listLocal 메소드를 이용해 유저의 주소를 담아 해당하는 주소와 일치하는 게시물들을 불러온다
+		// 현재 모집마감 게시글도 불러옴
+		List<TownBuyBoardDto> townlist = dao.listLocal(userMainAddr);
+		
+		//영문 번역 메소드 활용해 카테고리 변경
+		for(TownBuyBoardDto d : townlist) {
 			d.setTo_category(bcomp.translate(d.getTo_category()));
 		}
 		
-		model.addAttribute("list", tlist);
+		/*
+		 * model.addAttribute("townlist", townlist);
+		 */
 		
-		model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
-		model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
-		model.addAttribute("lifeList", dao.categoryDaoNum("life", 4));
+		model.addAttribute("list", townlist);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		 * model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
+		 * model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
+		 * model.addAttribute("lifeList", dao.categoryDaoNum("life", 4));
+		 */
 
 		/*
 		 * String sP = request.getParameter("to_premium");
-		 * model.addAttribute("premiumList", dao.listPremiumDao());
+		 * model.addAttribute("premiumList", dao.listPremiumDao()); 
 		 */
 		
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
-		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4));
-		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4));
-		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4));
+		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4, userMainAddr));
+		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4, userMainAddr));
+		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4, userMainAddr));
 		
 
 		return "pieContents/townBuying/townBuySearch";

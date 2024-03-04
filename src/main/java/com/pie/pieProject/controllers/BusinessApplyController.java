@@ -151,6 +151,7 @@ public class BusinessApplyController {
 	
 	@RequestMapping("/busApplyUpdate")
 	public String update(HttpServletRequest request,
+			@RequestParam("bus_apply_num") String bus_apply_num,
 			@RequestParam("bus_title") String bus_title,
 			@RequestParam("bus_content") String bus_content,
 			@RequestParam("bus_img") String bus_img,
@@ -201,6 +202,8 @@ public class BusinessApplyController {
 		 
 		 //비밀번호
 		 dto.setBus_password(bus_password);
+		 
+		 dto.setBus_apply_num(Integer.parseInt(bus_apply_num));
 		 	
 		 
 		 dao.updateDao(dto);

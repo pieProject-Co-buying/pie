@@ -60,7 +60,7 @@ public interface ITownBuyBoardDao {
 	
 	
 	/* public List<TownBuyBoardDto> listPremiumDao(String category, int num); */
-	public List<TownBuyBoardDto> listPremiumDao(String category, int num);	
+	public List<TownBuyBoardDto> listPremiumDao(String category, int num, String addr);	
 	
 	public void updatePer(String num);
 	

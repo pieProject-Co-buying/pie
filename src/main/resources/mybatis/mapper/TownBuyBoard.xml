@@ -30,8 +30,8 @@
 	<!-- 프리미엄 목록 가져올 쿼리문 -->
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-
-		select * from townBuyBoard where to_premium = 1 and to_category = #{param1}
+		
+		 select * from (select * from townBuyBoard where to_premium = 1 and to_category = #{param1} and to_address like '${param3}%' order by dbms_random.value) where rownum <![CDATA[ <= ]]> ${param2}
 
 	</select>
 
@@ -128,8 +128,8 @@
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_address like
-		'${param1}%' and
-		to_process= '1'
+		'${param1}%'<!--  and
+		to_process= '1' -->
 	</select>
 
 	<update id="updatePer">

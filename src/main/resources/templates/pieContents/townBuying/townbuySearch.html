@@ -22,8 +22,9 @@
 		<div class="row">
 
 
+			
 
-
+			
 
 			<div class="col-12 col-md-4 mb-4">
 
@@ -54,7 +55,15 @@
 								class="card-img-top  hj-sub1-card-part-h img-fluid  hj-radius-img-30 hj-fit-cover"
 								alt="...">
 
+								<p id="processNow" class="position-absolute hj-card-process1">
 
+<!-- 									<small
+										class="badge badge-success"
+										th:if="${Fboard.getTo_process().equals('1')}">진행중</small> -->
+									<small
+										class="badge badge-danger"
+										th:if="${Fboard.getTo_process().equals('0')}">모집마감</small>
+								</p>
 
 								<div class="card-body">
 
@@ -63,11 +72,22 @@
 
 									<div class="row  mt-5">
 										<div class="col d-flex justify-content-end">
+																						
+
+											
+											
+											
 											<img
 												th:src="@{'/imgs/profiles/' + ${Fboard.getTo_profileImg()}}"
 												alt="" class="hj-chat-proImg-small" />
+												
+												
+			
+											
+											
 											<h6 class="card-title ml-3 mt-2"
 												th:text="${Fboard.getTo_nickname()}"></h6>
+												
 										</div>
 
 									</div>
@@ -136,6 +156,20 @@
 								class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover"
 								alt="...">
 
+
+
+
+								<p id="processNow" class="position-absolute hj-card-process1">
+<!-- 
+									<small
+										class="badge badge-success"
+										th:if="${Bboard.getTo_process().equals('1')}">진행중</small> -->
+									<small
+										class="badge badge-danger"
+										th:if="${Bboard.getTo_process().equals('0')}">모집마감</small>
+								</p>
+								
+								
 
 								<div class="card-body">
 
@@ -207,7 +241,18 @@
 								th:src="@{'/imgs/test/' + ${Lboard.getTo_productImg().substring(0,Lboard.getTo_productImg().indexOf('/'))}}"
 								class="card-img-top  hj-sub1-card-part-h img-fluid hj-radius-img-30 hj-fit-cover"
 								alt="...">
+								
+								
+								<p id="processNow" class="position-absolute hj-card-process1">
 
+<!-- 									<small
+										class="badge badge-success"
+										th:if="${Lboard.getTo_process().equals('1')}">진행중</small> -->
+									<small
+										class="badge badge-danger"
+										th:if="${Lboard.getTo_process().equals('0')}">모집마감</small>
+								</p>
+								
 
 
 								<div class="card-body">
@@ -303,10 +348,27 @@
 									class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170 hj-fit-cover"
 									alt="...">
 
+
+
+
+
+
 							</div>
 
 							<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
+							
+							
+								<p id="processNow" class="position-absolute hj-card-process2">
 
+<!-- 									<small
+										class="badge badge-success"
+										th:if="${Bboard.getTo_process().equals('1')}">진행중</small> -->
+									<small
+										class="badge badge-danger"
+										th:if="${board.getTo_process().equals('0')}">모집마감</small>
+								</p>
+								
+								
 								<p class="m-0 pie-c-red small"
 									th:text="${board.getTo_category()}"></p>
 								<h5 class="card-title pr-3 text-truncate"

@@ -58,16 +58,16 @@
 	        bus_img = #{bus_img},
 	        bus_name = #{bus_name},
 	        bus_num = #{bus_num},
-	        postCode = #{postCode},
-	        address_main = #{address_main},
-	        address_sub = #{address_sub},
+	        bus_postCode = #{postCode},
+	        bus_address_main = #{address_main},
+	        bus_address_sub = #{address_sub},
 	        bus_productName = #{bus_productName},
 	        bus_maxqnt = #{bus_maxqnt},
 	        bus_unitPrice = #{bus_unitPrice},
 	        bus_chargePerson = #{bus_chargePerson},
 	        bus_phone = #{bus_phone},
 	        bus_email = #{bus_email}
-	    WHERE bus_num=#{bus_num}
+	    WHERE bus_apply_num=#{bus_apply_num}
 	</update>
 	
 	
