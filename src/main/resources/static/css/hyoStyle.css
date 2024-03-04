@@ -203,3 +203,28 @@
 		column-count: 3;
 	}
 }
+
+
+.hj-max-w100 {
+	max-width: 100% !important;
+}
+
+
+
+.hj-card-process1 {
+	left: 20px;
+	top: 10px;
+}
+
+
+.hj-card-process2 {
+	right: 35px;
+	top: 10px;
+}
+
+.hj-card-process3 {
+	right: 20px;
+	top: 10px;
+}
+
+

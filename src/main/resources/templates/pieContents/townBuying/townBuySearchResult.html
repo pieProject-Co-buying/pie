@@ -218,6 +218,8 @@
 									<img
 										th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
 										alt="" class="hyej-custom-towncard-img hj-cardImg-left">
+										
+										
 
 								</div>
 
@@ -225,6 +227,17 @@
 
 									<div
 										class="card-body h-100 pl-0 d-flex flex-column justify-content-between">
+										
+									<p id="processNow" class="position-absolute hj-card-process2">
+			
+			<!-- 									<small
+													class="badge badge-success"
+													th:if="${Bboard.getTo_process().equals('1')}">진행중</small> -->
+										<small
+											class="badge badge-danger"
+											th:if="${board.getTo_process().equals('0')}">모집마감</small>
+									</p>										
+										
 										<div class="row">
 											<div class="col">
 												<p class="m-0 pie-c-red small"

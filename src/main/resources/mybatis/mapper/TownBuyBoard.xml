@@ -30,8 +30,8 @@
 	<!-- 프리미엄 목록 가져올 쿼리문 -->
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-
-		select * from townBuyBoard where to_premium = 1 and to_category = #{param1}
+		
+		 select * from (select * from townBuyBoard where to_premium = 1 and to_category = #{param1} and to_address like '${param3}%' order by dbms_random.value) where rownum <![CDATA[ <= ]]> ${param2}
 
 	</select>
 
@@ -128,8 +128,8 @@
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_address like
-		'${param1}%' and
-		to_process= '1'
+		'${param1}%'<!--  and
+		to_process= '1' -->
 	</select>
 
 	<update id="updatePer">
@@ -147,6 +147,7 @@
 		update townBuyBoard set to_hit = to_hit+1 where
 		to_num = #{param1}
 	</update>
+	
 	<!-- 0시마다 마감체크 -->
 	<update id="expireTownBuyBoard">
 		UPDATE townBuyBoard
@@ -154,6 +155,23 @@
 		WHERE to_deadLine <![CDATA[ <= ]]>
 		sysdate
 	</update>
+
+
+	<!-- 참여자수 증가 -->
+	<update id="updatePersonnelNow">
+		UPDATE townBuyBoard
+		SET to_personnelNow = to_personnelNow + 1
+		WHERE to_num = #{param1}
+	</update>
+	
+
+	<!-- 진행상태 변경 -->
+	<update id="updateTownProcess">
+		UPDATE townBuyBoard
+		SET to_process =  0
+		WHERE to_num = #{param1}
+	</update>
+
 
 
 </mapper>

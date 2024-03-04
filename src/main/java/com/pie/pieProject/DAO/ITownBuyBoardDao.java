@@ -60,12 +60,12 @@ public interface ITownBuyBoardDao {
 	
 	
 	/* public List<TownBuyBoardDto> listPremiumDao(String category, int num); */
-	public List<TownBuyBoardDto> listPremiumDao(String category, int num);	
+	public List<TownBuyBoardDto> listPremiumDao(String category, int num, String addr);	
 	
 	public void updatePer(String num);
 	
 	
-	public void updateProcess(String num);
+	public void updateTownProcess(String num);
 	
 	
 	
@@ -85,6 +85,14 @@ public interface ITownBuyBoardDao {
 	public void updateHit(String num);
 	// 0시마다 마감 체크
 	public void expireTownBuyBoard();
+	
+	
+	//참여자수 증가
+	public void updatePersonnelNow(String num);
+	
+	
+	//진행 상태 변경
+	/* public void updateProcess(String sId); */
 
 	
 	
