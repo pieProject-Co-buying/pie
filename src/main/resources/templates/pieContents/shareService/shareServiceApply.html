@@ -83,8 +83,9 @@
 									<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span>
 										<span th:text="${board.getTo_registDay}"></span> <span>&nbsp;~&nbsp;</span>
 										<span th:text="${board.getTo_deadLine}"></span>
-									</small> <small class="d-flex"> <span><b>모집인원
-												:&nbsp;</b></span> <span th:text="${board.getTo_personnelNow}"></span>
+									</small> 
+									<small class="d-flex"> <span><b>모집인원 :&nbsp;</b></span>
+										<span th:text="${board.getTo_personnelNow}"></span>
 										<span th:text="'&nbsp;/ '+${board.getTo_personnelMax}"></span>
 									</small>
 								</div>
@@ -125,8 +126,9 @@
 									<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span>
 										<span th:text="${board.getSh_registDay}"></span> <span>&nbsp;~&nbsp;</span>
 										<span th:text="${board.getSh_deadLine}"></span>
-									</small> <small class="d-flex"> <span><b>모집인원
-												:&nbsp;</b></span> <span th:text="${board.getSh_personnelNow}"></span>
+									</small> 
+									<small class="d-flex"> <span><b>모집인원 :&nbsp;</b></span> 
+										<span th:text="${board.getSh_personnelNow}"></span>
 										<span th:text="'&nbsp;/ '+${board.getSh_personnelMax}"></span>
 									</small>
 								</div>

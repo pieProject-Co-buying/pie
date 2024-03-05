@@ -77,6 +77,11 @@
 		update shareServiceBoard set sh_process = '1' where
 		sh_num = #{param1}
 	</update>
+	<!-- 모집중단 -->
+	<update id="stopChk">
+		update shareServiceBoard set sh_process = '2' where
+		sh_num = #{param1}
+	</update>
 	<!--조회수 증가 -->
 	<update id="updateHit">
 		update shareServiceBoard set sh_hit = sh_hit+1 where

@@ -71,7 +71,11 @@ public class PaymentController {
 			productImg = bl.getSh_productImg();
 			title = bl.getSh_title();
 			price = bl.getSh_pricePer();
-			Sdao.updateNow(Integer.parseInt(nid));
+			
+			// 작성자가 아닐 경우에만 현재 인원 카운트
+			if(!bl.getSh_id().equals(uId)) {				
+				Sdao.updateNow(Integer.parseInt(nid));
+			}
 			
 			bl = Sdao.selectBoard(Integer.parseInt(nid));
 			if(bl.getSh_personnelMax()<=bl.getSh_personnelNow()) {
@@ -183,8 +187,6 @@ public class PaymentController {
 		 String num = request.getParameter("num");
 		 String pnum = request.getParameter("pnum");
 		 
-		 sdto.setSh_personnelNow(sdto.getSh_personnelNow()-1);
-		 dto.setPay_refund("2");
 		 
 		 Sdao.refundNowPerson(Integer.parseInt(pnum));
 		 dao.refundPayCheck(Integer.parseInt(num));

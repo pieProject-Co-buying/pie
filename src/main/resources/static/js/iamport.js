@@ -144,11 +144,6 @@ function kakaoPay() {
 			Price = parseFloat(DataPrice.getAttribute('data-prPrice'));
 			category = "Proxy"
 		}
-		
-		//var DataPersonnelNow = document.querySelector('[data-personnelNow]');
-		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
-		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
-
 		IMP.request_pay(
 			{
 				pg: "kakaopay.TC0ONETIME",

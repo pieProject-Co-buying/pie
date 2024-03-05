@@ -62,6 +62,9 @@
 						</p>
 						<p>
 							<small class="font-weight-bold">진행현황</small><br />
+							<th:block th:if="${board.getSh_process().equals('2')}">
+                        		<small class="badge badge-warning" th:text="모집중단"></small>
+                        	</th:block>
 							<th:block th:if="${board.getSh_process().equals('1')}">
                         		<small class="badge badge-success" th:text="모집진행중"></small>                       	
                         	</th:block>
@@ -73,7 +76,7 @@
 						<p>
 
 							<small class="font-weight-bold">모집시작</small><br /> <small
-								th:text="${board.getSh_registDay()}"></small>
+								th:text="${#strings.substring(board.getSh_registDay(),0,10)}"></small>
 						</p>
 						<p>
 							<small class="font-weight-bold">모집마감</small><br /> <small
@@ -167,11 +170,11 @@
 										<p>
 
 											<small class="font-weight-bold">모집시작</small><br /> <small
-												th:text="${board.getSh_registDay()}"></small>
+												th:text="${#strings.substring(board.getSh_registDay(),0,10)}"></small>
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getSh_registDay()}"></small>
+												th:text="${board.getSh_deadLine()}"></small>
 										</p>
 									</div>
 								</div>
@@ -268,15 +271,38 @@
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button th:if="${board.getSh_personnelNow()<board.getSh_personnelMax()}"
-								type="button" class="btn pie-btn-red btn-block"
-								data-toggle="modal" data-target="#staticBackdrop">
-								<small>참여하기</small>
-							</button>
-							<button th:if="${board.getSh_personnelNow()>=board.getSh_personnelMax()}"
+							<th:block th:if="${board.getSh_process().equals('1') && member.id != board.getSh_id()}">
+								<button type="button" class="btn pie-btn-red btn-block"
+									data-toggle="modal" data-target="#staticBackdrop">
+									<small>참여하기</small>
+								</button>
+							</th:block>
+							
+							<!--게시글 작성자가 본인일 경우-->
+							<th:block th:if="${member.id eq board.getSh_id() && board.getSh_process().equals('1')}">
+								<button type="button" class="btn pie-btn-red btn-block" disabled>
+									<small>작성자는 신청이 불가합니다.</small>
+								</button>
+							</th:block>
+							
+							<!--모집 마감-->
+							<button th:if="${board.getSh_personnelNow()>=board.getSh_personnelMax() && member.id != board.getSh_id()}"
 								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
+							</button>
+							
+							<!--모집이 마감 되었을 때 작성자 최종 결제-->
+							<button th:if="${board.getSh_process().equals('0') && member.id eq board.getSh_id()}"
+    							id="paymentButton" type="button" class="btn pie-btn-red btn-block"
+    							data-toggle="modal" data-target="#paymentModal">
+    							<small>결제하기</small>
+							</button>
+							
+							<!--작정자에 의한 모집중단-->
+							<button th:if="${board.getSh_process().equals('2')}"
+    							id="paymentButton" type="button" class="btn pie-btn-red btn-block" disabled>
+    							<small>관리자에 의해 중단된 모집입니다.</small>
 							</button>
 
 							<!-- Modal -->
@@ -521,7 +547,6 @@
 
 		})
 	</script>
-
 	<script src="js/product.js"></script>
 	<script th:src="@{js/iamport.js}"></script>
 </div>
