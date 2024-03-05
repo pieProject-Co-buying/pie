@@ -88,14 +88,14 @@
 		select * from townBuyBoard where to_category = #{param2} and (to_title like
 		'%${param1}%' or
 		to_content like '%${param1}%' or to_tag like '%${param1}%') and to_address like
-		'${param3}%'
+		'${param3}%' order by to_num desc 
 	</select>
 
 
 	<select id="categoryDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_category = #{param1} and to_address like
-		'${param2}%'
+		'${param2}%'  order by to_num desc 
 	</select>
 
 	<select id="categoryDaoNum"
@@ -103,7 +103,7 @@
 		select * from (select * from townBuyBoard where to_category =
 		#{param1})
 		where ROWNUM <![CDATA[ <= ]]>
-		#{param2}
+		#{param2} 
 	</select>
 
 	<insert id="writeDao">
