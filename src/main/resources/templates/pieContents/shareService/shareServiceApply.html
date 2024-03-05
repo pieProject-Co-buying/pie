@@ -8,68 +8,136 @@
 
 
 	<!--------------------------최신/오래된 순-------------------------->
-	<div class="container p-0 mt-5">
-		<div class="row border-bottom">
+	<div class="container p-0 mt-5 border-bottom">
+		<div class="row">
 			<div class="col-6 mb-1">
-				<span><h5>작성한 게시물</h5></span>
-				<div>
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						data-toggle="dropdown" aria-expanded="false">메뉴 선택</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="shareServiceApply">작성한 게시물</a>
-						<a class="dropdown-item" href="shareServicebuyBoard">신청중인 게시물</a>
-					</div>
-				</div>
+				<span><h5>내가 작성한 게시물</h5></span>
 			</div>
 			<div class="col-6 mb-1 d-flex justify-content-end">
-				<small id="on" style="cursor: pointer">모집중&nbsp;</small>
-				<small>|</small>
+				<small id="on" style="cursor: pointer">모집중&nbsp;</small> <small>|</small>
 				<small id="off" style="cursor: pointer">&nbsp;모집마감</small>
 			</div>
-		</div><!--row-->
-	</div><!--container-->
+		</div>
+		<div class="row mb-2">
+			<div class="col d-flex justify-content-between">
+				<div>
+					<button class="btn pie-btn-outline-red-custom dropdown-toggle"
+						type="button" data-toggle="dropdown" aria-expanded="false">메뉴
+						선택</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="shareServiceApply">작성한 게시물</a> <a
+							class="dropdown-item" href="shareServicebuyBoard">신청중인 게시물</a>
+					</div>
+				</div>
+				<div>
+					<th:block th:unless="${param.category==null||#strings.equals(param.category, 'town')}">
+					<a href="shareServiceApply?category=town"
+						class="btn btn-sm pie-btn-outline-red-custom rounded-pill">동네공구</a>
+					</th:block>
+					<th:block th:if="${param.category==null||#strings.equals(param.category, 'town')}">
+					<a href="shareServiceApply?category=town"
+						class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">동네공구</a>
+					</th:block>
+					<th:block th:if="${#strings.equals(param.category, 'share')}">
+					<a href="shareServiceApply?category=share"
+						class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">서비스공유</a>
+					</th:block>
+					<th:block th:unless="${#strings.equals(param.category, 'share')}">
+					<a href="shareServiceApply?category=share"
+						class="btn btn-sm pie-btn-outline-red-custom rounded-pill">서비스공유</a>
+					</th:block>
+				</div>
+
+			</div>
+		</div>
+		<!--row-->
+	</div>
+	<!--container-->
 	<!--------------------------컨텐츠-------------------------->
 	<div class="container p-0 mt-5">
 		<div class="row">
-			<th:block th:if="${list.size()!=0}" th:each="board:${list}">
-				<!------------게시물이 있는 경우------------>
-				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getSh_process}">
-					<div class="row no-gutters">
-						<div class="col-md-4 mt-2">
-							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}" alt="..." class="img-fluid">
-						</div>
-						<!--col-->
-						<div class="col-md-8">
-							<div class="card-body">
-								<th:block th:if="${board.getSh_process().equals('1')}">
-                        			<small class="badge badge-success" th:text="모집진행중"></small>                       	
-                        		</th:block>
-                        		<th:block th:if="${board.getSh_process().equals('0')}">
-                        			<small class="badge badge-danger" th:text="모집마감"></small>                      	
-                        		</th:block>
-								<h5 class="card-title mt-3 d-block text-truncate" style="max-width:150px" th:text="${board.getSh_title}"></h5>
-                        		<small class="d-flex">
-                        			<span><b>진행일 :&nbsp;</b></span>
-                        			<span th:text="${board.getSh_registDay}"></span>
-                        			<span>&nbsp;~&nbsp;</span>
-									<span th:text="${board.getSh_deadLine}"></span>
-                        		</small>
-                        		<small class="d-flex">
-                        			<span><b>모집인원 :&nbsp;</b></span>
-                        			<span th:text="${board.getSh_personnelNow}"></span>
-                        			<span th:text="'&nbsp;/ '+${board.getSh_personnelMax}"></span>
-                        		</small>
-								<a th:href="'boardList?num='+${board.getSh_num()}"
-									class="btn custom-btn3 mt-3 d-block">상세보기</a>
+			<th:block th:if="${param.category==null||(param.category!=null&&(#strings.equals(param.category, '')||#strings.equals(param.category, 'town')))}">
+				<th:block th:if="${list.size()!=0}" th:each="board:${list}">
+					<!------------게시물이 있는 경우------------>
+					<a class="col-12 mb-3 border ApplyList pie-radius"
+						th:attr="data-pieCate=${board.getTo_process}"
+						th:href="'boardList?num='+${board.getTo_num()}">
+						<div class="row no-gutters">
+							<div class="col-md-4 my-3">
+								<img
+									th:src="@{'/imgs/test/' + ${board.getTo_productImg().substring(0,board.getTo_productImg().indexOf('/'))}}"
+									alt="..." class="img-fluid hyej-cardsNow-img-custom">
 							</div>
-							<div class="col d-flex justify-content-end content-div mt-4">
+							<!--col-->
+							<div class="col-md-8">
+								<div class="card-body pt-5">
+									<th:block th:if="${board.getTo_process().equals('1')}">
+										<small class="badge badge-success" th:text="모집진행중"></small>
+									</th:block>
+									<th:block th:if="${board.getTo_process().equals('0')}">
+										<small class="badge badge-danger" th:text="모집마감"></small>
+									</th:block>
+									<p class="mt-3 mb-0" th:text="${board.getTo_category}"></p>
+									<h5 class="card-title d-block w-100 text-truncate"
+										th:text="${board.getTo_title}"></h5>
+									<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span>
+										<span th:text="${board.getTo_registDay}"></span> <span>&nbsp;~&nbsp;</span>
+										<span th:text="${board.getTo_deadLine}"></span>
+									</small> <small class="d-flex"> <span><b>모집인원
+												:&nbsp;</b></span> <span th:text="${board.getTo_personnelNow}"></span>
+										<span th:text="'&nbsp;/ '+${board.getTo_personnelMax}"></span>
+									</small>
+								</div>
+								<div class="col d-flex justify-content-end content-div mt-4">
+								</div>
 							</div>
-						</div>
-						<!--col-->
-					</div>
-					<!--카드 컨텐츠 row-->
-				</div>
-				<!--col-->
+							<!--col-->
+						</div> <!--카드 컨텐츠 row-->
+					</a>
+					<!--col-->
+				</th:block>
+			</th:block>
+
+			<th:block th:if="${param.category!=null}">
+				<th:block th:if="${list.size()!=0 && #strings.equals(param.category, 'share')}" th:each="board:${list}">
+					<!------------게시물이 있는 경우------------>
+					<a class="col-12 mb-3 border ApplyList pie-radius"
+						th:attr="data-pieCate=${board.getSh_process}"
+						th:href="'boardList?num='+${board.getSh_num()}">
+						<div class="row no-gutters">
+							<div class="col-md-4 my-3">
+								<img
+									th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
+									alt="..." class="img-fluid hyej-cardsNow-img-custom">
+							</div>
+							<!--col-->
+							<div class="col-md-8">
+								<div class="card-body pt-5">
+									<th:block th:if="${board.getSh_process().equals('1')}">
+										<small class="badge badge-success" th:text="모집진행중"></small>
+									</th:block>
+									<th:block th:if="${board.getSh_process().equals('0')}">
+										<small class="badge badge-danger" th:text="모집마감"></small>
+									</th:block>
+									<p class="mt-3 mb-0" th:text="${board.getSh_category}"></p>
+									<h5 class="card-title d-block w-100 text-truncate"
+										th:text="${board.getSh_title}"></h5>
+									<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span>
+										<span th:text="${board.getSh_registDay}"></span> <span>&nbsp;~&nbsp;</span>
+										<span th:text="${board.getSh_deadLine}"></span>
+									</small> <small class="d-flex"> <span><b>모집인원
+												:&nbsp;</b></span> <span th:text="${board.getSh_personnelNow}"></span>
+										<span th:text="'&nbsp;/ '+${board.getSh_personnelMax}"></span>
+									</small>
+								</div>
+								<div class="col d-flex justify-content-end content-div mt-4">
+								</div>
+							</div>
+							<!--col-->
+						</div> <!--카드 컨텐츠 row-->
+					</a>
+					<!--col-->
+				</th:block>
 			</th:block>
 		</div>
 		<!--카드 row-->
@@ -87,11 +155,11 @@
 		<div class="row">
 			<div class="col-12 btn btn-block border" id="load">
 				<div class="">
-					<span> 더보기 
-						<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor"
+					<span> 더보기 <svg xmlns="http://www.w3.org/2000/svg"
+							width="10" height="10" fill="currentColor"
 							class="bi bi-caret-down-fill" viewBox="0 0 16 16">
 							<path
-							d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+								d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 						</svg>
 					</span>
 				</div>
@@ -109,43 +177,55 @@
 
 			applyCard.hide();
 			applyCard.slice(0, 3).show();
-			
+
 			$("#load").click(function(e) {
 				e.preventDefault();
 				if ($(applyStrCard).length > 0) {
-					$(applyStrCard).slice(0, 3).show(); 
+					$(applyStrCard).slice(0, 3).show();
 				} else if ($(applyStrCard).length == 0) {
 					alert("마지막 게시물입니다.");
 				}
 			});
 			/*************모집중인 게시물 확인*************/
-			on.click(function() {
-	            $(".ApplyList[data-pieCate!='1']").hide();
-	            $(".ApplyList[data-pieCate='1']").slice(0, 3).show();
-	            
-	            $("#load").off().click(function(e) {
-	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
-	                } else {
-	                    alert("마지막 게시물입니다.");
-	                }
-	            });
-	        });
+			on
+					.click(function() {
+						$(".ApplyList[data-pieCate!='1']").hide();
+						$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
+
+						$("#load")
+								.off()
+								.click(
+										function(e) {
+											e.preventDefault();
+											if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
+												$(
+														".ApplyList[data-pieCate='1']:hidden")
+														.slice(0, 3).show();
+											} else {
+												alert("마지막 게시물입니다.");
+											}
+										});
+					});
 			/*************모집마감 게시물 확인*************/
-	        off.click(function() {
-	            $(".ApplyList[data-pieCate!='0']").hide();
-	            $(".ApplyList[data-pieCate='0']").slice(0, 3).show();
-	            
-	            $("#load").off().click(function(e) {
-	                e.preventDefault();
-	                if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
-	                    $(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
-	                } else {
-	                    alert("마지막 게시물입니다.");
-	                }
-	            });
-	        });
+			off
+					.click(function() {
+						$(".ApplyList[data-pieCate!='0']").hide();
+						$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
+
+						$("#load")
+								.off()
+								.click(
+										function(e) {
+											e.preventDefault();
+											if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
+												$(
+														".ApplyList[data-pieCate='0']:hidden")
+														.slice(0, 3).show();
+											} else {
+												alert("마지막 게시물입니다.");
+											}
+										});
+					});
 		})
 	</script>
 </div>

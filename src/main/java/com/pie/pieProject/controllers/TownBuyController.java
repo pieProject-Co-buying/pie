@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
@@ -41,6 +42,8 @@ public class TownBuyController {
 	ISearchDao sdao;
 	@Value("${kakao.api.mapkey}")
 	String kakaoMapApiKey;
+	@Autowired
+	IParticipateCheckDao paDao;
 	@Autowired
 	BoardComp bcomp;
 	
@@ -175,6 +178,8 @@ public class TownBuyController {
 	public String updatePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {
 
 		dao.updatePersonnelNow(num);
+		paDao.participate(num, "townBuyBoard", bcomp.getSession(request, "userId"));
+		
 		System.out.println("체크" + num);
 		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
 	}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
@@ -39,11 +40,14 @@ public class PaymentController {
 	IShareServiceDao Sdao;
 	@Autowired
 	ISubscribeDAO Subdao;
+	@Autowired
+	IParticipateCheckDao paDao;
 	
     @PostMapping("/payCheck")
     @PreAuthorize("ADMIN")
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
     	dao.insertPayment(dto);
+    	paDao.participate(dto.getPay_num(), dto.getPay_category(), dto.getBuyer_id());
     	System.out.println("pay_refund : "+dto.getPay_refund());
         // 응답 반환
         return new ResponseEntity<>(dto.getPay_category(), HttpStatus.OK);
