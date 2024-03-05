@@ -41,10 +41,13 @@
 				    <tr th:each="item, rowStat : ${list}" onclick="checkPassword(this, document.getElementById('bus_password_${item.getBus_apply_num()}').textContent)" role="button">
 				        <th scope="row" th:text="${item.getBus_apply_num()}" class="bus_apply_num"> </th>
 				        <td th:text="${item.getBus_name()}">회사명</td>
-				        <td th:text="${item.getBus_title()}" class="text-success"></td>
+				        <td th:text="${item.getBus_title()}" class=""></td>
 				        <td th:text="${item.getBus_writeDay()}"></td>
 				        <td id="bus_password_${item.getBus_apply_num()}" th:text="${item.getBus_password()}" style="display: none;"></td>
 				    </tr>
+			    
+				    
+				    
 				</tbody>
 								  
 								  
@@ -54,6 +57,36 @@
 			
 			</div>
 		</div>
+		
+		<div class="row mt-5">
+		    <div class="col">
+		        <nav aria-label="Page navigation example">
+		            <ul class="pagination justify-content-center">
+		                <li class="page-item">
+		                    <a class="page-link" href="#" aria-label="Previous" th:href="@{/businessApplyBoard(page=${currentPage - 1})}">
+		                        <span aria-hidden="true">&laquo;</span>
+		                        <span class="sr-only">Previous</span>
+		                    </a>
+		                </li>
+		                
+		                <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
+		                    <li th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'">
+		                        <a class="page-link text-dark" th:href="@{/businessApplyBoard(page=${pageNum})}" th:text="${pageNum}"></a>
+		                    </li>
+		                </th:block>
+		                
+		                <li class="page-item">
+		                    <a class="page-link" href="#" aria-label="Next" th:href="@{/businessApplyBoard(page=${currentPage + 1})}">
+		                        <span aria-hidden="true">&raquo;</span>
+		                        <span class="sr-only">Next</span>
+		                    </a>
+		                </li>
+		            </ul>
+		        </nav>
+		    </div>
+		</div>
+		
+		
 	</div>
 	
 
