@@ -29,10 +29,11 @@ $(".pie-heart-icon").click(function() {
 	});
 })
 
-$(".btn>.pie-thumbsUp-icon").click(function() {
+$(".follow-btn").click(function() {
+	let following = $(this);
 	$.ajax({
 		data: {
-			you: $("#yourId").val()
+			you: following.attr("data-following")
 		},
 		dataType: 'json',
 		type: "POST",
@@ -43,9 +44,11 @@ $(".btn>.pie-thumbsUp-icon").click(function() {
 		success: function(response) {
 			console.log(response);
 			if (response) {
-				$(".btn>.pie-thumbsUp-icon").addClass("active");
+				$(".follow-btn").addClass("unfollow");
+				$(".follow-btn").find("span").text("팔로잉");
 			} else {
-				$(".btn>.pie-thumbsUp-icon").removeClass("active");
+				$(".follow-btn").removeClass("unfollow");
+				$(".follow-btn").find("span").text("팔로우");
 			}
 		},
 		error: function(xhr, desc, err) {
@@ -53,3 +56,39 @@ $(".btn>.pie-thumbsUp-icon").click(function() {
 		}
 	});
 })
+
+$(".pie-thumbsUp-icon").click(function() {
+	let following = $(this);
+	$.ajax({
+		data: {
+			you: following.attr("data-following")
+		},
+		dataType: 'json',
+		type: "POST",
+		url: "/Follwing",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(response) {
+			console.log(response);
+			if (response) {
+				following.addClass("active");
+			} else {
+				following.removeClass("active");
+			}
+		},
+		error: function(xhr, desc, err) {
+			console.error('전송 실패', err);
+		}
+	});
+})
+
+$(document).on("mouseenter", ".unfollow", function() {
+    let following = $(this).find("span");
+    following.text("언팔로우")
+});
+
+$(document).on("mouseleave", ".unfollow", function() {
+    let following = $(this).find("span");
+    following.text("팔로잉")
+});

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
@@ -30,6 +31,8 @@ public class ParticpateController {
 	ITownBuyBoardDao tdao;
 	@Autowired
 	IPaymentDAO Pdao;
+	@Autowired
+	IParticipateCheckDao paDao;
 
 	/********** 내가 작성한 게시글 조회 **********/
 	@RequestMapping("/shareServiceApply")
@@ -70,19 +73,31 @@ public class ParticpateController {
 			String sId = bcomp.getSession(request, "userId");
 			String category = request.getParameter("category");
 			
+			String board = "proxybuyboard";
+			String prefix = "pr_";
+			
 			// 세션 id가 null일 경우 로그인 페이지로 이동
 			// 모델에 추가
 			
 			// 카테고리 지정을 안할경우 대리구매 관련 구매내역부터 보이게
-			if(category==null||category.equals("")) {
+			if(category==null||category.equals("")||category.equals("town")) {
 				category = "town";
-			}
-			
-			
+				List<TownBuyBoardDto> list = paDao.getTownboard(sId);
+				List<String> partList = paDao.getDate(sId);
+				model.addAttribute("list", list);
+				model.addAttribute("partList", partList);
+				// 뷰 이름 반환
+				return "pieContents/shareService/shareServicebuyBoard";
+				
+			}else if(category.equals("Share")) {
+				board = "shareServiceBoard";
+				prefix = "sh_";
+			}			
+
 			List<PaymentDTO> list = Pdao.buyList(sId,category);
-			List<String> piclist = Pdao.buyListpic(sId,category);
-			List<String> processList = Pdao.buyListpro(sId,category);
-			List<String> buyNum = Pdao.buyListNum(sId,category);
+			List<String> piclist = Pdao.buyListpic(sId,category,board,prefix);
+			List<String> processList = Pdao.buyListpro(sId,category,board,prefix);
+			List<String> buyNum = Pdao.buyListNum(sId,category,board,prefix);
 
 			System.out.println("리스트 : "+list.size());
 			System.out.println("사진 : "+piclist.size());
@@ -93,7 +108,6 @@ public class ParticpateController {
 			 list.get(i).setProductImg(piclist.get(i));
 			 list.get(i).setProcess(processList.get(i));
 			 list.get(i).setNum(buyNum.get(i));
-			 
 			 }
 		
 			model.addAttribute("list", list);

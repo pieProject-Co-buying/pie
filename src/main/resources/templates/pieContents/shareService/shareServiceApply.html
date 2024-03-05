@@ -21,9 +21,8 @@
 		<div class="row mb-2">
 			<div class="col d-flex justify-content-between">
 				<div>
-					<button class="btn pie-btn-outline-red-custom dropdown-toggle"
-						type="button" data-toggle="dropdown" aria-expanded="false">메뉴
-						선택</button>
+					<button class="btn pie-btn-outline-red-custom btn-sm dropdown-toggle"
+						type="button" data-toggle="dropdown" aria-expanded="false">작성한 게시물</button>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="shareServiceApply">작성한 게시물</a> <a
 							class="dropdown-item" href="shareServicebuyBoard">신청중인 게시물</a>
@@ -61,7 +60,7 @@
 					<!------------게시물이 있는 경우------------>
 					<a class="col-12 mb-3 border ApplyList pie-radius"
 						th:attr="data-pieCate=${board.getTo_process}"
-						th:href="'boardList?num='+${board.getTo_num()}">
+						th:href="'townBuyproduct?num='+${board.getTo_num()}">
 						<div class="row no-gutters">
 							<div class="col-md-4 my-3">
 								<img
@@ -77,7 +76,7 @@
 									<th:block th:if="${board.getTo_process().equals('0')}">
 										<small class="badge badge-danger" th:text="모집마감"></small>
 									</th:block>
-									<p class="mt-3 mb-0" th:text="${board.getTo_category}"></p>
+									<p class="mt-2 mb-0" th:text="${board.getTo_category}"></p>
 									<h5 class="card-title d-block w-100 text-truncate"
 										th:text="${board.getTo_title}"></h5>
 									<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span>
