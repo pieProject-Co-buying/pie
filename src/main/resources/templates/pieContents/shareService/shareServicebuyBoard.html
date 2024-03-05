@@ -5,23 +5,56 @@
 
 <!--<h1>Bootstrap 기본설정완료</h1>-->
 <div layout:fragment="shareServiceContent" class="col">
-	<div class="container p-0 mt-5">
-		<div class="row border-bottom">
+	<div class="container p-0 mt-5 border-bottom">
+		<div class="row">
 			<div class="col-6 mb-1">
-				<span><h5>신청한 게시물</h5></span>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						data-toggle="dropdown" aria-expanded="false">메뉴 선택</button>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="shareServiceApply">작성한 게시물</a>
-						<a class="dropdown-item" href="shareServicebuyBoard">신청중인 게시물</a>
-					</div>
-				</div>
+				<span><h5>내가 작성한 게시물</h5></span>
 			</div>
 			<div class="col-6 mb-1 d-flex justify-content-end">
-				<small id="on" style="cursor: pointer">모집중&nbsp;</small>
-				<small>|</small>
+				<small id="on" style="cursor: pointer">모집중&nbsp;</small> <small>|</small>
 				<small id="off" style="cursor: pointer">&nbsp;모집마감</small>
+			</div>
+		</div>
+		<div class="row mb-2">
+			<div class="col d-flex justify-content-between">
+				<div>
+					<button class="btn pie-btn-outline-red-custom dropdown-toggle"
+						type="button" data-toggle="dropdown" aria-expanded="false">메뉴
+						선택</button>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="shareServiceApply">작성한 게시물</a> <a
+							class="dropdown-item" href="shareServicebuyBoard">신청중인 게시물</a>
+					</div>
+				</div>
+				<div>
+					<th:block
+						th:unless="${param.category==null||#strings.equals(param.category, 'town')}">
+						<a href="shareServicebuyBoard?category=town"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill">동네공구</a>
+					</th:block>
+					<th:block
+						th:if="${param.category==null||#strings.equals(param.category, 'town')}">
+						<a href="shareServicebuyBoard?category=town"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">동네공구</a>
+					</th:block>
+					<th:block th:if="${#strings.equals(param.category, 'Proxy')}">
+						<a href="shareServicebuyBoard?category=Proxy"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">대리구매</a>
+					</th:block>
+					<th:block th:unless="${#strings.equals(param.category, 'Proxy')}">
+						<a href="shareServicebuyBoard?category=Proxy"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill">대리구매</a>
+					</th:block>
+					<th:block th:if="${#strings.equals(param.category, 'Share')}">
+						<a href="shareServicebuyBoard?category=Share"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">서비스공유</a>
+					</th:block>
+					<th:block th:unless="${#strings.equals(param.category, 'Share')}">
+						<a href="shareServicebuyBoard?category=Share"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill">서비스공유</a>
+					</th:block>
+				</div>
+
 			</div>
 		</div>
 		<!--row-->
@@ -29,52 +62,50 @@
 	<!--------------------------컨텐츠-------------------------->
 	<div class="container p-0 mt-5">
 		<div class="row">
-	 		<th:block th:if="${list.size()!=0}" th:each="board:${list}">
+			<th:block th:if="${list.size()!=0}" th:each="board:${list}">
 				<!------------게시물이 있는 경우------------>
-				<div class="col-12 mb-3 border ApplyList" th:attr = "data-pieCate=${board.getProcess()}">
+				<div th:href="'boardList?num='+${board.getNum()}"
+					class="col-12 mb-3 border ApplyList pie-radius"
+					th:attr="data-pieCate=${board.getProcess()}">
 					<div class="row no-gutters">
-						<div class="col-md-4 mt-2">
-							<img style="width:400px; height:250px; object-fit:cover" th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}" alt="..." class="img-fluid">
+						<div class="col-md-4 my-3">
+							<img
+								th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
+								alt="..." class="img-fluid hyej-cardsNow-img-custom">
 						</div>
 						<!--col-->
-						<div class="col-md-8"> 
+						<div class="col-md-8">
 							<div class="card-body">
-								<h3 class="d-block text-truncate" style="max-width:150px" th:text="${board.getPay_name}"></h3>
+								<h5 class="card-title d-block w-100 text-truncate"
+									th:text="${board.getPay_name}"></h5>
 								<th:block th:if="${board.getProcess().equals('1')}">
-                        			<small class="badge badge-success" th:text="모집진행중"></small>                       	
-                        		</th:block>
-                        		<th:block th:if="${board.getProcess().equals('0')}">
-                        			<small class="badge badge-danger" th:text="모집마감"></small>                      	
-                        		</th:block>
-                        		<th:block th:if="${board.getPay_refund.equals('0')}">                        		
-	                        		<small class="badge badge-info" th:text="정상처리"></small>  
-                        		</th:block>
-                        		<th:block th:if="${board.getPay_refund.equals('1')}">                        		
-	                        		<small class="badge badge-danger" th:text="환불요청중"></small>  
-                        		</th:block>
-                        		<th:block th:if="${board.getPay_refund.equals('2')}">                        		
-	                        		<small class="badge badge-success" th:text="환불완료"></small>  
-                        		</th:block>
-                        		<small class="d-flex">
-                        			<span><b>상품코드 :&nbsp;</b></span>
-                        			<span th:text="${board.getPay_Merchant_uid}"></span>
-                        		</small>
-                        		<small class="d-flex">
-                        			<span><b>결제일시 :&nbsp;</b></span>
-                        			<span th:text="${board.getPay_date}"></span>
-                        		</small>
-                        		<small class="d-flex">
-                        			<span><b>결제수단 :&nbsp;</b></span>
-                        			<span th:text="${board.getPay_method}"></span>
-                        		</small>
-                        		<small class="d-flex">
-                        			<span><b>결제금액 :&nbsp;</b></span>
-                        			<span th:text="${board.getPay_amount}+'원'"></span>
-                        		</small>
-                        		<a th:href="'boardList?num='+${board.getNum()}" class="btn btn-info mt-3">상세보기</a>
-                        		<th:block th:if="${board.getPay_refund.equals('0')}">                        		
-	                        		<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}" class="btn btn-danger mt-3" id="refundButton">환불하기</a>
-	                        	</th:block>
+									<small class="badge badge-success" th:text="모집진행중"></small>
+								</th:block>
+								<th:block th:if="${board.getProcess().equals('0')}">
+									<small class="badge badge-danger" th:text="모집마감"></small>
+								</th:block>
+								<th:block th:if="${board.getPay_refund.equals('0')}">
+									<small class="badge badge-info" th:text="정상처리"></small>
+								</th:block>
+								<th:block th:if="${board.getPay_refund.equals('1')}">
+									<small class="badge badge-danger" th:text="환불요청중"></small>
+								</th:block>
+								<th:block th:if="${board.getPay_refund.equals('2')}">
+									<small class="badge badge-success" th:text="환불완료"></small>
+								</th:block>
+								<small class="d-flex"> <span><b>상품코드 :&nbsp;</b></span>
+									<span th:text="${board.getPay_Merchant_uid}"></span>
+								</small> <small class="d-flex"> <span><b>결제일시 :&nbsp;</b></span>
+									<span th:text="${board.getPay_date}"></span>
+								</small> <small class="d-flex"> <span><b>결제수단 :&nbsp;</b></span>
+									<span th:text="${board.getPay_method}"></span>
+								</small> <small class="d-flex"> <span><b>결제금액 :&nbsp;</b></span>
+									<span th:text="${board.getPay_amount}+'원'"></span>
+								</small>
+								<th:block th:if="${board.getPay_refund.equals('0')}">
+									<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}"
+										class="btn pie-btn-red btn-sm mt-3" id="refundButton">환불하기</a>
+								</th:block>
 								<!-- <a th:href="'boardList?num='+${board.getNum()}"
 									class="btn btn-danger mt-3">환불하기</a> -->
 							</div>
@@ -82,8 +113,7 @@
 							</div>
 						</div>
 						<!--col-->
-					</div>
-					<!--카드 컨텐츠 row-->
+					</div> <!--카드 컨텐츠 row-->
 				</div>
 				<!--col-->
 			</th:block>
@@ -134,35 +164,47 @@
 					alert("마지막 게시물입니다.");
 				}
 			});
-			
-		/*************모집중인 게시물 확인*************/
-			on.click(function() {
-				$(".ApplyList[data-pieCate!='1']").hide();
-				$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
 
-				$("#load").off().click(function(e) {
-					e.preventDefault();
-					if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
-						$(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
-						} else {
-							alert("마지막 게시물입니다.");
-						}
+			/*************모집중인 게시물 확인*************/
+			on
+					.click(function() {
+						$(".ApplyList[data-pieCate!='1']").hide();
+						$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
+
+						$("#load")
+								.off()
+								.click(
+										function(e) {
+											e.preventDefault();
+											if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
+												$(
+														".ApplyList[data-pieCate='1']:hidden")
+														.slice(0, 3).show();
+											} else {
+												alert("마지막 게시물입니다.");
+											}
+										});
 					});
-				});
 			/*************모집마감 게시물 확인*************/
-			off.click(function() {
-				$(".ApplyList[data-pieCate!='0']").hide();
-				$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
+			off
+					.click(function() {
+						$(".ApplyList[data-pieCate!='0']").hide();
+						$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
 
-				$("#load").off().click(function(e) {
-					e.preventDefault();
-					if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
-						$(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
-						} else {
-							alert("마지막 게시물입니다.");
-						}
+						$("#load")
+								.off()
+								.click(
+										function(e) {
+											e.preventDefault();
+											if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
+												$(
+														".ApplyList[data-pieCate='0']:hidden")
+														.slice(0, 3).show();
+											} else {
+												alert("마지막 게시물입니다.");
+											}
+										});
 					});
-				});
 		})
 		/*************환불 여부 컨펌*************/
 		$(document).ready(function() {
@@ -171,7 +213,7 @@
 				e.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
 
 				// 컨펌 창 표시
-				var confirmed = confirm("정말로 환불하시겠습니까?");
+				var confirmed = confirm("[주의]환불요청은 취소할 수 없습니다. 환불을 진행할까요?");
 
 				// 확인을 클릭했을 때
 				if (confirmed) {

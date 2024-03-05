@@ -274,9 +274,9 @@
 												th:href="@{'townBuyResult?num='+${board.getTo_num()}}">좋아요!
 												함께해요</a>-->
 
-											<button type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+											<a th:href="@{'updatePersonnelNow?num='+${board.getTo_num()}}" type="button" class="btn btn-outline-secondary"
 												>좋아요!
-												함께해요</button>
+												함께해요</a>
 
 											<button type="button" class="btn btn-outline-secondary"
 												data-dismiss="modal">다시생각해볼게요</button>
@@ -420,8 +420,6 @@
 	</script>
 
 
-		
-	</script>
 	<script src="js/product.js"></script>
 </div>
 

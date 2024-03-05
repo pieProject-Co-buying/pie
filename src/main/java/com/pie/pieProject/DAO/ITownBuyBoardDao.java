@@ -90,6 +90,9 @@ public interface ITownBuyBoardDao {
 	
 	//참여자수 증가
 	public void updatePersonnelNow(String num);
+
+	//내가쓴글 보기
+	public List<TownBuyBoardDto> townListbyID(String sId);
 	
 	
 	//진행 상태 변경

@@ -39,7 +39,11 @@
 	<select id="viewDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_num = #{param1}
-
+	</select>
+	<!-- id로 내가쓴 게시글 불러오기 -->
+	<select id="townListbyID"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+	select * from townBuyBoard where to_id = #{param1}
 	</select>
 
 
