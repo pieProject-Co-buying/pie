@@ -32,6 +32,8 @@ public interface IShareServiceDao {
 	public void maxChk(int num);
 	// 최소인원 여부
 	public void minChk(int num);
+	// 진행 여부
+	public void stopChk(int num);	
 	// 조회수 증가
 	public void updateHit(String num);
 	// 게시물 정렬

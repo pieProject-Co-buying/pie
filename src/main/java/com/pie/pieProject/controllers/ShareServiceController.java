@@ -69,10 +69,12 @@ public class ShareServiceController {
 	/********** 게시물 상세 페이지 **********/
 	@RequestMapping("/boardList")
 	public String showBoard(@RequestParam("num") String num,HttpServletRequest request, Model model) {
+		
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		List<ShareServiceDto> list = dao.getBoardList();
+		
 		dao.updateHit(num);
 		
 		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
@@ -84,8 +86,6 @@ public class ShareServiceController {
 		
 		if(dto.getSh_personnelMax()==dto.getSh_personnelNow()) {
 			dao.maxChk(Integer.parseInt(sId));
-		}else{
-			dao.minChk(Integer.parseInt(sId));
 		}
 		
 		String table = "shareServiceBoard";
@@ -183,35 +183,6 @@ public class ShareServiceController {
 	/********** 게시판 작성 **********/
 	@RequestMapping("/insertBoard")
 	public String insert(HttpServletRequest request, Model model) {
-		// 다른 파라미터들 처리
-		/*
-		 * ShareServiceDto dto = new ShareServiceDto(); String sh_category =
-		 * request.getParameter("sh_category"); String sh_nickname =
-		 * request.getParameter("sh_nickname"); String sh_id =
-		 * request.getParameter("sh_id"); String sh_title =
-		 * request.getParameter("sh_title"); String sh_content =
-		 * request.getParameter("sh_content"); String sh_price =
-		 * request.getParameter("sh_price"); String sh_process =
-		 * request.getParameter("sh_process"); String sh_personnelMax =
-		 * request.getParameter("sh_personnelMax"); int sh_personnelNow = 0; String
-		 * sh_DeadLine = request.getParameter("sh_DeadLine");
-		 * 
-		 * // 파일 업로드 처리 if (!shImg.isEmpty()) { try { byte[] bytes = shImg.getBytes();
-		 * String fileName = shImg.getOriginalFilename(); // 파일 저장 경로 String filePath =
-		 * "src/main/resources/static/imgs/test/" + fileName; // 파일 저장
-		 * Files.write(Paths.get(filePath), bytes); // 저장된 파일 DTO에 설정
-		 * dto.setSh_filename(fileName); } catch (IOException e) { e.printStackTrace();
-		 * } }
-		 * 
-		 * dto.setSh_category(sh_category); dto.setSh_nickname(sh_nickname);
-		 * dto.setSh_id(sh_id); dto.setSh_title(sh_title);
-		 * dto.setSh_content(sh_content); dto.setSh_price(Integer.parseInt(sh_price));
-		 * dto.setSh_process(sh_process); dto.setSh_personnelNow(sh_personnelNow);
-		 * dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
-		 * dto.setSh_DeadLine(sh_DeadLine);
-		 * 
-		 * dao.insertBoard(dto);
-		 */
 
 		ShareServiceDto dto = new ShareServiceDto();
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
@@ -299,11 +270,16 @@ public class ShareServiceController {
 	/**********admin 게시물관리 페이지 진행여부**********/
 	@RequestMapping("/processRemote")
 	public String processRemote(HttpServletRequest request, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
+		String sId = request.getParameter("num");
 		String search = request.getParameter("search");
 		int page = Integer.parseInt(request.getParameter("page"));
+		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		
-		dao.maxChk(num);
+		if(dto.getSh_process().equals("1")) {			
+			dao.stopChk(Integer.parseInt(sId));
+		}else if(dto.getSh_process().equals("2")) {
+			dao.minChk(Integer.parseInt(sId));			
+		}
 		
 		List<ShareServiceDto> list = dao.searchBuyer(search);
 		
@@ -325,6 +301,6 @@ public class ShareServiceController {
 		model.addAttribute("pageNum", pageNum);
 		
 		model.addAttribute("list", templist);
-		return "redirect:/shareServiceBoardConsole";
+		return "redirect:/shareServiceBoardConsole?page=1";
 	}
 }
