@@ -7,7 +7,7 @@
 
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard order by to_num desc
+		select * from townBuyBoard order by to_registDay desc
 
 	</select>
 	
@@ -40,6 +40,8 @@
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_num = #{param1}
 	</select>
+	
+	
 	<!-- id로 내가쓴 게시글 불러오기 -->
 	<select id="townListbyID"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
@@ -136,14 +138,14 @@
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_address like
-		'${param1}%'<!--  and
-		to_process= '1' -->
+		'${param1}%' order by to_num desc 
+
 	</select>
 	
 	<select id="listLocalActive"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_address like
-		'${param1}%'and to_process= '1'
+		'${param1}%' and to_process= '1'
 	</select>
 
 
