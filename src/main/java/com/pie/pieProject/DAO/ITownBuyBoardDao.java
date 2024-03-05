@@ -47,13 +47,13 @@ public interface ITownBuyBoardDao {
 	
 	
 	//검색
-	public List<TownBuyBoardDto> searchDao(String townKeyword);
+	public List<TownBuyBoardDto> searchDao(String townKeyword,  String addr);
 	
 	//검색
-	public List<TownBuyBoardDto> searchCateDao(String townKeyword, String category);
+	public List<TownBuyBoardDto> searchCateDao(String townKeyword, String category, String addr);
 	
 	//카테고리 선택
-	public List<TownBuyBoardDto> categoryDao(String category);
+	public List<TownBuyBoardDto> categoryDao(String category, String addr);
 	
 	
 	public List<TownBuyBoardDto> categoryDaoNum(String category, int num);

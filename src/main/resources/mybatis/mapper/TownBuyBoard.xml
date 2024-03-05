@@ -70,22 +70,26 @@
 
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where to_title like
+		select * from townBuyBoard where (to_title like
 		'%${param1}%' or
-		to_content like '%${param1}%' or to_tag like '%${param1}%'
+		to_content like '%${param1}%' or to_tag like '%${param1}%') and to_address like
+		'${param2}%'
 	</select>
+	
 
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where to_category = #{param2} and (to_title like
 		'%${param1}%' or
-		to_content like '%${param1}%' or to_tag like '%${param1}%')
+		to_content like '%${param1}%' or to_tag like '%${param1}%') and to_address like
+		'${param3}%'
 	</select>
 
 
 	<select id="categoryDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where to_category = #{param1}
+		select * from townBuyBoard where to_category = #{param1} and to_address like
+		'${param2}%'
 	</select>
 
 	<select id="categoryDaoNum"
@@ -131,6 +135,7 @@
 		'${param1}%'<!--  and
 		to_process= '1' -->
 	</select>
+
 
 	<update id="updatePer">
 		update townBuyBoard set to_personnelNow =

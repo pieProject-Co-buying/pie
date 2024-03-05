@@ -258,9 +258,15 @@ public class TownBuyController {
 	public String category(HttpServletRequest request, Model model) {
 
 		String category = request.getParameter("category");
-		
 
-		model.addAttribute("list", dao.categoryDao(category));
+		
+		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
+		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		String useraddr = mdto.getAddress_main();
+		String userMainAddr = useraddr.substring(0, 6);
+		System.out.println(userMainAddr);
+
+		model.addAttribute("list", dao.categoryDao(category, userMainAddr));
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";
