@@ -37,6 +37,5 @@ public class MemberDto {
 	private String premium; // 구독회원 여부
 	private Date preDate; // 구독 시작일
 	private Date preEndDate; // 구독 종료일
-
 }
 

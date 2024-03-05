@@ -11,8 +11,10 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.pie.pieProject.DAO.IFriendDao;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 
@@ -21,6 +23,8 @@ import jakarta.servlet.http.HttpSession;
 
 @Component
 public class BoardComp {
+	@Autowired
+	IFriendDao fDao;
 
 	public String getSession(HttpServletRequest request, String key) {
 		HttpSession session = request.getSession();
@@ -176,12 +180,19 @@ public class BoardComp {
 			subtitle = "없는것 빼고 다있는 파이";
 			text = "필요하신 물품들을 꼼꼼히 찾아봤어요.<br>" + "당신이 찾는 모든것을 모아둘게요.";
 		}
-		
+
 		List<String> list = new ArrayList<>();
 		list.add(title);
 		list.add(subtitle);
 		list.add(text);
-		
+
 		return list;
+	}
+
+	public boolean rUFollowing(String me, String you) {
+		if (fDao.checkFollow(me, you) > 0) {
+			return true;
+		}
+		return false;
 	}
 }

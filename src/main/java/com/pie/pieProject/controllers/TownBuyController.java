@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -155,9 +156,7 @@ public class TownBuyController {
 			} else {
 				model.addAttribute("like", false);
 			}
-			
-
-			
+						
 			
 		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
 		    	
@@ -165,10 +164,13 @@ public class TownBuyController {
 		        dao.updateTownProcess(sId);
 		    }
 			
-			
-			
+		    List<MemberDto> list = paDao.getPartiMem(num, "townBuyBoard");
 
-			
+		    // tempList를 출력하여 확인
+		    System.out.println("list:"+list);
+
+			model.addAttribute("partiMem", list);
+			model.addAttribute("partiMemTotal", list.size());
 			model.addAttribute("board", dto);
 			
 			
