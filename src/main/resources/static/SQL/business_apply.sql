@@ -26,55 +26,39 @@ CREATE TABLE businessApplyForm (
 );
 
 
-CREATE TABLE businessApplyForm (
-    bus_apply_num NUMBER UNIQUE NOT NULL,
-    
-    bus_title VARCHAR2(100) NOT NULL,
-    bus_content VARCHAR2(2000) NOT NULL,
-    bus_img VARCHAR2(2000),
-    
-    bus_name VARCHAR2(100) NOT NULL,
-    bus_num VARCHAR2(100) NOT NULL,
-    postCode VARCHAR2(300),
-    address_main VARCHAR2(300),    
-    address_sub VARCHAR2(300),   
-    bus_productName VARCHAR2(100) NOT NULL,   
-    bus_Maxqnt NUMBER NOT NULL,
-    bus_unitPrice NUMBER NOT NULL,
- 
-    bus_chargePerson VARCHAR2(100) NOT NULL,
-    bus_phone VARCHAR2(100) NOT NULL,
-    bus_email VARCHAR2(100) NOT NULL,
-    
-    bus_password VARCHAR2(30) NOT NULL,
-    
-    bus_hit NUMBER,
-    bus_writeDay DATE DEFAULT SYSDATE
-);
+
+-- 시퀀스 생성/삭제
+create sequence bus_apply_num nocache nocycle;
+
+
+
 
 
 insert into businessApplyForm values (
-		bus_apply_num.nextval, 
+      bus_apply_num.nextval, 
         
-		'?젣紐?',
-		'?궡?슜',
-		'product1.jpg',
-		'?쉶?궗?씠由?',
-		'?궗?뾽?옄踰덊샇',
-		'?슦?렪踰덊샇',
-        '硫붿씤二쇱냼',
-        '?꽌釉뚯＜?냼',
-		'?젣?뭹?씠由?',
-		'100',
-		'100000',
-		'?떞?떦?옄',
-		'010-2222-2222',      
- 		'111@1.com',
+      '제목',
+      '내용',
+      'product1.jpg',
+      '회사이름',
+      '사업자번호',
+      '우편번호',
+      '메인주소',
+      '서브주소',
+      '제품이름',
+      '100',
+      '100000',
+      '담당자',
+      '010-2222-2222',      
+     '111@1.com',
         '12345',
         0,
-		sysdate
-		
+      sysdate
+      
 );
+
+
+
 
 select * from businessApplyForm;
 drop table businessApplyForm;

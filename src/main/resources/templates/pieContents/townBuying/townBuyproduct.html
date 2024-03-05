@@ -17,7 +17,7 @@
 					<div class="col">
 						<div class="card border-0">
 							<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}"
-								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-"
+								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
 							<div class="card-body">
 								<input type="hidden" id="yourId" th:value="${board.getTo_id()}" />
@@ -32,6 +32,7 @@
 
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col">
 						<p>
@@ -64,18 +65,12 @@
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg}}"
-						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center"
+					<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}"
+						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
 						<small class="m-0 font-weight-bold"
-							th:text="${board.getTo_nickname}"></small> <small
-							class="pie-introduceself w-100 pie-omitted">자기 소개글 엄청길게
-							쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글
-							엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기 </small>
-					</div>
-					<div class="pl-3">
-						<span class="pie-thumbsUp-icon pie-icons mx-2 active"></span>
+							th:text="${board.getTo_nickname()}"></small> 
 					</div>
 				</div>
 				<div class="row p-0">
@@ -87,10 +82,12 @@
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 class="mb-0 pie-omitted display-5"
+								<h2 th:attr="data-prTitle=${board.getTo_title}"
+									class="mb-0 pie-omitted display-5"
 									th:text="${board.getTo_title()}">타이틀 자리</h2>
 							</div>
-							<div class="col-12 pie-c-red p-0">
+							<div th:attr="data-prPrice=${board.getTo_pricePer}"
+								class="col-12 pie-c-red p-0">
 								<h5 class="mb-0" th:text="|인/${board.getTo_pricePer()}원|"></h5>
 							</div>
 
@@ -342,7 +339,25 @@
 		
 	</script>
 	
+	<script>
+	    document.addEventListener('DOMContentLoaded', function () {
+	        // Get the button element
+	        var button = document.querySelector('.btn-outline-secondary');
 	
+	
+	        button.addEventListener('click', function () {
+	            alert('신청이 완료되었습니다.');
+	            
+	            
+	            var urlParams = new URLSearchParams(window.location.search);
+	            var num = urlParams.get('num');
+	           
+	            console.log(num);
+
+	            window.location.href = '/updatePersonnelNow?num=' + num;
+	        });
+	    });
+	</script>	
 	
 	<!-- 모두 완료되면 참여버튼 숨기도록 만드는 JS -->
 	<script type="text/javascript" th:inline="javascript">

@@ -132,6 +132,8 @@ public class TownBuyController {
 			
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);
+			
+
 
 			dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
 			if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
@@ -140,6 +142,7 @@ public class TownBuyController {
 				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
 			}
 			
+
 			
 			/* dao.updateHit(sId); */
 			
@@ -150,6 +153,7 @@ public class TownBuyController {
 				model.addAttribute("like", false);
 			}
 			
+
 			
 			
 		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
@@ -163,6 +167,11 @@ public class TownBuyController {
 
 			
 			model.addAttribute("board", dto);
+			
+			
+
+			
+			
 
 		return "pieContents/townBuying/townBuyproduct";
 

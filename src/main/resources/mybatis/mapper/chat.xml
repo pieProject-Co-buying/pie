@@ -10,6 +10,9 @@
         INSERT INTO pie_messages (roomName, roomNumber, sender_id, sender, message, sendTime) VALUES (#{roomName}, #{roomNumber}, #{userId}, #{userName}, #{message}, sysdate)
     </insert>
     
+    
+    
+    
     <select id="getRoomInfo" resultType="com.pie.pieProject.DTO.RoomDto">
 		SELECT A.roomNumber,
 			B.nickname AS joinMemNickname,
@@ -23,6 +26,9 @@
 			AND B.id = A.joinMemNum
 			AND C.id = A.managerMemNum
 	</select>
+	
+	
+	
 	
 	<!-- 채팅방 생성 -->
 	<insert id="insertRoom" parameterType="String">
@@ -40,6 +46,11 @@
     </selectKey>
     </insert>
     
+    
+    
+    
+    
+    
     <insert id="insertRoomUser">
 		MERGE 
 		   INTO chatRoomUser a
@@ -51,16 +62,24 @@
 	      )
 	</insert>
     
+    
+    
+    
     <!-- 안씀 -->
     <!-- 채팅방 목록 불러오기 -->
 	<select id="roomList" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom order by roomNumber asc
 	</select>
 	
-	   <!-- 채팅방 목록 불러오기 -->
+	<!-- 채팅방 목록 불러오기 -->
 	<!--<select id="room" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem = #{param1}
 	</select>-->
+	
+	
+	
+	
+	
 	
 	<select id="roomListByID" parameterType="String" resultType="com.pie.pieProject.DTO.ChatRoomUserDto">
 		<!--select * from pie_chatRoom where partyMem = '@${param1}@${param2}' or partyMem = '@${param2}@${param1}'-->
@@ -76,9 +95,17 @@
     		AND A.joinMemNum = #{joinMemNum}
 	</select>
 	
+	
+	
+	
+	
 	<select id="roomListByMine" resultType="com.pie.pieProject.DTO.RoomDto">
 		select * from pie_chatRoom where partyMem like '%@${param1}@%' or partyMem like '%@${param1}' order by roomnumber desc
 	</select>
+	
+	
+	
+	
 	
 	<!-- 채팅리스트 가져오기 -->
 	<select id="chatList" resultType="com.pie.pieProject.DTO.ChatDto">
@@ -90,5 +117,7 @@
 		order by sendTime asc
 	</select>
 	
+
+
 
 </mapper>

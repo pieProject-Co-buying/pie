@@ -1,53 +1,62 @@
 <!DOCTYPE html>
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/proxyBuying}">
+	layout:decorate="~{layouts/townBuying}">
 
-<div layout:fragment="proxyBuyContent" class="col">
+<div layout:fragment="townBuyContent" class="col">
+
 
 	<div class="container">
-		<p class="d-none" th:attr="data-Prnum=${board.getPr_num()}"></p>
-		<input type="hidden" id="tableName" value="p" />
+		<input type="hidden" id="tableName" value="t" />
 		<div class="row">
 
 			<div class="col-lg-3 d-none d-lg-block">
+
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
-							<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}"
-								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center"
+							<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}"
+								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
-							<div class="card-body px-0">
-								<h5 class="card-title" th:text="${board.getPr_nickname()}">Card
+							<div class="card-body">
+								<input type="hidden" id="yourId" th:value="${board.getTo_id()}" />
+								<h5 class="card-title" th:text="${board.getTo_nickname}">Card
 									title</h5>
+								<p class="card-text">자기 소개글</p>
+								<p class="text-right">
+									<span class="pie-thumbsUp-icon pie-icons mx-2"></span>
+								</p>
 							</div>
 						</div>
 
 					</div>
 				</div>
+				
 				<div class="row">
 					<div class="col">
 						<p>
-							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getPr_personnelNow()+' 명 / '+board.getPr_personnelMax()+' 명'}"></small>
+							<small class="font-weight-bold">모집인원</small><br />
+							<small th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
 						</p>
-						<p>
+						<p id="processNow">
 
 							<small class="font-weight-bold">진행현황</small><br /> <small
 								class="badge badge-success"
-								th:if="${board.getPr_process().equals('1')}"> 모집진행중</small> <small
+								th:if="${board.getTo_process().equals('1')}">진행중</small> <small
 								class="badge badge-danger"
-								th:if="${board.getPr_process().equals('0')}"> 모집완료</small>
+								th:if="${board.getTo_process().equals('0')}">완료</small>
 						</p>
 
 						<p>
 
+
 							<small class="font-weight-bold">모집시작</small><br /> <small
-								th:text="${board.getPr_registDay()}"></small>
+								th:text="${board.getTo_registDay()}"></small>
 						</p>
 						<p>
 							<small class="font-weight-bold">모집마감</small><br /> <small
-								th:text="${board.getPr_deadLine()}"></small>
+								th:text="${board.getTo_deadLine()}"></small>
 						</p>
 					</div>
 				</div>
@@ -56,30 +65,34 @@
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}"
-						class="border rounded-circle pie-profilePic-mid align-self-center"
+					<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg}}"
+						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
 						<small class="m-0 font-weight-bold"
-							th:text="${board.getPr_nickname()}"></small> 
+							th:text="${board.getTo_nickname}"></small> <small
+							class="pie-introduceself w-100 pie-omitted">자기 소개글 엄청길게
+							쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글
+							엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기 </small>
+					</div>
+					<div class="pl-3">
+						<span class="pie-thumbsUp-icon pie-icons mx-2 active"></span>
 					</div>
 				</div>
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<img th:src="@{'/imgs/test/' + ${board.getPr_productImgs()[0]}}"
+						<img th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[0]}}"
 							alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
-							<h5 th:text="${board.getPr_category()}"></h5>
+							<h5 th:text="${board.getTo_category()}"></h5>
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 th:attr="data-prTitle=${board.getPr_title}"
-									class="mb-0 pie-omitted display-5"
-									th:text="${board.getPr_title()}">타이틀 자리</h2>
+								<h2 class="mb-0 pie-omitted display-5"
+									th:text="${board.getTo_title()}">타이틀 자리</h2>
 							</div>
-							<div th:attr="data-prPrice=${board.getPr_pricePer}"
-								class="col-12 pie-c-red p-0">
-								<h5 class="mb-0" th:text="|인/${board.getPr_pricePer()}원|"></h5>
+							<div class="col-12 pie-c-red p-0">
+								<h5 class="mb-0" th:text="|인/${board.getTo_pricePer()}원|"></h5>
 							</div>
 
 						</div>
@@ -87,10 +100,10 @@
 					<div
 						class="d-flex justify-content-center p-2 fancyBox-container mx-auto">
 						<th:block
-							th:each="i : ${#numbers.sequence(0,board.getPr_productImgs().length-1)}">
+							th:each="i : ${#numbers.sequence(0,board.getTo_productImgs().length-1)}">
 							<a class="d-block mx-1" data-fancybox="gallery"
-								th:attr="data-src='/imgs/test/'+ ${board.getPr_productImgs()[i]}">
-								<img th:src="@{'/imgs/test/' + ${board.getPr_productImgs()[i]}}"
+								th:attr="data-src='/imgs/test/'+ ${board.getTo_productImgs()[i]}">
+								<img th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[i]}}"
 								width="100" height="100" alt="" />
 							</a>
 						</th:block>
@@ -106,29 +119,29 @@
 									<div class="col-6">
 										<p>
 											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:attr="data-prNow=${board.getPr_personnelNow()}"
-												th:text="${board.getPr_personnelNow()}+' 명 /'"></small> <small
-												th:attr="data-prMax=${board.getPr_personnelMax()}"
-												th:text="${board.getPr_personnelMax()}+' 명'"></small>
+												th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
 										</p>
 										<p>
+
 											<small class="font-weight-bold">진행현황</small><br /> <small
 												class="badge badge-success"
-												th:if="${board.getPr_process().equals('1') && board.getPr_personnelNow() < board.getPr_personnelMax()}">
-												모집진행중</small> <small class="badge badge-danger"
-												th:if="${board.getPr_process().equals('0') || board.getPr_personnelNow() >= board.getPr_personnelMax}">
-												모집완료</small>
+												th:text="${board.getTo_process()}"></small> <small
+												class="badge badge-success"
+												th:if="${board.getTo_process().equals(1)}">진행중</small> <small
+												class="badge badge-danger"
+												th:if="${board.getTo_process().equals(0)}">완료</small>
+
 										</p>
 									</div>
 									<div class="col-6">
 										<p>
 
 											<small class="font-weight-bold">모집시작</small><br /> <small
-												th:text="${board.getPr_registDay()}"></small>
+												th:text="${board.getTo_registDay()}"></small>
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getPr_registDay()}"></small>
+												th:text="${board.getTo_registDay()}"></small>
 										</p>
 									</div>
 								</div>
@@ -136,103 +149,91 @@
 						</div>
 						<hr class="d-lg-none" />
 
-						<div class="w-100 py-5" th:utext="${board.getPr_content()}"></div>
+						<div class="w-100 py-5" th:utext="${board.getTo_content()}"></div>
 						<div class="">
-							<small> <th:block th:if="${board.getPr_tags()!=null}">
+							<small> <th:block th:if="${board.getTo_tags()!=null}">
 									<th:block
-										th:each="i: ${#numbers.sequence(1, board.getPr_tags()?.length - 1)}">
+										th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
 										<span class="badge badge-light"
-											th:text="|#${board.getPr_tags()[i]}|">#태그</span>
+											th:text="|#${board.getTo_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</div>
-						<div class="d-flex justify-content-between align-items-center">
-							<div class="mt-3">
-								<!-- 수정버튼 -->
-								<a class="mr-2" th:if="${board.getPr_id()==session.userId}"
-									th:href="@{'updateProxyForm?num=' + ${board.getPr_num()}}"><svg
-										xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-pencil-fill"
-										viewBox="0 0 16 16">
-										<path
-											d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-									</svg></a>
-								<!-- 삭제버튼 -->
-								<a class="" th:if="${board.getPr_id()==session.userId}"
-									th:href="@{'deleteProxyAction?num=' + ${board.getPr_num()}}"><svg
-										xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-trash-fill"
-										viewBox="0 0 16 16">
-										<path
-											d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-									</svg></a>
-
-							</div>
-							<div class="d-flex align-items-center">
-								<span><small class="mr-1">조회수</small><small
-									th:text="${board.getPr_hit()}"></small></span>
-								<th:block th:if="${like}">
-									<span class="pie-heart-icon pie-icons mx-2 active"></span>
-								</th:block>
-								<th:block th:if="${!like}">
-									<span class="pie-heart-icon pie-icons mx-2"></span>
-								</th:block>
-
-								<small id="likeCount" th:text="${board.getPr_like()}">12</small>
-
-
-								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
-									data-target="#shareModal"></span>
-
-								<!-- Modal -->
-								<div class="modal fade" id="shareModal" tabindex="-1"
-									aria-labelledby="shareModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="shareModalLabel">Modal
-													title</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												<div class="col-auto">
-													<div class="input-group mb-2">
-														<input type="text" class="form-control" id="downloadURL"
-															placeholder="">
-														<div class="input-group-append">
-															<div data-clipboard-target="#downloadURL"
-																class="input-group-text copyBtn">공유하기</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">닫기</button>
-												<button type="button" class="btn btn-primary">공유하기</button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						
+						
+						
+						
+					<div class="d-flex justify-content-between align-items-center">
+					
+					    <div class="mt-3" th:if="${session.userId == board.getTo_id()}">
+					        <a class="mr-2"
+					            th:href="@{'updateTownProductForm?num=' + ${board.getTo_num()}}">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+					                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+					            </svg>
+					        </a> 
+					        <a class=""
+					            th:href="@{'deleteTownProduct?num=' + ${board.getTo_num()}}">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+					                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+					            </svg>
+					        </a>
+					    </div>
+					    
+					    <div class="d-flex align-items-center ml-auto">
+					        <span><small class="mr-1">조회수</small><small th:text="${board.getTo_hit()}"></small></span>
+					        
+					        <th:block th:if="${like}">
+					            <span class="pie-heart-icon pie-icons mx-2 active"></span>
+					        </th:block>
+					        
+					        <th:block th:if="${!like}">
+					            <span class="pie-heart-icon pie-icons mx-2"></span>
+					        </th:block>
+					        
+					        <small id="likeCount" th:text="${board.getTo_like()}">12</small>
+					        
+					        <span class="pie-share-icon pie-icons mx-3"></span>
+					        
+					        <a class="pie-chat-icon pie-icons" th:href="@{'room?mem='+${board.getTo_id}}"></a>
+					        
+					        <!-- Modal -->
+					        <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+					            <div class="modal-dialog">
+					                <div class="modal-content">
+					                    <div class="modal-header">
+					                        <h5 class="modal-title" id="shareModalLabel">Modal title</h5>
+					                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					                            <span aria-hidden="true">&times;</span>
+					                        </button>
+					                    </div>
+					                    <div class="modal-body">
+					                        <div class="col-auto">
+					                            <div class="input-group mb-2">
+					                                <input type="text" class="form-control" id="downloadURL" placeholder="">
+					                                <div class="input-group-append">
+					                                    <div data-clipboard-target="#downloadURL" class="input-group-text copyBtn">공유하기</div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                    </div>
+					                    <div class="modal-footer">
+					                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					                        <button type="button" class="btn btn-primary">Save changes</button>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
 						<hr>
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<button th:if="${board.getPr_process().equals('1')}"
-								type="button" class="btn pie-btn-red btn-block"
-								data-toggle="modal" data-target="#staticBackdrop">
+							<button type="button" class="btn pie-btn-red btn-block"
+								data-toggle="modal" data-target="#staticBackdrop" id="applyBtn">
 								<small>참여하기</small>
-							</button>
-							<button th:if="${board.getPr_process().equals('0')}"
-								type="button" class="btn btn-secondary btn-block"
-								data-toggle="modal" data-target="#staticBackdrop" disabled>
-								<small>모집마감</small>
 							</button>
 
 							<!-- Modal -->
@@ -241,6 +242,7 @@
 								aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
 								<div class="modal-dialog">
+
 
 
 									<div class="modal-content">
@@ -262,86 +264,66 @@
 
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
-											<img src="imgs/product3.jpg" alt="" class="img-fluid">
+											<img
+												th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[0]}}"
+												alt="" class="img-fluid">
 											<h5 class="mb-3 mt-5 text-center"
-												th:text="'함께하면 '+${board.getPr_pricePer()}+'원에 구매할 수 있어요😘'"></h5>
+												th:text="|함께하면 ${board.getTo_pricePer()}원에 구매할 수 있어요|"></h5>
 										</div>
 
 
-
 										<div class="modal-footer">
-											<!-- onclick="window.open('townBuyResult')" -->
-											<button type="button" class="btn btn-outline-secondary"
-												data-toggle="modal" data-target="#paymentModal">좋아요!
+
+<!--											<a type="button" class="btn btn-outline-secondary"
+												th:href="@{'townBuyResult?num='+${board.getTo_num()}}">좋아요!
+												함께해요</a>-->
+
+											<button type="button" class="btn btn-outline-secondary" data-dismiss="modal"
+												>좋아요!
 												함께해요</button>
+
 											<button type="button" class="btn btn-outline-secondary"
 												data-dismiss="modal">다시생각해볼게요</button>
 										</div>
 
-									</div>
 
-								</div>
 
-							</div>
-							<div class="modal fade mt-5" id="paymentModal" tabindex="-1"
-								aria-labelledby="paymentModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content bg-light">
-										<div class="modal-header">
-											<h5 class="modal-title" id="paymentModalLabel">
-												<b>결제 수단 선택</b>
-											</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div
-											class="modal-body d-flex justify-content-around text-center">
-											<div class="m-3" onclick="kgPay()">
-												<small class="d-block"><b>kg 이니시스</b></small> <img
-													src="imgs/kg.png" alt="" class="payLogo">
-											</div>
-											<div class="m-3" onclick="kakaoPay()">
-												<small class="d-block"><b>카카오페이</b></small> <img
-													src="imgs/kakaopay.jpg" alt="" class="payLogo">
-											</div>
-											<div class="m-3" onclick="tossPay()">
-												<small class="d-block"><b>토스페이</b></small> <img
-													src="imgs/toss.jpg" alt="" class="payLogo">
-											</div>
-											<div class="m-3" onclick="paycoPay()">
-												<small class="d-block"><b>페이코</b></small> <img
-													src="imgs/payco.jpg" alt="" class="payLogo">
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="custom-btn" data-dismiss="modal"
-												style="background-color: grey">닫기</button>
-										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
+
 
 					</div>
 
+
 				</div>
+
+
 
 			</div>
 
 		</div>
 
 	</div>
-	<script type="text/javascript" th:inline="javascript">
-		var member = /*[[${member}]]*/
-		console.log(member.nickname);
+
+
+
+
+	<!-- 수정 / 삭제 -->
+
+	
+	<script>
+		if ($("#processNow").find(".badge").text() == "완료") {
+			alert("모집이 완료된 게시글이예요!")
+		}
 	</script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+		
 	<script>
 		$(function() {
+			
 			/***************************************************
 			 * URL 복사기능
 			 * *************************************************/
@@ -358,8 +340,93 @@
 			})
 
 		})
+		
+	</script>
+	
+	<script>
+	    document.addEventListener('DOMContentLoaded', function () {
+	        // Get the button element
+	        var button = document.querySelector('.btn-outline-secondary');
+	
+	
+	        button.addEventListener('click', function () {
+	            alert('신청이 완료되었습니다.');
+	            
+	            
+	            var urlParams = new URLSearchParams(window.location.search);
+	            var num = urlParams.get('num');
+	           
+	            console.log(num);
+
+	            window.location.href = '/updatePersonnelNow?num=' + num;
+	        });
+	    });
+	</script>	
+	
+	<!-- 모두 완료되면 참여버튼 숨기도록 만드는 JS -->
+	<script type="text/javascript" th:inline="javascript">
+	
+		var board = /*[[${board}]]*/null;
+		
+		var to_personnelMax = null;
+		var to_personnelNow = null;
+
+
+		if (board) {
+		    to_personnelMax = board.to_personnelMax;
+		    to_personnelNow = board.to_personnelNow;
+		}
+
+		
+		
+		$(document).ready(function() {
+	
+		    var applyButton = $("#applyBtn");
+
+		    if (to_personnelNow >= to_personnelMax) {
+		        applyButton.prop('disabled', true);
+		        applyButton.addClass('btn-secondary');
+		        applyButton.text('모집마감');		        
+				
+		    }
+		});
+		
+		
+
+
+		
+		
+		$(document).ready(function() {
+	
+		    var applyButton = $("#applyBtn");
+
+		    if (to_personnelNow >= to_personnelMax) {
+		        applyButton.prop('disabled', true);
+		        applyButton.addClass('btn-secondary');
+		        applyButton.text('모집마감');		        
+				
+				console.log(board.to_personnelMax);
+				console.log(board.to_personnelNow);
+		    }
+		    
+		    $(document).ready(function() {
+			    var applyButton = $("#applyBtn");
+			
+			    if (to_personnelNow >= to_personnelMax) {
+			        // 모집이 마감되었을 때 버튼의 속성과 텍스트를 변경합니다.
+			        applyButton.prop('disabled', true);
+			        applyButton.addClass('btn-secondary');
+			        applyButton.text('모집마감');
+			    }
+			});
+					});
+		
+	</script>
+
+
+		
 	</script>
 	<script src="js/product.js"></script>
-	<script th:src="@{js/iamport.js}"></script>
 </div>
+
 </html>
