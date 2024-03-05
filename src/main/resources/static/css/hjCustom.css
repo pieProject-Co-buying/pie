@@ -393,6 +393,15 @@ div:has(>.customoverlay){
 	object-position : center;
 }
 
+.hyej-cardsNow-img-custom{
+	height: 250px;
+	object-fit : cover;
+	object-position : center;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
 @media ( min-width :576px) {
 }
 

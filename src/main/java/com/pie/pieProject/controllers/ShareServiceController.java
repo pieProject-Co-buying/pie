@@ -20,6 +20,7 @@ import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -242,55 +243,8 @@ public class ShareServiceController {
 		return "redirect:/shareServiceBoard";
 	}
 
-	/********** 내가 작성한 게시글 조회 **********/
-	@RequestMapping("/shareServiceApply")
-	public String Applyboard(HttpServletRequest request, Model model) {
-		// HttpSession 객체 가져오기
-		// 세션에서 userId 가져오기
-		String sId = Bcomp.getSession(request, "userId");
-		// 세션 id가 null일 경우 로그인 페이지로 이동
-		if (sId == null) {
-			return "pieContents/members/login_form";
-		}
-		// 모델에 추가
-		model.addAttribute("list", dao.myBoard(sId));
-
-		// 뷰 이름 반환
-		return "pieContents/shareService/shareServiceApply";
-	}
-	// 개인 사용자 구매 내역
-	@RequestMapping("/shareServicebuyBoard")
-	public String buyList(HttpServletRequest request, Model model) {
-		// HttpSession 객체 가져오기
-		// 세션에서 userId 가져오기
-		String sId = Bcomp.getSession(request, "userId");
-		
-		// 세션 id가 null일 경우 로그인 페이지로 이동
-		// 모델에 추가
-		
-		
-		List<PaymentDTO> list = Pdao.buyList(sId);
-		List<String> piclist = Pdao.buyListpic(sId);
-		List<String> processList = Pdao.buyListpro(sId);
-		List<String> buyNum = Pdao.buyListNum(sId);
-
-		System.out.println("리스트 : "+list.size());
-		System.out.println("사진 : "+piclist.size());
-		System.out.println("진행 : "+processList.size());
-		System.out.println("넘버 : "+buyNum.size());
-
-		
-		 for(int i = 0; i<list.size(); i++) {
-		 list.get(i).setProductImg(piclist.get(i));
-		 list.get(i).setProcess(processList.get(i));
-		 list.get(i).setNum(buyNum.get(i));
-		 
-		 }
 	
-		model.addAttribute("list", list);
-		// 뷰 이름 반환
-		return "pieContents/shareService/shareServicebuyBoard";
-	}
+	
 	/**********************admin 게시글 관리**********************/
 	@RequestMapping("/shareServiceBoardConsole")
 	public String boardConsole(@RequestParam("page") int page, @RequestParam(value="search", required=false) String search, Model model) {
