@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyApplyDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
+import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SearchController {
@@ -29,6 +32,8 @@ public class SearchController {
 	ISearchDao sdao;
 	@Autowired
 	BoardComp bcomp;
+	@Autowired
+	IMemberDao mdao;	
 
 	@GetMapping("/searchProducts")
 	public String search(HttpServletRequest request, Model model) {
@@ -36,6 +41,16 @@ public class SearchController {
 		String category = request.getParameter("category");
 		String table = request.getParameter("table");
 		System.out.println(table);
+		
+		
+		
+		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
+		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		String useraddr = mdto.getAddress_main();
+		String userMainAddr = useraddr.substring(0, 6);
+		System.out.println(userMainAddr);
+		
+		
 
 		int food = 0;
 		int baby = 0;
@@ -44,6 +59,8 @@ public class SearchController {
 		int life = 0;
 		int etc = 0;
 
+		
+		
 		if (table != null&&!table.equals("")) {
 
 			if (table.equals("t")) {
@@ -55,13 +72,17 @@ public class SearchController {
 					sdao.upHit(townKeyword, "townBuy");
 				}
 				
-				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword);;
+				
+				
+				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword, userMainAddr);
 				List<TownBuyBoardDto> templist;
+				
+				
 
 				if(category==null||category.equals("")) {
 					model.addAttribute("list", list);
 				}else {
-					templist = tdao.searchCateDao(townKeyword,category);
+					templist = tdao.searchCateDao(townKeyword,category, userMainAddr);
 					for(TownBuyBoardDto b : templist) {
 						b.setTo_category(bcomp.translate(b.getTo_category()));
 					}
@@ -146,5 +167,12 @@ public class SearchController {
 			
 		}
 		return "redirect:/";
+	}
+	
+	
+
+	private String getSession(HttpServletRequest request, String key) {
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(key);
 	}
 }

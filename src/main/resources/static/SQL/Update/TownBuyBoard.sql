@@ -27,6 +27,21 @@ create table townBuyBoard (
 -- 동네 공동구매 시퀀스
 create sequence to_num nocache nocycle;
 
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
 -- 동네 공동구매 삽입문
 insert into townBuyBoard values(
 to_num.nextval,

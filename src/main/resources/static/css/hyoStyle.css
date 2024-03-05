@@ -84,6 +84,15 @@
 	object-position: center;
 }
 
+
+.hj-profile-img {
+
+	object-fit: cover;
+	object-position: center;
+	width: 200px;
+	height: 200px;
+}
+
 /* ####################################
 
 글쓰기 버튼 - 배너 스타일
@@ -228,3 +237,7 @@
 }
 
 
+.hj-card-process4 {
+	left: 30px;
+	top: 10px;
+}

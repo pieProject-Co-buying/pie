@@ -8,7 +8,7 @@
 
 
 
-<div layout:fragment="townBuyContent" class="col">
+<div layout:fragment="townBuyContent" class="col p-0">
 
 	<div
 		th:replace="~{pieContents/townBuying/townbuySearchSpot::searchSpot}" />
@@ -67,7 +67,7 @@
 
 								<div class="card-body">
 
-									<h5 class="card-title mt-1" th:text="${Fboard.getTo_title()}">Card
+									<h5 class="card-title mt-1 text-truncate" th:text="${Fboard.getTo_title()}">Card
 										title</h5>
 
 									<div class="row  mt-5">
@@ -173,7 +173,7 @@
 
 								<div class="card-body">
 
-									<h5 class="card-title mt-1" th:text="${Bboard.getTo_title()}">Card
+									<h5 class="card-title mt-1  text-truncate" th:text="${Bboard.getTo_title()}">Card
 										title</h5>
 
 									<div class="row  mt-5">
@@ -348,17 +348,7 @@
 									class="card-img-top hj-cardImg-left img-fluid w-100 hj-sub1-card-h-170 hj-fit-cover"
 									alt="...">
 
-
-
-
-
-
-							</div>
-
-							<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
-							
-							
-								<p id="processNow" class="position-absolute hj-card-process2">
+								<p id="processNow" class="position-absolute hj-card-process4">
 
 <!-- 									<small
 										class="badge badge-success"
@@ -368,6 +358,16 @@
 										th:if="${board.getTo_process().equals('0')}">모집마감</small>
 								</p>
 								
+
+
+
+
+							</div>
+
+							<div class="col-7 hj-sub1-card-h-170 py-4 pl-0">
+							
+							
+
 								
 								<p class="m-0 pie-c-red small"
 									th:text="${board.getTo_category()}"></p>

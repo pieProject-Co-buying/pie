@@ -30,7 +30,7 @@
 					
 					
 						<div class="row">
-							<div class="col-md-10 offset-md-1">
+							<div class="col-md-12">
 								<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title" required>
 						
 							    <div class="invalid-feedback">
@@ -50,14 +50,14 @@
 					
 <!-- bus_content  -->							
 					<div class="row">
-						<div class="col-md-10 offset-md-1">
+						<div class="col-md-12">
 							<textarea id="summernote" name="bus_content"></textarea>
 						</div>
 					</div>
 					
 					
 					<div class="row">
-						<div class="col-md-10 offset-md-1 text-right">
+						<div class="col-md-12 text-right">
 							<small>잔여 bytes :: </small>
 							<small id="messagebyte">11</small>
 							<small> / 2000</small>
@@ -76,6 +76,42 @@
 					
 					
 					
+					<div class="form-group row pt-3">
+					
+<!-- bus_productName  -->					
+						<div class="col-md-6 pt-3">
+							
+							<label for="bus_productName">
+								<small class="pl-1">제품명</small>
+
+							</label>
+							
+							<input type="text" class="form-control" id="bus_productName" name="bus_productName" required>
+							<div class="invalid-feedback">제품명을 입력해주세요.</div>
+		
+					    					
+								
+						</div>
+						
+											<!-- 이거는 다시보자 -->
+						<div class="col-md-6 pt-3">
+						
+							<label for="bus_img">
+								<small class="pl-1">제품정보 url</small>
+
+							</label>						
+						
+							<input type="text" class="form-control" id="bus_img" placeholder="제품정보 url" name="bus_img" required>
+							
+						    <div class="invalid-feedback">
+						        제품정보 url을 입력해주세요
+						    </div>	
+						    					
+						</div>
+					
+	
+					</div>
+										
 					
 					
 					

@@ -1,5 +1,5 @@
 
--- 신규 테이블 추가
+-- 채팅룸 생성
 create table chatRoom (
   roomNumber NUMBER PRIMARY KEY,
   managerMemNum VARCHAR2(16),
@@ -9,8 +9,11 @@ create table chatRoom (
 
 )
 
+-- 시퀀스 생성/삭제
+create sequence roomNumber nocache nocycle;
 
 
+-- 채팅 메세지 저장
 create table pie_messages (
     roomName varchar(200) not null,
     roomNumber varchar(200) not null,
@@ -19,6 +22,19 @@ create table pie_messages (
     message varchar(1000) not NULL,
     sendTime date default sysdate
 );
+
+
+
+create table pie_chatRoom (
+    roomName varchar2(200) not null,
+    roomNumber number unique not null,
+    partyMem varchar2(40)
+);
+
+
+
+
+
 
 
 -- 시퀀스 생성/삭제

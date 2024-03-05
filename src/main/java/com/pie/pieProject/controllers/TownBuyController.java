@@ -135,6 +135,8 @@ public class TownBuyController {
 			
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);
+			
+
 
 			dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
 			if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
@@ -143,6 +145,7 @@ public class TownBuyController {
 				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
 			}
 			
+
 			
 			/* dao.updateHit(sId); */
 			
@@ -153,6 +156,7 @@ public class TownBuyController {
 				model.addAttribute("like", false);
 			}
 			
+
 			
 			
 		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
@@ -166,6 +170,11 @@ public class TownBuyController {
 
 			
 			model.addAttribute("board", dto);
+			
+			
+
+			
+			
 
 		return "pieContents/townBuying/townBuyproduct";
 
@@ -263,9 +272,15 @@ public class TownBuyController {
 	public String category(HttpServletRequest request, Model model) {
 
 		String category = request.getParameter("category");
-		
 
-		model.addAttribute("list", dao.categoryDao(category));
+		
+		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
+		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		String useraddr = mdto.getAddress_main();
+		String userMainAddr = useraddr.substring(0, 6);
+		System.out.println(userMainAddr);
+
+		model.addAttribute("list", dao.categoryDao(category, userMainAddr));
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";
