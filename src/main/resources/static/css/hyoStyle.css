@@ -72,6 +72,17 @@
 	font-size: 50px !important;
 }
 
+.hj-height-category {
+	height : 50px;
+}
+
+
+.hj-position-category {
+	bottom: 20px;
+	right: 5px;
+}
+
+
 /* ####################################
 
 제품 상세페이지 css

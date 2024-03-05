@@ -40,15 +40,15 @@
 						
 						
 						<div class="card-body">
-							<h5 class="card-title" th:text="${list.getTo_title()}"></h5>
+							<h6 class="card-title" th:text="${list.getTo_title()}"></h6>
 
 
-							<div class="row mt-5">
-								<div class="col d-flex justify-content-end">
+							<div class="row mt-5 hj-height-category">
+								<div class="col d-flex justify-content-end  position-absolute hj-position-category">
 									<img th:src="@{'/imgs/profiles/' + ${list.getTo_profileImg()}}"
 										alt="" class="hj-chat-proImg-small" />
-									<h6 class="card-title ml-3 mt-2"
-										th:text="${list.getTo_nickname()}"}></h6>
+									<p class="card-title ml-3 mt-2"
+										th:text="${list.getTo_nickname()}"}></p>
 								</div>
 
 							</div>
