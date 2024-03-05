@@ -135,6 +135,12 @@
 		'${param1}%'<!--  and
 		to_process= '1' -->
 	</select>
+	
+	<select id="listLocalActive"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from townBuyBoard where to_address like
+		'${param1}%'and to_process= '1'
+	</select>
 
 
 	<update id="updatePer">

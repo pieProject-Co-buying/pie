@@ -11,11 +11,14 @@
 
 		<div class="row">
 			<div class="col">
-			
-			<a href="likeList?category=all" class="btn pie-btn-outline-red-custom rounded-pill">#전체</a>
-			<a href="likeList?category=town" class="btn pie-btn-outline-red-custom rounded-pill">#동네공구</a>
-			<a href="likeList?category=proxy" class="btn pie-btn-outline-red-custom rounded-pill">#대리공구</a>
-			<a href="likeList?category=share" class="btn pie-btn-outline-red-custom rounded-pill">#서비스공유</a>
+				<a href="likeList?category=all"
+					class="btn pie-btn-outline-red-custom rounded-pill">#전체</a> <a
+					href="likeList?category=town"
+					class="btn pie-btn-outline-red-custom rounded-pill">#동네공구</a> <a
+					href="likeList?category=proxy"
+					class="btn pie-btn-outline-red-custom rounded-pill">#대리공구</a> <a
+					href="likeList?category=share"
+					class="btn pie-btn-outline-red-custom rounded-pill">#서비스공유</a>
 			</div>
 		</div>
 
@@ -39,7 +42,7 @@
 							th:if="${board.getTo_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getTo_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getTo_title()}"></b>
 						</h5>
 						<p class="card-text">
@@ -81,7 +84,7 @@
 							th:if="${board.getTo_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getTo_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getTo_title()}"></b>
 						</h5>
 						<p class="card-text">
@@ -122,7 +125,7 @@
 							th:if="${board.getPr_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getPr_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getPr_title()}"></b>
 						</h5>
 						<p class="card-text">
@@ -163,7 +166,7 @@
 							th:if="${board.getSh_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getSh_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
@@ -204,7 +207,7 @@
 							th:if="${board.getPr_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getPr_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getPr_title()}"></b>
 						</h5>
 						<p class="card-text">
@@ -244,7 +247,7 @@
 							th:if="${board.getSh_process().equals('1')}">모집진행중</small> <small
 							class="badge badge-danger"
 							th:if="${board.getSh_process().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2">
+						<h5 class="card-title mt-2 text-truncate">
 							<b th:text="${board.getSh_title()}"></b>
 						</h5>
 						<p class="card-text">
