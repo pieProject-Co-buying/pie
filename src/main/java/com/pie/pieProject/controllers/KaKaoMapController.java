@@ -41,17 +41,17 @@ public class KaKaoMapController {
 	public ResponseEntity<String> getKaKaoApiFromAddress(@RequestParam("nowlogin") String userId,
 			HttpServletRequest request) {
 		
-		System.out.println("접속중:"+userId);
+		/* System.out.println("접속중:"+userId); */
 		
 		String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json";
 		String jsonString = null;
 		MemberDto mdto = mdao.find(userId);
 		String ad = mdto.getAddress_main().substring(0, 5);
-		System.out.println("주소:"+ad);
+		/* System.out.println("주소:"+ad); */
 		
-		List<TownBuyBoardDto> list = tdao.listLocal(ad);
+		List<TownBuyBoardDto> list = tdao.listLocalActive(ad);
 		
-		System.out.println("검색된 리스트" + list.size());
+		/* System.out.println("검색된 리스트" + list.size()); */
 		
 		JSONObject obj = new JSONObject();
 		JSONArray itemList = new JSONArray();
@@ -100,20 +100,21 @@ public class KaKaoMapController {
 			 nowA2 = roadAddress.get("region_2depth_name").toString();
 			 nowA3 = roadAddress.get("region_3depth_name").toString();
 			 
-			 System.out.println("행정1 : "+nowA1);
-			 System.out.println("행정2 : "+nowA2);
-			 System.out.println("행정3 : "+nowA3);
+				/*
+				 * System.out.println("행정1 : "+nowA1); System.out.println("행정2 : "+nowA2);
+				 * System.out.println("행정3 : "+nowA3);
+				 */
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(list.size());
+		/* System.out.println(list.size()); */
 		
 
 		for (TownBuyBoardDto dto : list) {
 			try {
-				System.out.println("검색된 주소 : "+dto.getTo_address());
+				/* System.out.println("검색된 주소 : "+dto.getTo_address()); */
 				roadFullAddr = URLEncoder.encode(dto.getTo_address(), "UTF-8");
 				String addr = apiUrl + "?query=" + roadFullAddr; // 수정
 				URL url = new URL(addr);
@@ -136,7 +137,7 @@ public class KaKaoMapController {
 			
 			JSONParser parser = new JSONParser();
 			
-			System.out.println("json : "+jsonString);
+			/* System.out.println("json : "+jsonString); */
 
 			try {
 				JSONObject jsonMain = (JSONObject) parser.parse(jsonString);
@@ -158,10 +159,10 @@ public class KaKaoMapController {
 				String a3 = roadAddress.get("region_3depth_name").toString();
 				// jsonArr에서 하나씩 JSONObject로 cast해서 사용
 				
-				System.out.println("a1 : "+a1);
-				System.out.println("a2 : "+a2);
-				System.out.println("a3 : "+a3);
-				
+				/*
+				 * System.out.println("a1 : "+a1); System.out.println("a2 : "+a2);
+				 * System.out.println("a3 : "+a3);
+				 */
 				if(a1.equals(nowA1)&&a2.equals(nowA2)) {
 
 					 JSONObject item = new JSONObject();

@@ -80,6 +80,7 @@ public interface ITownBuyBoardDao {
 	
 	public List<TownBuyBoardDto> listLocal(String local);
 	
+	public List<TownBuyBoardDto> listLocalActive(String local);
 	
 	//조회수
 	public void updateHit(String num);
