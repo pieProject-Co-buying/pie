@@ -71,7 +71,13 @@
 	</update>
 	
 	
-	
-	
+	<select id="getTotalItems" resultType="int">
+    	SELECT COUNT(*) FROM businessApplyForm
+	</select>
+
+	<select id="getApplyBoardByPage" resultType="com.pie.pieProject.DTO.BusinessApplyDto">
+	    select * from businessApplyForm order by bus_writeDay desc
+	</select>
+		
 
 </mapper>

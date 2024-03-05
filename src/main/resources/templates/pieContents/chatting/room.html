@@ -167,7 +167,7 @@
 
 			
 			
-			var list = /*[[${tboard}]]*/[];
+			var list = /*[[${member}]]*/[];
 			
 			console.log(list);
 			
@@ -195,8 +195,8 @@
 		            
 					list.forEach(function(item) {
 
-					    if (item.to_nickname === nickName) {
-					        profileImg = item.to_profileImg;
+					    if (item.nickname === nickName) {
+					        profileImg = item.profile_pic;
 					     return;
 					    }
 					});

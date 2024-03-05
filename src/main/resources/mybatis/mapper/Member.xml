@@ -4,7 +4,7 @@
 	<select id="getUserList"
 		resultType="com.pie.pieProject.DTO.MemberDto">
 		SELECT *
-		FROM User
+		FROM member_user
 	</select>
 	<select id="getSalt" resultType="string">
 		select salt from member_user

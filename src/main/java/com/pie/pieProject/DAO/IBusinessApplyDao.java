@@ -3,6 +3,7 @@ package com.pie.pieProject.DAO;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 
 import com.pie.pieProject.DTO.BusinessApplyDto;
@@ -28,5 +29,10 @@ public interface IBusinessApplyDao {
 	
 	//수정
 	public int updateDao(BusinessApplyDto dto);
+	
+	
+	public int getTotalItems();
+    
+    public List<BusinessApplyDto> getApplyBoardByPage(@Param("start") int start, @Param("pageSize") int pageSize);
 	
 }

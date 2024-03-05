@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -101,15 +102,36 @@ public class BusinessApplyController {
 
 	}
 	
-	
-	@RequestMapping("/businessApplyBoard")
-	public String readApply(Model model) {
-		
-		model.addAttribute("list", dao.applyBoard());
-		
-		return "pieContents/businessApply/businessApplyBoard";
-	}
+	/*
+	 * @RequestMapping("/businessApplyBoard") public String readApply(Model model) {
+	 * 
+	 * model.addAttribute("list", dao.applyBoard());
+	 * 
+	 * 
+	 * 
+	 * return "pieContents/businessApply/businessApplyBoard"; }
+	 */
 
+
+	// 페이지네이션 추가	
+	@RequestMapping("/businessApplyBoard")
+	public String readApply(Model model, @RequestParam(name = "page", defaultValue = "1") int page) { 
+	    int pageSize = 10; // 페이지당 항목 수
+	    int totalItems = dao.getTotalItems(); // 전체 항목 수를 가져오는 메서드 필요
+	    int totalPages = (int) Math.ceil((double) totalItems / pageSize); // 총 페이지 수 계산
+	    int start = (page - 1) * pageSize; // 시작 레코드 인덱스 계산
+	    
+	    List<BusinessApplyDto> list = dao.getApplyBoardByPage(start, pageSize); // 현재 페이지의 항목을 가져오는 메서드 필요
+	    
+	    model.addAttribute("list", list);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    
+	    return "pieContents/businessApply/businessApplyBoard";
+	}
+	
+	
+	
 	
 	@RequestMapping("/readApplyBoard")
 	public String readApplydetail(Model model, HttpServletRequest request, @RequestParam("bus_apply_num") int bus_apply_num) {
@@ -139,12 +161,18 @@ public class BusinessApplyController {
 	
 	
 	@RequestMapping("/businessApplyUpdateForm")
-	public String updateApply(HttpServletRequest request, Model model) {	
+	public String updateApply(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") int page) {	
 		String sId = request.getParameter("bus_apply_num");
 		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
 		model.addAttribute("board", dto);
 		
 		return "pieContents/businessApply/businessApplyUpdateForm";
+	}
+
+	
+	@RequestMapping("/businessApplyBoard/page/{pageNum}")
+	public String goToPage(Model model, @PathVariable("pageNum") int pageNum) {
+	    return "redirect:/businessApplyBoard?page=" + pageNum;
 	}
 	
 	
