@@ -31,7 +31,7 @@
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		
-		 select * from (select * from townBuyBoard where to_premium = 1 and to_category = #{param1} and to_address like '${param3}%' order by dbms_random.value) where rownum <![CDATA[ <= ]]> ${param2}
+		 select * from (select * from townBuyBoard where to_premium = 1 and to_process = 1 and to_category = #{param1} and to_address like '${param3}%' order by dbms_random.value) where rownum <![CDATA[ <= ]]> ${param2}
 
 	</select>
 
