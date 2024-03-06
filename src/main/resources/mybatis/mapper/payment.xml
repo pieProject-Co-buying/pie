@@ -8,7 +8,7 @@
  <!--고유번호로 해당 제품 검색-->
 <select id="payBoard"> 
 	select * from payment where pay_merchant_uid=#{param1}
- </select>
+</select>
  <!--결제 내역 리스트-->
 <select id="paymentList" resultType="com.pie.pieProject.DTO.PaymentDTO"> 
 	select * from payment order by pay_date desc

@@ -31,7 +31,10 @@ public interface IBusinessApplyDao {
 	public int updateDao(BusinessApplyDto dto);
 	
 	
+	
+	//페이징 관련 메소드
 	public int getTotalItems();
+	
     
     public List<BusinessApplyDto> getApplyBoardByPage(@Param("start") int start, @Param("pageSize") int pageSize);
 	

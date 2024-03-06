@@ -5,100 +5,211 @@
 <!-------------------------------------------------------------->
 <div layout:fragment="adminContent" class="col">
 
-<div class="container-fluid p-0 mt-5 notice">
-	<div class="page-title">
-		<div class="container">
-			<h3>결제 내역 관리</h3>
-		</div>
-	</div>
-	<!-------------------------------------------------------------->
-	<div id="board-search">
-		<div class="container">
-			<div class="search-window">
-				<form action="searchBuyerName">
-				<input type="hidden" name = "page" value="1" />
-					<div class="search-wrap">
-						<label for="search" class="blind">결제내역 검색</label> <input
-							id="search" type="search" name="search" placeholder="검색어를 입력해주세요."
-							value="">
-						<button type="submit" class="btn btn-dark">검색</button>
-					</div>
-				</form>
+	<div class="container-sm p-0 mt-5 notice">
+		<div class="page-title">
+			<div class="container-fluid">
+				<h3>결제 내역 관리</h3>
 			</div>
 		</div>
-	</div>
-	<!-------------------------------------------------------------->
-	<div id="board-list">
-		<div class="container">
-			<table class="board-table mt-1">
-				<thead>
-					<tr>
-						<th scope="col" class="th-num">상품코드</th>
-						<th scope="col" class="th-title">제목</th>
-						<th scope="col" class="th-date">결제일</th>
-						<th scope="col" class="th-num">구매자 ID</th>
-						<th scope="col" class="th-num">구매자 이름</th>
-						<th scope="col" class="th-date">결제수단 / 금액</th>
-						<th scope="col" class="th-num">환불여부</th>
-					</tr>
-				</thead>
-				<tbody>
-					<th:block th:each="list:${payList}">
-						<tr>
-							<td th:text="${list.getPay_Merchant_uid()}"></td>
-							<td class="d-block text-truncate" style="max-width:100%" th:text="${list.getPay_name()}"></td>
-							<td th:text="${list.getPay_date()}"></td>
-							<td th:text="${list.getBuyer_nickname()}"></td>
-							<td th:text="${list.getBuyer_name()}"></td>
-							<td
-								th:text="${list.getPay_method()}+' / '+${list.getPay_amount()}+'KRW'"></td>
-							<td>
-								<th:block th:if="${list.getPay_refund().equals('0')}">
-									<small class="badge badge-secondary" th:text="요청없음"></small>
-								</th:block>
-								<th:block th:if="${list.getPay_refund().equals('1')}">
-									<small class="badge badge-danger"> 
-										<a class="text-white" th:href="'refundPayCheck?page=1&num=' + ${list.getPay_Merchant_uid()}+'&pnum='+${list.getPay_num()}">환불요청</a>
-									</small>
-								</th:block>
-								<th:block th:if="${list.getPay_refund().equals('2')}">
-									<small class="badge badge-success" th:text="환불완료"></small>
-								</th:block>
-							</td>
-						</tr>
-					</th:block>
-				</tbody>
-			</table>
+		<!-------------------------------------------------------------->
+		<div id="board-search" class="container-fluid">
+			<div class="container-fluid">
+				<div class="search-window">
+					<form action="searchBuyerName">
+						<input type="hidden" name="page" value="1"/>
+						<div class="search-wrap">
+							<label for="search" class="blind">결제내역 검색</label> 
+							<input id="search" type="search" name="search" placeholder="검색어를 입력해주세요." value="">
+							<button type="submit" class="btn btn-dark">검색</button>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="row mt-5">
-					<div class="col d-flex justify-content-center">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link"
-									href="shareServiceApplyConsole?page=1" aria-label="Previous">
-										<span aria-hidden="true">&laquo;</span>
-								</a></li>
-								<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
-									<li class="page-item"><a class="page-link"
-										th:href="@{'shareServiceApplyConsole?page='+${i}}"
-										th:text="${i}"></a></li>
-								</th:block>
-								<li class="page-item"><a class="page-link"
-									th:href="@{'shareServiceApplyConsole?page='+${pageNum}}"
-									aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul> 
-						</nav>
+		<!-------------------------------------------------------------->
+		<div id="board-list" class="container-fluid">
+			<div class="container-fluid">
+				<table class="board-table mt-1">
+					<thead>
+						<tr>
+							<th scope="col" class="th-num">상품코드</th>
+							<th scope="col" class="th-num">제목</th>
+							<th scope="col" class="th-date d-none d-md-table-cell">결제일</th>
+							<th scope="col" class="th-num">구매자 ID</th>
+							<th scope="col" class="th-num d-none d-md-table-cell">구매자 이름</th>
+							<th scope="col" class="th-num">결제수단 및 금액</th>
+							<th scope="col" class="th-date">환불</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="list:${payList}">
+							<tr>
+								<td th:text="${list.getPay_Merchant_uid()}"></td>
+								<th>
+									<a href="#" class="button-class payModal" data-toggle="modal" data-target="#exampleModal" th:attr="data-num=${list.getPay_Merchant_uid()}, data-category=${list.getPay_category()}"> 
+										<b class="d-block text-truncate" style="max-width: 90px; text-align: left" th:text="${list.getPay_name()}"></b>
+									</a>
+								</th>
+								<td th:text="${list.getPay_date()}" class="d-none d-md-table-cell"></td>
+								<td th:text="${list.getBuyer_id()}"></td>
+								<td th:text="${list.getBuyer_name()}" class="d-none d-md-table-cell"></td>
+								<td th:text="${list.getPay_method()}+' / '+${list.getPay_amount()}+'원'"></td>
+								<td>
+									<th:block th:if="${list.getPay_refund().equals('0')}">
+										<small class="badge badge-secondary" th:text="요청없음"></small>
+									</th:block> <th:block th:if="${list.getPay_refund().equals('1')}">
+										<small class="badge badge-danger"> 
+											<a class="text-white" th:href="'refundPayCheck?page=1&num=' + ${list.getPay_Merchant_uid()}+'&pnum='+${list.getPay_num()}">환불요청</a>
+										</small>
+									</th:block> 
+									<th:block th:if="${list.getPay_refund().equals('2')}">
+										<small class="badge badge-success" th:text="환불완료"></small>
+									</th:block>
+								</td>
+							</tr>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header" style="background-color: #C74A35">
+											<h5 class="modal-title text-white" id="exampleModalLabel">결제 상세 내역</h5>
+											<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="m-auto">
+											<p class="mt-4 border-bottom">
+												<b>구매자 ID : </b> 
+												<small id="modalId" th:text="${list.getBuyer_id()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>구매자 성명 : </b> 
+												<small id="modalName" th:text="${list.getBuyer_name()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>상품코드 : </b> 
+												<small id="modalCode" th:text="${list.getPay_Merchant_uid()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>구매품목 : </b> 
+												<small id="modalPname" th:text="${list.getPay_name()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>결제일시 : </b>
+												 <small id="modalDate" th:text="${list.getPay_date()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>결제수단 : </b> 
+												<small id="modalMethod" th:text="${list.getPay_method()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>결제금액 : </b> 
+												<small id="modalPay" th:text="${list.getPay_amount()}+' 원'"></small>
+											</p>
+											<p class="border-bottom">
+												<b>상세주소 : </b> 
+												<small id="modalAddr" th:text="${'('+list.getBuyer_postcode()+') '+list.getBuyer_addr()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>이메일 : </b> 
+												<small id="modalEmail" th:text="${list.getBuyer_email()}"></small>
+											</p>
+											<p class="border-bottom">
+												<b>연락처 : </b> 
+												<small id="modalPhone" th:text="${list.getBuyer_tel()}"></small>
+											</p>
+											<p class="mb-4 border-bottom">
+												<b>환불요청 : </b> 
+												<small id="modalRefund"></small>
+											</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="pie-btn-lightgray" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</th:block>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="row mt-5">
+						<div class="col d-flex justify-content-center">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item">
+										<a class="page-link" href="shareServiceApplyConsole?page=1" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
+									<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
+										<li class="page-item">
+											<a class="page-link" th:href="@{'shareServiceApplyConsole?page='+${i}}" th:text="${i}"></a>
+										</li>
+									</th:block>
+									<li class="page-item">
+										<a class="page-link" th:href="@{'shareServiceApplyConsole?page='+${pageNum}}" aria-label="Next"> 
+											<span aria-hidden="true">&raquo;</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+<script>
+$(".payModal").click(function(){
+let num = $(this).attr("data-num");
+let category = $(this).attr("data-category");
+	
+	$.ajax({
+		data: {
+			num: num,
+			category : category
+		},
+		dataType: 'json',
+		type: "POST",
+		url: "/getPayData",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(response) {
+			console.log(response)
+			$("#modalId").text(response.buyer_id);
+			$("#modalName").text(response.buyer_name);
+			$("#modalCode").text(response.pay_Merchant_uid);
+			$("#modalPname").text(response.pay_name);
+			$("#modalDate").text(response.pay_date);
+			$("#modalMethod").text(response.pay_method);
+			$("#modalPay").text(response.pay_amount+' 원');
+			$("#modalAddr").text('('+response.buyer_postcode+') '+response.buyer_addr);
+			$("#modalEmail").text(response.buyer_email);
+			$("#modalPhone").text(response.buyer_tel);
+			
+			var refundBadge;
+		    if (response.pay_refund === '0') {
+		        refundBadge = '<small class="badge badge-secondary">요청없음</small>';
+		    } else if (response.pay_refund === '1') {
+		        refundBadge = '<small class="badge badge-danger"><a class="text-white" href="refundPayCheck?page=1&num=' + response.pay_Merchant_uid + '&pnum=' + response.pay_num + '">환불요청</a></small>';
+		    } else if (response.pay_refund === '2') {
+		        refundBadge = '<small class="badge badge-success">환불완료</small>';
+		    }
+		    $("#modalRefund").html(refundBadge);
+		},
+		error: function(xhr, desc, err) {
+			console.error('전송 실패', err);
+		}
+	});
+})
+</script>
 
 </div>
 </html>
