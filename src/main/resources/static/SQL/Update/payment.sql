@@ -1,4 +1,3 @@
-------------------------------------------
 create table payment(
     pay_num integer not null,
     buyer_id varchar2(100),
@@ -34,4 +33,3 @@ select * from payment where pay_merchant_uid=173513486;
 delete payment where pay_num=1;
 --commit
 commit;
-rollback;

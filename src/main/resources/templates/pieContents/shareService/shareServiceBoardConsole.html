@@ -5,15 +5,15 @@
 <!-------------------------------------------------------------->
 <div layout:fragment="adminContent" class="col">
 	<!-------------------------------------------------------------->
-	<div class="container-fluid p-0 mt-5 notice">
+	<div class="container-sm p-0 mt-5 notice">
 		<div class="page-title">
-			<div class="container">
+			<div class="container-fluid">
 				<h3>게시글 관리</h3>
 			</div>
 		</div>
 		<!-------------------------------------------------------------->
-		<div id="board-search">
-			<div class="container">
+		<div id="board-search" class="container-fluid">
+			<div class="container-fluid p-0">
 					<small>
 						<a href="shareServiceBoardConsole?category=Proxy">동네공구</a>
 						<small> / </small>
@@ -32,8 +32,8 @@
 			</div>
 		</div>
 		<!-------------------------------------------------------------->
-		<div id="board-list">
-			<div class="container">
+		<div id="board-list" class="container-fluid">
+			<div class="container-fluid p-0">
 				<table class="board-table mt-1">
 					<thead>
 						<tr>
@@ -56,12 +56,9 @@
 									<td th:text="${board.getSh_id}"></td>
 									<th>
 										<b>
-											<a class="d-block text-truncate" style="max-width:100px" th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
+											<a class="d-block text-truncate" style="max-width:100px;" th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
 										</b>
 									</th>
-									<!-- <td class="d-none d-md-block" th:text="${board.getSh_nickname()}"></td>
-									<td class="d-none d-md-block" th:text="${#strings.substring(board.getSh_registDay(), 0, 10)}"></td>
-									<td th:text="${#strings.substring(board.getSh_deadLine(), 0, 10)}"></td> -->
 									<td>
 										<small class="badge badge-warning" th:if="${board.getSh_process().equals('2')}"> 모집중단</small> 
 										<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
