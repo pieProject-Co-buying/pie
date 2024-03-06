@@ -11,7 +11,7 @@ import com.pie.pieProject.DTO.MemberDto;
 public interface IMemberDao {
 	public String getSalt(String id);
 	public MemberDto login(String id, String password);
-	public int join(MemberDto mem);
+	public void join(MemberDto mem);
 	public MemberDto find(String id);
 	public void sub(String id);
 	public void resub(String id);

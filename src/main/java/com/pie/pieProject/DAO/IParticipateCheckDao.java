@@ -19,5 +19,13 @@ public interface IParticipateCheckDao {
 	public List<String> getDate(String sId, String tableName);
 	
 	public List<MemberDto> getPartiMem(String num, String tablename);
+	
 	public int getPartiMemNum(String num, String string);
+//	참여 여부 확인
+	public int chkPartiMem(String id, String tablename , String num);
+//	참여 취소
+	public void cancelBuying(String id, String tablename , String num);
+//	이전 참여 취소 여부
+	public int canceledBuying(String id, String tablename , String num);
+	
 }

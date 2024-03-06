@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,6 +25,7 @@ import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
@@ -131,9 +133,15 @@ public class TownBuyController {
 	public String toBoardView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		
 			String sId = request.getParameter("num");
+			MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+			String useraddr = mdto.getAddress_main();
+			String userMainAddr = useraddr.substring(0, 6);
 			
+//			조회수
 			dao.updateHit(num);
 			
+//			다른 게시글 리스트
+			List<TownBuyBoardDto> townlist = bcomp.translateTownList(dao.listLocal(userMainAddr));			
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);
 			
@@ -146,10 +154,9 @@ public class TownBuyController {
 				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
 			}
 			
-
-			
 			/* dao.updateHit(sId); */
 			
+//			좋아요
 			String table = "townBuyBoard";
 			if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
 				model.addAttribute("like", true);
@@ -159,23 +166,21 @@ public class TownBuyController {
 						
 			
 		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
-		    	
-		    	System.out.println(dto.getTo_personnelNow());
 		        dao.updateTownProcess(sId);
 		    }
 			
+//		    참여멤버 목록
 		    List<MemberDto> list = paDao.getPartiMem(num, "townBuyBoard");
-
-		    // tempList를 출력하여 확인
-		    System.out.println("list:"+list);
-
+		    
+		    model.addAttribute("list",townlist);
 			model.addAttribute("partiMem", list);
 			model.addAttribute("partiMemTotal", list.size());
 			model.addAttribute("board", dto);
 			
-			
-
-			
+//			참여 여부 확인
+			model.addAttribute("in",(paDao.chkPartiMem(getSession(request, "userId"), "townBuyBoard", num)>0));
+//			참여 했다가 취소 여부 확인
+			model.addAttribute("cancel",(paDao.canceledBuying(getSession(request, "userId"), "townBuyBoard", num)>0));
 			
 
 		return "pieContents/townBuying/townBuyproduct";
@@ -338,6 +343,12 @@ public class TownBuyController {
 		model.addAttribute("Mapi",kakaoMapApiKey);
 		
 		return "pieContents/townBuying/townBuyMain";
+	}
+	
+	@GetMapping("/cancelBuying")
+	public String cancelBuying(@RequestParam("num") String num, HttpServletRequest request) {
+		paDao.cancelBuying(bcomp.getSession(request, "userId"), "townBuyBoard", num);
+		return "redirect:/townBuyproduct?num="+num;
 	}
 	
 	

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pie.pieProject.DAO.IFeedDao;
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DTO.FeedDto;
@@ -44,6 +45,8 @@ public class ProxyBuyController {
 	ISearchDao sdao;
 	@Autowired
 	IFeedDao fdao;
+	@Autowired
+	IParticipateCheckDao paDao;
 
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage(Model model) {
@@ -255,7 +258,13 @@ public class ProxyBuyController {
 			model.addAttribute("like", false);
 		}
 		System.out.println("chkpoint3");
-
+		
+		List<MemberDto> list = paDao.getPartiMem(num, "Proxy");
+		
+		
+		model.addAttribute("list",Bcomp.translateProxyList(dao.listDaoByNewerNumber(10)));
+		model.addAttribute("partiMem", list);
+		model.addAttribute("partiMemTotal", list.size());
 		model.addAttribute("board", dto);
 		model.addAttribute("member", mdto);
 		return "pieContents/proxyBuying/proxyBuyProduct";

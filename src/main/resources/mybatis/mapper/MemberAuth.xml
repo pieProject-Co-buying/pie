@@ -12,5 +12,8 @@
 		select auth from member_auth where id
 		= #{param1}
 	</select>
+	<delete id="deleteAuth">
+		delete member_auth where id= #{param1}
+	</delete>
 </mapper>
 

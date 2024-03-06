@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import com.pie.pieProject.DAO.IFriendDao;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
+import com.pie.pieProject.DTO.ShareServiceDto;
+import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -101,6 +103,20 @@ public class BoardComp {
 	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list) {
 		for (ProxyBuyBoardDto d : list) {
 			d.setPr_category(translate(d.getPr_category()));
+		}
+		return list;
+	}
+	
+	public List<TownBuyBoardDto> translateTownList(List<TownBuyBoardDto> list) {
+		for (TownBuyBoardDto d : list) {
+			d.setTo_category(translate(d.getTo_category()));
+		}
+		return list;
+	}
+	
+	public List<ShareServiceDto> translateShareList(List<ShareServiceDto> list) {
+		for (ShareServiceDto d : list) {
+			d.setSh_category(translate(d.getSh_category()));
 		}
 		return list;
 	}

@@ -19,4 +19,7 @@ public interface IFriendDao {
 
 //	팔로우리스트
 	public List<MemberDto> friendsList(String me);
+	
+//	탈퇴자 삭제
+	public void outMemberFollow(String id);
 }

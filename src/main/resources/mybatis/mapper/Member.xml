@@ -22,7 +22,7 @@
 		insert into member_user values (mem_seq.nextval,
 		#{id},
 		#{password},
-		#{salt},
+		'_',
 		#{name},
 		#{nickname},
 		#{gender},
