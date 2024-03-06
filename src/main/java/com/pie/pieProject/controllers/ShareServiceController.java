@@ -12,6 +12,7 @@ import org.yaml.snakeyaml.tokens.DocumentEndToken;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
+import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
@@ -38,6 +39,8 @@ public class ShareServiceController {
 	IPaymentDAO Pdao;
 	@Autowired
 	BoardComp Bcomp;
+	@Autowired
+	IParticipateCheckDao paDao;
 	@Autowired
 	IProxyBuyDao rdao;
 
@@ -73,8 +76,11 @@ public class ShareServiceController {
 		String sId = request.getParameter("num");
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
-		List<ShareServiceDto> list = dao.getBoardList();
 		
+//		다른 게시글 리스트
+		List<ShareServiceDto> list = Bcomp.translateShareList(dao.getBoardList());
+		
+//		조회수
 		dao.updateHit(num);
 		
 		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
@@ -84,10 +90,11 @@ public class ShareServiceController {
 			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
 		
-		if(dto.getSh_personnelMax()==dto.getSh_personnelNow()) {
+		if(dto.getSh_personnelMax()<=dto.getSh_personnelNow()) {
 			dao.maxChk(Integer.parseInt(sId));
 		}
 		
+//		좋아요
 		String table = "shareServiceBoard";
 		if (ldao.checkLike(Bcomp.getSession(request, "userId"), sId, table) > 0) {
 			model.addAttribute("like", true);
@@ -95,6 +102,11 @@ public class ShareServiceController {
 			model.addAttribute("like", false);
 		}
 		
+//	    참여멤버 목록
+	    List<MemberDto> partilist = paDao.getPartiMem(num, "Share");
+	    
+		model.addAttribute("partiMem", partilist);
+		model.addAttribute("partiMemTotal", partilist.size());
 		model.addAttribute("board", dto);
 		model.addAttribute("member",mdto);
 		model.addAttribute("list",list);

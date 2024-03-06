@@ -6,4 +6,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IMemberAuthDao {
 	public void joinUser(String id);
 	public String findAuth(String id);
+	public void deleteAuth(String id);
 }

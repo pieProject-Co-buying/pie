@@ -29,5 +29,8 @@
 		WHERE friendTable.followingid =
 		#{param1}
 	</select>
+	<delete id="outMemberFollow">
+		delete friendTable where followingId=#{param1} or followedId = #{param2}
+	</delete>
 
 </mapper>

@@ -3,6 +3,8 @@ package com.pie.pieProject.DTO;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -37,5 +39,7 @@ public class MemberDto {
 	private String premium; // 구독회원 여부
 	private Date preDate; // 구독 시작일
 	private Date preEndDate; // 구독 종료일
+	
+	private MultipartFile file;
 }
 

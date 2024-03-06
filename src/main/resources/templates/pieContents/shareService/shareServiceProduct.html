@@ -25,7 +25,7 @@
 		<input type="hidden" id="tableName" value="s" />
 
 		<div class="row">
-
+			<!-- lg이상화면 작성자 프로필 -->
 			<div class="col-lg-3 d-none d-lg-block">
 
 				<div class="row">
@@ -33,24 +33,32 @@
 						<div class="card border-0">
 							<img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
-								alt="" style="object-fit: cover">
-							<div class="card-body">
-								<h5 class="card-title" th:text="${board.getSh_nickname()}">Card
-									title</h5>
-								<p class="card-text">자기 소개글</p>
-								<p class="text-right">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-										fill="currentColor" class="bi bi-hand-thumbs-up"
-										viewBox="0 0 16 16">
-										<path
-											d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
-									</svg>
-								</p>
+								alt=>
+							<div
+								class="card-body px-2 d-flex align-items-center justify-content-center flex-wrap">
+								<h5 class="card-title text-center mb-0 mr-2"
+									th:text="${board.getSh_nickname}">Card title</h5>
+								<th:block
+									th:if="${!#strings.equals(board.getSh_id(),session.userId)}">
+									<span
+										th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn py-0"
+										th:attr="data-following = ${board.getSh_id()}"> <span
+										class="small">팔로우</span>
+									</span>
+									<span
+										th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn unfollow py-0"
+										data-hover="언팔로우"
+										th:attr="data-following = ${board.getSh_id()}"> <span
+										class="small">팔로잉</span>
+									</span>
+								</th:block>
 							</div>
 						</div>
-
 					</div>
 				</div>
+				<!-- 모집관련 정보 (lg 이상) -->
 				<div class="row">
 					<div class="col">
 						<p>
@@ -63,19 +71,19 @@
 						<p>
 							<small class="font-weight-bold">진행현황</small><br />
 							<th:block th:if="${board.getSh_process().equals('2')}">
-                        		<small class="badge badge-warning" th:text="모집중단"></small>
-                        	</th:block>
+								<small class="badge badge-warning" th:text="모집중단"></small>
+							</th:block>
 							<th:block th:if="${board.getSh_process().equals('1')}">
-                        		<small class="badge badge-success" th:text="모집진행중"></small>                       	
-                        	</th:block>
-                        	<th:block th:if="${board.getSh_process().equals('0')}">
-                        		<small class="badge badge-danger" th:text="모집마감"></small>
-                        	</th:block>
+								<small class="badge badge-success" th:text="모집진행중"></small>
+							</th:block>
+							<th:block th:if="${board.getSh_process().equals('0')}">
+								<small class="badge badge-danger" th:text="모집마감"></small>
+							</th:block>
 						</p>
 
 						<p>
 							<small class="font-weight-bold">모집시작</small><br /> <small
-								th:text="${#strings.substring(board.getSh_registDay(),0,10)}"></small>
+								th:text="${board.getSh_registDay()}"></small>
 						</p>
 						<p>
 							<small class="font-weight-bold">모집마감</small><br /> <small
@@ -83,28 +91,37 @@
 						</p>
 					</div>
 				</div>
-
 			</div>
+
+			<!-- md 이하 화면 작성자 프로필 -->
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
 					<img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}"
 						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
-					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
-					<small class="m-0 font-weight-bold"
-							th:text="${board.getSh_nickname}"></small> <small
-							class="pie-introduceself w-100 pie-omitted">자기 소개글 엄청길게
-							쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글
-							엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기자기 소개글 엄청길게 쓰기 </small>
+					<div class="pl-3 pie-view-text pie-omitted d-flex">
+						<th:block
+							th:if="${!#strings.equals(board.getSh_id(),session.userId)}">
+							<small class="m-0 font-weight-bold mr-2"
+								th:text="${board.getSh_nickname}"></small>
+							<span
+								th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn py-0"
+								th:attr="data-following = ${board.getSh_id()}"> <span
+								class="small">팔로우</span>
+							</span>
+							<span
+								th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn unfollow py-0"
+								data-hover="언팔로우" th:attr="data-following = ${board.getSh_id()}">
+								<span class="small">팔로잉</span>
+							</span>
+						</th:block>
 					</div>
-					<div class="pl-3">
-						<span class="pie-thumbsUp-icon pie-icons mx-2 active"></span>
-					</div>	
-					
-					
-								
 				</div>
+
+				<!-- 게시글본문 -->
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
 						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
@@ -125,21 +142,27 @@
 
 						</div>
 					</div>
-					<div
-						class="d-flex justify-content-center p-2 fancyBox-container mx-auto">
-						<th:block
-							th:each="i : ${#numbers.sequence(0,board.getSh_productImgs().length-1)}">
-							<a class="d-block mx-1" data-fancybox="gallery"
-								th:attr="data-src='/imgs/test/'+ ${board.getSh_productImgs()[i]}">
-								<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[i]}}"
-								width="100" height="100" alt="" />
-							</a>
-						</th:block>
 
+					<!-- 이미지 갤러리 -->
+					<div class="col-12 px-5">
+						<div
+							class="d-flex justify-content-center pt-2 fancyBox-container mx-auto">
+							<th:block
+								th:each="i : ${#numbers.sequence(0,board.getSh_productImgs().length-1)}">
+								<a class="d-block mx-1" data-fancybox="gallery"
+									th:attr="data-src='/imgs/test/'+ ${board.getSh_productImgs()[i]}">
+									<img
+									th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[i]}}"
+									width="100" height="100" alt="" />
+								</a>
+							</th:block>
+						</div>
+						<hr class="mt-0 d-md-none" />
 					</div>
 
-					<div class="col-12 px-5 my-5">
 
+					<!-- 모집관련 정보 (md 이하) -->
+					<div class="col-12 px-5 mb-5">
 						<div class="row d-lg-none">
 							<div class="col">
 								<!--text-box-->
@@ -147,27 +170,26 @@
 									<div class="col-6">
 										<p>
 											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:attr="data-shNow=${board.getSh_personnelNow()}"
-												th:text="${Now}+' 명 /'"></small> <small
-												th:attr="data-shMax=${board.getSh_personnelMax()}"
-												th:text="${Max}+' 명'"></small>
+												th:attr="data-prNow=${board.getSh_personnelNow()}"
+												th:text="${board.getSh_personnelNow()}+' 명 /'"></small> <small
+												th:attr="data-prMax=${board.getSh_personnelMax()}"
+												th:text="${board.getSh_personnelMax()}+' 명'"></small>
 										</p>
 										<p>
 
 											<small class="font-weight-bold">진행현황</small><br />
 											<th:block th:if="${board.getSh_process().equals('1')}">
-                        						<small class="badge badge-success" th:text="모집진행중"></small>                       	
-                        					</th:block>
-                        					<th:block th:if="${board.getSh_process().equals('0')}">
-                        						<small class="badge badge-danger" th:text="모집마감"></small>
-                        					</th:block>
+												<small class="badge badge-success" th:text="모집진행중"></small>
+											</th:block>
+											<th:block th:if="${board.getSh_process().equals('0')}">
+												<small class="badge badge-danger" th:text="모집마감"></small>
+											</th:block>
 										</p>
 									</div>
 									<div class="col-6">
 										<p>
-
 											<small class="font-weight-bold">모집시작</small><br /> <small
-												th:text="${#strings.substring(board.getSh_registDay(),0,10)}"></small>
+												th:text="${board.getSh_registDay()}"></small>
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
@@ -177,8 +199,9 @@
 								</div>
 							</div>
 						</div>
-						<hr class="d-lg-none" />
+						<hr class="mt-0" />
 
+						<!-- 태그 -->
 						<div class="w-100 py-5" th:utext="${board.getSh_content()}"></div>
 						<div class="">
 							<small> <th:block th:if="${board.getSh_tags()!=null}">
@@ -190,30 +213,35 @@
 								</th:block>
 							</small>
 						</div>
-						<div class="d-flex justify-content-between align-items-center">
 						
-							<th:block th:if="${member.id eq board.sh_id} or ${member.id eq 'admin'}">
-								<div class="mt-3">
-									<a class="mr-2"
-										th:href="@{'updateShareBoardForm?num=' + ${board.getSh_num()}}">
-										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-											fill="currentColor" class="bi bi-pencil-fill"
-											viewBox="0 0 16 16">
+						<!-- 수정 / 삭제 버튼 -->
+						<div class="d-flex justify-content-between align-items-center">
+
+							<div class="mt-3" th:if="${session.userId == board.getSh_id()}">
+							<!-- 수정 -->
+								<a class="mr-2"
+									th:href="@{'updateShareBoardForm?num=' + ${board.getSh_num()}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+										fill="currentColor" class="bi bi-pencil-fill"
+										viewBox="0 0 16 16">
 										<path
-												d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+											d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
 										</svg>
-									</a>
-									 <a class="" th:href="@{'deleteShareService?num=' + ${board.getSh_num()}}">
-									 	<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-											fill="currentColor" class="bi bi-trash-fill"
-											viewBox="0 0 16 16">
+								</a> 
+								<!-- 삭제 -->
+								<a class=""
+									th:href="@{'deleteShareService?num=' + ${board.getSh_num()}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+										fill="currentColor" class="bi bi-trash-fill"
+										viewBox="0 0 16 16">
 										<path
-												d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+											d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
 										</svg>
-									</a>
-								</div>
-							</th:block>
-							<div class="d-flex align-items-center">
+								</a>
+							</div>
+							
+							<!-- 조회수 / 좋아요 / 공유 -->
+							<div class="d-flex align-items-center ml-auto">
 								<span><small class="mr-1">조회수</small><small
 									th:text="${board.getSh_hit()}"></small></span>
 								<th:block th:if="${like}">
@@ -227,6 +255,8 @@
 
 								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
 									data-target="#shareModal"></span>
+									 <a class="pie-chat-icon pie-icons"
+									th:href="@{'room?mem='+${board.getSh_id}}"></a>
 
 								<!-- Modal -->
 								<div class="modal fade" id="shareModal" tabindex="-1"
@@ -264,42 +294,108 @@
 							</div>
 						</div>
 						<hr>
+						
+						<!-- 참여중인 멤버확인하기 -->
+						<div>
+							<div class="py-2 pb-4 d-flex align-items-center dropup"
+								id="partiMem">
+								<div class="d-flex flex-row-reverse justify-content-end">
+									<th:block th:if="${partiMem!=null&&partiMem.size()>1}">
+										<th:block th:each="p, iterStat : ${partiMem}">
+											<th:block th:if="${iterStat.index < 2}">
+												<img th:src="@{'imgs/profiles/' + ${p.getProfile_pic()}}"
+													class="pie-profilePic pie-partiMems border" alt="">
+											</th:block>
+										</th:block>
+									</th:block>
+									<th:block th:if="${partiMem!=null&&partiMemTotal==1}">
+										<img
+											th:src="@{'imgs/profiles/' + ${partiMem.get(0).getProfile_pic()}}"
+											class="pie-profilePic pie-partiMems border" alt="">
+									</th:block>
+								</div>
+								<th:block th:if="${(partiMemTotal)>2}">
+									<span role="button" class="small pie-partimembtn"
+										data-toggle="dropdown" aria-expanded="false"
+										th:text="|+${partiMemTotal-2}명이 참여중입니다.|"></span>
+								</th:block>
+								<th:block th:if="${(partiMemTotal)<=2&&(partiMemTotal)>0}">
+									<span role="button" class="small pie-partimembtn"
+										data-toggle="dropdown" aria-expanded="false">가 참여중입니다.</span>
+								</th:block>
+								<th:block th:if="${(partiMemTotal)==0}">
+									<span class="small">아직 함께하는 파이 친구가 없어요!</span>
+								</th:block>
+
+								<div class="dropdown-menu" id="partyMemsList">
+									<th:block th:each="p:${partiMem}">
+										<div class="px-2 py-1 d-flex justify-content-between">
+											<span class="small" th:text="${p.getNickname()}"></span>
+											<div class="d-flex align-items-center">
+												<a class="pie-chat-icon pie-icons-mini mx-2"
+													th:if="${!#strings.equals(p.getId(),session.userId)}"
+													th:href="@{'room?mem='+${p.getId()}}"></a>
+												<th:block
+													th:if="${@boardComp.rUFollowing(session.userId,p.getId())}">
+													<span class="pie-thumbsUp-icon pie-icons-mini active"
+														th:if="${!#strings.equals(p.getId(),session.userId)}"
+														th:attr="data-following=${p.getId()}"></span>
+												</th:block>
+												<th:block
+													th:unless="${@boardComp.rUFollowing(session.userId,p.getId())}">
+													<span class="pie-thumbsUp-icon pie-icons-mini"
+														th:if="${!#strings.equals(p.getId(),session.userId)}"
+														th:attr="data-following=${p.getId()}"></span>
+												</th:block>
+
+											</div>
+										</div>
+									</th:block>
+								</div>
+							</div>
+						
 						<!--------------------------다른 상품-------------------------->
 						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
-							<th:block th:if="${board.getSh_process().equals('1') && member.id != board.getSh_id()}">
+							<th:block
+								th:if="${session.userId != board.getSh_id() && board.getSh_process().equals('1')}">
 								<button type="button" class="btn pie-btn-red btn-block"
 									data-toggle="modal" data-target="#staticBackdrop">
 									<small>참여하기</small>
 								</button>
 							</th:block>
-							
+
 							<!--게시글 작성자가 본인일 경우-->
-							<th:block th:if="${member.id eq board.getSh_id() && board.getSh_process().equals('1')}">
+							<th:block
+								th:if="${session.userId eq board.getSh_id() && board.getSh_process().equals('1')}">
 								<button type="button" class="btn pie-btn-red btn-block" disabled>
 									<small>작성자는 신청이 불가합니다.</small>
 								</button>
 							</th:block>
-							
+
 							<!--모집 마감-->
-							<button th:if="${board.getSh_personnelNow()>=board.getSh_personnelMax() && member.id != board.getSh_id()}"
+							<button
+								th:if="${board.getSh_process().equals('0') && !(session.userId eq board.getSh_id())}"
 								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
 							</button>
-							
+
 							<!--모집이 마감 되었을 때 작성자 최종 결제-->
-							<button th:if="${board.getSh_process().equals('0') && member.id eq board.getSh_id()}"
-    							id="paymentButton" type="button" class="btn pie-btn-red btn-block"
-    							data-toggle="modal" data-target="#paymentModal">
-    							<small>결제하기</small>
+							<button
+								th:if="${board.getSh_process().equals('0') && session.userId eq board.getSh_id()}"
+								id="paymentButton" type="button"
+								class="btn pie-btn-red btn-block" data-toggle="modal"
+								data-target="#paymentModal">
+								<small>결제하기</small>
 							</button>
-							
+
 							<!--작정자에 의한 모집중단-->
 							<button th:if="${board.getSh_process().equals('2')}"
-    							id="paymentButton" type="button" class="btn pie-btn-red btn-block" disabled>
-    							<small>관리자에 의해 중단된 모집입니다.</small>
+								id="paymentButton" type="button"
+								class="btn pie-btn-red btn-block" disabled>
+								<small>관리자에 의해 중단된 모집입니다.</small>
 							</button>
 
 							<!-- Modal -->
@@ -329,7 +425,9 @@
 
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body text-center">
-											<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}" alt="" class="img-fluid" style="width:100%;">
+											<img
+												th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
+												alt="" class="img-fluid" style="width: 100%;">
 											<h5 class="mb-3 mt-5 text-center">
 												함께하면 <b th:text="${board.getSh_pricePer()}"></b> 원에 구매할 수
 												있어요!
@@ -401,30 +499,45 @@
 				<div class="owl-carousel owl-theme owl-loaded loop">
 					<div class="owl-stage-outer">
 						<div class="owl-stage">
-							<th:block th:each="item : ${list}" th:if="${item.getSh_process().equals('1')}">
+							<th:block th:each="item : ${list}"
+								th:if="${item.getSh_process().equals('1')}">
 								<th:block th:if="${item.sh_num==board.getSh_num()}">
 									<div class="owl-item text-center">
-										<small><b>&#9656;현재 게시물&#9666;</b></small>
-										<a th:href="'boardList?num='+${item.sh_num}" class="shareActive ">
-											<img th:src="@{'/imgs/test/' + ${item.sh_productImg}}" class="img-fluid" style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2">
-											<b><span th:if="${item.sh_category.equals('game')}" class="badge badge-info" th:text="${item.sh_category}"></span></b>
-											<b><span th:if="${item.sh_category.equals('OTT')}" class="badge badge-warning" th:text="${item.sh_category}"></span></b>
-											<b><span th:if="${item.sh_category.equals('bookAndMusic')}" class="badge badge-success" th:text="${item.sh_category}"></span></b>
-											<b><span class="d-block text-truncate" style="max-width:100%" th:text="${item.sh_title}"></span></b>
-											</small>
+										<small><b>&#9656;현재 게시물&#9666;</b></small> <a
+											th:href="'boardList?num='+${item.sh_num}"
+											class="shareActive "> <img
+											th:src="@{'/imgs/test/' + ${item.sh_productImg}}"
+											class="img-fluid"
+											style="width: 100%; height: 200px; border-radius: 20px">
+											<small class="mt-2"> <b><span
+													th:if="${item.sh_category.equals('game')}"
+													class="badge badge-info" th:text="${item.sh_category}"></span></b>
+												<b><span th:if="${item.sh_category.equals('OTT')}"
+													class="badge badge-warning" th:text="${item.sh_category}"></span></b>
+												<b><span
+													th:if="${item.sh_category.equals('bookAndMusic')}"
+													class="badge badge-success" th:text="${item.sh_category}"></span></b>
+												<b><span class="d-block text-truncate"
+													style="max-width: 100%" th:text="${item.sh_title}"></span></b>
+										</small>
 										</a>
-									</div>	
+									</div>
 								</th:block>
 								<th:block th:if="${item.sh_num!=board.getSh_num()}">
 									<div class="owl-item text-center">
-										<a th:href="'boardList?num='+${item.sh_num}" class="">
-											<img th:src="@{'/imgs/test/' + ${item.sh_productImg}}" class="img-fluid" style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2">
-											<b><span th:if="${item.sh_category.equals('game')}" class="badge badge-info" th:text="${item.sh_category}"></span></b>
-											<b><span th:if="${item.sh_category.equals('OTT')}" class="badge badge-warning" th:text="${item.sh_category}"></span></b>
-											<b><span th:if="${item.sh_category.equals('bookAndMusic')}" class="badge badge-success" th:text="${item.sh_category}"></span></b>
-											<b><span class="d-block text-truncate" style="max-width:100%" th:text="${item.sh_title}"></span></b>
+										<a th:href="'boardList?num='+${item.sh_num}" class=""> <img
+											th:src="@{'/imgs/test/' + ${item.sh_productImg}}"
+											class="img-fluid"
+											style="width: 100%; height: 200px; border-radius: 20px">
+											<small class="mt-2"> <b><span
+													th:if="${item.sh_category.equals('게임')}"
+													class="badge badge-info" th:text="${item.sh_category}"></span></b>
+												<b><span th:if="${item.sh_category.equals('OTT')}"
+													class="badge badge-warning" th:text="${item.sh_category}"></span></b>
+												<b><span th:if="${item.sh_category.equals('도서/음악')}"
+													class="badge badge-success" th:text="${item.sh_category}"></span></b>
+												<b><span class="d-block text-truncate"
+													style="max-width: 100%" th:text="${item.sh_title}"></span></b>
 										</small>
 										</a>
 									</div>
@@ -503,9 +616,9 @@
 			owl.trigger('prev.owl.carousel');
 		})
 		/**************수정 화면으로 가기**************/
-		function modify() {
+		/* function modify() {
 			location.href = "'modifyForm?sh_numID='+${board.getSh_num()}";
-		}
+		} */
 		/**************목록으로 가기**************/
 		function listBack() {
 			location.href = "shareServiceBoard";

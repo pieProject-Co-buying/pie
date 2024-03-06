@@ -45,4 +45,14 @@
 		WHERE checkParticipate.boardNum =
 		#{param1} and checkParticipate.tableName=#{param2}
 	</select>
+		<select id="canceledBuying" resultType="int">
+	select count(*) from checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '0'
+
+	</select>
+	<select id="chkPartiMem">
+	select count(*) from checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '1'
+	</select>
+	<update id="cancelBuying">
+	update checkparticipate set paid='0' where mem = #{param1} and tableName = #{param2} and boardNum = #{param3}
+	</update>
 </mapper>
