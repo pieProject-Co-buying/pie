@@ -19,9 +19,9 @@ public class BusinessApplyDto {
 	
 	private String bus_name;
 	private String bus_num;
-	private String postCode;
-	private String address_main;
-	private String address_sub;
+	private String bus_postCode;
+	private String bus_address_main;
+	private String bus_address_sub;
 	
 	private String bus_productName;
 	private int bus_maxqnt;

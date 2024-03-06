@@ -8,39 +8,234 @@
 	<!--------------------------------게시글 타이틀-------------------------------->
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
-	<div class="container border hj-radius-30 shadow p-5">
+	<div class="container p-5 border hj-radius-30 shadow">
 		<div class="row">
 			<div class="col">
+			<div class="row">
+				<div class="col">
+				<h4>안녕하세요, 파이입니다.</h4>
+				</div>
+			</div>
+			<div class="row">
+						<div class="col my-3 small">
+							신청하신 내용은 파이에서 검토 후 진행 여부가 결정됩니다  <br />
+							검토 후 판매가 승인시까지 시간이 걸릴 수 있습니다. <br />
+							추가 문의 사항이 있으신 경우 cs@pie.com 로 문의주시면 답변드리겠습니다
+							
+							
+						</div>
+					</div>
 
-
-
-				<div class="row">
+<!-- 				<div class="row">
 					<div class="col text-center mb-5">
-						<h1>기업신청 게시판</h1>
+						<h1 class="mb-3">기업신청 게시판</h1>
 						<div>파이에 판매하고 싶은 상품을 신청해주세요</div>
 						<div>내부 검토 진행 후 승인시 공구가 진행됩니다</div>
 					</div>
 				</div>
-
+ -->
 				<form action="busApplyUpdate" enctype="multipart/form-data" method="post" name="busApplyUpdate">
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />				
+	 			<input type="hidden" name="bus_apply_num" id="bus_apply_num" th:value="${board.get(0).getBus_apply_num()}"/>
+
+
+
+					
+					
+					<!-- 회사정보 -->
+					<div class="form-group row mb-5">
+					
+						
+						<div class="col-md-6 pt-3">
+<!-- bus_name  -->							
+							<label for="bus_name">
+								<small class="pl-1">회사명</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_name" name="bus_name" th:value="${board.get(0).getBus_name()}">
+							<div class="invalid-feedback">회사명을 입력해주세요.</div>
+						</div>					
+					
+					
+					
+						<div class="col-md-6 pt-3">
+<!-- bus_num  -->							
+	
+							<label for="bus_num">
+								<small>사업자번호</small>
+							</label>
+<!-- 							
+							<div class="row m-0">
+															
+								<input type="text" class="form-control mx-0 col-10" id="bus_num" name="bus_num">
+								<input type="button" class="btn pie-btn-red checknum col-2" onclick="businessNumber()" value="조회"></input>								
+							</div> -->
+							
+							
+							<div class="d-flex justify-content-between">
+								<input type="text" class="form-control mr-1" id="bus_num"
+									placeholder="사업자번호" name="bus_num"  th:value="${board.get(0).getBus_num()}"
+									required>
+								<input type="button"
+									class="btn pie-btn-red checknum col-2" onclick="businessNumber()" value="조회" id="checknum">
+							</div>
+
+						</div>	
+						
+											
+					</div>
+
+
+
+
+					
+					<!-- 이것도 다시보자 -->
+					<div class="form-group pie-address row">
+					
+<!-- postCode  -->						
+						<label for="postCode" class="col-sm-6 col-form-label">
+							<small>사업장 주소 (*우편번호 찾기 버튼을 이용해주세요)</small>
+						</label>
+						<div class="col-sm-6">
+							<div class="d-flex justify-content-between">
+								<input type="text" class="form-control mr-1" id="postCode"
+									placeholder="우편번호" name="bus_postCode" onclick="findPostCode()"  th:value="${board.get(0).getBus_postCode()}"
+									required>
+								<input type="button" onclick="findPostCode()"
+									value="우편번호 찾기" class="btn pie-btn-red">
+							</div>
+							<div class="invalid-feedback">우편번호를 입력해주세요.</div>
+						</div>
+			
+					</div>
+			
+			
+<!-- address_main  -->				
+			
+					<div class="form-group pie-address row mb-5">
+					
+<!-- 					
+						<label for="address_main" class="col-sm-3 col-form-label">
+							<small>주소</small>
+						</label> -->
+						<div class="col-sm-6 mb-sm-3">
+							<input type="text" class="form-control" id="address_main"
+								placeholder="주소" name="bus_address_main" onclick="findPostCode()"  th:value="${board.get(0).getBus_address_main()}"
+								required>
+							<div class="invalid-feedback">주소를 입력해주세요.</div>
+						</div>
+						
+						
+						<div class="col-sm-6 mt-3 mt-md-0">
+							<input type="text" class="form-control" id="address_sub" th:value="${board.get(0).getBus_address_sub()}"
+								placeholder="상세주소" name="bus_address_sub">
+						</div>			
+					</div>
+					
+					
+<!-- address_sub  -->							
+					<!-- <div class="form-group row"> -->
+<!-- 						<label for="address_sub" class="col-sm-3 col-form-label">상세주소</label> -->
+
+			
+					<!-- </div> -->
+					
+					
+					
+					
+					
+					<hr />
+
+
+					
+					<!-- 담당자 정보 -->
+					<div class="form-group row mb-5">
+					
+					
+<!-- bus_chargePerson  -->						
+						<div class="col-md-6 pt-3 mb-3">
+						
+							<label for="bus_chargePerson">
+								<small class="pl-1">담당자</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson" th:value="${board.get(0).getBus_chargePerson()}">
+							<div class="invalid-feedback">담당자 성명을 입력해주세요</div>
+							
+						</div>	
+						
+<!-- bus_phone  -->							
+						<div class="col-md-6 pt-3 3 mb-3">
+						
+							<label for="bus_phone">
+								<small class="pl-1">담당자 전화번호</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_phone" name="bus_phone" th:value="${board.get(0).getBus_phone()}">
+							<div class="invalid-feedback">담당자 전화번호를 입력해주세요. 숫자만 가능합니다.</div>
+							
+						</div>							
+						
+
+						<div class="col mt-3">
+							<label for="bus_email">
+								<small class="pl-1">이메일</small>
+							</label>
+							
+							<input type="text" class="form-control" id="bus_email" name="bus_email" th:value="${board.get(0).getBus_email()}">
+							<div class="invalid-feedback">이메일을 입력해주세요</div>
+						</div>	
+					
+					</div>
+					
+
 						
 <!-- bus_title  -->
 					<div class="form-group">
-						<input type="text" class="form-control" id="bus_title" placeholder="제목" name="bus_title" th:value="${board.get(0).getBus_title()}">
+					
+					
+						<div class="row">
+							<div class="col-md-12">
+								<input type="text" class="form-control" id="bus_title" placeholder="제목을 입력해주세요" name="bus_title" required th:value="${board.get(0).getBus_title()}">
+						
+							    <div class="invalid-feedback">
+							        제목을 입력해주세요.
+							    </div>	
+							</div>
+						</div>
+					    					
 					</div>
 					
+					
+					
+<!-- bus_img  -->					
 
 					
 					
 					
 <!-- bus_content  -->							
-					<textarea id="summernote" name="bus_content" th:text="${board.get(0).getBus_content()}"></textarea>
+					<div class="row">
+						<div class="col-md-12">
+							<textarea id="summernote" name="bus_content" th:utext="${board.get(0).getBus_content()}"></textarea>
+						</div>
+					</div>
 					
-					<div class="text-right">
-						<small>잔여 bytes :: </small>
-						<small id="messagebyte">11</small>
-						<small> / 2000</small>
+					
+					<div class="row">
+						<div class="col-md-12 text-right">
+							<small>잔여 bytes :: </small>
+							<small id="messagebyte">11</small>
+							<small> / 2000</small>
+						</div>
+					</div>					
+					
+
+					
+					
+					<div class="form-group row pt-3">
+					
+
+	
 					</div>
 					
 					
@@ -56,7 +251,7 @@
 
 							</label>
 							
-							<input type="text" class="form-control" id="bus_productName" name="bus_productName" th:value="${board.get(0).getBus_productName()}" required>
+							<input type="text" class="form-control" id="bus_productName" name="bus_productName" required th:value="${board.get(0).getBus_productName()}">
 							<div class="invalid-feedback">제품명을 입력해주세요.</div>
 		
 					    					
@@ -71,7 +266,7 @@
 
 							</label>						
 						
-							<input type="text" class="form-control" id="bus_img" placeholder="제품정보 url" name="bus_img" th:value="${board.get(0).getBus_img()}" required>
+							<input type="text" class="form-control" id="bus_img" placeholder="http://" name="bus_img" required th:value="${board.get(0).getBus_img()}">
 							
 						    <div class="invalid-feedback">
 						        제품정보 url을 입력해주세요
@@ -81,12 +276,12 @@
 					
 	
 					</div>
-					
+										
 					
 					
 					
 
-					<div class="form-group row">
+					<div class="form-group row mb-5">
 					
 <!-- bus_maxqnt  -->							
 						<div class="col-md-6 pt-3">
@@ -95,6 +290,7 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_maxqnt" name="bus_maxqnt" th:value="${board.get(0).getBus_maxqnt()}">
+							<div class="invalid-feedback">최대 공급 가능수량을 입력해주세요. 숫자만 가능합니다.</div>
 						</div>
 						
 <!-- bus_unitPrice  -->							
@@ -105,144 +301,18 @@
 							</label>
 							
 							<input type="text" class="form-control" id="bus_unitPrice" name="bus_unitPrice" th:value="${board.get(0).getBus_unitPrice()}">
+							<div class="invalid-feedback">제품 단위가격을 입력해주세요. 숫자만 가능합니다.</div>
 
 						</div>
 					</div>
 
 
 					
-					
-					
-					<hr />
-					
-					
-					<!-- 회사정보 -->
-					<div class="form-group row">
-					
-						
-						<div class="col-md-6 pt-3">
-<!-- bus_name  -->							
-							<label for="bus_name">
-								<small class="pl-1">회사명</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_name" name="bus_name" th:value="${board.get(0).getBus_name()}">
-
-						</div>					
-					
-						<div class="col-md-6 pt-3">
-<!-- bus_num  -->							
-							<label for="bus_num">
-								<small class="pl-1">사업자번호</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_num" name="bus_num" th:value="${board.get(0).getBus_num()}" readonly>
-
-						</div>	
-						
-											
-					</div>
-
-
 
 					
-					<!-- 이것도 다시보자 -->
-					<div class="form-group pie-address row">
-					
-<!-- postCode  -->						
-						<label for="postCode" class="col-sm-3 col-form-label">우편번호</label>
-						<div class="col-sm-9">
-							<div class="d-flex justify-content-between">
-								<input type="text" class="form-control mr-1" id="postCode"
-									placeholder="우편번호" name="postCode" onclick="findPostCode()" required th:value="${board.get(0).getPostCode()}">
-									<input type="button" onclick="findPostCode()" value="우편번호 찾기" class="btn pie-btn-red">
-							</div>
-							<div class="invalid-feedback">우편번호를 입력해주세요.</div>
-						</div>
-			
-					</div>
-			
-			
-<!-- address_main  -->				
-			
-					<div class="form-group pie-address row">
-					
-					
-						<label for="address_main" class="col-sm-3 col-form-label">주소</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="address_main"
-								placeholder="주소" name="address_main" onclick="findPostCode()"
-								required  th:value="${board.get(0).getAddress_main()}">
-							<div class="invalid-feedback">주소를 입력해주세요.</div>
-						</div>
-			
-					</div>
-					
-					
-<!-- address_sub  -->							
-					<div class="form-group row">
-						<label for="address_sub" class="col-sm-3 col-form-label">상세주소</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="address_sub"
-								placeholder="상세주소" name="address_sub" th:value="${board.get(0).getAddress_sub()}">
-						</div>
-			
-					</div>
-					
-					
-					
-					
-					
-					<hr />
-					
-					
-					
-					
-					<!-- 담당자 정보 -->
-					<div class="form-group row">
-					
-						
-<!-- bus_chargePerson  -->						
-						<div class="col-md-6 pt-3">
-						
-							<label for="bus_chargePerson">
-								<small class="pl-1">담당자</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_chargePerson" name="bus_chargePerson" th:value="${board.get(0).getBus_chargePerson()}">
-						</div>	
-						
-<!-- bus_phone  -->							
-						<div class="col-md-6 pt-3">
-						
-							<label for="bus_phone">
-								<small class="pl-1">담당자 전화번호</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_phone" name="bus_phone" th:value="${board.get(0).getBus_phone()}">
-							
-														
-												
-							
-		                   <input type="hidden" name="bus_apply_num" id="bus_apply_num" th:value="${board.get(0).getBus_apply_num()}"/>
 
-						</div>							
 						
-	
-					
-					</div>
-					
-<!-- email1  -->		
-					<div class="form-group row">
-						<div class="col">
-							<label for="bus_email">
-								<small class="pl-1">이메일</small>
-							</label>
-							
-							<input type="text" class="form-control" id="bus_email" name="bus_email" th:value="${board.get(0).getBus_email()}">
-						</div>
-					</div>		
-										
+													
 					<hr />
 					
 
@@ -253,16 +323,12 @@
 								<small class="pl-1">비밀번호</small>
 							</label>
 							
-							<input type="password" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 비밀번호는 찾을 수 없으니 신중하게 입력해주세요"  th:value="${board.get(0).getBus_password()}" readonly>
-							
-
-					
+							<input type="password" class="form-control" id="bus_password" name="bus_password" placeholder="입력하신 비밀번호는 찾을 수 없으니 신중하게 입력해주세요" th:value="${board.get(0).getBus_password()}" readonly>
+							<div class="invalid-feedback">비민번호를 입력해주세요</div>
 						</div>
-					
-					
 					</div>					
 					
-								
+													
 								
 					<div class="form-group row justify-content-center mt-5">
 						<div class="col">
@@ -271,6 +337,7 @@
 					</div>
 					
 					
+
 					
 				</form>
 				
@@ -279,6 +346,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<!--게시글 로직 container-->
 	<!--wrapper-->
@@ -293,7 +361,7 @@
 	</script>
 	
 	<script src="js/PostCode.js"></script>
-	<script src="/js/imageGallery-DragEvent.js"></script>
+	<!-- <script src="/js/imageGallery-DragEvent.js"></script> -->
 	<script src="/js/FileUpload.js"></script>
 	<!--<script src="/js/insertTags.js"></script>-->
 	<script src="js/calculatePrice.js"></script>
@@ -301,7 +369,8 @@
 	<script src="/js/selectDropdown.js"></script>
 	<script src="/js/submitForm.js"></script>
 	<script src="/js/validationbus.js"></script>
-	
+	<!-- <script src="js/businessNumCheck.js"></script> -->
+
 </div>
 
 </html>

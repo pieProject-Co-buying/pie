@@ -12,78 +12,77 @@
 		<div class="row">
 			<div class="col text-center">
 
-                <!-- 게시글 목록 순회 -->
+                <!-- 게시글 목록 -->
                 <div th:each="post : ${board}">
-                    <!-- 게시글 제목 출력 -->
-                    <h3 th:text="${post.getBus_title()}" class="my-5">제목</h3>
-                   <input type="hidden" name="bus_apply_num" id="h-input"
-						th:value="${post.getBus_apply_num()}" />
-                    
-                    <hr>
-                    
-                    <div class="row">
-                        <div class="col-10 offset-1 text-left mt-5 mt-md-0">
-                            <!-- 게시글 내용 출력 -->
-                            <div class="w-100">
-                                <span th:utext="${post.getBus_content()}" class="hj-max-w100 text-break word-wrap"></span>
-                            </div>
-                        </div>
+                
+                
+                   <!-- 게시글 제목 출력 -->
+					<h3 th:text="${post.getBus_title()}" class="my-5">제목</h3>
+					
+                    <div class="row mb-5">
+                    	<div class="col-12 offset-md-8 col-md-4 text-left text-center">
+                    		<div>회사명 : <span th:text="${post.getBus_name()}" class=""></span></div>
+                    		<div>사업자번호 : <span th:text="${post.getBus_num()}"></span></div>
+                    		<div>주소 : <span th:text="${post.getBus_address_main()}"></span></div>
+                    		<div>담당자 : <span th:text="${post.getBus_chargePerson()}"></span></div>
+                    		<div>전화번호 : <span th:text="${post.getBus_phone()}"></span></div>
+                    		<div>이메일 : <span th:text="${post.getBus_email()}"></span></div>
+                    	</div>
+                    	
                     </div>
-
+                                        
                     <hr>
+                    
 
-                    <div class="row my-5">
-                        <div class="col">
-                            <div class="row mb-5">
-                                <div class="col-md-3 offset-md-2">
-                                    <h4 class="mb-1">공구 신청 정보</h4>   
-                                </div>
+            	 <div class="row">
+                        <div class="col text-left mx-5 my-3">
 
-                                <div class="col-md-6 text-center text-md-center">
                                     <!-- 게시글의 공구 신청 정보 출력 -->
                                     <div class="">제품명: <span th:text="${post.getBus_productName()}"></span></div>                      
                                     <div class="">공급가능수량: <span th:text="${post.getBus_maxqnt()}"></span></div>
                                     <div class="">개별단가: <span th:text="${post.getBus_unitPrice()}"></span></div>
-                                </div>
-                            </div>                                              
+                                            
                         </div>
                     </div>  
 
-                    <div class="row my-5">
-                        <div class="col">
-                            <div class="row mb-5">
-                                <div class="col-md-3 offset-md-2">
-                                    <h4 class="mb-1">회사 정보</h4>   
-                                </div>
+                    <div class="row">
+                        <div class="col-12 text-left">
 
-                                <div class="col-md-6 text-center text-md-center">
-                                    <!-- 게시글의 회사 정보 출력 -->
-                                    <div class="">회사명: <span th:text="${post.getBus_name()}"></span></div>
-                                    <div class="">사업자번호: <span th:text="${post.getBus_num()}"></span></div>
-                                    <div class="">담당자: <span th:text="${post.getBus_chargePerson()}"></span></div>
-                                    <div class="">핸드폰번호: <span th:text="${post.getBus_phone()}"></span></div>
-                                    <div class="">이메일주소: <span th:text="${post.getBus_email()}"></span></div>
-                                </div>                          
-                            </div>                                              
+                   			<input type="hidden" name="bus_apply_num" id="h-input" th:value="${post.getBus_apply_num()}" />                       
+                        
+                            <!-- 게시글 내용 출력 -->
+                            <div class="w-100 text-left px-5">
+                                <span th:utext="${post.getBus_content()}" class="hj-max-w100 text-break word-wrap"></span>
+                            </div>
                         </div>
-                    </div>  
-                    
-                    
-                    <div class="row my-5">
-                        <div class="col">
-                            <div class="row mb-5">
-                                <div class="col-md-3 offset-md-2">
-                                    <h4 class="mb-1">상품 정보 url</h4>   
-                                </div>
-
-                                <div class="col-md-6 text-center text-md-center">
-                                    <!-- 게시글의 회사 정보 출력 -->
-                                    <div class=""><span th:text="${post.getBus_img()}"></span></div>
-   
-                                </div>                          
-                            </div>                                              
-                        </div>
+                        
+                        
                     </div>
+
+
+					<div class="row my-5">
+					    <div class="col text-right">
+					        <a class="btn btn-outline-secondary" th:href="'http://' + ${post.getBus_img()}" target="_blank"><small>사이트 확인하기</small></a>
+					    </div>
+					</div>
+					
+					
+					
+					
+                    <hr>
+
+       
+
+ 
+                    
+                    
+
+
+
+
+
+
+
 		
 					<div class="row mt-5">
 						<div class="col text-right">
