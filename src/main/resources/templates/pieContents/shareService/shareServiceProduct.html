@@ -114,11 +114,11 @@
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 th:attr="data-prTitle=${board.getSh_title}"
+								<h2 th:attr="data-shTitle=${board.getSh_title}"
 									class="mb-0 pie-omitted display-5"
 									th:text="${board.getSh_title()}">타이틀 자리</h2>
 							</div>
-							<div th:attr="data-prPrice=${board.getSh_pricePer}"
+							<div th:attr="data-shPrice=${board.getSh_pricePer}"
 								class="col-12 pie-c-red p-0">
 								<h5 class="mb-0" th:text="|인/${board.getSh_pricePer()}원|"></h5>
 							</div>

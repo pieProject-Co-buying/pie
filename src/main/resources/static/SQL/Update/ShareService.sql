@@ -1,3 +1,4 @@
+-- 서비스 공유 보드
 create table shareServiceBoard (
     sh_num integer not null, -- 게시글 번호
     sh_id varchar2(16) not null, -- 게시글 ID

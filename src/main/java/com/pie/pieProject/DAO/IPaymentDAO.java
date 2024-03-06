@@ -17,7 +17,7 @@ public interface IPaymentDAO {
 	public ArrayList<PaymentDTO> searchBuyer(String keyword);
 	// 구매 목록 출력
 	public ArrayList<PaymentDTO> buyList(String id, String category);	
-	// 상품 코드와 카테고리고 검색
+	// 상품 코드와 카테고리로 검색
 	public PaymentDTO payBoard(int num,String category);
 	// 구매 상품 이미지 가져오기
 	public ArrayList<String> buyListpic(String id, String category,String tableName, String prefix);
