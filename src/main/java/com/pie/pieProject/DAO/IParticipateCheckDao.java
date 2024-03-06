@@ -16,7 +16,7 @@ public interface IParticipateCheckDao {
 
 	public List<TownBuyBoardDto> getTownboard(String sId);
 
-	public List<String> getDate(String sId);
+	public List<String> getDate(String sId, String tableName);
 	
 	public List<MemberDto> getPartiMem(String num, String tablename);
 	public int getPartiMemNum(String num, String string);

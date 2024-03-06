@@ -76,6 +76,8 @@ public class ParticpateController {
 			String board = "proxybuyboard";
 			String prefix = "pr_";
 			
+			System.out.println(sId);
+			
 			// 세션 id가 null일 경우 로그인 페이지로 이동
 			// 모델에 추가
 			
@@ -83,7 +85,7 @@ public class ParticpateController {
 			if(category==null||category.equals("")||category.equals("town")) {
 				category = "town";
 				List<TownBuyBoardDto> list = paDao.getTownboard(sId);
-				List<String> partList = paDao.getDate(sId);
+				List<String> partList = paDao.getDate(sId, "townBuyBoard");
 				model.addAttribute("list", list);
 				model.addAttribute("partList", partList);
 				// 뷰 이름 반환

@@ -25,12 +25,12 @@
 									th:text="${board.getTo_nickname}">Card title</h5>
 								<span
 									th:unless="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
-									class="btn btn-outline-secondary btn-sm rounded-pill follow-btn py-0"
+									class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn py-0"
 									th:attr="data-following = ${board.getTo_id()}"> <span
 									class="small">팔로우</span>
 								</span> <span
 									th:if="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
-									class="btn btn-outline-secondary btn-sm rounded-pill follow-btn unfollow py-0"
+									class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn unfollow py-0"
 									data-hover="언팔로우"
 									th:attr="data-following = ${board.getTo_id()}"> <span
 									class="small">팔로잉</span>

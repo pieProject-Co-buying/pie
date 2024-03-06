@@ -18,14 +18,14 @@
 		checkParticipate.boardNum
 		= townBuyBoard.to_num
 		WHERE
-		checkParticipate.writer = #{param1} order
+		checkParticipate.mem = #{param1} order
 		by townBuyBoard.to_num desc
 	</select>
 	<select id="getDate" resultType="string">
 		select partiDate from
-		checkParticipate where writer = 'pie1111' and
+		checkParticipate where mem = #{param1} and
 		tableName =
-		'townBuyBoard' order by boardNum desc
+		#{param2} order by boardNum desc
 	</select>
 	<select id="getPartiMem" resultType="com.pie.pieProject.DTO.MemberDto">
 		SELECT *
