@@ -17,7 +17,7 @@ public class PaymentDTO {
 	private String buyer_postcode; // 구매자 우편번호
 	private String pay_uid; // 고유번호
     private String pay_method; // 결제수단
-    private String pay_Merchant_uid; // 제품 코드
+    private String pay_Merchant_uid; // 제품 코드(포트원 거래번호)
     private String pay_name; // 제품 이름
     private String pay_amount; // 제품 가격
     private String pay_num; // 게시물 번호

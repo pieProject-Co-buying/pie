@@ -213,5 +213,10 @@ public class PaymentController {
 			model.addAttribute("pageNum", pageNum);
 		 return "pieContents/shareService/shareServiceApplyConsole";
 	 }
+	 
+	 @PostMapping("/getPayData")
+	 public ResponseEntity<PaymentDTO> insertPayment(@RequestParam("num") String num, @RequestParam("category") String category) {
+	        return ResponseEntity.ok(dao.payBoard(Integer.parseInt(num),category));
+	    }
 }
 

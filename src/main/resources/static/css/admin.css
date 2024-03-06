@@ -69,15 +69,16 @@ section.notice {
 }
 .board-table th {
     text-align: center;
+    height:60px;
 }
 
 .board-table .th-num {
-    width: 100px;
+/*      width: 80px;  */
     text-align: center;
 }
 
 .board-table .th-date {
-    width: 200px;
+/*     width: 200px; */
 }
 
 .board-table th, .board-table td {
@@ -152,13 +153,6 @@ section.notice {
 
 /* reset */
 
-* {
-    list-style: none;
-    text-decoration: none;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 .clearfix:after {
     content: '';
     display: block;
@@ -175,4 +169,8 @@ section.notice {
     margin: -1px;
     width: 1px;
     height: 1px;
+}
+.button-class{
+  border: 0;
+  background-color: transparent;
 }
