@@ -57,7 +57,7 @@ function boardval() {
 	/* 사업자번호 */
 	let bus_num = $('#bus_num');
 	
-	if (!bus_num.prop('readonly') && bus_num.val().trim() === '') {
+	if (!bus_num.prop('checked') && bus_num.val().trim() === '') {
 	    alert("사업자번호 확인버튼을 눌러 인증완료해주세요");
 	    return false;
 	} else if (!/^\d{10,12}$/.test(bus_num.val().trim())) {

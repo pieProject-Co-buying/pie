@@ -38,9 +38,9 @@ public class BusinessApplyController {
 			@RequestParam(value = "bus_img") String bus_img,
 			@RequestParam(value = "bus_name") String bus_name,
 			@RequestParam(value = "bus_num") String bus_num,
-			@RequestParam(value = "postCode") String postCode,
-			@RequestParam(value = "address_main") String address_main,			
-			@RequestParam(value = "address_sub") String address_sub,			
+			@RequestParam(value = "bus_postCode") String bus_postCode,
+			@RequestParam(value = "bus_address_main") String bus_address_main,			
+			@RequestParam(value = "bus_address_sub") String bus_address_sub,			
 			@RequestParam(value = "bus_productName") String bus_productName,
 			@RequestParam(value = "bus_maxqnt") Integer bus_maxqnt,
 			@RequestParam(value = "bus_unitPrice") Integer bus_unitPrice,
@@ -77,9 +77,9 @@ public class BusinessApplyController {
 		 //회사정보
 		 dto.setBus_name(bus_name);  //회사이름
 		 dto.setBus_num(bus_num); //사업자등록번호
-		 dto.setPostCode(postCode);
-		 dto.setAddress_main(address_main);
-		 dto.setAddress_sub(address_sub);
+		 dto.setBus_postCode(bus_postCode);
+		 dto.setBus_address_main(bus_address_main);
+		 dto.setBus_address_sub(bus_address_sub);
 		 
 		 
 		 
@@ -121,16 +121,30 @@ public class BusinessApplyController {
 	    int totalPages = (int) Math.ceil((double) totalItems / pageSize); // 총 페이지 수 계산
 	    int start = (page - 1) * pageSize; // 시작 레코드 인덱스 계산
 	    
+	    
+	 
 	    List<BusinessApplyDto> list = dao.getApplyBoardByPage(start, pageSize); // 현재 페이지의 항목을 가져오는 메서드 필요
 	    
 	    model.addAttribute("list", list);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("totalPages", totalPages);
 	    
+	    System.out.println("page" + page);
+	    System.out.println("totalPages" + totalPages);
+	    System.out.println("start" + start);
+	    System.out.println("totalItems" + totalItems);
+	    
 	    return "pieContents/businessApply/businessApplyBoard";
 	}
 	
 	
+	@RequestMapping("/businessApplyBoard/page/{pageNum}")
+	public String goToPage(Model model, @PathVariable("pageNum") int pageNum) {
+		
+
+		
+	    return "redirect:/businessApplyBoard?page=" + pageNum;    
+	}	
 	
 	
 	@RequestMapping("/readApplyBoard")
@@ -140,10 +154,11 @@ public class BusinessApplyController {
 		
 		
 		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
+		System.out.println(dto.get(0).getBus_address_main());
+		
 		model.addAttribute("board", dto);
 		 
 		return "pieContents/businessApply/readApplyBoard";
-		
 		
 	}
 	
@@ -161,18 +176,17 @@ public class BusinessApplyController {
 	
 	
 
-	
-	@RequestMapping("/businessApplyBoard/page/{pageNum}")
-	public String goToPage(Model model, @PathVariable("pageNum") int pageNum) {
-	    return "redirect:/businessApplyBoard?page=" + pageNum;
-	}
+
 	
 	
 	@RequestMapping("/businessApplyUpdateForm")
-	public String updateApply(HttpServletRequest request, Model model) {	
+	public String updateApply(HttpServletRequest request, Model model) {
+		
 		String sId = request.getParameter("bus_apply_num");
 		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
 		model.addAttribute("board", dto);
+		
+		
 		
 		return "pieContents/businessApply/businessApplyUpdateForm";
 	}
@@ -187,9 +201,9 @@ public class BusinessApplyController {
 			@RequestParam("bus_img") String bus_img,
 			@RequestParam("bus_name") String bus_name,
 			@RequestParam("bus_num") String bus_num,
-			@RequestParam("postCode") String postCode,
-			@RequestParam("address_main") String address_main,			
-			@RequestParam("address_sub") String address_sub,	
+			@RequestParam("bus_postCode") String bus_postCode,
+			@RequestParam("bus_address_main") String bus_address_main,			
+			@RequestParam("bus_address_sub") String bus_address_sub,	
 			@RequestParam("bus_productName") String bus_productName,
 			@RequestParam("bus_maxqnt") Integer bus_maxqnt,
 			@RequestParam("bus_unitPrice") Integer bus_unitPrice,
@@ -218,9 +232,12 @@ public class BusinessApplyController {
 		 //회사정보
 		 dto.setBus_name(bus_name);  //회사이름
 		 dto.setBus_num(bus_num); //사업자등록번호
-		 dto.setPostCode(postCode);
-		 dto.setAddress_main(address_main);
-		 dto.setAddress_sub(address_sub);
+		 dto.setBus_postCode(bus_postCode);
+		 dto.setBus_address_main(bus_address_main);
+		 dto.setBus_address_sub(bus_address_sub);
+		 
+		 
+		 
 		 
 		 
 		 
@@ -233,11 +250,9 @@ public class BusinessApplyController {
 		 //비밀번호
 		 dto.setBus_password(bus_password);
 		 
-		 dto.setBus_apply_num(Integer.parseInt(bus_apply_num));
-		 	
+		 dto.setBus_apply_num(Integer.parseInt(bus_apply_num));	 	
 		 
 		 dao.updateDao(dto);
-		
 		
 		return "redirect:/businessApplyBoard";
 	}
