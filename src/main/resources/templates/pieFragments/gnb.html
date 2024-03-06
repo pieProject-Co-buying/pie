@@ -82,7 +82,7 @@
 
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
 									class="dropdown-item" href="likeList?category=all">좋아요한 게시글</a> 
-									<a
+									<a sec:authorize="hasRole('ROLE_USER')"
 									class="dropdown-item" href="shareServiceApply">신청중인 내역 조회</a>
 									<a
 									class="dropdown-item"
