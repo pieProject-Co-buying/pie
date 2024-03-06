@@ -160,14 +160,6 @@ public class BusinessApplyController {
 	}
 	
 	
-	@RequestMapping("/businessApplyUpdateForm")
-	public String updateApply(HttpServletRequest request, Model model, @RequestParam(defaultValue = "1") int page) {	
-		String sId = request.getParameter("bus_apply_num");
-		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
-		model.addAttribute("board", dto);
-		
-		return "pieContents/businessApply/businessApplyUpdateForm";
-	}
 
 	
 	@RequestMapping("/businessApplyBoard/page/{pageNum}")
@@ -175,6 +167,16 @@ public class BusinessApplyController {
 	    return "redirect:/businessApplyBoard?page=" + pageNum;
 	}
 	
+	
+	@RequestMapping("/businessApplyUpdateForm")
+	public String updateApply(HttpServletRequest request, Model model) {	
+		String sId = request.getParameter("bus_apply_num");
+		List<BusinessApplyDto> dto = dao.applyBoardDetail(sId);
+		model.addAttribute("board", dto);
+		
+		return "pieContents/businessApply/businessApplyUpdateForm";
+	}
+
 	
 	
 	@RequestMapping("/busApplyUpdate")
@@ -239,6 +241,7 @@ public class BusinessApplyController {
 		
 		return "redirect:/businessApplyBoard";
 	}
+
 
 
 	
