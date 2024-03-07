@@ -50,4 +50,9 @@ SELECT ${param3}.${param4}process
 <update id="refundPayCheck">
 	update payment set pay_refund = '2' where pay_merchant_uid = #{param1}
 </update>
+
+<select id="myPay">
+select*from payment where buyer_id=#{param1} and pay_num=#{param2} and pay_category=#{param3}
+</select>
+
 </mapper>

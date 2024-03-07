@@ -168,6 +168,22 @@ public class PaymentController {
 		
 		return "pieContents/shareService/shareServiceApplyConsole";
 	}
+	/**********환불요청(페이지 내부)**********/
+	@RequestMapping("/refundPayInPage")
+	public String refundPayInPage(HttpServletRequest request,Model model) {
+		
+		String num = request.getParameter("num");
+		String pnum = request.getParameter("pnum");
+		String category = request.getParameter("category");
+		System.out.println(category);
+
+		PaymentDTO dto=dao.payBoard(Integer.parseInt(pnum), "Share");
+		
+		dao.refundPay(Integer.parseInt(pnum));
+		paDao.cancelBuying(dto.getBuyer_id(), category, num);
+		return "redirect:/boardList?num="+num;
+	}
+	
 	/**********환불요청**********/
 	@RequestMapping("/refundPay")
 	public String refundPay(HttpServletRequest request,Model model) {
@@ -182,14 +198,18 @@ public class PaymentController {
 	/**********환불요청 확인**********/
 	 @RequestMapping("/refundPayCheck")
 	 public String refundPayCheck(@RequestParam("page") int page,HttpServletRequest request,Model model) { 
-		 PaymentDTO dto=new PaymentDTO(); 
+		
 		 ShareServiceDto sdto =new ShareServiceDto();
+		 
 		 String num = request.getParameter("num");
 		 String pnum = request.getParameter("pnum");
+		 PaymentDTO dto=dao.payBoard(Integer.parseInt(pnum), "Share");
 		 
 		 
 		 Sdao.refundNowPerson(Integer.parseInt(pnum));
 		 dao.refundPayCheck(Integer.parseInt(num));
+//		 취소
+		 paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
 		 
 		 List<PaymentDTO> list = dao.paymentList();
 			model.addAttribute("pay", list);

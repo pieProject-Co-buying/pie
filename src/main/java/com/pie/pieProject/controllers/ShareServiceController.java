@@ -73,7 +73,7 @@ public class ShareServiceController {
 	@RequestMapping("/boardList")
 	public String showBoard(@RequestParam("num") String num,HttpServletRequest request, Model model) {
 		
-		String sId = request.getParameter("num");
+		String sId = num;
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		
@@ -110,6 +110,17 @@ public class ShareServiceController {
 		model.addAttribute("board", dto);
 		model.addAttribute("member",mdto);
 		model.addAttribute("list",list);
+		
+		
+//		참여 여부 확인
+		model.addAttribute("in",(paDao.chkPartiMem(Bcomp.getSession(request, "userId"), "Share", num)>0));
+//		참여 했다가 취소 여부 확인
+		model.addAttribute("cancel",(paDao.canceledBuying(Bcomp.getSession(request, "userId"), "Share", num)>0));
+//		환불요청중
+		if(Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Share")!=null) {
+			model.addAttribute("productNum",Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Share").getPay_Merchant_uid());
+		}
+		
 		return "pieContents/shareService/shareServiceProduct";
 	}
 
