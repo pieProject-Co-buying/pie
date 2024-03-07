@@ -15,14 +15,14 @@
 	<!-- 조회순으로 보여주기 -->
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard order by to_hit desc
+		select * from townBuyBoard where to_address like '${param1}%' order by to_hit desc
 
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard order by to_like desc
+		select * from townBuyBoard where to_address like '${param1}%' order by to_like desc
 
 	</select>
 	
