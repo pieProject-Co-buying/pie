@@ -42,12 +42,15 @@ public class MainController {
 			}
 			dto.setPr_category(Bcomp.translate(dto.getPr_category()));
 		}
-		plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+		if(plist.size()!=0) {
+			plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+		}
 				
 		model.addAttribute("list", plist);
 		
 		
 		List<TownBuyBoardDto> tlist = tdao.bestListDao();
+		System.out.println("townlist: "+tlist.size());
 		
 		for(TownBuyBoardDto d : tlist) {
 			d.setTo_category(Bcomp.translate(d.getTo_category()));

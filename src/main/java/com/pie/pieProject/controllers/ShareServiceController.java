@@ -246,6 +246,7 @@ public class ShareServiceController {
 		
 		int pageLimit = 10;
 		int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+		if(pageNum<=0) pageNum=1;
 		
 		List<ShareServiceDto> templist = new ArrayList<>();
 

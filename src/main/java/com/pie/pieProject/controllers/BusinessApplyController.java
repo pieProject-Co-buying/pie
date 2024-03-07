@@ -119,6 +119,11 @@ public class BusinessApplyController {
 	    int pageSize = 10; // 페이지당 항목 수
 	    int totalItems = dao.getTotalItems(); // 전체 항목 수를 가져오는 메서드 필요
 	    int totalPages = (int) Math.ceil((double) totalItems / pageSize); // 총 페이지 수 계산
+	    
+	    /*게시글이 없을때 페이징이 0까지 표시되는 현상 수정*/
+	    if(totalPages<=0) totalPages=1;
+	    
+	    
 	    int start = (page - 1) * pageSize; // 시작 레코드 인덱스 계산
 	    
 	    
