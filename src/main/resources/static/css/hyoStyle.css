@@ -236,6 +236,15 @@
 
 
 
+.page-item.hj-active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #c0c0c0;
+  border-color: #c0c0c0;
+}
+
+
+
 .hj-card-process1 {
 	left: 20px;
 	top: 10px;

@@ -65,7 +65,7 @@
 				<nav aria-label="Page navigation example">
 				    <ul class="pagination justify-content-center">
 				        <li class="page-item">
-				            <a class="page-link" href="#" aria-label="Previous" th:href="@{/businessApplyBoard(page=${currentPage - 1})}">
+				            <a class="page-link text-dark" href="#" aria-label="Previous" th:href="@{/businessApplyBoard(page=${currentPage - 1})}">
 				                <span aria-hidden="true">&laquo;</span>
 				                <span class="sr-only">Previous</span>
 				            </a>
@@ -73,13 +73,13 @@
 				        
 				        <!-- 페이지 링크 생성 -->
 				        <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-				            <li th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'">
+				            <li th:class="${pageNum == currentPage} ? 'page-item hj-active' : 'page-item'">
 				                <a class="page-link text-dark" th:href="@{/businessApplyBoard(page=${pageNum})}" th:text="${pageNum}"></a>
 				            </li>
 				        </th:block>
 				        
 				        <li class="page-item">
-				            <a class="page-link" href="#" aria-label="Next" th:href="@{/businessApplyBoard(page=${currentPage + 1})}">
+				            <a class="page-link text-dark" href="#" aria-label="Next" th:href="@{/businessApplyBoard(page=${currentPage + 1})}">
 				                <span aria-hidden="true">&raquo;</span>
 				                <span class="sr-only">Next</span>
 				            </a>
