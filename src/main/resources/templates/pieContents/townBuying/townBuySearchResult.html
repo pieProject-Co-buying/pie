@@ -12,7 +12,7 @@
 			<div class="col-12 col-lg-3 mb-lg-0 mb-3">
 				<h3 class="text-center text-lg-left">검색결과</h3>
 			</div>
-
+			
 
 			<div class="col-12 col-lg-9">
 
@@ -201,8 +201,6 @@
 				<!-- 건수 불러오기 -->
 				<h4 class="mb-3" th:text="|${list.size()}건이 검색됐어요!|"></h4>
 
-
-
 				<div class="row">
 
 
@@ -299,9 +297,23 @@
 		<div class="row row-cols-1 row-cols-md-5" id="serachResult"></div>
 
 
-		<script src="js/selectDropdown.js"></script>
+		<script src="js/selectDropdown2.js"></script>
 		<script src="js/townBuying.js"></script>
 		<script src="js/townBuyingSearch.js"></script>
+		
+		<script>
+		
+		// 카테고리 선택 링크에 대한 클릭 이벤트 핸들러
+		document.querySelectorAll('.dropdown-item[data-category]').forEach(item => {
+		    item.addEventListener('click', function() {
+		        // 선택된 카테고리 값을 가져와서 hidden input 필드에 설정
+		        const category = this.getAttribute('data-category');
+		        document.getElementById('h-input').value = category;
+		    });
+		});		
+		
+		</script>
+		
 
 	</div>
 </div>

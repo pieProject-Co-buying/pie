@@ -24,7 +24,7 @@
 		select DISTINCT keyWord from ( select * from searchKey order by hit
 		desc)
 		where ROWNUM <![CDATA[ <= ]]>
-		30
+		26
 	</select>
 	<select id="searchT" resultType="string">
 		select to_category from

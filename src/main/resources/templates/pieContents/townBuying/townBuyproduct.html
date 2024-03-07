@@ -349,15 +349,15 @@
 							<!-- 모달 동작 버튼 -->
 							<th:block th:if="${session.userId != board.getTo_id() && board.getTo_process().equals('1')}">
 								<!-- 참여 -->
-								<button th:if="${in}" type="button" class="btn pie-btn-red btn-block"
+								<button th:if="${!in&&!cancel}" type="button" class="btn pie-btn-red btn-block"
 									data-toggle="modal" data-target="#staticBackdrop">
 									<small>참여하기</small>
 								</button>
 								<!-- 이미 참여한 경우 -->
-								<button th:if="${!in && !cancel}" type="button" class="btn pie-btn-red btn-block" disabled>
+								<button th:if="${in && !cancel}" type="button" class="btn pie-btn-red btn-block" disabled>
 									<small>이미 참여가 완료되었습니다.</small>
 								</button>
-								<a th:href="@{'cancelBuying?num='+${board.getTo_num()}}" th:if="${!in && !cancel}" type="button" class="btn pie-btn-outline-red-custom btn-block">
+								<a th:href="@{'cancelBuying?num='+${board.getTo_num()}}" th:if="${in && !cancel}" type="button" class="btn pie-btn-outline-red-custom btn-block">
 									<small>참여 취소</small>
 								</a>
 								<button th:if="${!in&&cancel}" type="button" class="btn pie-btn-outline-red-custom btn-block" disabled>

@@ -26,19 +26,20 @@
 									</div>
 									<div
 										class="col-12 col-lg-5 mt-5 mt-lg-0 d-flex align-items-center justify-content-end">
-										<div class="d-flex flex-column align-items-center mx-3 w-100 text-center">
+										<div
+											class="d-flex flex-column align-items-center mx-3 w-100 text-center">
 											<h3
 												class="pie-c-red p-3 font-weight-bold pie-carousel-subtitle">부담없이
 												나누는 즐거움</h3>
 											<img src="imgs/sharetext.png" alt=""
 												class="d-block pie-carousel-title" />
-											<p
-												class="pie-c-darkgray px-3 mt-5 pie-carousel-text">
+											<p class="pie-c-darkgray px-3 mt-5 pie-carousel-text">
 												과일 한 박스, 대용량 과자, 다인용 체육관 회원권 ... <br /> 소화하지 못하는 장바구니가 무겁게
 												느껴지신 적은 없으신가요?
 											</p>
-											<h5 class="px-3 m-0 pie-carousel-subtext">우리 동네 이웃끼리 무거운 장바구니도 나눠들고<br/>
-												가격도 나누세요!</h5>
+											<h5 class="px-3 m-0 pie-carousel-subtext">
+												우리 동네 이웃끼리 무거운 장바구니도 나눠들고<br /> 가격도 나누세요!
+											</h5>
 										</div>
 
 									</div>
@@ -56,16 +57,18 @@
 									</div>
 									<div
 										class="col-12 col-lg-5 mt-5 mt-lg-0 d-flex align-items-center justify-content-end">
-										<div class="d-flex flex-column align-items-center mx-3 w-100 text-center">
+										<div
+											class="d-flex flex-column align-items-center mx-3 w-100 text-center">
 											<h3
-												class="pie-c-red p-3 font-weight-bold pie-carousel-subtitle">함께하는 안전하고 즐거운 쇼핑</h3>
+												class="pie-c-red p-3 font-weight-bold pie-carousel-subtitle">함께하는
+												안전하고 즐거운 쇼핑</h3>
 											<img src="imgs/togethertext.png" alt=""
 												class="d-block pie-carousel-title" />
-											<p
-												class="pie-c-darkgray px-3 mt-5 pie-carousel-text">
+											<p class="pie-c-darkgray px-3 mt-5 pie-carousel-text">
 												가격비교, 공구사기. <br /> 머리 아픈 사전조사는 그만!
 											</p>
-											<h5 class="px-3 m-0 pie-carousel-subtext">파이가 준비한 공구템으로 안심하고 함께 쇼핑해요!</h5>
+											<h5 class="px-3 m-0 pie-carousel-subtext">파이가 준비한 공구템으로
+												안심하고 함께 쇼핑해요!</h5>
 										</div>
 
 									</div>
@@ -86,14 +89,16 @@
 										class="col-12 col-lg-5 mt-5 mt-lg-0 d-flex align-items-center justify-content-end">
 										<div class="d-flex flex-column align-items-center mx-3 w-100">
 											<h3
-												class="pie-c-red p-3 font-weight-bold pie-carousel-subtitle">내 파이는 똑소리나게!</h3>
+												class="pie-c-red p-3 font-weight-bold pie-carousel-subtitle">내
+												파이는 똑소리나게!</h3>
 											<img src="imgs/pietext.png" alt=""
 												class="d-block pie-carousel-title" />
 											<p
 												class="pie-c-darkgray text-center px-3 mt-5 pie-carousel-text">
 												가격은 나눠도 내 몫은 확실하게. <br /> 깔끔하고 확실한 공유, 파이에서 해드릴게요.
 											</p>
-											<h5 class="px-3 m-0 pie-carousel-subtext">공유 플랜 서비스도 저렴하게 즐겨요!</h5>
+											<h5 class="px-3 m-0 pie-carousel-subtext">공유 플랜 서비스도
+												저렴하게 즐겨요!</h5>
 										</div>
 
 									</div>
@@ -136,8 +141,9 @@
 	<!-- ###############################################
 secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 ############################################### -->
-	
-	<section class="pie-section-py pie-bg-red-light" th:if="${session.userId != null}">
+
+	<section class="pie-section-py pie-bg-red-light"
+		th:if="${session.userId != null}">
 		<div class="container">
 
 
@@ -166,14 +172,19 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 					<div class="row pie-town-tabs" id="pie-best-hits">
 						<div class="col">
+							<div th:if="${#lists.isEmpty(tlist) && tlist.size()==0}">
+								<div class="row">
+									<div class="col">
+										<hr class="my-5" />
+										<p class="lead py-5 px-5">현재 작성된 글이 없습니다.</p>
+										<hr class="my-5" />
+									</div>
+								</div>
+							</div>
+
 							<div class="card-columns">
 
 								<!-- 최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함  -->
-
-								<div th:if="${#lists.isEmpty(tlist)}">
-									리스트가 비어있을 때 표시할 내용
-									<p>게시글이 없습니다.</p>
-								</div>
 								<div th:if="${not #lists.isEmpty(tlist)}">
 									<div th:each="tBoard, iterStat : ${tlist}"
 										th:if="${iterStat.index} &lt; 9">
@@ -224,13 +235,19 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 			<div class="row pie-town-tabs d-none" id="pie-best-likes">
 				<div class="col">
+					<div th:if="${#lists.isEmpty(tlist2)}">
+						<div class="row">
+							<div class="col">
+								<hr class="my-5" />
+								<p class="lead py-5 px-5">현재 작성된 글이 없습니다.</p>
+								<hr class="my-5" />
+							</div>
+						</div>
+					</div>
 
 					<div class="card-columns">
 
-						<div th:if="${#lists.isEmpty(tlist2)}">
-							리스트가 비어있을 때 표시할 내용
-							<p>게시글이 없습니다.</p>
-						</div>
+
 						<div th:if="${not #lists.isEmpty(tlist2)}">
 							<div th:each="t2Board, iterStat : ${tlist2}"
 								th:if="${iterStat.index} &lt; 9">
@@ -240,7 +257,8 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 									th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
 									class="card-img-top hj-radius-30 hj-main-product-img" alt="...">
 
-									<div class="position-absolute d-none p-4 hj-main_town_hover_text">
+									<div
+										class="position-absolute d-none p-4 hj-main_town_hover_text">
 										<div class="d-flex align-items-center">
 											<span class="pie-heart-icon active pie-icons"></span> <span
 												th:text="${t2Board.getTo_like()}"
@@ -248,7 +266,8 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 										</div>
 									</div>
 
-									<div class="position-absolute d-none p-4 hj-main_town_hover_text">
+									<div
+										class="position-absolute d-none p-4 hj-main_town_hover_text">
 
 										<p class="pie-c-red small m-0 small"
 											th:text="${t2Board.getTo_category}"></p>
@@ -257,8 +276,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
 												<img
-									 
-									 				th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}"
+													th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}"
 													alt="" class="hj-chat-proImg-small mr-2" />
 												<h6 class="m-0" th:text="${t2Board.getTo_nickname}"></h6>
 											</div>
@@ -291,7 +309,8 @@ secion2 #sec2 - 대리공구 영역
 
 			<div
 				class="d-flex align-items-center justify-content-between w-100 my-5">
-				<h1 class="text-center text-sm-left font-weight-bolder pie-c-red"> 오늘의 파이박스!</h1>
+				<h1 class="text-center text-sm-left font-weight-bolder pie-c-red">
+					오늘의 파이박스!</h1>
 				<a class="btn btn-light" href="proxyBuyProducts"> <small>┼</small>
 				</a>
 			</div>
@@ -299,7 +318,7 @@ secion2 #sec2 - 대리공구 영역
 				<div class="row">
 					<div class="col">
 						<hr class="my-5" />
-						<p class="lead py-5">현재 작성된 글이 없습니다.</p>
+						<p class="lead py-5 px-5">현재 작성된 글이 없습니다.</p>
 						<hr class="my-5" />
 					</div>
 				</div>
@@ -454,72 +473,77 @@ secion2 #sec3 - 서비스 공유 영역
 				<div class="owl-carousel owl-theme">
 					<div class="item">
 						<h4>
-							<a href="shareServiceBoard?num=1">													
-								<img src="imgs/netflix2.png" alt="" class="img-fluid" style="height:500px">
+							<a href="shareServiceBoard?num=1"> <img
+								src="imgs/netflix2.png" alt="" class="img-fluid"
+								style="height: 500px">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=1">													
-							<img src="imgs/watcha.jpg" alt="" class="img-fluid" style="height:500px">
-						</a>
-						</h4>
-					</div>
-					<div class="item">
-						<h4>
-							<a href="shareServiceBoard?num=2">							
-								<img src="imgs/xbox.jpg" alt="" class="img-fluid" style="height:500px">
+							<a href="shareServiceBoard?num=1"> <img src="imgs/watcha.jpg"
+								alt="" class="img-fluid" style="height: 500px">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=3">													
-							<img src="imgs/ridibooks.jpg" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=2"> <img src="imgs/xbox.jpg"
+								alt="" class="img-fluid" style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=1">													
-							<img src="imgs/youtube.webp" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=3"> <img
+								src="imgs/ridibooks.jpg" alt="" class="img-fluid"
+								style="height: 500px">
+							</a>
+						</h4>
+					</div>
+					<div class="item">
+						<h4>
+							<a href="shareServiceBoard?num=1"> <img
+								src="imgs/youtube.webp" alt="" class="img-fluid"
+								style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4 class="">
-						<a href="shareServiceBoard?num=1">													
-							<img src="imgs/disney.png" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=1"> <img src="imgs/disney.png"
+								alt="" class="img-fluid" style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=2">													
-							<img src="imgs/steam.jpg" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=2"> <img src="imgs/steam.jpg"
+								alt="" class="img-fluid" style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=3">													
-							<img src="imgs/spotify.jpg" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=3"> <img
+								src="imgs/spotify.jpg" alt="" class="img-fluid"
+								style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=2">													
-							<img src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=2"> <img
+								src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid"
+								style="height: 500px">
+							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
-						<a href="shareServiceBoard?num=3">													
-							<img src="imgs/milli.jpg" alt="" class="img-fluid" style="height:500px">
-						</a>
+							<a href="shareServiceBoard?num=3"> <img src="imgs/milli.jpg"
+								alt="" class="img-fluid" style="height: 500px">
+							</a>
 						</h4>
 					</div>
 				</div>

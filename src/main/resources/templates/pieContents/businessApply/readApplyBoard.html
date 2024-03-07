@@ -20,7 +20,7 @@
 					<h3 th:text="${post.getBus_title()}" class="my-5">제목</h3>
 					
                     <div class="row mb-5">
-                    	<div class="col-12 offset-md-8 col-md-4 text-left text-center">
+                    	<div class="col-12 offset-lg-8 col-lg-4 text-left text-center">
                     		<div>회사명 : <span th:text="${post.getBus_name()}" class=""></span></div>
                     		<div>사업자번호 : <span th:text="${post.getBus_num()}"></span></div>
                     		<div>주소 : <span th:text="${post.getBus_address_main()}"></span></div>
@@ -35,7 +35,7 @@
                     
 
             	 <div class="row">
-                        <div class="col text-left mx-5 my-3">
+                        <div class="col text-left mx-0 my-3 mx-lg-5">
 
                                     <!-- 게시글의 공구 신청 정보 출력 -->
                                     <div class="">제품명: <span th:text="${post.getBus_productName()}"></span></div>                      
@@ -51,7 +51,7 @@
                    			<input type="hidden" name="bus_apply_num" id="h-input" th:value="${post.getBus_apply_num()}" />                       
                         
                             <!-- 게시글 내용 출력 -->
-                            <div class="w-100 text-left px-5">
+                            <div class="w-100 text-left px-0 px-lg-5">
                                 <span th:utext="${post.getBus_content()}" class="hj-max-w100 text-break word-wrap"></span>
                             </div>
                         </div>

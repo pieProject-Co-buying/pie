@@ -21,6 +21,7 @@ import com.pie.pieProject.DAO.IFeedDao;
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IParticipateCheckDao;
+import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DTO.FeedDto;
@@ -47,6 +48,8 @@ public class ProxyBuyController {
 	IFeedDao fdao;
 	@Autowired
 	IParticipateCheckDao paDao;
+	@Autowired
+	IPaymentDAO Pdao;
 
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage(Model model) {
@@ -267,6 +270,17 @@ public class ProxyBuyController {
 		model.addAttribute("partiMemTotal", list.size());
 		model.addAttribute("board", dto);
 		model.addAttribute("member", mdto);
+		
+//		참여 여부 확인
+		model.addAttribute("in",(paDao.chkPartiMem(Bcomp.getSession(request, "userId"), "Proxy", num)>0));
+//		참여 했다가 취소 여부 확인
+		model.addAttribute("cancel",(paDao.canceledBuying(Bcomp.getSession(request, "userId"), "Proxy", num)>0));
+//		환불요청중
+		if(Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Proxy")!=null) {
+			model.addAttribute("productNum",Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Proxy").getPay_Merchant_uid());
+		}
+
+		
 		return "pieContents/proxyBuying/proxyBuyProduct";
 	}
 
