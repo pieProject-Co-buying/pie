@@ -47,12 +47,23 @@ public class ShareServiceController {
 
 	/********** 전체 게시물 조회 **********/
 	@RequestMapping("/shareServiceBoard")
-	public String showBoardList(Model model) {
-		List<ShareServiceDto> list = dao.getBoardList();
+	public String showBoardList(@RequestParam(value="category", required = false)String category,@RequestParam(value="search", required = false) String key, Model model) {
+		List<ShareServiceDto> list = new ArrayList<>();
+		
+		if(category==null||category.equals("")||key==null||key.equals("")) {
+			list = dao.getBoardList();
+		}else if((category==null||category.equals(""))&&key!=null&&!key.equals("")) {
+			list = dao.searchBoard(key);
+		}else if(category!=null&&!category.equals("")&&(key==null||key.equals(""))) {
+			
+		}else if(category!=null&&!category.equals("")&&key!=null&&!key.equals("")) {
+			list= dao.searchTitle(category, key);
+		}
+			
 		for (ShareServiceDto d : list) {
 			if(d.getSh_tag()==null||d.getSh_tag().equals("#")) {
 				d.setSh_tags(null);
-			}else {
+			}else { 
 				d.setSh_tags(Bcomp.setArraysData(d.getSh_tag(), "#"));
 			}
 			String c = d.getSh_category();
@@ -64,6 +75,7 @@ public class ShareServiceController {
 				d.setSh_category("도서/음악");
 			}
 		}
+		
 
 		model.addAttribute("list", list);
 		return "pieContents/shareService/shareServiceBoard";
@@ -178,11 +190,20 @@ public class ShareServiceController {
 		return "redirect:/shareServiceBoard";
 	}
 
-	/********** 제목, 내용 기반 검색 **********/
+	/********** 제목, 내용, 카테고리 기반 검색 **********/
 	@RequestMapping("/searchTitle")
 	public String search(HttpServletRequest request, Model model) {
 		String sId = request.getParameter("search");
-		model.addAttribute("list", dao.searchTitle(sId));
+		String category="";
+		
+		if(request.getParameter("OTT").equals("OTT")) {
+			category="OTT";
+		}else if(request.getParameter("game").equals("game")) {
+			category="game";
+		}else if(request.getParameter("bookAndMusic").equals("bookAndMusic")) {
+			category="game";
+		}
+		model.addAttribute("list", dao.searchTitle(sId,category));
 		return "pieContents/shareService/shareServiceBoard";
 	}
 
