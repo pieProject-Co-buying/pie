@@ -244,6 +244,11 @@
 }
 
 
+.hj-table-width {
+	width: 50%;
+	max-width: 10px;
+}
+
 
 .hj-card-process1 {
 	left: 20px;
