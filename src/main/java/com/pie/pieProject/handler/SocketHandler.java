@@ -43,13 +43,6 @@ public class SocketHandler extends TextWebSocketHandler {
 		System.out.println("===============================");
 		System.out.println();
 
-//      
-//      System.out.println();
-//      System.out.println("===============================");     
-//      System.out.println("msg : " + msg);
-//      System.out.println("===============================");       
-//      System.out.println();
-//      
 
 		JSONObject obj = jsonToObjectParser(msg);
 		String userName = (String) obj.get("userName");
@@ -90,10 +83,12 @@ public class SocketHandler extends TextWebSocketHandler {
 		String mem2 = (String) obj.get("mem2");
 		String sessionId = (String) obj.get("sessionId");
 
-		// 알람기능 구현위한 테스트중
+		
 		showMessageNotification(mem1, mem2, userName);
 
 	}
+	
+	
 
 	// 알람기능 구현위한 테스트중
 	private void showMessageNotification(String mem1, String mem2, String userName) {

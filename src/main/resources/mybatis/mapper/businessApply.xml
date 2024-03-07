@@ -77,7 +77,7 @@
 
 	<select id="getApplyBoardByPage" resultType="com.pie.pieProject.DTO.BusinessApplyDto">
 	    SELECT * FROM businessApplyForm 
-	    ORDER BY bus_writeDay DESC 
+	    ORDER BY bus_apply_num DESC 
 	    OFFSET #{start} ROWS FETCH NEXT #{pageSize} ROWS ONLY
 	</select>
 		

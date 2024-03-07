@@ -22,12 +22,12 @@ public interface ITownBuyBoardDao {
 	
 	
 	// 목록 - 조회수 순
-	public List<TownBuyBoardDto> bestListDao();
+	public List<TownBuyBoardDto> bestListDao(String addr);
 	//TownBuyBoardDto 값을 list 타입으로 리턴
 
 	
 	// 목록 - 좋아요 순
-	public List<TownBuyBoardDto> likeListDao();
+	public List<TownBuyBoardDto> likeListDao(String addr);
 	//TownBuyBoardDto 값을 list 타입으로 리턴
 		
 	//프리미엄 회원 목록
