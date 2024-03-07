@@ -71,6 +71,7 @@ public class ApplyUserController {
 
 		int pageLimit = 10;
 		int pageNum = (int) Math.ceil((double) allList.size() / pageLimit);
+		if(pageNum<=0) pageNum=1;
 
 		for (ProxyApplyBoardDto dto : allList) {
 			dto.setPr_category(Bcomp.translate(dto.getPr_category()));

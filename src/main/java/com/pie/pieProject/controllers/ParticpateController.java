@@ -83,9 +83,14 @@ public class ParticpateController {
 			
 			// 카테고리 지정을 안할경우 대리구매 관련 구매내역부터 보이게
 			if(category==null||category.equals("")||category.equals("town")) {
+				
 				category = "town";
 				List<TownBuyBoardDto> list = paDao.getTownboard(sId);
 				List<String> partList = paDao.getDate(sId, "townBuyBoard");
+				
+				System.out.println("listSize : "+list.size());
+				System.out.println("partListSize : "+partList.size());
+				
 				model.addAttribute("list", list);
 				model.addAttribute("partList", partList);
 				// 뷰 이름 반환
@@ -106,13 +111,15 @@ public class ParticpateController {
 			System.out.println("진행 : "+processList.size());
 			System.out.println("넘버 : "+buyNum.size());
 			
-			 for(int i = 0; i<list.size(); i++) {
-			 list.get(i).setProductImg(piclist.get(i));
-			 list.get(i).setProcess(processList.get(i));
-			 list.get(i).setNum(buyNum.get(i));
-			 }
-		
-			model.addAttribute("list", list);
+			if(list.size()>0) {
+				 for(int i = 0; i<list.size(); i++) {
+					 list.get(i).setProductImg(piclist.get(i));
+					 list.get(i).setProcess(processList.get(i));
+					 list.get(i).setNum(buyNum.get(i));
+					 }
+				
+					model.addAttribute("list", list);
+			}
 			// 뷰 이름 반환
 			return "pieContents/shareService/shareServicebuyBoard";
 		}

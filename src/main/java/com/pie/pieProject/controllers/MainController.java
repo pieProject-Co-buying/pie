@@ -46,7 +46,9 @@ public class MainController {
 			}
 			dto.setPr_category(Bcomp.translate(dto.getPr_category()));
 		}
-		plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+		if(plist.size()!=0) {
+			plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+		}
 				
 		model.addAttribute("list", plist);
 		
@@ -56,9 +58,9 @@ public class MainController {
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
 		
-		
+
 		List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
-		
+
 		for(TownBuyBoardDto d : tlist) {
 			d.setTo_category(Bcomp.translate(d.getTo_category()));
 		}

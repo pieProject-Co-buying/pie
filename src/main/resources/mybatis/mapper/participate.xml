@@ -18,7 +18,7 @@
 		checkParticipate.boardNum
 		= townBuyBoard.to_num
 		WHERE
-		checkParticipate.mem = #{param1} order
+		checkParticipate.mem = #{param1} and checkParticipate.tableName = 'townBuyBoard' order
 		by townBuyBoard.to_num desc
 	</select>
 	<select id="getDate" resultType="string">
@@ -34,7 +34,7 @@
 		checkParticipate.mem
 		= member_user.id
 		WHERE checkParticipate.boardNum =
-		#{param1} and checkParticipate.tableName=#{param2}
+		#{param1} and checkParticipate.tableName=#{param2} and checkParticipate.paid='1'
 	</select>
 	<select id="getPartiMemNum" resultType="int">
 	SELECT count(*)
