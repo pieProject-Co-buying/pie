@@ -18,7 +18,7 @@ function businessNumber() {
             console.log(result);
 
             if (result.status_code === 'OK') {
-                if (result.data[0].tax_type === '부가가치세 일반과세자') {
+                if (result.data[0].tax_type === '부가가치세 일반과세자') { //정상조회 사업자의 경우 통과
                     alert("사업자번호가 확인되었습니다."); // 조회성공시
                     document.getElementById('bus_num').classList.add('checked'); // 확인됨을 나타내는 클래스 추가
 
@@ -39,3 +39,4 @@ function businessNumber() {
         }
     });
 }
+

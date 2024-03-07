@@ -116,6 +116,8 @@ public class SearchController {
 				model.addAttribute("etc", etc);
 
 				return "pieContents/townBuying/townBuySearchResult";
+				
+				
 			}else if(table.equals("p")){
 				
 				if(sdao.findkey(townKeyword,"proxyBuy")==0) {

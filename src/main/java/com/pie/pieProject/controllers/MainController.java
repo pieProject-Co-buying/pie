@@ -11,9 +11,13 @@ import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
+import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -29,7 +33,7 @@ public class MainController {
 	ITownBuyBoardDao tdao;
 
 	@RequestMapping("/")
-	public String mainPage(Model model) {
+	public String mainPage(Model model, HttpServletRequest request) {
 
 		List<ProxyBuyBoardDto> plist = pdao.listDaoByFavorite();
 
@@ -46,8 +50,14 @@ public class MainController {
 				
 		model.addAttribute("list", plist);
 		
+		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
+		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		String useraddr = mdto.getAddress_main();
+		String userMainAddr = useraddr.substring(0, 6);
+		System.out.println(userMainAddr);
 		
-		List<TownBuyBoardDto> tlist = tdao.bestListDao();
+		
+		List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
 		
 		for(TownBuyBoardDto d : tlist) {
 			d.setTo_category(Bcomp.translate(d.getTo_category()));
@@ -55,7 +65,7 @@ public class MainController {
 		
 		model.addAttribute("tlist", tlist);
 
-		List<TownBuyBoardDto> tlist2 = tdao.likeListDao();
+		List<TownBuyBoardDto> tlist2 = tdao.likeListDao(userMainAddr);
 		for(TownBuyBoardDto d : tlist2) {
 			d.setTo_category(Bcomp.translate(d.getTo_category()));
 		}
@@ -139,4 +149,12 @@ public class MainController {
 	public String test() {
 		 return "pieContents/proxyBuying/test";
 	}
+	
+	
+	private String getSession(HttpServletRequest request, String key) {
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(key);
+	}
+	
+	
 }
