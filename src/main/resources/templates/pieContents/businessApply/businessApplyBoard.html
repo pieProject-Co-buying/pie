@@ -34,7 +34,7 @@
 							<th scope="col" class="">no</th>
 							<th scope="col">회사명</th>
 							<th scope="col">제목</th>
-							<th scope="col" class=" d-none d-md-block">작성일</th>
+							<th scope="col" class=" d-none d-md-table-cell">작성일</th>
 						</tr>
 					</thead>
 								  
@@ -42,9 +42,9 @@
 				  <tbody>
 				    	<tr th:each="item, rowStat : ${list}" onclick="checkPassword(this, document.getElementById('bus_password_${item.getBus_apply_num()}').textContent)" role="button" class="goBoard border-bottom">
 					        <td scope="row" th:text="${item.getBus_apply_num()}" class="bus_apply_num small"> </td>
-					        <td th:text="${item.getBus_name()}" class="small">회사명</td>
+					        <td th:text="${item.getBus_name()}" class="small text-truncate">회사명</td>
 					        <td th:text="${item.getBus_title()}" class="small"></td>
-					        <td th:text="${#strings.substring(item.getBus_writeDay(), 0, 10)}" class="small d-none d-md-block"></td>
+					        <td th:text="${#strings.substring(item.getBus_writeDay(), 0, 10)}" class="small d-none d-md-table-cell"></td>
 					        <td id="bus_password_${item.getBus_apply_num()}" th:text="${item.getBus_password()}" style="display: none;"  class="small"></td>
 					        					    
 				    	</tr>
