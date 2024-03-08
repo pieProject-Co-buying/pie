@@ -52,13 +52,10 @@ public class TownBuyController {
 	
 
 
-	@RequestMapping("/townBuySearch")
+	@GetMapping("/townBuySearch")
 	public String toBoardList(HttpServletRequest request, Model model) {
 		
-		
-		
-		List <TownBuyBoardDto> tlist = dao.listDao();
-		
+		/* List <TownBuyBoardDto> tlist = dao.listDao(); */
 		
 		
 		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
@@ -66,7 +63,6 @@ public class TownBuyController {
 		String useraddr = mdto.getAddress_main();
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
-		
 		
 		
 //		for(TownBuyBoardDto towndto : tlist) {
@@ -98,12 +94,6 @@ public class TownBuyController {
 		 */
 		
 		model.addAttribute("list", townlist);
-		
-		
-		
-		
-		
-		
 		
 		
 		

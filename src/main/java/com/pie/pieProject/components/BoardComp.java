@@ -142,12 +142,16 @@ public class BoardComp {
 		}
 	}
 
+	// 마감임박
 	public boolean closeClosely(ScrollProxyBuyBoardDto dto) {
 
+//		어떤형식?
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//		어떤걸변환할래?
 		LocalDateTime updatedate = LocalDateTime.parse(dto.getPr_deadLine(), formatter);
 
 		LocalDateTime now = LocalDateTime.now();
+		
 		Duration duration = Duration.between(updatedate, now);
 
 		long minutes = duration.toMinutes(); // 변경된 부분

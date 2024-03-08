@@ -73,15 +73,13 @@
 }
 
 .hj-height-category {
-	height : 50px;
+	height: 50px;
 }
-
 
 .hj-position-category {
 	bottom: 20px;
 	right: 5px;
 }
-
 
 /* ####################################
 
@@ -95,9 +93,7 @@
 	object-position: center;
 }
 
-
 .hj-profile-img {
-
 	object-fit: cover;
 	object-position: center;
 	width: 200px;
@@ -201,30 +197,74 @@
 }
 
 /* 메인 동네공구 물품 호버시 애니메이션 */
-.hj-main_town_hover {
+/* .hj-main_town_hover {
 	overflow: hidden;
 	position: relative;
 	transition: transform 1s ease;
 	position: relative;
 }
+ */
+.pie-town-tabs .owlCar .card {
+	height: 200px;
+}
 
-.hj-main_town_hover .hj-main_town_hover_text:nth-of-type(1) {
+.pie-town-tabs .hj-main_town_hover_text:nth-of-type(2) {
 	top: 0;
 	right: 0;
 }
 
-.hj-main_town_hover .hj-main_town_hover_text:nth-of-type(2) {
+.pie-town-tabs .hj-main_town_hover_text:nth-of-type(3) {
 	bottom: 0;
 	left: 0;
+	width: 100%;
 }
 
-.hj-main_town_hover .hj-main-product-img {
+.pie-town-tabs .owl-nav button.owl-prev {
+	left: -3%;
+	opacity: 0;
+	-webkit-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-ms-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.pie-town-tabs .owl-nav button.owl-next {
+	right: -3%;
+	opacity: 0;
+	-webkit-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	-ms-transition: all 0.4s;
+	-o-transition: all 0.4s;
+	transition: all 0.4s;
+}
+
+.pie-town-tabs:hover .owl-nav button.owl-prev {
+	left: 3%;
+	opacity: 1;
+}
+
+.pie-town-tabs:hover .owl-nav button.owl-next {
+	right: 3%;
+	opacity: 1;
+}
+
+.pie-town-tabs .hj-main-product-img {
 	transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-.hj-main_town_hover:hover>.hj-main-product-img {
+.pie-town-tabs:hover>.hj-main-product-img {
 	transform: scale(1.1);
 	opacity: 0.2;
+}
+
+.pie-townCarousel-cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(256, 256, 256, 0.6);
 }
 
 .hj-carousel-control-prev-icon, .hj-carousel-control-next-icon {
@@ -254,37 +294,30 @@
 	}
 }
 
-
 .hj-max-w100 {
 	max-width: 100% !important;
 }
-
 
 .hj-chat-padding {
 	padding: 20px 25px;
 }
 
-
-
 .page-item.hj-active .page-link {
-  z-index: 3;
-  color: #fff;
-  background-color: #c0c0c0;
-  border-color: #c0c0c0;
+	z-index: 3;
+	color: #fff;
+	background-color: #c0c0c0;
+	border-color: #c0c0c0;
 }
-
 
 .hj-table-width {
 	width: 50%;
 	max-width: 10px;
 }
 
-
 .hj-card-process1 {
 	left: 20px;
 	top: 10px;
 }
-
 
 .hj-card-process2 {
 	right: 35px;
@@ -295,7 +328,6 @@
 	right: 20px;
 	top: 10px;
 }
-
 
 .hj-card-process4 {
 	left: 30px;

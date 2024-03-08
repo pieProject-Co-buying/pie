@@ -173,8 +173,9 @@
 secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 ############################################### -->
 
-	<section class="pie-section-py pie-bg-red-light"
-		th:if="${session.userId != null}">
+	<section class="pie-section-py position-relative">
+	<div class="position-absolute pie-bg-red-light" id="pie-main-sharebackground1"></div>
+	
 		<div class="container">
 
 
@@ -183,25 +184,173 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 				<div class="col">
 
 					<div
-						class="d-flex align-items-center justify-content-between w-100 my-5">
+						class="d-flex align-items-center justify-content-between w-100 mt-5">
 						<h1 class="text-center text-sm-left font-weight-bolder pie-c-red">우리동네
 							파이</h1>
 						<a class="btn btn-light" href="townBuySearch"> <small>┼</small></a>
 					</div>
+					<div class="mb-5">
+						<p sec:authorize="isAuthenticated()" class="pie-c-brown">
+							<span th:text="${session.nickName}"></span>님과 가까운 곳에서 공구를 모집하는
+							사람들이 있어요. <br /> 원하는 공구글을 클릭해서 즐거운 공구를 즐겨보세요!
+						</p>
+						<p sec:authorize="!isAuthenticated()" class="pie-c-brown">
+							같은 동네, 가까운 곳에서 공구를 모집하는 사람들이 있어요. <br /> 우리 동네 파이는 같은 동네, 친숙한
+							이웃끼리 공동구매를 편리하게 할 수 있도록하는 서비스입니다.
 
+						</p>
+					</div>
+
+					<!-- 지도 들어갈 자리 -->
+					<div sec:authorize="!isAuthenticated()"
+						class="col-12 mt-3 mb-5 mt-lg-0 position-relative">
+						<div class="shadow pie-radius overflow-hidden position-relative"
+							id="pie-mapCover">
+							<img class="" src="imgs/replaceMap.png" alt="" />
+						</div>
+
+						<div
+							class="pieChar_map d-flex flex-column align-items-center px-5 mt-5 pt-3">
+
+							<img src="imgs/pie_zoomchar.png" alt="" />
+
+							<div class="my-4">
+								<h5 class="pie-c-darkgray text-center">우리 동네에서는 어떤 공구들이 파이와
+									함께하는지 확인해 볼까요?</h5>
+							</div>
+
+							<div class="mt-3">
+								<a href="login" class="btn pie-btn-red">우리동네 파이 확인하기</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div class="col-12 col-lg-10 mt-3 mb-5 mt-lg-0"> -->
+					<div sec:authorize="isAuthenticated()"
+						class="col-12 mt-3 mb-1 mt-lg-0 hyej-haveMap overflow-hidden">
+						<input type="hidden" th:value="${session.userId}" id="nowLogin" />
+
+
+						<div id="map" class="mb-5 hj-radius-30 shadow"
+							style="width: 100%; height: 500px;">
+
+							<!-- 지도 표시될 영역 -->
+							<ul
+								class="list-unstyled d-flex flex-wrap justify-content-center hyej-customs-btnset w-100"
+								id="categoryBtns">
+
+								<li class="mx-1 mb-1">
+									<!-- 전체 페이지 보여주기 -->
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom hj-radius-30 w-100 categoryBtn active"
+										data-category="all" id="showAllBtn">
+										<small>우리동네</small><span><small class="num"></small></span>
+									</button>
+								</li>
+
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="food">
+										<small>식품</small><span><small class="num"></small></span>
+									</button>
+								</li>
+
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="baby">
+										<small>육아</small><span><small class="num"></small></span>
+									</button>
+								</li>
+
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="beautyAndFashion">
+										<small>뷰티/패션</small><span><small class="num"></small></span>
+									</button>
+								</li>
+
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="pet">
+										<small>반려동물</small><span><small class="num"></small></span>
+									</button>
+								</li>
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="life">
+										<small>생활</small><span><small class="num"></small></span>
+									</button>
+								</li>
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="etc">
+										<small>기타</small><span><small class="num"></small></span>
+									</button>
+								</li>
+								<li class="mx-1 mb-1">
+									<button type="button"
+										class="btn btn-sm pie-btn-outline-red-custom w-100 categoryBtn hj-radius-30 "
+										data-category="endSoon">
+										<small>마감임박</small><span><small class="num"></small></span>
+									</button>
+								</li>
+
+							</ul>
+
+							<!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+							<div class="custom_zoomcontrol radius_border">
+								<span id="pie-map-zoomIn" class="shadow"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+										fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+  <path
+											d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+</svg>
+								</span> <span id="pie-map-zoomOut" class="shadow"> <svg
+										xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+										fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+</svg>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div sec:authorize="isAuthenticated()" class="row mb-5">
+						<div class="col">
+							<div class="d-flex">
+								<a href="#"
+									class="btn pie-btn-outline-red-custom rounded-pill w-50 mr-2">더
+									많은 우리동네 파이 보기</a> <a href="#"
+									class="btn pie-btn-outline-red-custom rounded-pill w-50">직접
+									공구 모집하기</a>
+							</div>
+						</div>
+					</div>
+
+					<h3 sec:authorize="isAuthenticated()"
+						class="pie-c-red font-weight-bold">오늘의 동네!</h3>
 					<div
-						class="d-flex align-items-center justify-content-between w-100">
+						class="d-flex align-items-center justify-content-between w-100"
+						sec:authorize="isAuthenticated()">
+
 						<ol class="list-unstyled d-flex pie-tab-btn">
 							<li
-								class="btn pie-btn-outline-red-custom rounded-pill mr-2 active"
+								class="btn pie-btn-outline-red-custom rounded-pill mr-2 active btn-sm"
 								data-btntarget="#pie-best-hits"># 조회수 BEST 9</li>
-							<li class="btn pie-btn-outline-red-custom rounded-pill"
+							<li class="btn pie-btn-outline-red-custom rounded-pill btn-sm"
 								data-btntarget="#pie-best-likes"># 좋아요 BEST 9</li>
 						</ol>
 					</div>
 
 
-					<div class="row pie-town-tabs" id="pie-best-hits">
+					<div class="row pie-town-tabs" id="pie-best-hits"
+						sec:authorize="isAuthenticated()">
 						<div class="col">
 							<div th:if="${#lists.isEmpty(tlist) && tlist.size()==0}">
 								<div class="row">
@@ -213,22 +362,21 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 								</div>
 							</div>
 
-							<div class="card-columns">
+							<div class="owlCar owl-carousel owl-theme">
 
 								<!-- 최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함  -->
-								<div th:if="${not #lists.isEmpty(tlist)}">
-									<div th:each="tBoard, iterStat : ${tlist}"
-										th:if="${iterStat.index} &lt; 9">
+								<th:block th:if="${not #lists.isEmpty(tlist)}">
+									<th:block th:each="tBoard, iterStat : ${tlist}"
+										th:if="${iterStat.index} &lt; 9" class="item">
 										<a
-											class="card shadow hj-radius-30 hj-main_town_hover border-0"
+											class="card pie-radius border-0 position-relative overflow-hidden"
 											th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
 											<img
 											th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
-											class="card-img-top hj-radius-30 hj-main-product-img"
-											alt="...">
+											class="card-img-top hj-main-product-img" alt="...">
+											<div class="pie-townCarousel-cover"></div>
 
-											<div
-												class="position-absolute d-none p-4 hj-main_town_hover_text">
+											<div class="position-absolute p-4 hj-main_town_hover_text">
 												<div class="d-flex align-items-center">
 													<span class="pie_view-icon active pie-icons"></span> <span
 														th:text="${tBoard.getTo_hit()}"
@@ -236,11 +384,11 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 												</div>
 											</div>
 
-											<div
-												class="position-absolute d-none p-4 hj-main_town_hover_text">
+											<div class="position-absolute p-4 hj-main_town_hover_text">
 												<p class="pie-c-red m-0 small"
 													th:text="${tBoard.getTo_category}"></p>
-												<h5 th:text="${tBoard.getTo_title}" class="font-weight-bold"></h5>
+												<h5 th:text="${tBoard.getTo_title}"
+													class="font-weight-bold text-truncate"></h5>
 
 												<div class="row">
 													<div class="col w-100 d-flex align-items-center">
@@ -252,8 +400,8 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 												</div>
 											</div>
 										</a>
-									</div>
-								</div>
+									</th:block>
+								</th:block>
 
 							</div>
 						</div>
@@ -264,7 +412,8 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 
 
-			<div class="row pie-town-tabs d-none" id="pie-best-likes">
+			<div class="row pie-town-tabs d-none" id="pie-best-likes"
+				sec:authorize="isAuthenticated()">
 				<div class="col">
 					<div th:if="${#lists.isEmpty(tlist2)}">
 						<div class="row">
@@ -276,47 +425,48 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 						</div>
 					</div>
 
-					<div class="card-columns">
 
+					<div class="owlCar owl-carousel owl-theme">
 
-						<div th:if="${not #lists.isEmpty(tlist2)}">
-							<div th:each="t2Board, iterStat : ${tlist2}"
-								th:if="${iterStat.index} &lt; 9">
-								<a class="card shadow hj-radius-30 hj-main_town_hover border-0"
-									th:href="@{'townBuyproduct?num=' + ${t2Board.getTo_num()}}">
+						<!-- 최대 노출은 12개까지만 하고, 더보기 버튼으로 페이지 이동  &lt;로 갯수 설정함  -->
+						<th:block th:if="${not #lists.isEmpty(tlist)}">
+							<th:block th:each="tBoard, iterStat : ${tlist}"
+								th:if="${iterStat.index} &lt; 9" class="item">
+								<a
+									class="card pie-radius border-0 position-relative overflow-hidden"
+									th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
 									<img
-									th:src="@{'/imgs/test/' + ${t2Board.getTo_productImg().substring(0,t2Board.getTo_productImg().indexOf('/'))}}"
-									class="card-img-top hj-radius-30 hj-main-product-img" alt="...">
+									th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
+									class="card-img-top hj-main-product-img" alt="...">
+									<div class="pie-townCarousel-cover"></div>
 
-									<div
-										class="position-absolute d-none p-4 hj-main_town_hover_text">
+									<div class="position-absolute p-4 hj-main_town_hover_text">
 										<div class="d-flex align-items-center">
 											<span class="pie-heart-icon active pie-icons"></span> <span
-												th:text="${t2Board.getTo_like()}"
+												th:text="${tBoard.getTo_like()}"
 												class="h6 mb-0 ml-2 pie-c-darkgray font-weight-bold"></span>
 										</div>
 									</div>
 
-									<div
-										class="position-absolute d-none p-4 hj-main_town_hover_text">
-
-										<p class="pie-c-red small m-0 small"
-											th:text="${t2Board.getTo_category}"></p>
-										<h5 th:text="${t2Board.getTo_title}" class="font-weight-bold"></h5>
+									<div class="position-absolute p-4 hj-main_town_hover_text">
+										<p class="pie-c-red m-0 small"
+											th:text="${tBoard.getTo_category}"></p>
+										<h5 th:text="${tBoard.getTo_title}"
+											class="font-weight-bold text-truncate"></h5>
 
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
 												<img
-													th:src="@{'imgs/profiles/'+${t2Board.getTo_profileImg()}}"
-													alt="" class="hj-chat-proImg-small mr-2" />
-												<h6 class="m-0" th:text="${t2Board.getTo_nickname}"></h6>
+													th:src="@{'imgs/profiles/'+${tBoard.getTo_profileImg()}}"
+													alt="" class="pie-profilePic mr-2" />
+												<h6 class="m-0" th:text="${tBoard.getTo_nickname}"></h6>
 											</div>
 										</div>
-
 									</div>
 								</a>
-							</div>
-						</div>
+							</th:block>
+						</th:block>
+
 					</div>
 				</div>
 			</div>
@@ -339,11 +489,17 @@ secion2 #sec2 - 대리공구 영역
 		<div class="container ">
 
 			<div
-				class="d-flex align-items-center justify-content-between w-100 my-5">
+				class="d-flex align-items-center justify-content-between w-100 mt-5">
 				<h1 class="text-center text-sm-left font-weight-bolder pie-c-red">
-					오늘의 파이박스!</h1>
+					파이와 함께하는 파이박스!</h1>
 				<a class="btn btn-light" href="proxyBuyProducts"> <small>┼</small>
 				</a>
+			</div>
+			<div class="mb-5">
+				<p class="pie-c-brown mb-5">
+					불안불안 사기 걱정, 대인원을 모집하는 힘든 공구는 이제 그만! 안전한 공구는 파이가 진행할게요. <br /> 개인이
+					주최하기 힘든 대규모 공구, 사기걱정없이 쉽게하는 공구는 파이에게 맡겨주세요.
+				</p>
 			</div>
 			<th:block th:if="${list==null||list.size()==0}">
 				<div class="row">
@@ -357,7 +513,7 @@ secion2 #sec2 - 대리공구 영역
 
 
 			<th:block th:if="${list!=null && list.size()!=0}">
-				<div class="row hyej-best-gallery align-items-center">
+				<div class="row hyej-best-gallery mt-5">
 					<div class="col-lg-6 col-md-8 mb-3 mb-md-2">
 						<img src="imgs/bestMark.png" alt="best" id="bestMark"
 							class="position-absolute" />
@@ -454,23 +610,73 @@ secion2 #sec2 - 대리공구 영역
 
 						</div>
 					</div>
-					<div class="col-lg-6 col-md-4 px-5">
-						<div class="row no-gutters justify-content-center bests">
-							<th:block th:each="board : ${list}">
-								<div class="col-md-12 col-2 mx-2 mx-md-0 mb-md-4 bestProduct">
-									<div class="hyej-custom-img-box position-relative">
-										<img
-											th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
-											alt="" class="shadow" />
-										<div class="hyej-cover">
-											<p class="d-none d-lg-block m-0 pie-c-lightgray"
-												th:text="${board.getPr_category()}"></p>
-											<h4 class="d-none d-lg-block text-truncate"
-												th:text="${board.getPr_title()}"></h4>
+					<div class="col-lg-6 col-md-4 px-lg-5 pr-md-0 px-4">
+						<div class="d-flex flex-column justify-content-between h-100">
+							<div class="row justify-content-center bests mb-5">
+								<th:block th:each="board : ${list}">
+									<div class="col-lg-6 col-md-12 col-6 p-1 bestProduct">
+										<div class="hyej-custom-img-box position-relative">
+											<img
+												th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+												alt="" class="shadow" />
+											<div class="hyej-cover">
+												<div>
+													<p class="small m-0 pie-c-red"
+														th:text="${board.getPr_category()}"></p>
+													<h6 class="text-truncate" th:text="${board.getPr_title()}"></h6>
+												</div>
+
+
+												<div class="d-flex justify-content-end">
+													<div class="d-flex align-items-center">
+														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
+														<span id="bestLike" class="small"
+															th:text=${board.getPr_like()}></span>
+													</div>
+													<div class="d-flex align-items-center mx-2">
+														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
+														<span id="bestHit" class="small"
+															th:text=${board.getPr_hit()}></span>
+													</div>
+													<div class="d-flex align-items-center">
+														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
+														<span id="bestNow" th:text=${board.getPr_personnelNow()}></span>
+														<span>/</span> <span id="bestMax" class="small"
+															th:text=${board.getPr_personnelMax()}></span>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
+								</th:block>
+							</div>
+							<div class="row">
+								<div class="col">
+									<h3 class="font-weight-bold pie-c-red">파이박스 더보기</h3>
+									<ul class="list-unstyled">
+										<li class="py-3 border-top border-bottom">
+											<p class="small m-0 pie-c-brown">파이박스에서 진행하는 공구를 보고싶다면?</p> <a
+											href="#"
+											class="btn pie-btn-outline-red-custom btn-sm btn-block rounded-pill mt-3 small">원하는
+												테마 골라서 보기</a>
+										</li>
+										<li class="py-3 border-bottom">
+											<p class="small m-0 pie-c-brown">파이박스에서 진행했으면 하는 공구를 신청하고
+												싶다면?</p> <a href="#"
+											class="btn pie-btn-outline-red-custom btn-sm btn-block rounded-pill mt-3 small">파이
+												추천 게시판 바로가기</a>
+										</li>
+										<li class="py-3 border-bottom">
+											<p class="small m-0 pie-c-brown">파이와 함께하고 싶은 기업은?</p> <a
+											href="#"
+											class="btn pie-btn-outline-red-custom btn-sm btn-block rounded-pill mt-3 small">기업
+												신청 게시판 바로가기</a>
+
+										</li>
+									</ul>
 								</div>
-							</th:block>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -483,97 +689,138 @@ secion2 #sec2 - 대리공구 영역
 secion2 #sec3 - 서비스 공유 영역
 ############################################### -->
 
-	<section class="pie-section-py bg-light overflow-hidden">
+	<section class="pie-section-py overflow-hidden position-relative">
 
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div
-						class="d-flex align-items-center justify-content-between w-100 my-5">
-						<h1 class="text-center text-sm-left font-weight-bolder pie-c-red">즐겨요
-							파이타임!</h1>
-						<a class="btn btn-light border" href="shareServiceBoard"> <small>┼</small>
-						</a>
+		<div class="position-absolute" id="pie-main-sharebackground"></div>
+
+		<div class="row">
+			<div class="col">
+				<div class="container-fluid p-0">
+					<div class="row justify-content-end">
+						<div class="container">
+								<div
+									class="d-flex align-items-center justify-content-between w-100 mt-5">
+									<h1
+										class="text-center text-sm-left font-weight-bolder pie-c-red">즐겨요
+										파이타임!</h1>
+									<a class="btn btn-light border" href="shareServiceBoard"> <small>┼</small>
+									</a>
+								</div>
+								<div class="mb-5">
+									<p class="pie-c-brown">
+										볼거리는 너무 많고, 싱글 플랜은 너무 비싸고... 고민해본적 있으신가요? <br /> 파이에서 서비스
+										쉐어플랜을 함께할 쉐어메이트를 찾아보세요!
+									</p>
+								</div>
+							</div>
+						<div class="container">
+							<div class="row mt-3 justify-content-around p-3 pie-sharemain-images">
+								<a class="col-sm-4 p-2 pie-radius overflow-hidden" 
+									href="shareServiceBoard?num=1"> <img src="imgs/ott2.jpg"
+									alt="" class="img-fluid mb-3 pie-radius">
+									<h5 class="text-center">
+										<b>OTT 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
+											width="25" height="25">
+									</h5>
+									<p class="mt-2 small text-center">넷플릭스, 디즈니, 웨이브... <br/> 재밌는 컨텐츠를 마음껏 즐기세요!</p>
+								</a> <a class="col-sm-4 p-2"
+									onclick="game()" href="shareServiceBoard?num=2"> <img
+									src="imgs/game.jpg" alt="" class="img-fluid mb-3 pie-radius">
+									<h5 class="text-center">
+										<b>게임 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
+											width="25" height="25">
+									</h5>
+									<p class="mt-2 small text-center">세상은 넓고, 할 게임은 많다! <br/> 유료 게임 플랜을 쉐어 메이트와 나눠보세요.</p>
+								</a> <a class="col-sm-4 p-2 pie-radius overflow-hidden"
+									href="shareServiceBoard?num=3"> <img src="imgs/book.jpg"
+									alt="" class="img-fluid mb-3 pie-radius">
+									<h5 class="text-center">
+										<b>도서/음악 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
+											width="25" height="25">
+									</h5>
+									<p class="mt-2 small text-center">마음의 양식을 위한 풍요로운 문화생활! <br/> 파이에서 친구들과 함께하세요.</p>
+								</a>
+							</div>
+							<!--row-->
+						</div>
+						<!--col-12-->
 					</div>
+					<!--row-->
 				</div>
+				<!--container-->
 			</div>
 		</div>
 
-		<div class="row position-relative hyej-carousel-custom pb-5 mb-5">
-			<div class="col pb-5 mb-5">
-				<div class="owl-carousel owl-theme">
+		<div class="row position-relative hyej-carousel-custom mt-5">
+			<div class="col">
+				<div class="shareServiceOwl owl-carousel owl-theme">
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=1"> <img
-								src="imgs/netflix2.png" alt="" class="img-fluid"
-								style="height: 500px">
+								src="imgs/netflix2.png" alt="" class="img-fluid">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=1"> <img src="imgs/watcha.jpg"
-								alt="" class="img-fluid" style="height: 500px">
+								alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=2"> <img src="imgs/xbox.jpg"
-								alt="" class="img-fluid" style="height: 500px">
+								alt="" >
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=3"> <img
-								src="imgs/ridibooks.jpg" alt="" class="img-fluid"
-								style="height: 500px">
+								src="imgs/ridibooks.jpg" alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=1"> <img
-								src="imgs/youtube.webp" alt="" class="img-fluid"
-								style="height: 500px">
+								src="imgs/youtube.webp" alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4 class="">
 							<a href="shareServiceBoard?num=1"> <img src="imgs/disney.png"
-								alt="" class="img-fluid" style="height: 500px">
+								alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=2"> <img src="imgs/steam.jpg"
-								alt="" class="img-fluid" style="height: 500px">
+								alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=3"> <img
-								src="imgs/spotify.jpg" alt="" class="img-fluid"
-								style="height: 500px">
+								src="imgs/spotify.jpg" alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=2"> <img
-								src="imgs/nintendoOnline.jpeg" alt="" class="img-fluid"
-								style="height: 500px">
+								src="imgs/nintendoOnline.jpeg" alt="">
 							</a>
 						</h4>
 					</div>
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=3"> <img src="imgs/milli.jpg"
-								alt="" class="img-fluid" style="height: 500px">
+								alt="">
 							</a>
 						</h4>
 					</div>
@@ -690,6 +937,17 @@ secion2 #sec3 - 서비스 공유 영역
 			});
 		});
 	</script>
+
+
+	<script sec:authorize="isAuthenticated()" type="text/javascript"
+		th:inline="javascript">
+		var nowlocation = /*[[${now}]]*/'';
+	</script>
+	<script sec:authorize="isAuthenticated()" type="text/javascript"
+		th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey='+${Mapi}+'&libraries=services'}"></script>
+	<script sec:authorize="isAuthenticated()" th:src="@{'js/map.js'}"></script>
+
+
 	
 	<script>
 		$('#section1Carousel').on('slide.bs.carousel', function (event) {
