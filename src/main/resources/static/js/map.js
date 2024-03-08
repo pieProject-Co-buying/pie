@@ -15,10 +15,12 @@ $.ajax({
 				// 지도의 확대 레벨
 			};
 
+			selectedMarker = null; // 클릭한 마커를 담을 변수
 
 			// 지도를 생성합니다    
 			var map = new kakao.maps.Map(mapContainer,
 				mapOption);
+
 
 			var geocoder = new kakao.maps.services.Geocoder();
 
@@ -54,9 +56,9 @@ $.ajax({
 							latlng: new kakao.maps.LatLng(
 								parseFloat(jsonObject.y),
 								parseFloat(jsonObject.x)),
-							content: '<div class="customoverlay" data-category="' + jsonObject.category + '">' +
+							content: '<div class="customoverlay shadow text-truncate" data-category="' + jsonObject.category + '">' +
 								'  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +
-								'    <span class="title text-truncate">' + jsonObject.title + '</span>' +
+								'    <span class="title text-truncate w-100">' + jsonObject.title + '</span>' +
 								'  </a>' +
 								'</div>',
 							num: jsonObject.num,
@@ -67,34 +69,78 @@ $.ajax({
 						console.log(parseFloat(jsonObject.x));
 						resultArray.push(convertedObject);
 
+						var normalimageSrc;
+						var hoverImgSrc;
+						if (convertedObject.category == "food") {
+							normalimageSrc = "/imgs/foodmarker.png"
+							hoverImgSrc = "/imgs/hfoodmarker.png"
+						} else if (convertedObject.category == "baby") {
+							normalimageSrc = "/imgs/babymarker.png"
+							hoverImgSrc = "/imgs/hbabymarker.png"
+						} else if (convertedObject.category == "beautyAndFashion") {
+							normalimageSrc = "/imgs/beautymarker.png"
+							hoverImgSrc = "/imgs/hbeautymarker.png"
+						} else if (convertedObject.category == "life") {
+							normalimageSrc = "/imgs/lifemarker.png"
+							hoverImgSrc = "/imgs/hlifemarker.png"
+						} else if (convertedObject.category == "etc") {
+							normalimageSrc = "/imgs/etcmarker.png"
+							hoverImgSrc = "/imgs/hetcmarker.png"
+						} else if (convertedObject.category == "pet") {
+							normalimageSrc = "/imgs/petmarker.png"
+							hoverImgSrc = "/imgs/hpetmarker.png"
+						}
+
+						var nimageSize = new kakao.maps.Size(30, 41);
+						var nimageOption = { offset: new kakao.maps.Point(15, 41) };
+
+						var himageSize = new kakao.maps.Size(50, 68);
+						var himageOption = { offset: new kakao.maps.Point(25, 68) };
+
+						var normalmarkerImage = new kakao.maps.MarkerImage(normalimageSrc, nimageSize, nimageOption);
+						var hovermarkerImage = new kakao.maps.MarkerImage(hoverImgSrc, himageSize, himageOption);
+
+
 						// 'latlng' 속성이 정의된 경우에만 마커 생성
 						if (convertedObject.latlng) {
 							var marker = new kakao.maps.Marker(
 								{
 									map: map, // 마커를 표시할 지도
-									position: convertedObject.latlng
+									position: convertedObject.latlng,
+									image: normalmarkerImage
 								});
 
-							var infowindow = new kakao.maps.InfoWindow(
-								{
-									content: convertedObject.content
-									// 인포윈도우에 표시할 내용
-								});
+							var customOverlay = new kakao.maps.CustomOverlay({
+								map: map,
+								position: convertedObject.latlng,
+								content: convertedObject.content,
+								yAnchor: 1
+							});
 
 							console.log(convertedObject.num);
+							customOverlay.setMap(null);
 
 							kakao.maps.event
 								.addListener(marker,
 									'mouseover',
-									makeOverListener(
-										map,
-										marker,
-										infowindow));
+									function() {
+										customOverlay.setMap(map);
+										if (!selectedMarker || selectedMarker !== marker) {
+										/*	makeOverListener(map, marker, infowindow);*/
+											marker.setImage(hovermarkerImage);
+										}
+									});
 							kakao.maps.event
 								.addListener(
 									marker,
 									'mouseout',
-									makeOutListener(infowindow));
+									function() {
+										customOverlay.setMap(null);
+										if (!selectedMarker || selectedMarker !== marker) {
+									/*		makeOutListener(infowindow)*/
+											marker.setImage(normalmarkerImage);
+										}
+									});
 
 							kakao.maps.event
 								.addListener(
@@ -118,7 +164,6 @@ $.ajax({
 							}
 							markerGroupsByDay[convertedObject.endSoon]
 								.push(marker);
-
 						}
 					} else {
 						console
@@ -148,16 +193,63 @@ $.ajax({
 			};
 		}
 
+		let mapBtns = $(".categoryBtn");
+		let nums = {
+			foodNum: markerGroups["food"].length,
+			babyNum: markerGroups["baby"].length,
+			bFNum: markerGroups["beautyAndFashion"].length,
+			petNum: markerGroups["pet"].length,
+			lifeNum: markerGroups["life"].length,
+			etcNum: markerGroups["etc"].length,
+			endNum: markerGroupsByDay['1'].length
+		}
+
+		let numsSum = nums.foodNum + nums.babyNum + nums.bFNum + nums.petNum + nums.lifeNum + nums.etcNum
+
+
+
+		$(".custom_zoomcontrol").show();
+		mapBtns.eq(0).find(".num").text(numsSum);
+		mapBtns.eq(1).find(".num").text(nums.foodNum);
+		mapBtns.eq(2).find(".num").text(nums.babyNum);
+		mapBtns.eq(3).find(".num").text(nums.bFNum);
+		mapBtns.eq(4).find(".num").text(nums.petNum);
+		mapBtns.eq(5).find(".num").text(nums.lifeNum);
+		mapBtns.eq(6).find(".num").text(nums.etcNum);
+		mapBtns.eq(7).find(".num").text(nums.endNum);
+
+
 		// 예제: '카테고리1'을 선택하면 해당 카테고리의 마커만 표시
 
-		$(".categoryBtn").click(function() {
+		mapBtns.click(function() {
 			let txt = $(this).attr("data-category");
 			if (txt === 'endSoon') {
 				showMarkersByEndSoon(txt);
 			} else {
 				showMarkersByCategory(txt);
 			}
+			mapBtns.removeClass("active");
+			$(this).addClass("active");
 		})
+
+		$("#pie-map-zoomIn").click(function() {
+			zoomIn();
+		})
+
+		$("#pie-map-zoomOut").click(function() {
+			zoomOut();
+		})
+
+		// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+		function zoomIn() {
+			map.setLevel(map.getLevel() - 1);
+		}
+
+		// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+		function zoomOut() {
+			map.setLevel(map.getLevel() + 1);
+		}
+
 
 		function showMarkersByCategory(category) {
 			for (var key in markerGroups) {

@@ -10,23 +10,20 @@
 				<a class="navbar-brand" href="/"> <img
 					src="imgs/logo_color_C_red.png" alt="" class="pie-logo-gnb" />
 				</a>
-				<button class="navbar-toggler border-0" type="button" data-toggle="collapse"
-					data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-					aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler border-0" type="button"
+					data-toggle="collapse" data-target="#navbarNavDropdown"
+					aria-controls="navbarNavDropdown" aria-expanded="false"
+					aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
-<!--						<li class="nav-item active"><a class="nav-link" href="/">Home
+						<!--						<li class="nav-item active"><a class="nav-link" href="/">Home
 								<span class="sr-only">(current)</span>
 						</a></li>-->
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false"> 동네 공구 </a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="townBuying">메인</a> <a
-									class="dropdown-item" href="townBuySearch">공구해요 게시판</a>
-							</div></li>
+						<li class="nav-item"><a class="nav-link" href="townBuySearch">동네
+								공구 <span class="sr-only">businessApply</span>
+						</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 대신 사드려요 </a>
@@ -41,23 +38,25 @@
 							data-toggle="dropdown" aria-expanded="false"> 같이써요 서비스 </a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="shareService">메인</a> <a
-									class="dropdown-item" href="shareServiceBoard">신청해요 게시판</a> 
+									class="dropdown-item" href="shareServiceBoard">신청해요 게시판</a>
 							</div></li>
-					
-							<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> 관리자 콘솔 </a>
-								<div class="dropdown-menu">
-									<a class="dropdown-item" href="shareServiceBoardConsole?page=1">공유 게시글 관리</a>
-									<a class="dropdown-item" href="shareServiceApplyConsole?page=1">결제 내역 확인</a>
-									<a class="dropdown-item" href="https://classic-admin.portone.io/payments" target="_blank">결제통합관리</a>
-								</div>
-							</li>
-						<li class="nav-item">
-							<a class="nav-link" th:href="@{businessApplyBoard}">기업신청
-								<span class="sr-only">businessApply</span>
-							</a>
-						</li>							
-				
+
+						<li sec:authorize="hasRole('ROLE_ADMIN')"
+							class="nav-item dropdown"><a
+							class="nav-link dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false"> 관리자 콘솔 </a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="shareServiceBoardConsole?page=1">공유
+									게시글 관리</a> <a class="dropdown-item"
+									href="shareServiceApplyConsole?page=1">결제 내역 확인</a> <a
+									class="dropdown-item"
+									href="https://classic-admin.portone.io/payments"
+									target="_blank">결제통합관리</a>
+							</div></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{businessApplyBoard}">기업신청 <span class="sr-only">businessApply</span>
+						</a></li>
+
 						<!-- <li class="nav-item">
 							<a class="nav-link"   th:href="@{'room?mem='+${session.userId}}">파이채팅
 								<span class="sr-only">(current)</span>
@@ -75,16 +74,14 @@
 								th:src="@{'imgs/profiles/'+${session.pic}}" alt=""
 								class="pie-profilePic mr-2"
 								onerror="this.onerror=null; this.src='imgs/default.png';" /><span
-								th:text="|${session.nickName}님|" class=""></span>
-								<span id="noti" class="badge badge-warning"></span>
-								</a>
+								th:text="|${session.nickName}님|" class=""></span> <span
+								id="noti" class="badge badge-warning"></span> </a>
 							<div class="dropdown-menu dropdown-menu-right">
 
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
-									class="dropdown-item" href="likeList?category=all">좋아요한 게시글</a> 
-									<a sec:authorize="hasRole('ROLE_USER')"
-									class="dropdown-item" href="shareServiceApply">신청중인 내역 조회</a>
-									<a
+									class="dropdown-item" href="likeList?category=all">좋아요한 게시글</a>
+								<a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+									href="shareServiceApply">신청중인 내역 조회</a> <a
 									class="dropdown-item"
 									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
 							</div>
@@ -125,9 +122,7 @@
 		</div>
 	</div>
 
-	<div class="toast-container col fixed-bottom" id="toastBox">
-
-	</div>
+	<div class="toast-container col fixed-bottom" id="toastBox"></div>
 	<input type="hidden" id="sessionId" th:value="${session.nickName}">
 	<input type="hidden" id="realNick" th:value="${session.nickName}">
 
@@ -161,11 +156,11 @@
 		}
 
 		$(function() {
-			if($("#realNick").val()!=null&&$("#realNick").val()!=""){
+			if ($("#realNick").val() != null && $("#realNick").val() != "") {
 				connect();
 			}
 		});
-		
+
 		function showMessageNotification(message) {
 
 			// JSON 형식의 메시지 파싱
@@ -176,7 +171,8 @@
 			var roomNumber = jsonData.roomNumber;
 
 			// userName이 정의되어 있고, undefined가 아닌 경우에만 토스트를 표시
-			if (userName && userName !== 'undefined' && userName != $('#realNick').val()) {
+			if (userName && userName !== 'undefined'
+					&& userName != $('#realNick').val()) {
 				console.log(jsonData.sessionId);
 				console.log($('#sessionId').val());
 				// 메시지 도착 알림
@@ -199,11 +195,11 @@
 
 				// 토스트 표시
 				$('.toast').toast('show');
-				
+
 				// 10초 후에 토스트를 숨김
 				setTimeout(function() {
-				    $('.toast').toast('hide');
-				}, 10000); 
+					$('.toast').toast('hide');
+				}, 10000);
 
 			}
 		}

@@ -41,7 +41,7 @@ public class KaKaoMapController {
 	public ResponseEntity<String> getKaKaoApiFromAddress(@RequestParam("nowlogin") String userId,
 			HttpServletRequest request) {
 		
-		/* System.out.println("접속중:"+userId); */
+		System.out.println("접속중:"+userId);
 		
 		String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json";
 		String jsonString = null;
@@ -172,7 +172,7 @@ public class KaKaoMapController {
 					 item.put("category", dto.getTo_category());
 					 int max = dto.getTo_personnelMax();
 					 int now = dto.getTo_personnelNow();
-					 System.out.println(max-now);
+						/* System.out.println(max-now); */
 					 item.put("endSoon", max-now);
 					 
 					itemList.add(item);
@@ -185,6 +185,7 @@ public class KaKaoMapController {
 		}
 		
 		obj.put("addressList", itemList);
+		/* System.out.println(obj.toJSONString()); */
 
 		return ResponseEntity.ok(obj.toJSONString());
 	}
