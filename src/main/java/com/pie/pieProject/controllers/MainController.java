@@ -53,26 +53,30 @@ public class MainController {
 		model.addAttribute("list", plist);
 		
 		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
-		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
-		String useraddr = mdto.getAddress_main();
-		String userMainAddr = useraddr.substring(0, 6);
-		System.out.println(userMainAddr);
-		
+		if(getSession(request, "userId")!=null&&!getSession(request, "userId").equals("")) {
+			MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+			String useraddr = mdto.getAddress_main();
+			String userMainAddr = useraddr.substring(0, 6);
+			System.out.println(userMainAddr);
+			
 
-		List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
+			List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
 
-		for(TownBuyBoardDto d : tlist) {
-			d.setTo_category(Bcomp.translate(d.getTo_category()));
+			for(TownBuyBoardDto d : tlist) {
+				d.setTo_category(Bcomp.translate(d.getTo_category()));
+			}
+			
+			model.addAttribute("tlist", tlist);
+
+			List<TownBuyBoardDto> tlist2 = tdao.likeListDao(userMainAddr);
+			for(TownBuyBoardDto d : tlist2) {
+				d.setTo_category(Bcomp.translate(d.getTo_category()));
+			}
+			
+			model.addAttribute("tlist2", tlist2);		
 		}
 		
-		model.addAttribute("tlist", tlist);
-
-		List<TownBuyBoardDto> tlist2 = tdao.likeListDao(userMainAddr);
-		for(TownBuyBoardDto d : tlist2) {
-			d.setTo_category(Bcomp.translate(d.getTo_category()));
-		}
 		
-		model.addAttribute("tlist2", tlist2);		
 		
 		return "Index";
 	}
