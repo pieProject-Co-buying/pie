@@ -78,14 +78,27 @@
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
 					<img th:src="@{'imgs/profiles/'+${board.getPr_profileImg()}}"
-						class="card-img-top border rounded-circle pie-profilePic-mid align-self-center"
+						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
-					<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
-						<small class="m-0 font-weight-bold"
-							th:text="${board.getPr_nickname()}"></small>
+					<div class="pl-3 pie-view-text pie-omitted d-flex">
+						<th:block th:if="${!#strings.equals(board.getPr_id(),session.userId)}">
+							<small class="m-0 font-weight-bold mr-2"
+								th:text="${board.getPr_nickname}"></small>
+							<span
+								th:unless="${@boardComp.rUFollowing(session.userId,board.getPr_id())}"
+								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn py-0"
+								th:attr="data-following = ${board.getPr_id()}"> <span
+								class="small">팔로우</span>
+							</span>
+							<span
+								th:if="${@boardComp.rUFollowing(session.userId,board.getPr_id())}"
+								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn unfollow py-0"
+								data-hover="언팔로우" th:attr="data-following = ${board.getPr_id()}">
+								<span class="small">팔로잉</span>
+							</span>
+						</th:block>
 					</div>
 				</div>
-
 				<!-- 게시글본문 -->
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
