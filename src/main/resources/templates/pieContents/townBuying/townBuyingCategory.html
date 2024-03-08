@@ -14,12 +14,12 @@
 
 		<div class="row mb-5">
 
-			<div class="col">
+			<div class="col ">
 
 
 				<div class="card-columns">
 
-					<a class="card hj-radius-30" th:each="list:${list}"
+					<a class="card hj-radius-30 " th:each="list:${list}"
 						th:href="@{'townBuyproduct?num=' + ${list.getTo_num()}}">
 						<img
 						th:src="@{'/imgs/test/' + ${list.getTo_productImg().substring(0,list.getTo_productImg().indexOf('/'))}}"

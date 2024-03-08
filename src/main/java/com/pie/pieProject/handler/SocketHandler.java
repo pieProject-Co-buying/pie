@@ -46,7 +46,15 @@ public class SocketHandler extends TextWebSocketHandler {
 
 		JSONObject obj = jsonToObjectParser(msg);
 		String userName = (String) obj.get("userName");
+		String userMessage = obj.get("msg").toString().trim();
 
+		if (userMessage.isEmpty()) {
+			// 메시지가 빈 문자열인 경우 함수 종료
+			System.out.println("메세지가 없습니다.");
+			return;
+		}
+		
+		
 		for (String key : sessionMap.keySet()) {
 			WebSocketSession wss = sessionMap.get(key).getWss();
 			if (sessionMap.get(key).getMem1() != null) {
@@ -82,16 +90,17 @@ public class SocketHandler extends TextWebSocketHandler {
 		String mem1 = (String) obj.get("mem1");
 		String mem2 = (String) obj.get("mem2");
 		String sessionId = (String) obj.get("sessionId");
+		String roomNumber = (String) obj.get("roomNumber");
 
 		
-		showMessageNotification(mem1, mem2, userName);
+		showMessageNotification(mem1, mem2, userName, roomNumber);
 
 	}
 	
 	
 
 	// 알람기능 구현위한 테스트중
-	private void showMessageNotification(String mem1, String mem2, String userName) {
+	private void showMessageNotification(String mem1, String mem2, String userName, String roomNumber) {
 		// 알림을 표시하는 로직
 
 		for (String key : sessionMap.keySet()) {
@@ -105,9 +114,11 @@ public class SocketHandler extends TextWebSocketHandler {
 						JSONObject notification = new JSONObject();
 						notification.put("type", "notification");
 						notification.put("userName", userName);
+						notification.put("roomNumber", roomNumber);
 						notification.put("message", userName + "님의 메시지가 도착했습니다");
 
 						System.out.println(notification);
+						System.out.println("roomNumber" + roomNumber);
 
 						// 메시지 전송
 						wss.sendMessage(new TextMessage(notification.toJSONString()));
@@ -124,9 +135,12 @@ public class SocketHandler extends TextWebSocketHandler {
 						JSONObject notification = new JSONObject();
 						notification.put("type", "notification");
 						notification.put("userName", userName);
+						notification.put("roomNumber", roomNumber);
+						
 						notification.put("message", userName + "님의 메시지가 도착했습니다");
 
 						System.out.println(notification);
+						System.out.println("roomNumber" + roomNumber);
 
 						// 메시지 전송
 						wss.sendMessage(new TextMessage(notification.toJSONString()));

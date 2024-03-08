@@ -271,3 +271,8 @@
 	left: 30px;
 	top: 10px;
 }
+.hj-toast-wd {
+	width: 300px !important;
+	bottom: 10px;
+	left: 10px;
+}
