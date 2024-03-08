@@ -240,12 +240,6 @@ function tossPay() {
 			Price = parseFloat(DataPrice.getAttribute('data-prPrice'));
 			category = "Proxy"
 		}
-		
-		//var DataPersonnelNow = document.querySelector('[data-personnelNow]');
-		//var personnelNow = parseFloat(DataPersonnelNow.getAttribute('data-numID'));
-		//imp_uid = extract_POST_value_from_url('imp_uid') //post ajax request로부터 imp_uid확인
-
-
 		IMP.request_pay(
 			{
 				pg: "tosspay.tosstest",
@@ -259,7 +253,6 @@ function tossPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
-
 					var result = {
 						"pay_num" : numID,
 						"buyer_id": member.id,
@@ -277,6 +270,7 @@ function tossPay() {
 						"pay_category": category,
 						"pay_refund": '0'	
 					}
+					console.log(result)
 					$.ajax({
 						url: "payCheck",
 						type: 'POST',

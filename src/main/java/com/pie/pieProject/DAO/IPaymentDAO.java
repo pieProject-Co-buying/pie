@@ -39,6 +39,10 @@ public interface IPaymentDAO {
 	// 환불 여부
 	public int refundPayCheck(int num);
 
+	// 전체 환불
+	public int allRefund(int num);
+	public int allProcessRefund(int num);
+	
 	// 아이디, 보드넘버, 테이블종류로 검색
 	public PaymentDTO myPay(String id, String num, String table);
 

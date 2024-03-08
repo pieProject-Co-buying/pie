@@ -233,7 +233,38 @@ public class PaymentController {
 			model.addAttribute("pageNum", pageNum);
 		 return "pieContents/shareService/shareServiceApplyConsole";
 	 }
-	 
+	 /**********기간만료로 인한 전체 환불**********/
+	 @RequestMapping("/allRefund")
+	 public String allRefund(@RequestParam("page") int page,HttpServletRequest request,Model model) { 
+		
+		 
+		 String num = request.getParameter("num");
+		 
+		 dao.allProcessRefund(Integer.parseInt(num));
+		 Sdao.dateOver(Integer.parseInt(num));
+		 
+		 List<PaymentDTO> list = dao.paymentList();
+			model.addAttribute("pay", list);
+
+			int pageLimit = 10;
+			int pageNum = (int) Math.ceil((double) list.size() / pageLimit);
+			
+			List<PaymentDTO> templist = new ArrayList<>();
+
+			int minPage = (page - 1) * pageLimit;
+			int maxPage = Math.min(page * pageLimit, list.size());
+			
+			for (int i = minPage; i < maxPage; i++) {
+				templist.add(list.get(i));
+			}
+			
+			System.out.println(templist.size());
+
+			model.addAttribute("payList", templist);
+			model.addAttribute("page", page);
+			model.addAttribute("pageNum", pageNum);
+		 return "pieContents/shareService/shareServiceApplyConsole";
+	 }
 	 @PostMapping("/getPayData")
 	 public ResponseEntity<PaymentDTO> insertPayment(@RequestParam("num") String num, @RequestParam("category") String category) {
 	        return ResponseEntity.ok(dao.payBoard(Integer.parseInt(num),category));
