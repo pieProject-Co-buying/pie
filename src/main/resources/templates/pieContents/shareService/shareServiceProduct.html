@@ -27,31 +27,26 @@
 		<div class="row">
 			<!-- lg이상화면 작성자 프로필 -->
 			<div class="col-lg-3 d-none d-lg-block">
-
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
 							<img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}"
-								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
-								alt=>
-							<div
-								class="card-body px-2 d-flex align-items-center justify-content-center flex-wrap">
+								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img" alt=>
+							<div class="card-body px-2 d-flex align-items-center justify-content-center flex-wrap">
 								<h5 class="card-title text-center mb-0 mr-2"
 									th:text="${board.getSh_nickname}">Card title</h5>
 								<th:block
 									th:if="${!#strings.equals(board.getSh_id(),session.userId)}">
-									<span
-										th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+									<span th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
 										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn py-0"
-										th:attr="data-following = ${board.getSh_id()}"> <span
-										class="small">팔로우</span>
+										th:attr="data-following = ${board.getSh_id()}"> 
+										<span class="small">팔로우</span>
 									</span>
-									<span
-										th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+									<span th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
 										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn unfollow py-0"
 										data-hover="언팔로우"
-										th:attr="data-following = ${board.getSh_id()}"> <span
-										class="small">팔로잉</span>
+										th:attr="data-following = ${board.getSh_id()}"> 
+										<span class="small">팔로잉</span>
 									</span>
 								</th:block>
 							</div>
@@ -62,10 +57,10 @@
 				<div class="row">
 					<div class="col">
 						<p>
-							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:attr="data-prNow=${board.getSh_personnelNow()}"
-								th:text="${board.getSh_personnelNow()}+' 명 /'"></small> <small
-								th:attr="data-prMax=${board.getSh_personnelMax()}"
+							<small class="font-weight-bold">모집인원</small><br />
+							<small th:attr="data-prNow=${board.getSh_personnelNow()}"
+								th:text="${board.getSh_personnelNow()}+' 명 /'"></small> 
+							<small th:attr="data-prMax=${board.getSh_personnelMax()}"
 								th:text="${board.getSh_personnelMax()}+' 명'"></small>
 						</p>
 						<p>
@@ -82,12 +77,12 @@
 						</p>
 
 						<p>
-							<small class="font-weight-bold">모집시작</small><br /> <small
-								th:text="${board.getSh_registDay()}"></small>
+							<small class="font-weight-bold">모집시작</small><br /> 
+							<small th:text="${board.getSh_registDay()}"></small>
 						</p>
 						<p>
-							<small class="font-weight-bold">모집마감</small><br /> <small
-								th:text="${board.getSh_deadLine()}"></small>
+							<small class="font-weight-bold">모집마감</small><br /> 
+							<small th:text="${board.getSh_deadLine()}"></small>
 						</p>
 					</div>
 				</div>
@@ -95,24 +90,18 @@
 
 			<!-- md 이하 화면 작성자 프로필 -->
 			<div class="col-lg-9 border pie-view-box">
-				<div
-					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
+				<div class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
 					<img th:src="@{'imgs/profiles/'+${board.getSh_profileImg()}}"
-						class="border rounded-circle pie-profilePic-mid align-self-center"
-						alt=>
+						class="border rounded-circle pie-profilePic-mid align-self-center" alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex">
-						<th:block
-							th:if="${!#strings.equals(board.getSh_id(),session.userId)}">
-							<small class="m-0 font-weight-bold mr-2"
-								th:text="${board.getSh_nickname}"></small>
-							<span
-								th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+						<th:block th:if="${!#strings.equals(board.getSh_id(),session.userId)}">
+							<small class="m-0 font-weight-bold mr-2" th:text="${board.getSh_nickname}"></small>
+							<span th:unless="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
 								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn py-0"
-								th:attr="data-following = ${board.getSh_id()}"> <span
-								class="small">팔로우</span>
+								th:attr="data-following = ${board.getSh_id()}"> 
+								<span class="small">팔로우</span>
 							</span>
-							<span
-								th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
+							<span th:if="${@boardComp.rUFollowing(session.userId,board.getSh_id())}"
 								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn unfollow py-0"
 								data-hover="언팔로우" th:attr="data-following = ${board.getSh_id()}">
 								<span class="small">팔로잉</span>
@@ -124,36 +113,27 @@
 				<!-- 게시글본문 -->
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
-							alt="" class="img-fluid hj-detail-img">
+						<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}" alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
 							<h5 th:text="${board.getSh_category()}"></h5>
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 th:attr="data-shTitle=${board.getSh_title}"
-									class="mb-0 pie-omitted display-5"
+								<h2 th:attr="data-shTitle=${board.getSh_title}" class="mb-0 pie-omitted display-5"
 									th:text="${board.getSh_title()}">타이틀 자리</h2>
 							</div>
-							<div th:attr="data-shPrice=${board.getSh_pricePer}"
-								class="col-12 pie-c-red p-0">
+							<div th:attr="data-shPrice=${board.getSh_pricePer}" class="col-12 pie-c-red p-0">
 								<h5 class="mb-0" th:text="|인/${board.getSh_pricePer()}원|"></h5>
 							</div>
-
 						</div>
 					</div>
 
 					<!-- 이미지 갤러리 -->
 					<div class="col-12 px-5">
-						<div
-							class="d-flex justify-content-center pt-2 fancyBox-container mx-auto">
-							<th:block
-								th:each="i : ${#numbers.sequence(0,board.getSh_productImgs().length-1)}">
-								<a class="d-block mx-1" data-fancybox="gallery"
-									th:attr="data-src='/imgs/test/'+ ${board.getSh_productImgs()[i]}">
-									<img
-									th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[i]}}"
-									width="100" height="100" alt="" />
+						<div class="d-flex justify-content-center pt-2 fancyBox-container mx-auto">
+							<th:block th:each="i : ${#numbers.sequence(0,board.getSh_productImgs().length-1)}">
+								<a class="d-block mx-1" data-fancybox="gallery" th:attr="data-src='/imgs/test/'+ ${board.getSh_productImgs()[i]}">
+									<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[i]}}" width="100" height="100" alt="" />
 								</a>
 							</th:block>
 						</div>
@@ -169,14 +149,13 @@
 								<div class="row">
 									<div class="col-6">
 										<p>
-											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:attr="data-prNow=${board.getSh_personnelNow()}"
-												th:text="${board.getSh_personnelNow()}+' 명 /'"></small> <small
-												th:attr="data-prMax=${board.getSh_personnelMax()}"
+											<small class="font-weight-bold">모집인원</small><br /> 
+											<small th:attr="data-prNow=${board.getSh_personnelNow()}"
+												th:text="${board.getSh_personnelNow()}+' 명 /'"></small> 
+											<small th:attr="data-prMax=${board.getSh_personnelMax()}"
 												th:text="${board.getSh_personnelMax()}+' 명'"></small>
 										</p>
 										<p>
-
 											<small class="font-weight-bold">진행현황</small><br />
 											<th:block th:if="${board.getSh_process().equals('1')}">
 												<small class="badge badge-success" th:text="모집진행중"></small>
@@ -188,12 +167,12 @@
 									</div>
 									<div class="col-6">
 										<p>
-											<small class="font-weight-bold">모집시작</small><br /> <small
-												th:text="${board.getSh_registDay()}"></small>
+											<small class="font-weight-bold">모집시작</small><br /> 
+											<small th:text="${board.getSh_registDay()}"></small>
 										</p>
 										<p>
-											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getSh_deadLine()}"></small>
+											<small class="font-weight-bold">모집마감</small><br /> 
+											<small th:text="${board.getSh_deadLine()}"></small>
 										</p>
 									</div>
 								</div>
@@ -204,11 +183,10 @@
 						<!-- 태그 -->
 						<div class="w-100 py-5" th:utext="${board.getSh_content()}"></div>
 						<div class="">
-							<small> <th:block th:if="${board.getSh_tags()!=null}">
-									<th:block
-										th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
-										<span class="badge badge-light"
-											th:text="|#${board.getSh_tags()[i]}|">#태그</span>
+							<small> 
+								<th:block th:if="${board.getSh_tags()!=null}">
+									<th:block th:each="i: ${#numbers.sequence(1, board.getSh_tags()?.length - 1)}">
+										<span class="badge badge-light" th:text="|#${board.getSh_tags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
@@ -219,31 +197,27 @@
 
 							<div class="mt-3" th:if="${session.userId == board.getSh_id()}">
 							<!-- 수정 -->
-								<a class="mr-2"
-									th:href="@{'updateShareBoardForm?num=' + ${board.getSh_num()}}">
+								<a class="mr-2" th:href="@{'updateShareBoardForm?num=' + ${board.getSh_num()}}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-pencil-fill"
-										viewBox="0 0 16 16">
-										<path
-											d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-										</svg>
+										fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
+									</svg>
 								</a> 
 								<!-- 삭제 -->
-								<a class=""
-									th:href="@{'deleteShareService?num=' + ${board.getSh_num()}}">
+								<a class="" th:href="@{'deleteShareService?num=' + ${board.getSh_num()}}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-trash-fill"
-										viewBox="0 0 16 16">
-										<path
-											d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-										</svg>
+										fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+										<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+									</svg>
 								</a>
 							</div>
 							
 							<!-- 조회수 / 좋아요 / 공유 -->
 							<div class="d-flex align-items-center ml-auto">
-								<span><small class="mr-1">조회수</small><small
-									th:text="${board.getSh_hit()}"></small></span>
+								<span>
+									<small class="mr-1">조회수</small>
+									<small th:text="${board.getSh_hit()}"></small>
+								</span>
 								<th:block th:if="${like}">
 									<span class="pie-heart-icon pie-icons mx-2 active"></span>
 								</th:block>
@@ -253,39 +227,31 @@
 
 								<small id="likeCount" th:text="${board.getSh_like()}">12</small>
 
-								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
-									data-target="#shareModal"></span>
-							<!-- 		 <a class="pie-chat-icon pie-icons"
-									th:href="@{'room?mem='+${board.getSh_id}}"></a> -->
+								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal" data-target="#shareModal"></span>
+								<a class="pie-chat-icon pie-icons" th:href="@{'room?mem='+${board.getSh_id}}"></a>
 
 								<!-- Modal -->
-								<div class="modal fade" id="shareModal" tabindex="-1"
-									aria-labelledby="shareModalLabel" aria-hidden="true">
+								<div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="shareModalLabel">Modal
-													title</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
+												<h5 class="modal-title" id="shareModalLabel">Modal title</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
 											<div class="modal-body">
 												<div class="col-auto">
 													<div class="input-group mb-2">
-														<input type="text" class="form-control" id="downloadURL"
-															placeholder="">
+														<input type="text" class="form-control" id="downloadURL" placeholder="">
 														<div class="input-group-append">
-															<div data-clipboard-target="#downloadURL"
-																class="input-group-text copyBtn">공유하기</div>
+															<div data-clipboard-target="#downloadURL" class="input-group-text copyBtn">공유하기</div>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">닫기</button>
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
 												<button type="button" class="btn btn-primary">공유하기</button>
 											</div>
 										</div>
@@ -297,8 +263,7 @@
 						
 						<!-- 참여중인 멤버확인하기 -->
 						<div>
-							<div class="py-2 pb-4 d-flex align-items-center dropup"
-								id="partiMem">
+							<div class="py-2 pb-4 d-flex align-items-center dropup" id="partiMem">
 								<div class="d-flex flex-row-reverse justify-content-end">
 									<th:block th:if="${partiMem!=null&&partiMem.size()>1}">
 										<th:block th:each="p, iterStat : ${partiMem}">
@@ -309,14 +274,12 @@
 										</th:block>
 									</th:block>
 									<th:block th:if="${partiMem!=null&&partiMemTotal==1}">
-										<img
-											th:src="@{'imgs/profiles/' + ${partiMem.get(0).getProfile_pic()}}"
+										<img th:src="@{'imgs/profiles/' + ${partiMem.get(0).getProfile_pic()}}"
 											class="pie-profilePic pie-partiMems border" alt="">
 									</th:block>
 								</div>
 								<th:block th:if="${(partiMemTotal)>2}">
-									<span role="button" class="small pie-partimembtn"
-										data-toggle="dropdown" aria-expanded="false"
+									<span role="button" class="small pie-partimembtn" data-toggle="dropdown" aria-expanded="false"
 										th:text="|+${partiMemTotal-2}명이 참여중입니다.|"></span>
 								</th:block>
 								<th:block th:if="${(partiMemTotal)<=2&&(partiMemTotal)>0}">
@@ -334,29 +297,26 @@
 											<div class="d-flex align-items-center">
 												<a class="pie-chat-icon pie-icons-mini mx-2"
 													th:if="${!#strings.equals(p.getId(),session.userId)}"
-													th:href="@{'room?mem='+${p.getId()}}"></a>
-												<th:block
-													th:if="${@boardComp.rUFollowing(session.userId,p.getId())}">
+													th:href="@{'room?mem='+${p.getId()}}">
+												</a>
+												<th:block th:if="${@boardComp.rUFollowing(session.userId,p.getId())}">
 													<span class="pie-thumbsUp-icon pie-icons-mini active"
 														th:if="${!#strings.equals(p.getId(),session.userId)}"
-														th:attr="data-following=${p.getId()}"></span>
+														th:attr="data-following=${p.getId()}">
+													</span>
 												</th:block>
-												<th:block
-													th:unless="${@boardComp.rUFollowing(session.userId,p.getId())}">
+												<th:block th:unless="${@boardComp.rUFollowing(session.userId,p.getId())}">
 													<span class="pie-thumbsUp-icon pie-icons-mini"
 														th:if="${!#strings.equals(p.getId(),session.userId)}"
-														th:attr="data-following=${p.getId()}"></span>
+														th:attr="data-following=${p.getId()}">
+													</span>
 												</th:block>
-
 											</div>
 										</div>
 									</th:block>
 								</div>
 							</div>
-						
 						<!--------------------------다른 상품-------------------------->
-						
-
 							<!-- 모달 동작 버튼 -->
 							<th:block th:if="${session.userId != board.getSh_id() && board.getSh_process().equals('1')}">
 								<!-- 참여 -->
@@ -377,123 +337,68 @@
 							</th:block>
 
 							<!--게시글 작성자가 본인일 경우-->
-							<th:block
-								th:if="${session.userId eq board.getSh_id() && board.getSh_process().equals('1')}">
+							<th:block th:if="${session.userId eq board.getSh_id() && board.getSh_process().equals('1')}">
 								<button type="button" class="btn pie-btn-red btn-block" disabled>
 									<small>작성자는 신청이 불가합니다.</small>
 								</button>
 							</th:block>
 
 							<!--모집 마감-->
-							<button
-								th:if="${board.getSh_process().equals('0') && !(session.userId eq board.getSh_id())}"
+							<button th:if="${board.getSh_process().equals('0') && !(session.userId eq board.getSh_id())}"
 								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
 							</button>
 
 							<!--모집이 마감 되었을 때 작성자 최종 결제-->
-							<button
-								th:if="${board.getSh_process().equals('0') && session.userId eq board.getSh_id()}"
-								id="paymentButton" type="button"
-								class="btn pie-btn-red btn-block" data-toggle="modal"
+							<button th:if="${board.getSh_process().equals('0') && session.userId eq board.getSh_id()}"
+								id="paymentButton" type="button" class="btn pie-btn-red btn-block" data-toggle="modal"
 								data-target="#paymentModal">
 								<small>결제하기</small>
 							</button>
 
 							<!--작정자에 의한 모집중단-->
-							<button th:if="${board.getSh_process().equals('2')}"
-								id="paymentButton" type="button"
+							<button th:if="${board.getSh_process().equals('2')}" id="paymentButton" type="button"
 								class="btn pie-btn-red btn-block" disabled>
 								<small>관리자에 의해 중단된 모집입니다.</small>
 							</button>
 
 							<!-- Modal -->
-							<div class="modal fade" id="staticBackdrop"
-								data-backdrop="static" data-keyboard="false" tabindex="-1"
+							<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
 								aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
 								<div class="modal-dialog">
-
-
 									<div class="modal-content">
-
-
 										<div class="modal-header">
-
-
 											<!-- 모달 title -->
-											<h5 class="modal-title" id="staticBackdropLabel">함께
-												하실래요?</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
+											<h5 class="modal-title" id="staticBackdropLabel">함께 하실래요?</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-
-
 										</div>
-
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body text-center">
-											<img
-												th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
+											<img th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[0]}}"
 												alt="" class="img-fluid" style="width: 100%;">
 											<h5 class="mb-3 mt-5 text-center">
-												함께하면 <b th:text="${board.getSh_pricePer()}"></b> 원에 구매할 수
-												있어요!
+												함께하면 <b th:text="${board.getSh_pricePer()}"></b> 원에 구매할 수 있어요!
 											</h5>
 										</div>
-
-
-
+										<!-- 모달 푸터 -->
 										<div class="modal-footer">
-											<button type="button" class="btn pie-btn-red"
-												data-toggle="modal" data-target="#paymentModal">좋아요!
-												함께해요</button>
-											<button type="button" class="btn btn-outline-secondary"
-												data-dismiss="modal">다시생각해볼게요</button>
+											<button type="button" class="btn pie-btn-red" data-toggle="modal" data-target="#paymentModal">
+												좋아요! 함께해요</button>
+											<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">
+												다시생각해볼게요</button>
 										</div>
-
-
-
 									</div>
 								</div>
 							</div>
-						
-
-
+						</div>
 					</div>
-
-
 				</div>
-
-
 			</div>
-
 		</div>
-
 	</div>
-
-
-	<div class="row">
-		<div class="col d-flex justify-content-center align-items-center">
-			<form action="#">
-				<!--	<button type="button" class="btn custom-btn" data-toggle="modal"
-								data-target="#paymentModal"><b>신청
-									및 결제</b></button>
-							<th:block th:if="${session.userId}==${board.getSh_id()}">
-								<a th:href="'modifyForm?sh_numID='+${board.getSh_num()}" type="button"
-									class="btn custom-btn3"><b>게시글 수정</b></a>
-							</th:block>
-							<button type="button" class="btn custom-btn2" onclick="listBack()"><b>목록으로</b></button>
-							-->
-			</form>
-		</div>
-		<!--col-->
-	</div>
-	<!--row-->
-
-
 	<div class="container mt-5 border-bottom">
 		<div class="row">
 			<div class="col-12">
@@ -513,42 +418,54 @@
 								th:if="${item.getSh_process().equals('1')}">
 								<th:block th:if="${item.sh_num==board.getSh_num()}">
 									<div class="owl-item text-center">
-										<small><b>&#9656;현재 게시물&#9666;</b></small> <a
-											th:href="'boardList?num='+${item.sh_num}"
-											class="shareActive "> <img
-											th:src="@{'/imgs/test/' + ${item.sh_productImg}}"
-											class="img-fluid"
+										<small><b>&#9656;현재 게시물&#9666;</b></small> 
+										<a th:href="'boardList?num='+${item.sh_num}" class="shareActive ">
+											<img th:src="@{'/imgs/test/' + ${item.sh_productImg}}" class="img-fluid"
 											style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2"> <b><span
-													th:if="${item.sh_category.equals('game')}"
-													class="badge badge-info" th:text="${item.sh_category}"></span></b>
-												<b><span th:if="${item.sh_category.equals('OTT')}"
-													class="badge badge-warning" th:text="${item.sh_category}"></span></b>
-												<b><span
-													th:if="${item.sh_category.equals('bookAndMusic')}"
-													class="badge badge-success" th:text="${item.sh_category}"></span></b>
-												<b><span class="d-block text-truncate"
-													style="max-width: 100%" th:text="${item.sh_title}"></span></b>
+											<small class="mt-2"> 
+												<b>
+													<span th:if="${item.sh_category.equals('game')}"
+														class="badge badge-info" th:text="${item.sh_category}">
+													</span>
+												</b>
+												<b>
+													<span th:if="${item.sh_category.equals('OTT')}"
+														class="badge badge-warning" th:text="${item.sh_category}">
+													</span>
+												</b>
+												<b>
+													<span th:if="${item.sh_category.equals('bookAndMusic')}"
+														class="badge badge-success" th:text="${item.sh_category}">
+													</span>
+												</b>
+												<b>
+													<span class="d-block text-truncate" style="max-width: 100%" 
+														th:text="${item.sh_title}">
+													</span>
+												</b>
 										</small>
 										</a>
 									</div>
 								</th:block>
 								<th:block th:if="${item.sh_num!=board.getSh_num()}">
 									<div class="owl-item text-center">
-										<a th:href="'boardList?num='+${item.sh_num}" class=""> <img
-											th:src="@{'/imgs/test/' + ${item.sh_productImg}}"
-											class="img-fluid"
-											style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2"> <b><span
-													th:if="${item.sh_category.equals('게임')}"
-													class="badge badge-info" th:text="${item.sh_category}"></span></b>
-												<b><span th:if="${item.sh_category.equals('OTT')}"
-													class="badge badge-warning" th:text="${item.sh_category}"></span></b>
-												<b><span th:if="${item.sh_category.equals('도서/음악')}"
-													class="badge badge-success" th:text="${item.sh_category}"></span></b>
-												<b><span class="d-block text-truncate"
-													style="max-width: 100%" th:text="${item.sh_title}"></span></b>
-										</small>
+										<a th:href="'boardList?num='+${item.sh_num}" class=""> 
+											<img th:src="@{'/imgs/test/' + ${item.sh_productImg}}" class="img-fluid"
+												style="width: 100%; height: 200px; border-radius: 20px">
+												<small class="mt-2">
+													 <b>
+													 	<span th:if="${item.sh_category.equals('게임')}" class="badge badge-info" th:text="${item.sh_category}"></span>
+													 </b>
+													<b>
+														<span th:if="${item.sh_category.equals('OTT')}" class="badge badge-warning" th:text="${item.sh_category}"></span>
+													</b>
+													<b>
+														<span th:if="${item.sh_category.equals('도서/음악')}" class="badge badge-success" th:text="${item.sh_category}"></span>
+													</b>
+													<b>
+														<span class="d-block text-truncate" style="max-width: 100%" th:text="${item.sh_title}"></span>
+													</b>
+											</small>
 										</a>
 									</div>
 								</th:block>
@@ -575,23 +492,22 @@
 					<h5 class="modal-title" id="paymentModalLabel">
 						<b>결제 수단 선택</b>
 					</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body d-flex justify-content-around text-center">
 					<div class="m-3" onclick="kgPay()">
-						<small class="d-block"><b>kg 이니시스</b></small> <img
-							src="imgs/kg.png" alt="" class="payLogo">
+						<small class="d-block"><b>kg 이니시스</b></small> 
+						<img src="imgs/kg.png" alt="" class="payLogo">
 					</div>
 					<div class="m-3" onclick="kakaoPay()">
-						<small class="d-block"><b>카카오페이</b></small> <img
-							src="imgs/kakaopay.jpg" alt="" class="payLogo">
+						<small class="d-block"><b>카카오페이</b></small> 
+						<img src="imgs/kakaopay.jpg" alt="" class="payLogo">
 					</div>
 					<div class="m-3" onclick="tossPay()">
-						<small class="d-block"><b>토스페이</b></small> <img
-							src="imgs/toss.jpg" alt="" class="payLogo">
+						<small class="d-block"><b>토스페이</b></small> 
+						<img src="imgs/toss.jpg" alt="" class="payLogo">
 					</div>
 				</div>
 				<div class="modal-footer">

@@ -12,11 +12,8 @@
 		select * from shareServiceBoard where sh_num=#{param1}
 	</select>
 	<!--게시판 검색 -->
-	<select id="searchTitle"
-		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_title like
-		'%${param1}%' or
-		sh_content like '%${param1}%'
+	<select id="searchTitle" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where (sh_title like '%${param1}%' or sh_content like '%${param1}%') and sh_category = '${param2}'
 	</select>
 	<!--내가 쓴 게시글 -->
 	<select id="myBoard"
