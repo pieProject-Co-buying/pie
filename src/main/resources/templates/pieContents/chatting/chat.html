@@ -23,7 +23,7 @@
 							<img src="imgs/logo_color_C_red.png" class="">
 							<h2 class="mb-2">함께해요 파이채팅</h2>
 							<div class="my-3 mb-5">
-								파이채팅 이용시 민감한 개인정보 노출관련해서 주의해주세요!		
+								파이채팅 이용시 민감한 개인정보 노출 주의해주세요!		
 										
 							</div>
 							
@@ -48,12 +48,12 @@
 
 
 						
-						<div class="row my-3">
-							<div class="col-12 col-md-6 text-center text-md-left mb-4 mb-md-0">
-								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red  hj-radius-30">뒤로가기</button>
+						<div class="row my-3 px-3">
+							<div class="col-6 text-left">
+								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red hj-radius-30 small">뒤로가기</button>
 							</div>
-							<div class="col-12 col-md">
-								<p class="text-center text-md-right h4" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
+							<div class="col-6 col-md">
+								<p class="text-right h5" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
 								
 							</div>
 						</div>
@@ -225,64 +225,47 @@
 
 
 
+
+	
 		function wsEvt() {
 			ws.onopen = function (data) {
 				//소켓이 열리면 동작
 			}
 
-
 			/* 수신시 동작하는 이벤트 핸들러 */
 			ws.onmessage = function (data) {
-
 				//메시지를 받으면 동작
 				var msg = data.data;
 
 				if (msg != null && msg.trim() != '') {
-
 					var d = JSON.parse(msg);
 
 					if (d.type == "getId") {
-
 						var si = d.sessionId != null ? d.sessionId : "";
-
 						if (si != '') {
 							$("#sessionId").val(si);
 						}
-						
-
 					} else if (d.type == "message") {
-						
-						console.log(d.userName)
-						console.log($("#mem1").val());
-						
-						console.log($("#realNick").val());
-						console.log($("#mem2").val());
-						
-						if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
-							/* 세션아이디 일치 ==> 내가 입력할시 */
-							console.log("여기" + d.sessionId);
-							console.log("여기" + $("#sessionId").val());
-							
-							console.log(d.sessionId == $("#sessionId").val())
-							if (d.sessionId == $("#sessionId").val()) {
-								$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
-							} else {
-								$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='d-flex flex-wrap text-wrap text-break chatBallon'><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div></div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
+						if (d.msg.trim() != '') { //메세지 공란일 경우를 체크
+							if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
+								if (d.sessionId == $("#sessionId").val()) {
+									$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+								} else {
+									$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='d-flex flex-wrap text-wrap text-break chatBallon'><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div></div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
+								}
 							}
 						}
-
-
-					} else {
-
-						console.warn("unknown type!")
-					}
+					} 
+				} else {
+					console.warn("unknown type!")
 				}
-				
-
 			}
-		}
-
-		document.addEventListener("keypress", function (e) {
+		}		
+		
+		
+		
+		/* 엔터로 채팅 막음 */
+ 		document.addEventListener("keypress", function (e) {
 			if (e.keyCode == 13) { //enter press
 				send();
 			}
@@ -290,6 +273,9 @@
 		
 
 
+		
+		
+		
 		function getYmd10() {
 			//yyyy-mm-dd 포맷 날짜 생성
 			var d = new Date();

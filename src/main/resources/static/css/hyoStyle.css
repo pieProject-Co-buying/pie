@@ -134,16 +134,46 @@
 	height: 70vh;
 }
 
+
 .hj-chat-scroll-x {
 	overflow-x: auto;
 	width: 100vh;
 }
+
+
+
 
 .chating {
 	height: 500px;
 	overflow: auto;
 	scroll-behavior: auto;
 }
+
+
+
+.chating::-webkit-scrollbar-track
+{
+ border-radius: 10px;
+ background-color: transparent;
+}
+
+.chating::-webkit-scrollbar
+{
+ width: 8px;
+ background-color:transparent;
+}
+
+.chating::-webkit-scrollbar-thumb
+{
+ border-radius: 10px;
+ background-color: #555;
+
+
+}
+
+
+
+
 
 #yourMsg {
 	display: none;
@@ -270,4 +300,14 @@
 .hj-card-process4 {
 	left: 30px;
 	top: 10px;
+}
+.hj-toast-wd {
+	width: 300px !important;
+	bottom: 10px;
+	left: 10px;
+}
+
+.hj-indicator-btn {
+	width: 9px;
+	height: 9px;
 }
