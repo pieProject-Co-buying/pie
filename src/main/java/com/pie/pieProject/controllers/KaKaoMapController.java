@@ -141,7 +141,6 @@ public class KaKaoMapController {
 
 			try {
 				JSONObject jsonMain = (JSONObject) parser.parse(jsonString);
-
 				// "documents"는 JSONArray이므로 JSONObject 대신 JSONArray로 처리
 				JSONArray jsonArray = (JSONArray) jsonMain.get("documents");
 
