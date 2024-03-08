@@ -58,6 +58,7 @@
 					th:src="@{'/imgs/test/' + ${board.getSh_productImg().substring(0,board.getSh_productImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">
 					<div class="card-body">
+						<small class="badge badge-secondary" th:if="${board.getSh_process().equals('3')}">기간만료</small>						
 						<small class="badge badge-warning" th:if="${board.getSh_process().equals('2')}">모집중단</small>						
 						<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}">모집진행중</small> 
 						<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}">모집완료</small>

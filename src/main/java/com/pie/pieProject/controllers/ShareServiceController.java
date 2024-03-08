@@ -1,6 +1,11 @@
 package com.pie.pieProject.controllers;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.yaml.snakeyaml.tokens.DocumentEndToken;
 
 import com.pie.pieProject.DAO.ILikeDao;
 import com.pie.pieProject.DAO.IMemberDao;
@@ -17,15 +21,10 @@ import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DTO.MemberDto;
-import com.pie.pieProject.DTO.PaymentDTO;
-import com.pie.pieProject.DTO.ProxyApplyBoardDto;
-import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
-import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ShareServiceController {
@@ -89,6 +88,10 @@ public class ShareServiceController {
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		
+		// 기간 만료 날짜 비교
+		LocalDateTime deadline = LocalDateTime.parse(dto.getSh_deadLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime now = LocalDateTime.now();
+		
 //		다른 게시글 리스트
 		List<ShareServiceDto> list = Bcomp.translateShareList(dao.getBoardList());
 		
@@ -102,8 +105,13 @@ public class ShareServiceController {
 			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
 		}
 		
+		// 인원 만원시
 		if(dto.getSh_personnelMax()<=dto.getSh_personnelNow()) {
 			dao.maxChk(Integer.parseInt(sId));
+		// 기간 만료시
+		}else if(deadline.isBefore(now) || deadline.isEqual(now)) {
+			dao.dateOver(Integer.parseInt(sId));
+			Pdao.allRefund(Integer.parseInt(sId));
 		}
 		
 //		좋아요
@@ -324,7 +332,10 @@ public class ShareServiceController {
 			dao.stopChk(Integer.parseInt(sId));
 		}else if(dto.getSh_process().equals("2")) {
 			dao.minChk(Integer.parseInt(sId));			
+		}else if(dto.getSh_process().equals("3")) {
+			 dao.dateOver(Integer.parseInt(sId)); 
 		}
+			 
 		
 		List<ShareServiceDto> list = dao.searchBuyer(search);
 		

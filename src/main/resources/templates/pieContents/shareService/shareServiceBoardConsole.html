@@ -60,12 +60,13 @@
 										</b>
 									</th>
 									<td>
+										<small class="badge badge-secondary" th:if="${board.getSh_process().equals('3')}"> 기간만료</small> 
 										<small class="badge badge-warning" th:if="${board.getSh_process().equals('2')}"> 모집중단</small> 
 										<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
 										<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}"> 모집완료</small>
 									</td> 
 									<td>
-										<th:block th:if="${board.getSh_process().equals('1') || board.getSh_personnelNow() < board.getSh_personnelMax()}">									
+										<th:block th:if="${board.getSh_process().equals('1') || board.getSh_process().equals('2')}"> <!-- || board.getSh_personnelNow() < board.getSh_personnelMax() -->									
 											<a th:href="'processRemote?page=1&num='+${board.getSh_num()}" class="badge badge-warning">
 												<b>변경</b>
 											</a>
