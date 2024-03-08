@@ -19,7 +19,7 @@ function kgPay() {
 		var numID
 		let url = window.location.href;
 		var str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
-
+	
 		if (str == 'boardList') {
 			// num 값
 			DataNumID = document.querySelector('[data-Shnum]');
