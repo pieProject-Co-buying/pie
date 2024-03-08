@@ -163,16 +163,11 @@
 		
 		function createChatingRoom(res) {
 			
-			
-
-			
-			
+					
 			var list = /*[[${member}]]*/[];
-			
-			console.log(list);
-			
+		
 
-			
+					
 			
 			if (res != null) {
 				var tag = "";
@@ -180,7 +175,7 @@
 				
 				
 				res.forEach(function(d, idx) {
-					console.log(d)
+					console.log("d :" + d)
 					
 					var roomNumber = d.roomNumber;
 					var nickName = d.nickname;

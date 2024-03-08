@@ -79,6 +79,11 @@
 		update shareServiceBoard set sh_process = '2' where
 		sh_num = #{param1}
 	</update>
+	<!--기간만료-->
+ 	<update id="dateOver">
+		update shareServiceBoard set sh_process = '3' where 
+		sh_num = #{param1}
+	</update>
 	<!--조회수 증가 -->
 	<update id="updateHit">
 		update shareServiceBoard set sh_hit = sh_hit+1 where
@@ -94,7 +99,7 @@
 		update shareServiceBoard set sh_personnelNow =
 		sh_personnelNow - 1 where sh_num = #{param1}
 	</update>
-<!-- 0시마다 마감체크 -->
+	<!-- 0시마다 마감체크 -->
 	<update id="expireShareServiceBoard">
 		UPDATE shareServiceBoard
 		SET sh_process = 0

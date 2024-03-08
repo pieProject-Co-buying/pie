@@ -57,11 +57,17 @@
 								<td>
 									<th:block th:if="${list.getPay_refund().equals('0')}">
 										<small class="badge badge-secondary" th:text="요청없음"></small>
-									</th:block> <th:block th:if="${list.getPay_refund().equals('1')}">
+									</th:block> 
+									<th:block th:if="${list.getPay_refund().equals('1')}">
 										<small class="badge badge-danger"> 
 											<a class="text-white" th:href="'refundPayCheck?page=1&num=' + ${list.getPay_Merchant_uid()}+'&pnum='+${list.getPay_num()}">환불요청</a>
 										</small>
 									</th:block> 
+									<th:block th:if="${list.getPay_refund().equals('3')}">
+										<small class="badge badge-warning"> 
+											<a class="text-white" th:href="'allRefund?page=1&num='+${list.getPay_num()}">전체환불</a>
+										</small>
+									</th:block>
 									<th:block th:if="${list.getPay_refund().equals('2')}">
 										<small class="badge badge-success" th:text="환불완료"></small>
 									</th:block>

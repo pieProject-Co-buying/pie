@@ -121,8 +121,11 @@
 			</nav>
 		</div>
 	</div>
+	
+	<div class="toast-container fixed-bottom hj-toast-wd" id="toastBox" role="button">
 
-	<div class="toast-container col fixed-bottom" id="toastBox"></div>
+	</div>
+
 	<input type="hidden" id="sessionId" th:value="${session.nickName}">
 	<input type="hidden" id="realNick" th:value="${session.nickName}">
 
@@ -198,10 +201,19 @@
 
 				// 10초 후에 토스트를 숨김
 				setTimeout(function() {
+
 					$('.toast').toast('hide');
+
 				}, 10000);
 
 			}
+			
+			$('#toastBox').click(function() {
+			    // toast 클릭시 해당 채팅방으로 이동
+			    location.href = '/moveChating?roomNumber=' + roomNumber;
+			});
+			
+			
 		}
 	</script>
 </div>
