@@ -27,12 +27,17 @@
 
 		<div class="row mb-5 justify-content-center">
 			<div class="col-md-8">
-				<form action="searchTitle" class="pie-search">
+				<form action="shareServiceBoard" class="pie-search">
 					<div class="dropdown" id="selectCategory">
 						<a class="btn dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
-						<div class="dropdown-menu"></div>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" data-category="OTT">OTT</a>
+							<a class="dropdown-item" data-category="game">게임</a>
+							<a class="dropdown-item" data-category="bookAndMusic">도서/음악</a>
+						</div>
 					</div>
+					<input type="hidden" name ="category" id="Scategory" th:value="${param.category}"/>
 					<input type="text" name="search" id="search" class="flex-fill"
 						placeholder="검색">
 					<button type="submit" id="searchBtn"></button>
@@ -122,7 +127,7 @@
 			categories.css("cursor", "pointer");
 			let category=$(".col-md-4").data("category");
 
-			let movies = ["OTT"];
+			/* let movies = ["OTT"];
 			let game = ["게임"];
 			let books = ["도서/음악"];
 
@@ -134,11 +139,7 @@
 			for (i = 0; i < all.length; i++) {
 				dropdown.append('<a class="dropdown-item">' + all[i] + '</a>')
 			}
-
-
-			let selectInit = $("#selectCategory .dropdown-toggle");
-
-
+			let selectInit = $("#selectCategory .dropdown-toggle"); */
 
 			let card = $(".col-md-4");
 			let strCard = ".col-md-4:hidden";
@@ -146,6 +147,8 @@
 			card.hide();
 			card.slice(0, 6).show();
 
+			/*
+			
 			categories.click(function () {
 				let movieCards = $(".col-md-4[data-category='OTT']");
 				let gameCards = $(".col-md-4[data-category='게임']");
@@ -164,7 +167,7 @@
 
 					card.hide();
 					card.slice(0, 6).show();
-					list = all;
+					 list = all; 
 				} else {
 					$(".col-md-4").hide();
 
@@ -178,7 +181,7 @@
 						movieCards.slice(0, 6).show();
 
 						selectInit.text("OTT서비스");
-						list = movies;
+						 list = movies; 
 					} else if (idx === 2) {
 						option = {
 							"background": "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
@@ -190,7 +193,7 @@
 						gameCards.slice(0, 6).show();
 
 						selectInit.text("게임");
-						list = game;
+						list = game; 
 					} else if (idx === 3) {
 						option = {
 							"background": "url(imgs/milli.jpg) center / cover no-repeat"
@@ -202,36 +205,20 @@
 						bookCards.slice(0, 6).show();
 
 						selectInit.text("도서/음악");
-						list = books;
+						 list = books; 
 					}
 				}
 				shaerHeader.addClass("selected").css(option);
 
-				for (i = 0; i < list.length; i++) {
+				 for (i = 0; i < list.length; i++) {
 					dropdown.append('<a class="dropdown-item">' + list[i] + '</a>')
-				}
-			});
-
-			$(document).on(
-				"click", ".dropdown-item", function () {
-					selectInit.text($(this).text());
-				}
-			)
-
-			$("#load").click(function (e) {
-				e.preventDefault();
-				if ($(strCard).length > 0) {
-					$(strCard).slice(0, 3).show();
-				} else if ($(strCard).length == 0) {
-					alert("마지막 게시물입니다.");
-				}
-			});
-		})
-	</script>
-
-	<!--------------메인 페이지에서 해당하는 카테고리로 이동했을 경우-------------->
-	<script>
-	 // 현재 URL에서 쿼리 문자열 가져오기
+				} 
+			});*/
+			
+			
+			/****************************************************/
+			
+	// 현재 URL에서 쿼리 문자열 가져오기
     var queryString = window.location.search;
     // URLSearchParams 객체를 사용하여 쿼리 문자열 파싱
     var queryParams = new URLSearchParams(queryString);
@@ -265,35 +252,24 @@
 
 			selectInit.text("도서/음악");
 		}
-		$("#load").click(function (e) {
-            e.preventDefault();
-            if (numValue === '1') {
-            	 // OTT 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='OTT']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            } else if (numValue === '2') {
-            	 // 게임 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='게임']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            } else if (numValue === '3') {
-            	 // 도서/음악 이외의 카테고리 숨김
-                $(".col-md-4:not([data-category='도서/음악']):visible").hide();
-                if($(strCard).length>0){
-                	$(strCard).slice(0, 3).show();
-                }else if($(strCard).length==0){
-                	alert("마지막 게시물입니다.");
-                }
-            }
-        });
 	})
+			
+
+			$(document).on(
+				"click", ".dropdown-item", function () {
+					selectInit.text($(this).text());
+				}
+			)
+
+			$("#load").click(function (e) {
+				e.preventDefault();
+				if ($(strCard).length > 0) {
+					$(strCard).slice(0, 3).show();
+				} else if ($(strCard).length == 0) {
+					alert("마지막 게시물입니다.");
+				}
+			});
+		})
 	</script>
 </div>
 

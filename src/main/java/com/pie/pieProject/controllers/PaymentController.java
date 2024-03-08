@@ -48,7 +48,6 @@ public class PaymentController {
     public ResponseEntity<String> insertPayment(@RequestBody PaymentDTO dto) {
     	dao.insertPayment(dto);
     	paDao.participate(dto.getPay_num(), dto.getPay_category(), dto.getBuyer_id());
-    	System.out.println("pay_refund : "+dto.getPay_refund());
         // 응답 반환
         return new ResponseEntity<>(dto.getPay_category(), HttpStatus.OK);
     }
