@@ -1,0 +1,93 @@
+[
+	{
+		"netflix": [
+			{
+				"plan": "standard(스탠다드)",
+				"price": 13500,
+				"person": 2,
+				"period" : "month"
+			},
+			{
+				"plan": "premium(프리미엄)",
+				"price": 17000,
+				"person": 3,
+				"period" : "month"
+			}
+		],
+		"tving": [
+			{
+				"plan": "standard(스탠다드)",
+				"price": 13500,
+				"person": 2,
+				"period" : "month"
+			},
+			{
+				"plan": "premium(프리미엄)",
+				"price": 17000,
+				"person": 4,
+				"period" : "month"
+			}
+		],
+		"watcha": [
+			{
+				"plan": "premium(프리미엄)",
+				"price": 10830,
+				"person": 4,
+				"period" : "month"
+			}
+		],
+		"wavve": [
+			{
+				"plan": "standard(스탠다드)",
+				"price": 10900,
+				"person": 2,
+				"period" : "month"
+			},
+			{
+				"plan": "premium(프리미엄)",
+				"price": 13900,
+				"person": 4,
+				"period" : "month"
+			}
+		],
+		"disney": [
+			{
+				"plan": "standard(스탠다드)",
+				"price": 9900,
+				"person": 2,
+				"period" : "month"
+			},
+			{
+				"plan": "premium(프리미엄)",
+				"price": 13900,
+				"person": 4,
+				"period" : "month"
+			}
+		],
+		"millie": [
+			{
+				"plan": "standard(전자책 정기구독)",
+				"price": 9900,
+				"person": 5,
+				"period" : "month"
+			}
+		],
+		"spotify": [
+			{
+				"plan": "duo(듀오)",
+				"price": 16350,
+				"person": 2,
+				"period" : "month"
+			}
+		],
+		"nintendo": [
+			{
+				"plan": "familly(패밀리 플랜)",
+				"price": 37900,
+				"person": 8,
+				"period" : "year"
+			}
+		]
+		
+	}
+]
