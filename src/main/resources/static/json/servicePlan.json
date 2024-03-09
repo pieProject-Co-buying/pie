@@ -1,6 +1,6 @@
 {
 	"OTT": {
-		"netflix": [
+		"넷플릭스(Netflix)": [
 			{
 				"plan": "standard(스탠다드)",
 				"price": 13500,
@@ -14,7 +14,7 @@
 				"period": "month"
 			}
 		],
-		"tving": [
+		"티빙(Tving)": [
 			{
 				"plan": "standard(스탠다드)",
 				"price": 13500,
@@ -28,7 +28,7 @@
 				"period": "month"
 			}
 		],
-		"watcha": [
+		"왓챠(Watcha)": [
 			{
 				"plan": "premium(프리미엄)",
 				"price": 10830,
@@ -36,7 +36,7 @@
 				"period": "month"
 			}
 		],
-		"wavve": [
+		"웨이브(Wavve)": [
 			{
 				"plan": "standard(스탠다드)",
 				"price": 10900,
@@ -50,7 +50,7 @@
 				"period": "month"
 			}
 		],
-		"disney": [
+		"디즈니플러스(Disney+)": [
 			{
 				"plan": "standard(스탠다드)",
 				"price": 9900,
@@ -66,7 +66,7 @@
 		]
 	},
 	"bookAndMusic": {
-		"millie": [
+		"밀리의 서재(Millie)": [
 			{
 				"plan": "standard(전자책 정기구독)",
 				"price": 9900,
@@ -74,7 +74,7 @@
 				"period": "month"
 			}
 		],
-		"spotify": [
+		"스포티파이(Spotify)": [
 			{
 				"plan": "duo(듀오)",
 				"price": 16350,
@@ -84,7 +84,7 @@
 		]
 	},
 	"game": {
-		"nintendo": [
+		"닌텐도(Nintendo)": [
 			{
 				"plan": "family(패밀리 플랜)",
 				"price": 37900,
