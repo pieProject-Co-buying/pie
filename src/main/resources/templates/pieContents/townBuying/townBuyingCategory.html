@@ -20,9 +20,9 @@
 				<div class="card-columns townBuyCard">
 
 					<a class="card hj-radius-30" th:each="list:${list}"
-						th:href="@{'townBuyproduct?num=' + ${list.getTo_num()}}">
+						th:href="@{'townBuyproduct?num=' + ${list.getNum()}}">
 						<img
-						th:src="@{'/imgs/test/' + ${list.getTo_productImg().substring(0,list.getTo_productImg().indexOf('/'))}}"
+						th:src="@{'/imgs/test/' + ${list.getProductImg().substring(0,list.getProductImg().indexOf('/'))}}"
 						class="card-img-top hj-radius-img-30" alt="...">
 						
 						
@@ -30,10 +30,10 @@
 
 <!-- 									<small
 										class="badge badge-success"
-										th:if="${Bboard.getTo_process().equals('1')}">진행중</small> -->
+										th:if="${Bboard.getProcess().equals('1')}">진행중</small> -->
 							<small
 								class="badge badge-danger"
-								th:if="${list.getTo_process().equals('0')}">모집마감</small>
+								th:if="${list.getProcess().equals('0')}">모집마감</small>
 						</p>
 														
 						
@@ -45,10 +45,10 @@
 
 							<div class="row mt-5 hj-height-category">
 								<div class="col d-flex justify-content-end  position-absolute hj-position-category">
-									<img th:src="@{'/imgs/profiles/' + ${list.getTo_profileImg()}}"
+									<img th:src="@{'/imgs/profiles/' + ${list.getProfileImg()}}"
 										alt="" class="hj-chat-proImg-small" />
 									<p class="card-title ml-3 mt-2"
-										th:text="${list.getTo_nickname()}"}></p>
+										th:text="${list.getNickname()}"}></p>
 								</div>
 
 							</div>

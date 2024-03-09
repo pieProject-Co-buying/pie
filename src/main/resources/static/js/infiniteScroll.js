@@ -18,20 +18,20 @@ const onIntersect = (entries, observer) => {
 			);
 			products.forEach(pro => {
 				var close = '';
-				if(pro.pr_process==0) close='pie-close'
+				if(pro.process==0) close='pie-close'
 				
-				const $newItems = $('<a class="card pie-radius-small overflow-hidden '+close+'" href="viewProxyBoard?num=' + pro.pr_num +
-					'" data-end="' + pro.pr_process +
-					'" data-soon="' + pro.pr_soon +
-					'" data-category="' + pro.pr_category +
-					'" data-date="' + pro.pr_updateDay +
-					'" data-like="' + pro.pr_like +
-					'" data-hit="' + pro.pr_hit + '"><img src="/imgs/test/' +
-					pro.pr_productImg +
+				const $newItems = $('<a class="card pie-radius-small overflow-hidden '+close+'" href="viewProxyBoard?num=' + pro.num +
+					'" data-end="' + pro.process +
+					'" data-soon="' + pro.soon +
+					'" data-category="' + pro.category +
+					'" data-date="' + pro.updateDay +
+					'" data-like="' + pro.likeNum +
+					'" data-hit="' + pro.hit + '"><img src="/imgs/test/' +
+					pro.productImg +
 					'" class="card-img-top" alt="..."><div class="card-body position-absolute w-100"><small><span class="pie-c-red">' +
-					pro.pr_category + '</span></small><h5 class="card-title text-truncate font-weight-bolder">' +
-					pro.pr_title + '</h5><p class="card-text"><small class="text-muted">' +
-                pro.pr_updateinfo + '</small></p></div></a>');
+					pro.category + '</span></small><h5 class="card-title text-truncate font-weight-bolder">' +
+					pro.title + '</h5><p class="card-text"><small class="text-muted">' +
+                pro.updateinfo + '</small></p></div></a>');
 					
 				/*productList.insertAdjacentHTML(
 					'beforeend',$newItems

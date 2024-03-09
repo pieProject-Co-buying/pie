@@ -27,25 +27,25 @@
 		26
 	</select>
 	<select id="searchT" resultType="string">
-		select to_category from
-		townBuyBoard where to_title like
+		select category from
+		townBuyBoard where title like
 		'%${param1}%' or
-		to_content like
-		'%${param1}%' or to_tag like
+		content like
+		'%${param1}%' or tag like
 		'%${param1}%'
 	</select>
 	<select id="searchP" resultType="string">
-		select pr_category from
-		proxyBuyBoard where pr_title like
+		select category from
+		proxyBuyBoard where title like
 		'%${param1}%' or
-		pr_content like
-		'%${param1}%' or pr_tag like
+		content like
+		'%${param1}%' or tag like
 		'%${param1}%'
 	</select>
 	<select id="getCategories" resultType="string">
-		SELECT pr_category
+		SELECT category
 		FROM proxyBuyBoard
-		GROUP BY pr_category
+		GROUP BY category
 		ORDER BY count(*) desc;
 	</select>
 </mapper>

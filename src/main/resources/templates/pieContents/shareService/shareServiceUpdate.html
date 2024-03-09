@@ -19,27 +19,58 @@
 					<div class="form-group d-flex align-items-center">
 						<img src="" alt="" class="rounded-circle" width="30" height="30"
 							onerror="this.onerror=null; this.src='imgs/default.png';" /><input
-							type="text" class="pl-2 form-control-plaintext" id="sh_nickname"
-							name="sh_nickname" th:value="${session.nickName}" readonly>
+							type="text" class="pl-2 form-control-plaintext" id="nickname"
+							name="nickname" th:value="${session.nickName}" readonly>
 					</div>
-					<div class="form-group row">
-						<div class="dropdown col-md-3 pie-write-dropdown">
-							<button
-								class="btn btn-block dropdown-toggle text-left bg-transparent border"
-								type="button" data-toggle="dropdown" aria-expanded="false"
-								th:attr="data-category=${board.getSh_category()}">카테고리</button>
-							<input type="hidden" name="sh_category" id="h-input" value="test" />
-							<div class="dropdown-menu">
-								<a class="dropdown-item" data-category="OTT">OTT</a> <a
-									class="dropdown-item" data-category="game">게임</a> <a
-									class="dropdown-item" data-category="bookAndMusic">도서/음악</a>
+					<div class="form-group container-fluid border py-3 rounded">
+						<div class="row">
+							<div class="col-12 mb-2">
+								<p class="m-0 px-1">
+									<sup class="pie-c-red">*</sup>모집하려는 서비스에 대해서 입력해주세요.
+								</p>
 							</div>
+
+							<div class="col-12">
+								<div class="row">
+									<div class="dropdown col-md-4 mt-2 mt-md-0 pie-write-dropdown">
+										<button
+											class="btn btn-block dropdown-toggle text-left bg-transparent border"
+											type="button" data-toggle="dropdown" aria-expanded="false"
+											th:text="${board.getCategory()}">카테고리</button>
+										<input type="hidden" id="h-input"
+											th:value="${board.getCategory()}" name="category" />
+										<div class="dropdown-menu sh-categories">
+											<a class="dropdown-item" data-category="OTT">OTT</a> <a
+												class="dropdown-item" data-category="game">게임</a> <a
+												class="dropdown-item" data-category="bookAndMusic">도서/음악</a>
+										</div>
+									</div>
+									<div class="dropdown col-md-4 mt-2 mt-md-0 pie-write-dropdown">
+										<button
+											class="btn btn-block dropdown-toggle text-left bg-transparent border disabled"
+											type="button" data-toggle="dropdown" aria-expanded="false"
+											th:text="${board.getBrand()}">지원서비스</button>
+										<input type="hidden" id="brand" th:value="${board.getBrand()}"
+											name="brand" />
+										<div class="dropdown-menu sh-categories2"></div>
+									</div>
+									<div class="dropdown col-md-4 mt-2 mt-md-0 pie-write-dropdown">
+										<button
+											class="btn btn-block dropdown-toggle text-left bg-transparent border disabled"
+											type="button" data-toggle="dropdown" aria-expanded="false"
+											th:text="${board.getProductName()}">플랜선택</button>
+										<input type="hidden" id="productName"
+											th:value="${board.getProductName()}" name="productName" />
+										<div class="dropdown-menu sh-categories3"></div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" id="sh_title"
-							placeholder="제목" name="sh_title"
-							th:value="${board.getSh_title()}">
+						<input type="text" class="form-control" id="title"
+							placeholder="제목" name="title" th:value="${board.getTitle()}">
 					</div>
 					<div class="form-group d-flex">
 						<label for="file">
@@ -56,25 +87,24 @@
 						</label>
 						<div class="file-uploadGroup">
 							<th:block
-								th:each="i : ${#numbers.sequence(0,board.getSh_productImgs().length-1)}">
+								th:each="i : ${#numbers.sequence(0,board.getProductImgs().length-1)}">
 								<figure onclick="deleteFile(this)"
-									th:attr="data-originFile = ${board.getSh_productImgs()[i]}">
-									<img
-										th:src="@{'/imgs/test/' + ${board.getSh_productImgs()[i]}}"
+									th:attr="data-originFile = ${board.getProductImgs()[i]}">
+									<img th:src="@{'/imgs/test/' + ${board.getProductImgs()[i]}}"
 										class='pie-img-viewsThumbs'>
 									<figcaption></figcaption>
 								</figure>
 							</th:block>
 
 						</div>
-						<input type="hidden" name="ori_sh_files" id="ori_files"
-							th:value="${board.getSh_productImg()}" /> <input type="file"
-							name="sh_pic[]" id="file" multiple onchange="addFile(event)">
-						<input type="hidden" name="sh_files" id="files"
-							th:value="${board.getSh_productImg()}" />
+						<input type="hidden" name="ori_files" id="ori_files"
+							th:value="${board.getProductImg()}" /> <input type="file"
+							name="pic[]" id="file" multiple onchange="addFile(event)">
+						<input type="hidden" name="files" id="files"
+							th:value="${board.getProductImg()}" />
 					</div>
-					<textarea id="summernote" name="sh_content"
-						th:text="${board.getSh_content()}"></textarea>
+					<textarea id="summernote" name="content"
+						th:text="${board.getContent()}"></textarea>
 					<div class="text-right">
 						<small>잔여 bytes :: </small><small id="messagebyte">11</small><small>
 							/ 2000</small>
@@ -85,23 +115,22 @@
 						<div class="col-md-6 pt-3">
 							<label for=""><small class="pl-1">모집인원</small></label><input
 								type="number" class="form-control" id="personnelMax"
-								name="sh_personnelMax" min="1" max="300"
-								th:value="${board.getSh_personnelMax()}"  maxlength="3"
+								name="personnelMax" min="1" max="300"
+								th:value="${board.getPersonnelMax()}" maxlength="3" readonly
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-								<input type="range" class="form-control-range" id="personRange"
-								min="2" max="100" value="2">
+
 						</div>
 						<div class="col-md-6 pt-3">
-							<label for="sh_deadLine"><small class="pl-1">모집마감일</small></label>
+							<label for="deadLine"><small class="pl-1">모집마감일</small></label>
 							<div class="row">
 								<div class="col-6">
 									재시작일 <input type="date" class="form-control" id="today"
 										name="today" value="" readonly>
 								</div>
 								<div class="col-6">
-									마감일 <input type="date" class="form-control" id="sh_deadLine"
-										name="sh_deadLine"
-										th:value="${#strings.substring(board.sh_deadLine, 0, 10)}">
+									마감일 <input type="date" class="form-control" id="deadLine"
+										name="deadLine"
+										th:value="${#strings.substring(board.deadLine, 0, 10)}">
 								</div>
 							</div>
 
@@ -111,15 +140,15 @@
 					<div class="form-group row">
 						<div class="col-md-6 pt-3">
 							<label for=""><small class="pl-1">모집 가격(총합)</small></label> <input
-								type="text" class="form-control" id="price_total"
-								name="price_total" th:value="${board.getSh_priceTotal()}"
+								type="text" class="form-control" id="price_total" readonly
+								name="price_total" th:value="${board.getPriceTotal()}"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 
 						</div>
 						<div class="col-md-6 pt-3">
 							<label for=""><small class="pl-1">모집 가격(인당)</small></label> <input
 								type="text" class="form-control" id="price_per" name="price_per"
-								th:value="${board.getSh_pricePer()}"
+								readonly th:value="${board.getPricePer()}"
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 						</div>
 					</div>
@@ -128,13 +157,13 @@
 						<label for=""><small class="pl-1">태그</small></label>
 						<div class="form-control d-flex overflow-hidden">
 							<div id="tagGroup" class="d-flex align-items-center">
-								<th:block th:if="${board.getSh_tags()!=null}">
+								<th:block th:if="${board.getTags()!=null}">
 									<th:block
-										th:each="i : ${#numbers.sequence(1,board.getSh_tags().length-1)}">
+										th:each="i : ${#numbers.sequence(1,board.getTags().length-1)}">
 
 										<span
 											class="badge badge-info badge-pill d-flex align-items-center p-2 mr-2">
-											<span th:text="${board.getSh_tags()[i]}"></span> <svg
+											<span th:text="${board.getTags()[i]}"></span> <svg
 												xmlns="http://www.w3.org/2000/svg" width="12" height="12"
 												fill="currentColor" class="bi bi-x-circle-fill ml-1"
 												viewBox="0 0 16 16">
@@ -146,10 +175,11 @@
 								</th:block>
 							</div>
 							<input type="hidden" readonly name="pie_tagsOutput"
-								id="pie_tagsOutput" th:if="${board.getSh_tags()!=null}" th:value="${board.getSh_tag()}" /> 
-								<input type="hidden" readonly name="pie_tagsOutput"
-								id="pie_tagsOutput" th:if="${board.getSh_tags()==null}" /> <input
-								type="text" class="border-0 flex-fill" id="pie_tags_input"
+								id="pie_tagsOutput" th:if="${board.getTags()!=null}"
+								th:value="${board.getTag()}" /> <input type="hidden" readonly
+								name="pie_tagsOutput" id="pie_tagsOutput"
+								th:if="${board.getTags()==null}" /> <input type="text"
+								class="border-0 flex-fill" id="pie_tags_input"
 								placeholder="태그는 최대 5개 등록가능하며, 스페이스바/엔터로 구분합니다. (특수문자 사용불가)">
 						</div>
 					</div>
@@ -166,6 +196,139 @@
 	</div>
 	<!--게시글 로직 container-->
 	<!--wrapper-->
+	<script>
+		let url = "https://raw.githubusercontent.com/pieProject-Co-buying/pie/develop/src/main/resources/static/json/servicePlan.json";
+		$
+				.ajax({
+					url : url,
+					type : "get",
+					dataType : "json",
+					success : function(data) {
+						let category = $(".sh-categories .dropdown-item");
+
+						for ( let subcategory in data[$("#h-input").val()]) {
+							$(".sh-categories2").append(
+									'<a class="dropdown-item" data-subcategory="' + subcategory + '">'
+											+ subcategory + '</a>');
+						}
+						for (let i = 0; i < data[$("#h-input").val()][$(
+								"#brand").val()].length; i++) {
+							$(".sh-categories3").append(
+									'<a class="dropdown-item" data-plan="'
+											+ data[$("#h-input").val()][$(
+													"#brand").val()][i].plan
+											+ '">'
+											+ data[$("#h-input").val()][$(
+													"#brand").val()][i].plan
+											+ '</a>');
+						}
+
+						category.click(function() {
+							$("#h-input").val($(this).attr("data-category"));
+							$(this).parent().siblings(".dropdown-toggle").text(
+									$(this).text());
+							let select1 = $("#h-input").val();
+
+							if (select1 != '') {
+								$(".sh-categories2").siblings(
+										".dropdown-toggle").removeClass(
+										"disabled");
+							}
+
+							$(".sh-categories2").siblings(".dropdown-toggle").text(
+									"지원서비스");
+							$("#brand").val('');
+							$(".sh-categories2").empty(); // 선택 시 이전 내용 지우기
+
+							if (select1 in data) {
+								let subcategories = data[select1];
+
+								for ( let subcategory in subcategories) {
+									$(".sh-categories2").append(
+											'<a class="dropdown-item" data-subcategory="' + subcategory + '">'
+													+ subcategory + '</a>');
+								}
+							}
+						});
+
+						// sh-categories2 항목이 선택되었을 때
+						$(".sh-categories2")
+								.on(
+										"click",
+										".dropdown-item",
+										function() {
+											let select2 = $(this).data(
+													"subcategory");
+											$(this).parent().siblings(
+													".dropdown-toggle").text(
+													select2);
+											$("#brand").val(select2);
+											if (select2 != '') {
+												$(".sh-categories3")
+														.siblings(
+																".dropdown-toggle")
+														.removeClass("disabled");
+											}
+
+											if (select2) {
+
+												$(".sh-categories3").siblings(
+														".dropdown-toggle")
+														.text("플랜선택");
+												$("#productName").val('');
+
+												$(".sh-categories3").empty();
+
+												let subcategoryData = data[$(
+														"#h-input").val()][select2];
+
+												for (let i = 0; i < subcategoryData.length; i++) {
+													$(".sh-categories3")
+															.append(
+																	'<a class="dropdown-item" data-plan="' + subcategoryData[i].plan + '">'
+																			+ subcategoryData[i].plan
+																			+ '</a>');
+												}
+											}
+										});
+
+						$(".sh-categories3")
+								.on(
+										"click",
+										".dropdown-item",
+										function() {
+											let idx = $(this).index();
+											let select3 = $(this).data("plan");
+											$(this).parent().siblings(
+													".dropdown-toggle").text(
+													select3);
+											$("#productName").val(select3);
+
+											$("#personnelMax")
+													.val(
+															data[$("#h-input")
+																	.val()][$(
+																	"#brand")
+																	.val()][idx].person);
+											$("#price_total")
+													.val(
+															data[$("#h-input")
+																	.val()][$(
+																	"#brand")
+																	.val()][idx].price);
+											$("#price_per")
+													.val(
+															Math
+																	.ceil($(
+																			"#price_total")
+																			.val()
+																			/ $(
+																					"#personnelMax")
+																					.val()));
+										})
+					}
+				});
+	</script>
 </div>
 
 </html>

@@ -39,18 +39,18 @@ public class MainController {
 	public String mainPage(Model model, HttpServletRequest request) {
 
 		// 대리구매 인기순 5개
-		List<ProxyBuyBoardDto> plist = pdao.listDaoByFavorite();
+		List<ProxyBuyBoardDto> plist = Bcomp.translateProxyList(pdao.listDaoByFavorite());
 		for (ProxyBuyBoardDto dto : plist) {
-			dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
-			if (dto.getPr_tag() == null || dto.getPr_tag().equals("#")) {
-				dto.setPr_tags(null);
+			dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+			if (dto.getTag() == null || dto.getTag().equals("#")) {
+				dto.setTags(null);
 			} else {
-				dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+				dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 			}
-			dto.setPr_category(Bcomp.translate(dto.getPr_category()));
 		}
+		
 		if (plist.size() != 0) {
-			plist.get(0).setPr_content(Bcomp.parsingHtml(plist.get(0).getPr_content()));
+			plist.get(0).setContent(Bcomp.parsingHtml(plist.get(0).getContent()));
 		}
 
 		model.addAttribute("list", plist);
@@ -65,14 +65,14 @@ public class MainController {
 			List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
 
 			for (TownBuyBoardDto d : tlist) {
-				d.setTo_category(Bcomp.translate(d.getTo_category()));
+				d.setCategory(Bcomp.translate(d.getCategory()));
 			}
 
 			model.addAttribute("tlist", tlist);
 
 			List<TownBuyBoardDto> tlist2 = tdao.likeListDao(userMainAddr);
 			for (TownBuyBoardDto d : tlist2) {
-				d.setTo_category(Bcomp.translate(d.getTo_category()));
+				d.setCategory(Bcomp.translate(d.getCategory()));
 			}
 
 			model.addAttribute("tlist2", tlist2);
@@ -165,4 +165,3 @@ public class MainController {
 		return (String) session.getAttribute(key);
 	}
 }
-

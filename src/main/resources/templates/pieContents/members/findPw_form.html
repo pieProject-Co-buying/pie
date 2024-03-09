@@ -3,13 +3,18 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/login}">
 <!-- gnb fragment -->
-<div layout:fragment="membersContent" class="col p-5 border rounded"
+<div layout:fragment="membersContent" class="col p-5 shadow pie-radius"
 	id="loginForm">
 
-	<h2 class="text-center pb-4">
-		<img src="imgs/logo_pie_color.png" alt="" width="80"
-			class="d-inlineblock" /> <span class="w-100 pt-4 d-block">비밀번호 찾기</span>
-	</h2>
+	<h3 class="text-center pb-4">
+		<span class="w-100 pt-2 d-block font-weight-bolder pie-c-red">비밀번호 찾기</span>
+	</h3>
+	
+	<div class="row pb-3">
+		<div class="col text-center">
+			<small class="text-secondary">가입 시 입력한 정보로 비밀번호를 찾을 수 있습니다.</small>
+		</div>
+	</div>
 
 	<form class="needs-validation" novalidate action="findPwAction"
 		method="post">
@@ -19,24 +24,24 @@
 		<div class="row">
 			<div class="col">
 				<div class="btn-group w-100" role="group" aria-label="First group">
-					<button type="button" class="btn btn-outline-secondary"
+					<button type="button" class="btn btn-sm pie-btn-outline-red-custom small active"
 						id="findByEmail">Email</button>
-					<button type="button" class="btn btn-outline-secondary"
+					<button type="button" class="btn btn-sm pie-btn-outline-red-custom small"
 						id="findByPhone">전화번호</button>
 				</div>
 			</div>
 		</div>
-		<div class="form-row">
-			<div class="col mb-3 mt-5">
-				<label for="email">ID</label> <input type="text"
-					class="form-control" id="id" name="id" required>
+		<div class="form-row my-1 mt-4">
+			<div class="col">
+				<input type="text"
+					class="form-control" id="id" name="id" placeholder="아이디" required>
 				<div class="invalid-feedback">ID를 입력해주세요.</div>
 			</div>
 		</div>
-		<div class="form-row mb-5">
+		<div class="form-row my-1">
 			<div class="col mb-3" id="findInput">
-				<label for="email">Email</label> <input type="email"
-					class="form-control" id="email" name="email" required>
+				<input type="email"
+					class="form-control" id="email" name="email" placeholder="exmple@email.com" required>
 				<div class="invalid-feedback">Email을 입력해주세요.</div>
 			</div>
 		</div>
@@ -73,16 +78,21 @@
 		$("#findByPhone")
 				.click(
 						function() {
+							$(this).addClass("active");
+							$("#findByEmail").removeClass("active");
 							$("#findInput")
 									.html(
-											'<label for="phone">전화번호</label> <input type="tel" class="form-control" id="phone" name="phone" required> <div class="invalid-feedback">전화번호를 입력해주세요.</div>');
+											
+											'<label for="phone">전화번호</label> <input type="tel" placeholder="010-XXXX-XXXX" class="form-control" id="phone" name="phone" required> <div class="invalid-feedback">전화번호를 입력해주세요.</div>');
 						});
 		$("#findByEmail")
 				.click(
 						function() {
+							$(this).addClass("active");
+							$("#findByPhone").removeClass("active");
 							$("#findInput")
 									.html(
-											'<label for="email">Email</label> <input type="email" class="form-control" id="email" name="email" required> <div class="invalid-feedback">Email을 입력해주세요.</div>');
+											'<label for="email">Email</label> <input type="email" placeholder="exmple@email.com" class="form-control" id="email" name="email" required> <div class="invalid-feedback">Email을 입력해주세요.</div>');
 						});
 	</script>
 </div>

@@ -38,6 +38,12 @@
 				</div>
 			</div>
 		</th:block>
+		
+		<div class="row">
+			<div class="col">
+			<a href="proxyWriteForm">글쓰기</a>
+			</div>
+		</div>
 
 
 		<th:block th:if="${list1!=null&&list1.size()>0}">
@@ -64,34 +70,34 @@
 							<th:block th:each="board:${list1}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
 											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
 											<div class="hyej-cardheader">
 												<small class="hyej-boardcategory pie-c-red"
-													th:text="${board.getPr_category()}"></small>
+													th:text="${board.getCategory()}"></small>
 												<p class="card-text text-truncate"
-													th:text="${board.getPr_title()}"></p>
+													th:text="${board.getTitle()}"></p>
 											</div>
 											<div class="hyej-cardcontent">
 												<div class="d-flex justify-content-end">
 													<div class="d-flex align-items-center">
 														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestLike"
-															th:text=${board.getPr_like()}></span></small>
+															th:text=${board.getLikeNum()}></span></small>
 													</div>
 													<div class="d-flex align-items-center mx-2">
 														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestHit"
-															th:text=${board.getPr_hit()}></span></small>
+															th:text=${board.getHit()}></span></small>
 													</div>
 													<div class="d-flex align-items-center">
 														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
 														<small> <span id="bestNow"
-															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
-															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+															th:text=${board.getPersonnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPersonnelMax()}></span>
 														</small>
 													</div>
 												</div>
@@ -130,34 +136,34 @@
 							<th:block th:each="board:${list2}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
 											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
 											<div class="hyej-cardheader">
 												<small class="hyej-boardcategory pie-c-red"
-													th:text="${board.getPr_category()}"></small>
+													th:text="${board.getCategory()}"></small>
 												<p class="card-text text-truncate"
-													th:text="${board.getPr_title()}"></p>
+													th:text="${board.getTitle()}"></p>
 											</div>
 											<div class="hyej-cardcontent">
 												<div class="d-flex justify-content-end">
 													<div class="d-flex align-items-center">
 														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestLike"
-															th:text=${board.getPr_like()}></span></small>
+															th:text=${board.getLikeNum()}></span></small>
 													</div>
 													<div class="d-flex align-items-center mx-2">
 														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestHit"
-															th:text=${board.getPr_hit()}></span></small>
+															th:text=${board.getHit()}></span></small>
 													</div>
 													<div class="d-flex align-items-center">
 														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
 														<small> <span id="bestNow"
-															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
-															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+															th:text=${board.getPersonnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPersonnelMax()}></span>
 														</small>
 													</div>
 												</div>
@@ -197,34 +203,34 @@
 							<th:block th:each="board:${list3}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"> <img
-										th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
 											class="card-body p-3 pb-4 position-absolute w-100 h-100 d-flex flex-column justify-content-between">
 											<div class="hyej-cardheader">
 												<small class="hyej-boardcategory pie-c-red"
-													th:text="${board.getPr_category()}"></small>
+													th:text="${board.getCategory()}"></small>
 												<p class="card-text text-truncate"
-													th:text="${board.getPr_title()}"></p>
+													th:text="${board.getTitle()}"></p>
 											</div>
 											<div class="hyej-cardcontent">
 												<div class="d-flex justify-content-end">
 													<div class="d-flex align-items-center">
 														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestLike"
-															th:text=${board.getPr_like()}></span></small>
+															th:text=${board.getLikeNum()}></span></small>
 													</div>
 													<div class="d-flex align-items-center mx-2">
 														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
 														<small><span id="bestHit"
-															th:text=${board.getPr_hit()}></span></small>
+															th:text=${board.getHit()}></span></small>
 													</div>
 													<div class="d-flex align-items-center">
 														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
 														<small> <span id="bestNow"
-															th:text=${board.getPr_personnelNow()}></span> <span>/</span>
-															<span id="bestMax" th:text=${board.getPr_personnelMax()}></span>
+															th:text=${board.getPersonnelNow()}></span> <span>/</span>
+															<span id="bestMax" th:text=${board.getPersonnelMax()}></span>
 														</small>
 													</div>
 												</div>
@@ -238,11 +244,53 @@
 				</div>
 			</section>
 		</th:block>
-
-		<div class="row mb-4 mt-5 pt-5">
+		
+		<div class="row pt-5">
 			<div class="col text-center">
-				<h1>공구 전체보기</h1>
-				<p>파이가 함께하는 가장 인기 많은 상품들을 모아봤어요! 빈자리가 모두 없어지기 전에 서두르세요!</p>
+				<h1>원하는 상품을 검색해보세요!</h1>
+				<p>원하는 상품을 검색하고 가장 저렴한 가격으로 함께해요!</p>
+			</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col text-center">
+				<form action="searchProducts" class="pie-search mb-4" method="get"
+					name="searchForm">
+					<input type="hidden" name="category" id="category" /> <input
+						type="hidden" name="table" value="p" />
+
+					<div class="dropdown" id="selectCategory">
+
+						<a class="btn dropdown-toggle" href="#" role="button"
+							data-toggle="dropdown" aria-expanded="false">카테고리 </a>
+
+						<div class="dropdown-menu">
+							<a class="dropdown-item" data-category="">전체</a> <a
+								class="dropdown-item" data-category="food">식품</a> <a
+								class="dropdown-item" data-category="baby">육아</a> <a
+								class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
+							<a class="dropdown-item" data-category="pet">반려동물</a> <a
+								class="dropdown-item" data-category="life">생활</a> <a
+								class="dropdown-item" data-category="etc">기타</a>
+						</div>
+
+
+
+					</div>
+
+					<input type="text" name="townKeyword" id="townKeyword"
+						class="flex-fill">
+
+					<button type="submit"></button>
+
+				</form>
+
+				<div class="col text-center">
+
+					<a th:each="keyWord : ${bestKey}" type="button" class="m-1"
+						th:href="@{'searchTownBuy?category=&townKeyword='+${keyWord}}"
+						th:text="|#${keyWord}|"></a>
+
+				</div>
 			</div>
 		</div>
 
@@ -320,18 +368,18 @@
 					<div class="" id="allCards">
 
 						<!-- <th:block th:each="board:${allList}">
-							<th:block th:if="${board.getPr_process().equals('0')}">
+							<th:block th:if="${board.getProcess().equals('0')}">
 								<a class="card pie-radius-small overflow-hidden pie-close"
-									th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"
-									th:attr="data-end = ${board.getPr_process()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getPr_category()}, data-date=${board.getPr_updateDay()}, data-like=${board.getPr_like()}, data-hit=${board.getPr_hit()}">
+									th:href="@{'viewProxyBoard?num='+${board.getNum()}}"
+									th:attr="data-end = ${board.getProcess()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getCategory()}, data-date=${board.getPr_updateDay()}, data-like=${board.getLikeNum()}, data-hit=${board.getHit()}">
 									<img
-									th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+									th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 									class="card-img-top" alt="...">
 									<div class="card-body position-absolute w-100">
 										<small><span class="pie-c-red"
-											th:text="${board.getPr_category()}"></span></small>
+											th:text="${board.getCategory()}"></span></small>
 										<h5 class="card-title text-truncate font-weight-bolder"
-											th:text="${board.getPr_title()}">Card title that wraps
+											th:text="${board.getTitle()}">Card title that wraps
 											to a new line</h5>
 										<p class="card-text">
 											<small class="text-muted"
@@ -341,18 +389,18 @@
 									</div>
 								</a>
 							</th:block>
-							<th:block th:if="${board.getPr_process().equals('1')}">
+							<th:block th:if="${board.getProcess().equals('1')}">
 								<a class="card pie-radius-small overflow-hidden"
-									th:href="@{'viewProxyBoard?num='+${board.getPr_num()}}"
-									th:attr="data-end = ${board.getPr_process()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getPr_category()}, data-date=${board.getPr_updateDay()}, data-like=${board.getPr_like()}, data-hit=${board.getPr_hit()}">
+									th:href="@{'viewProxyBoard?num='+${board.getNum()}}"
+									th:attr="data-end = ${board.getProcess()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getCategory()}, data-date=${board.getPr_updateDay()}, data-like=${board.getLikeNum()}, data-hit=${board.getHit()}">
 									<img
-									th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+									th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 									class="card-img-top" alt="...">
 									<div class="card-body position-absolute w-100">
 										<small><span class="pie-c-red"
-											th:text="${board.getPr_category()}"></span></small>
+											th:text="${board.getCategory()}"></span></small>
 										<h5 class="card-title text-truncate font-weight-bolder"
-											th:text="${board.getPr_title()}">Card title that wraps
+											th:text="${board.getTitle()}">Card title that wraps
 											to a new line</h5>
 										<p class="card-text">
 											<small class="text-muted"

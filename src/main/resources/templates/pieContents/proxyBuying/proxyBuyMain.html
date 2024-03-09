@@ -10,55 +10,6 @@
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
 
-		<div class="row pt-5">
-			<div class="col text-center">
-				<h1>원하는 상품을 검색해보세요!</h1>
-				<p>원하는 상품을 검색하고 가장 저렴한 가격으로 함께해요!</p>
-			</div>
-		</div>
-		<div class="row mb-5">
-			<div class="col text-center">
-				<form action="searchProducts" class="pie-search mb-4" method="get"
-					name="searchForm">
-					<input type="hidden" name="category" id="category" /> <input
-						type="hidden" name="table" value="p" />
-
-					<div class="dropdown" id="selectCategory">
-
-						<a class="btn dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false">카테고리 </a>
-
-						<div class="dropdown-menu">
-							<a class="dropdown-item" data-category="">전체</a> <a
-								class="dropdown-item" data-category="food">식품</a> <a
-								class="dropdown-item" data-category="baby">육아</a> <a
-								class="dropdown-item" data-category="beautyAndFashion">뷰티/패션</a>
-							<a class="dropdown-item" data-category="pet">반려동물</a> <a
-								class="dropdown-item" data-category="life">생활</a> <a
-								class="dropdown-item" data-category="etc">기타</a>
-						</div>
-
-
-
-					</div>
-
-					<input type="text" name="townKeyword" id="townKeyword"
-						class="flex-fill">
-
-					<button type="submit"></button>
-
-				</form>
-
-				<div class="col text-center">
-
-					<a th:each="keyWord : ${bestKey}" type="button" class="m-1"
-						th:href="@{'searchTownBuy?category=&townKeyword='+${keyWord}}"
-						th:text="|#${keyWord}|"></a>
-
-				</div>
-			</div>
-		</div>
-
 		<div class="container w-75">
 			<div class="row hyej-info-gallery my-5">
 				<div class="col-lg-6 mb-5 position-relative">
