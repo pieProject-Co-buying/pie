@@ -1,5 +1,5 @@
 [
-	{
+	"OTT" : {
 		"netflix": [
 			{
 				"plan": "standard(스탠다드)",
@@ -63,8 +63,9 @@
 				"person": 4,
 				"period" : "month"
 			}
-		],
-		"millie": [
+		]
+		},
+		"bookAndMusic" : {"millie": [
 			{
 				"plan": "standard(전자책 정기구독)",
 				"price": 9900,
@@ -79,15 +80,15 @@
 				"person": 2,
 				"period" : "month"
 			}
-		],
-		"nintendo": [
+		]},
+		"book" : {"nintendo": [
 			{
 				"plan": "familly(패밀리 플랜)",
 				"price": 37900,
 				"person": 8,
 				"period" : "year"
 			}
-		]
+		]}
 		
 	}
 ]
