@@ -3,13 +3,13 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/login}">
 <!-- gnb fragment -->
-<div layout:fragment="membersContent" class="col p-5 border rounded"
+<div layout:fragment="membersContent" class="col p-5 shadow pie-radius"
 	id="loginForm">
 
-	<h2 class="text-center pb-4">
-		<img src="imgs/logo_pie_color.png" alt="" width="80"
-			class="d-inlineblock" />
-	</h2>
+	<h3 class="text-center pb-4">
+		<span class="w-100 pt-2 d-block font-weight-bolder pie-c-red">아이디/비밀번호
+			찾기</span>
+	</h3>
 
 	<div class="row">
 		<div class="col">
@@ -17,35 +17,36 @@
 				th:if="${param.error!=null}" th:text="${param.exception}"></div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col py-5">
+	<div class="row pt-4">
+		<div class="col">
+			<div class="container text-center">
+				<p class="small" th:if="${msg==1}">
+					고객님의 ID는 <span th:text="${id}" class="lead"></span> 입니다.
+				</p>
 
-			<div class="jumbotron jumbotron-fluid">
-				<div class="container">
-					<p class="lead" th:if="${msg==1}">
-						고객님의 ID는 <span th:text="${id}"></span> 입니다.
-					</p>
+				<p class="small" th:if="${msg==0}">입력한 정보와 일치하는 회원이 존재하지 않습니다.</p>
 
-					<p class="lead" th:if="${msg==0}">입력한 정보와 일치하는 회원이 존재하지 않습니다.</p>
+				<p class="small" th:if="${msg==2}">비밀번호가 변경되었습니다. 다시 로그인해주세요.</p>
 
-					<p class="lead" th:if="${msg==2}">비밀번호가 변경되었습니다. 다시 로그인해주세요.</p>
 
-					<th:block th:if="${session.userId==null}">
-						<a href="login" class="btn btn-outline-primary">로그인화면</a>
-					</th:block>
-					<th:block th:if="${session.userId!=null}">
-
-						<form action="logout" method="post">
-							<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <input
-								type="submit" value="로그인 화면" class="btn btn-outline-primary" />
-						</form>
-
-					</th:block>
-
-					<a th:if="${msg==1}" href="findPW" class="btn btn-outline-primary">비밀번호찾기</a>
-				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row pt-5">
+		<div class="col">
+			<div class="container text-center">
+				<a sec:authorize="!isAuthenticated()" href="login"
+					class="btn pie-btn-outline-red-custom">로그인 화면으로</a>
 
+				<form sec:authorize="isAuthenticated()" action="logout"
+					method="post">
+					<input type="hidden" name="_csrf" th:value="${_csrf.token}" /> <input
+						type="submit" value="로그인 화면" class="btn pie-btn-outline-red-custom" />
+				</form>
+
+				<a th:if="${msg==1}" href="findPW" class="btn pie-btn-outline-red-custom">비밀번호찾기</a>
+
+			</div>
 		</div>
 	</div>
 

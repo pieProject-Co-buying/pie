@@ -102,21 +102,28 @@ public class BoardComp {
 
 	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list) {
 		for (ProxyBuyBoardDto d : list) {
-			d.setPr_category(translate(d.getPr_category()));
+			d.setCategory(translate(d.getCategory()));
+			d.setThumbnail(setThumbNail(d.getProductImg()));
 		}
 		return list;
 	}
 	
+	public String setThumbNail(String pics) {
+		return pics.substring(0,pics.indexOf("/"));
+	}
+	
 	public List<TownBuyBoardDto> translateTownList(List<TownBuyBoardDto> list) {
 		for (TownBuyBoardDto d : list) {
-			d.setTo_category(translate(d.getTo_category()));
+			d.setCategory(translate(d.getCategory()));
+			d.setThumbnail(setThumbNail(d.getProductImg()));
 		}
 		return list;
 	}
 	
 	public List<ShareServiceDto> translateShareList(List<ShareServiceDto> list) {
 		for (ShareServiceDto d : list) {
-			d.setSh_category(translate(d.getSh_category()));
+			d.setCategory(translate(d.getCategory()));
+			d.setThumbnail(setThumbNail(d.getProductImg()));
 		}
 		return list;
 	}
@@ -148,7 +155,7 @@ public class BoardComp {
 //		어떤형식?
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //		어떤걸변환할래?
-		LocalDateTime updatedate = LocalDateTime.parse(dto.getPr_deadLine(), formatter);
+		LocalDateTime updatedate = LocalDateTime.parse(dto.getDeadLine(), formatter);
 
 		LocalDateTime now = LocalDateTime.now();
 		
@@ -156,7 +163,7 @@ public class BoardComp {
 
 		long minutes = duration.toMinutes(); // 변경된 부분
 
-		int remains = dto.getPr_personnelMax() - dto.getPr_personnelNow();
+		int remains = dto.getPersonnelMax() - dto.getPersonnelNow();
 
 		if (((minutes > 0 && minutes < 1440) && remains > 0) || (minutes > 0 && (remains <= 5 && remains > 0))) {
 			return true;

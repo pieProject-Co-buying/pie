@@ -67,30 +67,30 @@ public class PaymentController {
 		
 		if(category.equals("Share")) {
 			ShareServiceDto bl = Sdao.selectBoard(Integer.parseInt(nid));
-			productImg = bl.getSh_productImg();
-			title = bl.getSh_title();
-			price = bl.getSh_pricePer();
+			productImg = bl.getProductImg();
+			title = bl.getTitle();
+			price = bl.getPricePer();
 			
 			// 작성자가 아닐 경우에만 현재 인원 카운트
-			if(!bl.getSh_id().equals(uId)) {				
+			if(!bl.getId().equals(uId)) {				
 				Sdao.updateNow(Integer.parseInt(nid));
 			}
 			
 			bl = Sdao.selectBoard(Integer.parseInt(nid));
-			if(bl.getSh_personnelMax()<=bl.getSh_personnelNow()) {
+			if(bl.getPersonnelMax()<=bl.getPersonnelNow()) {
 				Sdao.maxChk(Integer.parseInt(nid));
-			}else if(bl.getSh_personnelMax()>bl.getSh_personnelNow()) {
+			}else if(bl.getPersonnelMax()>bl.getPersonnelNow()) {
 				Sdao.minChk(Integer.parseInt(nid));
 			}
 			
 		}else if(category.equals("Proxy")) {
 			ProxyBuyBoardDto bl = Pdao.getView(nid);
-			productImg = bl.getPr_productImg();
-			title = bl.getPr_title();
-			price = bl.getPr_pricePer();
+			productImg = bl.getProductImg();
+			title = bl.getTitle();
+			price = bl.getPricePer();
 			Pdao.updateNow(Integer.parseInt(nid));
 			bl = Pdao.getView(nid);
-			if(bl.getPr_personnelMax()<=bl.getPr_personnelNow()) {
+			if(bl.getPersonnelMax()<=bl.getPersonnelNow()) {
 				Pdao.maxChk(Integer.parseInt(nid));
 			}
 		}

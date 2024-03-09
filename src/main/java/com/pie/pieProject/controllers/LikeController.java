@@ -63,39 +63,39 @@ public class LikeController {
 		if(category.equals("town")) {
 			List<TownBuyBoardDto> list = ldao.likeTListById(id);
 			for(TownBuyBoardDto d : list) {
-				d.setTo_category(bcomp.translate(d.getTo_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			model.addAttribute("list1",list);
 			model.addAttribute("table","town");
 		}else if(category.equals("proxy")) {
 			List<ProxyBuyBoardDto> list = ldao.likePListById(id);
 			for(ProxyBuyBoardDto d : list) {
-				d.setPr_category(bcomp.translate(d.getPr_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			model.addAttribute("list1",list);
 			model.addAttribute("table","proxy");
 		}else if(category.equals("share")) {
 			List<ShareServiceDto> list = ldao.likeSListById(id);
 			for(ShareServiceDto d : list) {
-				d.setSh_category(bcomp.translate(d.getSh_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			model.addAttribute("list1",list);
 			model.addAttribute("table","share");
 		}else if(category.equals("all")) {
 			List<TownBuyBoardDto> list1 = ldao.likeTListById(id);
 			for(TownBuyBoardDto d : list1) {
-				d.setTo_category(bcomp.translate(d.getTo_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			
 			System.out.println("list1 : "+list1.size());
 			List<ProxyBuyBoardDto> list2 = ldao.likePListById(id);
 			for(ProxyBuyBoardDto d : list2) {
-				d.setPr_category(bcomp.translate(d.getPr_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			System.out.println("list2 : "+list2.size());
 			List<ShareServiceDto> list3 = ldao.likeSListById(id);
 			for(ShareServiceDto d : list3) {
-				d.setSh_category(bcomp.translate(d.getSh_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			System.out.println("list3 : "+list3.size());
 			model.addAttribute("list1",list1);

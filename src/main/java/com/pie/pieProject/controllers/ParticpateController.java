@@ -50,13 +50,13 @@ public class ParticpateController {
 		if (category == null || category.equals("") || category.equals("town") ) {
 			List<TownBuyBoardDto> list = tdao.townListbyID(sId);
 			for (TownBuyBoardDto d : list) {
-				d.setTo_category(bcomp.translate(d.getTo_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			model.addAttribute("list", list);
 		} else if (category.equals("share")) {
 			List<ShareServiceDto> list = sdao.myBoard(sId);
 			for (ShareServiceDto d : list) {
-				d.setSh_category(bcomp.translate(d.getSh_category()));
+				d.setCategory(bcomp.translate(d.getCategory()));
 			}
 			model.addAttribute("list", list);
 		} 

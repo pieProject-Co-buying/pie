@@ -1,4 +1,5 @@
 // 드롭다운 메뉴로 셀렉트하기
+let dropdownMenu = $(".dropdown-menu");
 let category = $(".dropdown-menu a")
 let input = $("#h-input");
 let selectCategory = $(".dropdown button")
@@ -22,7 +23,6 @@ let selectCategory = $(".dropdown button")
 	input.val(c);
 
 	category.click(function() {
-		selectCategory.text($(this).text());
+		$(this).parents(".dropdown").find("button").text($(this).text());
 		input.val($(this).attr("data-category"))
-		console.log(input.val());
 	})

@@ -62,11 +62,11 @@ public class ProxyBuyController {
 		List<ProxyBuyBoardDto> list = dao.listDaoByFavorite();
 
 		for (ProxyBuyBoardDto dto : list) {
-			dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
-			if (dto.getPr_tag() == null || dto.getPr_tag().equals("#")) {
-				dto.setPr_tags(null);
+			dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+			if (dto.getTag() == null || dto.getTag().equals("#")) {
+				dto.setTags(null);
 			} else {
-				dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+				dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 			}
 		}
 
@@ -227,10 +227,10 @@ public class ProxyBuyController {
 		
 		List<ScrollProxyBuyBoardDto> list = dao.listDaoByNext(p,m);
 		for(ScrollProxyBuyBoardDto d : list) {
-			d.setPr_soon(Bcomp.closeClosely(d));
-			d.setPr_updateinfo(Bcomp.lastUpdateMessage(d.getPr_updateDay()));
-			d.setPr_productImg(d.getPr_productImg().substring(0, d.getPr_productImg().indexOf('/')));
-			d.setPr_category(Bcomp.translate(d.getPr_category()));
+			d.setSoon(Bcomp.closeClosely(d));
+			d.setUpdateinfo(Bcomp.lastUpdateMessage(d.getUpdateDay()));
+			d.setProductImg(d.getProductImg().substring(0, d.getProductImg().indexOf('/')));
+			d.setCategory(Bcomp.translate(d.getCategory()));
 		}
 		
 		return ResponseEntity.ok(list);
@@ -247,12 +247,13 @@ public class ProxyBuyController {
 
 		ProxyBuyBoardDto dto = dao.getView(num);
 		System.out.println("chkpoint2");
-		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
-		if (dto.getPr_tag() == null || dto.getPr_tag().equals("#")) {
-			dto.setPr_tags(null);
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+		if (dto.getTag() == null || dto.getTag().equals("#")) {
+			dto.setTags(null);
 		} else {
-			dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 		}
+		dto.setCategory(Bcomp.translate(dto.getCategory()));
 
 		String table = "proxyBuyBoard";
 		if (ldao.checkLike(Bcomp.getSession(request, "userId"), num, table) > 0) {
@@ -263,7 +264,6 @@ public class ProxyBuyController {
 		System.out.println("chkpoint3");
 		
 		List<MemberDto> list = paDao.getPartiMem(num, "Proxy");
-		
 		
 		model.addAttribute("list",Bcomp.translateProxyList(dao.listDaoByNewerNumber(10)));
 		model.addAttribute("partiMem", list);
@@ -290,28 +290,29 @@ public class ProxyBuyController {
 	}
 
 	@PostMapping("/uploadAction")
-	public String proxyuploadAction(@RequestParam("pr_title") String title, @RequestParam("pr_content") String content,
-			@RequestParam("pr_files") String pictures, @RequestParam("pie_tagsOutput") String tags,
-			@RequestParam("pr_deadLine") String deadLine, @RequestParam("pr_personnelMax") String pr_personnelMax,
-			@RequestParam("price_total") String pr_priceTotal, @RequestParam("price_per") String pr_pricePer,
-			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
+	public String proxyuploadAction(@RequestParam("title") String title, @RequestParam("content") String content,
+			@RequestParam("pie_tagsOutput") String tags,@RequestParam("fileStr") String files,
+			@RequestParam("deadLine") String deadLine, @RequestParam("personnelMax") String personnelMax,
+			@RequestParam("price_total") String priceTotal, @RequestParam("price_per") String pricePer,
+			@RequestParam("category") String category, @RequestParam("brand") String brand, @RequestParam("productName") String productName,  HttpServletRequest request) {
 
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
 
-		System.out.println(tags);
-		dto.setPr_id(Bcomp.getSession(request, "userId"));
-		dto.setPr_category(pr_category);
-		dto.setPr_nickname(Bcomp.getSession(request, "nickName"));
-		dto.setPr_title(title);
-		dto.setPr_content(content);
-		dto.setPr_profileImg(Bcomp.getSession(request, "pic"));
-		dto.setPr_productImg(pictures);
-		dto.setPr_tag(tags);
-		dto.setPr_deadLine(deadLine);
-		dto.setPr_personnelMax(Integer.parseInt(pr_personnelMax));
-		dto.setPr_priceTotal(Integer.parseInt(pr_priceTotal));
-		dto.setPr_pricePer(Integer.parseInt(pr_pricePer));
-		dto.setPr_ip(request.getRemoteAddr());
+		dto.setId(Bcomp.getSession(request, "userId"));
+		dto.setCategory(category);
+		dto.setNickname(Bcomp.getSession(request, "nickName"));
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProductImg(files);
+		dto.setTag(tags);
+		dto.setDeadLine(deadLine);
+		dto.setPersonnelMax(Integer.parseInt(personnelMax));
+		dto.setPriceTotal(Integer.parseInt(priceTotal));
+		dto.setPricePer(Integer.parseInt(pricePer));
+		dto.setBrand(brand);
+		dto.setProductName(productName);
+		dto.setIp(request.getRemoteAddr());
 		dao.insertProxyBoard(dto);
 
 		return "redirect:/proxyBuyProducts";
@@ -321,37 +322,39 @@ public class ProxyBuyController {
 	public String proxyUpdateForm(@RequestParam("num") String num, Model model) {
 		System.out.println(num);
 		ProxyBuyBoardDto dto = dao.getView(num);
-		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
-		if (dto.getPr_tag() == null || dto.getPr_tag().equals("#")) {
-			dto.setPr_tags(null);
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+		if (dto.getTag() == null || dto.getTag().equals("#")) {
+			dto.setTags(null);
 		} else {
-			dto.setPr_tags(Bcomp.setArraysData(dto.getPr_tag(), "#"));
+			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 		}
 		model.addAttribute("board", dto);
 		return "/pieContents/proxyBuying/proxyupdateForm";
 	}
 
 	@PostMapping("/updateProxyAction")
-	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("pr_title") String title,
-			@RequestParam("pr_content") String content, @RequestParam("pr_files") String pictures,
-			@RequestParam("pie_tagsOutput") String tags, @RequestParam("pr_deadLine") String deadLine,
-			@RequestParam("pr_personnelMax") String pr_personnelMax, @RequestParam("price_total") String pr_priceTotal,
-			@RequestParam("price_per") String pr_pricePer, @RequestParam("pr_category") String pr_category,
+	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("title") String title,
+			@RequestParam("content") String content, @RequestParam("fileStr") String pictures,
+			@RequestParam("pie_tagsOutput") String tags, @RequestParam("deadLine") String deadLine,
+			@RequestParam("personnelMax") String personnelMax, @RequestParam("price_total") String priceTotal,
+			@RequestParam("price_per") String pricePer, @RequestParam("category") String category, @RequestParam("brand") String brand, @RequestParam("productName") String productName,
 			HttpServletRequest request) {
 		ProxyBuyBoardDto dto = new ProxyBuyBoardDto();
 
 		System.out.println(tags);
-		dto.setPr_num(num);
-		dto.setPr_category(pr_category);
-		dto.setPr_title(title);
-		dto.setPr_content(content);
-		dto.setPr_productImg(pictures);
-		dto.setPr_tag(tags);
-		dto.setPr_deadLine(deadLine);
-		dto.setPr_personnelMax(Integer.parseInt(pr_personnelMax));
-		dto.setPr_priceTotal(Integer.parseInt(pr_priceTotal));
-		dto.setPr_pricePer(Integer.parseInt(pr_pricePer));
-		dto.setPr_ip(request.getRemoteAddr());
+		dto.setNum(num);
+		dto.setCategory(category);
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setProductImg(pictures);
+		dto.setTag(tags);
+		dto.setDeadLine(deadLine);
+		dto.setPersonnelMax(Integer.parseInt(personnelMax));
+		dto.setPriceTotal(Integer.parseInt(priceTotal));
+		dto.setPricePer(Integer.parseInt(pricePer));
+		dto.setIp(request.getRemoteAddr());
+		dto.setBrand(brand);
+		dto.setProductName(productName);
 		dao.updateProxyBoard(dto);
 
 		return "redirect:/viewProxyBoard?num=" + num;

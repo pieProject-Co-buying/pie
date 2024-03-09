@@ -77,8 +77,8 @@ public class ChatController {
 	    // 사용자 아이디에 해당하는 프로필 이미지 가져오기
 	    String profileImg = "";
 	    for (TownBuyBoardDto boardDto : tboard) {
-	        if (boardDto.getTo_id().equals(userId)) {
-	            profileImg = boardDto.getTo_profileImg();
+	        if (boardDto.getId().equals(userId)) {
+	            profileImg = boardDto.getProfileImg();
 	            break;
 	        }
 	    }

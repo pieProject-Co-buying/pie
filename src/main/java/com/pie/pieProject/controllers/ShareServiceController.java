@@ -60,18 +60,18 @@ public class ShareServiceController {
 		}
 			
 		for (ShareServiceDto d : list) {
-			if(d.getSh_tag()==null||d.getSh_tag().equals("#")) {
-				d.setSh_tags(null);
+			if(d.getTag()==null||d.getTag().equals("#")) {
+				d.setTags(null);
 			}else { 
-				d.setSh_tags(Bcomp.setArraysData(d.getSh_tag(), "#"));
+				d.setTags(Bcomp.setArraysData(d.getTag(), "#"));
 			}
-			String c = d.getSh_category();
+			String c = d.getCategory();
 			if (c.equals("OTT")) {
-				d.setSh_category("OTT");
+				d.setCategory("OTT");
 			} else if (c.equals("game")) {
-				d.setSh_category("게임");
+				d.setCategory("게임");
 			} else if (c.equals("bookAndMusic")) {
-				d.setSh_category("도서/음악");
+				d.setCategory("도서/음악");
 			}
 		}
 		
@@ -89,7 +89,7 @@ public class ShareServiceController {
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 		
 		// 기간 만료 날짜 비교
-		LocalDateTime deadline = LocalDateTime.parse(dto.getSh_deadLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+		LocalDateTime deadline = LocalDateTime.parse(dto.getDeadLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 		LocalDateTime now = LocalDateTime.now();
 		
 //		다른 게시글 리스트
@@ -98,15 +98,15 @@ public class ShareServiceController {
 //		조회수
 		dao.updateHit(num);
 		
-		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
-		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
-			dto.setSh_tags(null);
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+		if(dto.getTag()==null||dto.getTag().equals("#")) {
+			dto.setTags(null);
 		}else {
-			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
+			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 		}
 		
 		// 인원 만원시
-		if(dto.getSh_personnelMax()<=dto.getSh_personnelNow()) {
+		if(dto.getPersonnelMax()<=dto.getPersonnelNow()) {
 			dao.maxChk(Integer.parseInt(sId));
 		// 기간 만료시
 		}else if(deadline.isBefore(now) || deadline.isEqual(now)) {
@@ -151,11 +151,11 @@ public class ShareServiceController {
 
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 
-		dto.setSh_productImgs(Bcomp.setArraysData(dto.getSh_productImg(), "/"));
-		if(dto.getSh_tag()==null||dto.getSh_tag().equals("#")) {
-			dto.setSh_tags(null);
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+		if(dto.getTag()==null||dto.getTag().equals("#")) {
+			dto.setTags(null);
 		}else {
-			dto.setSh_tags(Bcomp.setArraysData(dto.getSh_tag(), "#"));
+			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 		}
 		/* dao.updateHit(sId); */
 
@@ -175,29 +175,29 @@ public class ShareServiceController {
 	@RequestMapping("/updateShareBoard")
 	public String update(HttpServletRequest request, Model model) {
 		ShareServiceDto dto = new ShareServiceDto();
-		String sh_numID = request.getParameter("num");
-		String sh_title = request.getParameter("sh_title");
-		String sh_content = request.getParameter("sh_content");
-		String sh_personnelMax = request.getParameter("sh_personnelMax");
-		String sh_DeadLine = request.getParameter("sh_deadLine");
+		String numID = request.getParameter("num");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String personnelMax = request.getParameter("personnelMax");
+		String DeadLine = request.getParameter("deadLine");
 
-		int tempNumId = Integer.parseInt(sh_numID);
-
-		dto.setSh_num(tempNumId);
-		dto.setSh_title(sh_title);
-		dto.setSh_content(sh_content);
-		dto.setSh_pricePer(Integer.parseInt(request.getParameter("price_per")));
-		dto.setSh_priceTotal(Integer.parseInt(request.getParameter("price_total")));
-		dto.setSh_personnelMax(Integer.parseInt(sh_personnelMax));
-		dto.setSh_productImg(request.getParameter("sh_files"));
-		dto.setSh_category(request.getParameter("sh_category"));
-		dto.setSh_tag(request.getParameter("pie_tagsOutput"));
-		dto.setSh_ip(request.getRemoteAddr());
-		dto.setSh_deadLine(sh_DeadLine);
+		dto.setNum(numID);
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setPricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setPriceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setPersonnelMax(Integer.parseInt(personnelMax));
+		dto.setProductImg(request.getParameter("files"));
+		dto.setCategory(request.getParameter("category"));
+		dto.setTag(request.getParameter("pie_tagsOutput"));
+		dto.setIp(request.getRemoteAddr());
+		dto.setDeadLine(DeadLine);
+		dto.setBrand(request.getParameter("brand"));
+		dto.setProductName(request.getParameter("productName"));
 
 		dao.updateBoard(dto);
 
-		return "redirect:/boardList?num=" + sh_numID;
+		return "redirect:/boardList?num=" + numID;
 	}
 
 	/********** 해당 게시물 삭제 **********/
@@ -239,27 +239,29 @@ public class ShareServiceController {
 		ShareServiceDto dto = new ShareServiceDto();
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 
-		dto.setSh_id(Bcomp.getSession(request, "userId"));
+		dto.setId(Bcomp.getSession(request, "userId"));
 
-		dto.setSh_category(request.getParameter("sh_category"));
+		dto.setCategory(request.getParameter("category"));
 
 		if (mdto.getPremium().equals("pro")) {
-			dto.setSh_premium("1");
+			dto.setPremium("1");
 		} else {
-			dto.setSh_premium("0");
+			dto.setPremium("0");
 		}
 
-		dto.setSh_nickname(Bcomp.getSession(request, "nickName"));
-		dto.setSh_title(request.getParameter("sh_title"));
-		dto.setSh_content(request.getParameter("sh_content"));
-		dto.setSh_profileImg(Bcomp.getSession(request, "pic"));
-		dto.setSh_productImg(request.getParameter("sh_files"));
-		dto.setSh_tag(request.getParameter("pie_tagsOutput"));
-		dto.setSh_personnelMax(Integer.parseInt(request.getParameter("sh_personnelMax")));
-		dto.setSh_pricePer(Integer.parseInt(request.getParameter("price_per")));
-		dto.setSh_priceTotal(Integer.parseInt(request.getParameter("price_total")));
-		dto.setSh_ip(request.getRemoteAddr());
-		dto.setSh_deadLine(request.getParameter("sh_deadLine"));
+		dto.setNickname(Bcomp.getSession(request, "nickName"));
+		dto.setTitle(request.getParameter("title"));
+		dto.setContent(request.getParameter("content"));
+		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProductImg(request.getParameter("fileStr"));
+		dto.setTag(request.getParameter("pie_tagsOutput"));
+		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
+		dto.setPricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setPriceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setIp(request.getRemoteAddr());
+		dto.setDeadLine(request.getParameter("deadLine"));
+		dto.setBrand(request.getParameter("brand"));
+		dto.setProductName(request.getParameter("productName"));
 
 		dao.insertBoard(dto);
 
@@ -328,11 +330,11 @@ public class ShareServiceController {
 		int page = Integer.parseInt(request.getParameter("page"));
 		ShareServiceDto dto = dao.selectBoard(Integer.parseInt(sId));
 		
-		if(dto.getSh_process().equals("1")) {			
+		if(dto.getProcess().equals("1")) {			
 			dao.stopChk(Integer.parseInt(sId));
-		}else if(dto.getSh_process().equals("2")) {
+		}else if(dto.getProcess().equals("2")) {
 			dao.minChk(Integer.parseInt(sId));			
-		}else if(dto.getSh_process().equals("3")) {
+		}else if(dto.getProcess().equals("3")) {
 			 dao.dateOver(Integer.parseInt(sId)); 
 		}
 			 

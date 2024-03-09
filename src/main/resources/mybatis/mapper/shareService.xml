@@ -4,106 +4,108 @@
 	<!--게시판 리스트 최신순 불러오기 -->
 	<select id="getBoardList"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard order by sh_num desc
+		select * from shareServiceBoard order by num desc
 	</select>
 	<!--해당 게시물 상세 페이지 -->
 	<select id="selectBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_num=#{param1}
+		select * from shareServiceBoard where num=#{param1}
 	</select>
 	<!--게시판 검색 -->
 	<select id="searchTitle" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where (sh_title like '%${param1}%' or sh_content like '%${param1}%') and sh_category = '${param2}'
+		select * from shareServiceBoard where (title like '%${param1}%' or content like '%${param1}%') and category = '${param2}'
 	</select>
 	<!--내가 쓴 게시글 -->
 	<select id="myBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_id=#{param1} order
-		by sh_registDay desc
+		select * from shareServiceBoard where id=#{param1} order
+		by registDay desc
 	</select>
 	<!--결제 완료 페이지 -->
 	<select id="completePay"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where sh_num=#{sh_numID}
+		select * from shareServiceBoard where num=#{numID}
 	</select>
 	<!--게시글 작성 -->
 	<insert id="insertBoard">
-		<!--insert into shareServiceBoard (sh_numID,sh_id,sh_nickname,sh_title,sh_content,sh_category,sh_price,sh_process,sh_DeadLine,sh_personnelNow,sh_personnelMax,sh_filename,sh_product) 
-			values (sh_numID.nextval,#{sh_id},#{sh_nickname},#{sh_title},#{sh_content},#{sh_category},#{sh_price},#{sh_process},TO_DATE(#{sh_DeadLine}, 
-			'YYYY-MM-DD'),#{sh_personnelNow},#{sh_personnelMax},#{sh_filename},sh_product.nextval) -->
+		<!--insert into shareServiceBoard (numID,id,nickname,title,content,category,price,process,DeadLine,personnelNow,personnelMax,filename,product) 
+			values (numID.nextval,#{id},#{nickname},#{title},#{content},#{category},#{price},#{process},TO_DATE(#{DeadLine}, 
+			'YYYY-MM-DD'),#{personnelNow},#{personnelMax},#{filename},product.nextval) -->
 		insert into shareServiceBoard values(
-		sh_num.nextval, #{sh_id}, #{sh_nickname}, #{sh_category}, #{sh_premium},
-		#{sh_title}, #{sh_content}, #{sh_profileImg}, #{sh_productImg}, 0,
-		#{sh_tag}, '1', sysdate, sysdate, TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
-		#{sh_personnelMax}, 1, #{sh_priceTotal}, #{sh_pricePer}, #{sh_ip}, 0,
-		'001' )
+		sh_num.nextval, #{id}, #{nickname}, #{category}, #{premium},
+		#{title}, #{content}, #{profileImg}, #{productImg}, 0,
+		#{tag}, '1', sysdate, sysdate, TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
+		#{personnelMax}, 1, #{priceTotal}, #{pricePer}, #{ip}, 0,
+		#{brand},#{productName})
 	</insert>
 	<!--게시글 수정 -->
 	<update id="updateBoard">
 		update shareServiceBoard set
-		sh_category=#{sh_category},
-		sh_title=#{sh_title},
-		sh_content=#{sh_content},
-		sh_productImg=#{sh_productImg},
-		sh_tag=#{sh_tag},
-		sh_deadLine=TO_DATE(#{sh_deadLine}, 'YYYY-MM-DD'),
-		sh_personnelMax=#{sh_personnelMax},
-		sh_priceTotal=#{sh_priceTotal},
-		sh_pricePer=#{sh_pricePer},
-		sh_ip=#{sh_ip},
-		sh_updateDay=sysdate where
-		sh_num=#{sh_num}
+		category=#{category},
+		title=#{title},
+		content=#{content},
+		productImg=#{productImg},
+		tag=#{tag},
+		deadLine=TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
+		personnelMax=#{personnelMax},
+		priceTotal=#{priceTotal},
+		pricePer=#{pricePer},
+		ip=#{ip},
+		updateDay=sysdate,
+		brand=#{brand},
+		productName=#{productName}
+		where num= #{num}
 	</update>
 	<!-- 현재 인원 증가 -->
 	<update id="updateNow">
-		update shareServiceBoard set sh_personnelNow =
-		sh_personnelNow + 1 where sh_num = #{param1}
+		update shareServiceBoard set personnelNow =
+		personnelNow + 1 where num = #{param1}
 	</update>
 	<!--게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="_int">
 		delete shareServiceBoard
-		where sh_num=#{param1}
+		where num=#{param1}
 	</delete>
 	<!--최대인원 체크 -->
 	<update id="maxChk">
-		update shareServiceBoard set sh_process = '0' where
-		sh_num = #{param1}
+		update shareServiceBoard set process = '0' where
+		num = #{param1}
 	</update>
 	<!--최소인원 체크 -->
 	<update id="minChk">
-		update shareServiceBoard set sh_process = '1' where
-		sh_num = #{param1}
+		update shareServiceBoard set process = '1' where
+		num = #{param1}
 	</update>
 	<!-- 모집중단 -->
 	<update id="stopChk">
-		update shareServiceBoard set sh_process = '2' where
-		sh_num = #{param1}
+		update shareServiceBoard set process = '2' where
+		num = #{param1}
 	</update>
 	<!--기간만료-->
  	<update id="dateOver">
-		update shareServiceBoard set sh_process = '3' where 
-		sh_num = #{param1}
+		update shareServiceBoard set process = '3' where 
+		num = #{param1}
 	</update>
 	<!--조회수 증가 -->
 	<update id="updateHit">
-		update shareServiceBoard set sh_hit = sh_hit+1 where
-		sh_num = #{param1}
+		update shareServiceBoard set hit = hit+1 where
+		num = #{param1}
 	</update>
 	<!--작성자 이름 및 아이디로 검색 -->
 	<select id="searchBuyer">
-		select * from shareServiceBoard where sh_id like
-		'%${param1}%' or sh_nickname like '%${param1}%'
+		select * from shareServiceBoard where id like
+		'%${param1}%' or nickname like '%${param1}%'
 	</select>
 	<!--환불시 인원 감소 -->
 	<update id="refundNowPerson">
-		update shareServiceBoard set sh_personnelNow =
-		sh_personnelNow - 1 where sh_num = #{param1}
+		update shareServiceBoard set personnelNow =
+		personnelNow - 1 where num = #{param1}
 	</update>
 	<!-- 0시마다 마감체크 -->
 	<update id="expireShareServiceBoard">
 		UPDATE shareServiceBoard
-		SET sh_process = 0
-		WHERE sh_deadLine <![CDATA[ <= ]]>
+		SET process = 0
+		WHERE deadLine <![CDATA[ <= ]]>
 		sysdate
 	</update>
 </mapper>
