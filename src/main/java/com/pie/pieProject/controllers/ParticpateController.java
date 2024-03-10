@@ -12,6 +12,7 @@ import com.pie.pieProject.DAO.IPaymentDAO;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
@@ -42,22 +43,12 @@ public class ParticpateController {
 		String sId = bcomp.getSession(request, "userId");
 		String category = request.getParameter("category");
 
-		/*
-		 * spring security 가 적용되어 있어서 사용하지 않아도 됨 // 세션 id가 null일 경우 로그인 페이지로 이동 if (sId
-		 * == null) { return "pieContents/members/login_form"; }
-		 */
-		
 		if (category == null || category.equals("") || category.equals("town") ) {
-			List<TownBuyBoardDto> list = tdao.townListbyID(sId);
-			for (TownBuyBoardDto d : list) {
-				d.setCategory(bcomp.translate(d.getCategory()));
-			}
+			List<TownBuyBoardDto> list = bcomp.translateTownList(tdao.townListbyID(sId));
 			model.addAttribute("list", list);
+			
 		} else if (category.equals("share")) {
-			List<ShareServiceDto> list = sdao.myBoard(sId);
-			for (ShareServiceDto d : list) {
-				d.setCategory(bcomp.translate(d.getCategory()));
-			}
+			List<ShareServiceDto> list = bcomp.translateShareList(sdao.myBoard(sId));
 			model.addAttribute("list", list);
 		} 
 
@@ -74,7 +65,6 @@ public class ParticpateController {
 			String category = request.getParameter("category");
 			
 			String board = "proxybuyboard";
-			String prefix = "pr_";
 			
 			System.out.println(sId);
 			
@@ -85,7 +75,7 @@ public class ParticpateController {
 			if(category==null||category.equals("")||category.equals("town")) {
 				
 				category = "town";
-				List<TownBuyBoardDto> list = paDao.getTownboard(sId);
+				List<BoardDto> list = bcomp.setTURL(paDao.getTownboard(sId));
 				List<String> partList = paDao.getDate(sId, "townBuyBoard");
 				
 				System.out.println("listSize : "+list.size());
@@ -93,33 +83,33 @@ public class ParticpateController {
 				
 				model.addAttribute("list", list);
 				model.addAttribute("partList", partList);
+				
+				
 				// 뷰 이름 반환
 				return "pieContents/shareService/shareServicebuyBoard";
 				
 			}else if(category.equals("Share")) {
 				board = "shareServiceBoard";
-				prefix = "sh_";
 			}			
 
-			List<PaymentDTO> list = Pdao.buyList(sId,category);
-			List<String> piclist = Pdao.buyListpic(sId,category,board,prefix);
-			List<String> processList = Pdao.buyListpro(sId,category,board,prefix);
-			List<String> buyNum = Pdao.buyListNum(sId,category,board,prefix);
+			List<PaymentDTO> list = Pdao.buyListbyId(board,sId,category);
+
 
 			System.out.println("리스트 : "+list.size());
-			System.out.println("사진 : "+piclist.size());
-			System.out.println("진행 : "+processList.size());
-			System.out.println("넘버 : "+buyNum.size());
 			
-			if(list.size()>0) {
-				 for(int i = 0; i<list.size(); i++) {
-					 list.get(i).setProductImg(piclist.get(i));
-					 list.get(i).setProcess(processList.get(i));
-					 list.get(i).setNum(buyNum.get(i));
-					 }
+			/*
+			 * System.out.println("사진 : "+piclist.size());
+			 * System.out.println("진행 : "+processList.size());
+			 * System.out.println("넘버 : "+buyNum.size());
+			 * 
+			 * if(list.size()>0) { for(int i = 0; i<list.size(); i++) {
+			 * list.get(i).setProductImg(piclist.get(i));
+			 * list.get(i).setProcess(processList.get(i));
+			 * list.get(i).setNum(buyNum.get(i)); } }
+			 */
 				
 					model.addAttribute("list", list);
-			}
+			
 			// 뷰 이름 반환
 			return "pieContents/shareService/shareServicebuyBoard";
 		}

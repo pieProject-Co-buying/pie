@@ -64,10 +64,7 @@
 	</select>
 	<select id="listDaoByCategoryNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from (select * from proxyBuyBoard where category=#{param1}
-		and process=1
-		order by updateDay desc) where ROWNUM <![CDATA[ <= ]]>
-		#{param2}
+		
 	</select>
 	<select id="getView">
 		select * from proxyBuyBoard where num = #{param1}

@@ -21,8 +21,8 @@
 	<!--container-->
 	<!--------------------------게시물 컨텐츠-------------------------->
 	<div class="container">
-		<p class="d-none" th:attr="data-Prnum=${board.getNum()}"></p>
-		<input type="hidden" id="tableName" value="p" />
+		<p class="d-none" th:attr="data-num=${board.getNum()}"></p>
+		<input type="hidden" id="tableName" value="s" />
 		<div class="row">
 
 			<div class="col-lg-3 d-none d-lg-block">
@@ -32,7 +32,8 @@
 							<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
-							<div class="card-body px-0">
+							<div
+								class="card-body px-2 d-flex align-items-center justify-content-center flex-wrap">
 								<h5 class="card-title text-center mb-0 mr-2"
 									th:text="${board.getNickname}">Card title</h5>
 								<th:block
@@ -46,21 +47,20 @@
 									<span
 										th:if="${@boardComp.rUFollowing(session.userId,board.getId())}"
 										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn unfollow py-0"
-										data-hover="언팔로우"
-										th:attr="data-following = ${board.getId()}"> <span
-										class="small">팔로잉</span>
+										data-hover="언팔로우" th:attr="data-following = ${board.getId()}">
+										<span class="small">팔로잉</span>
 									</span>
 								</th:block>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- 모집관련 정보 (lg 이상) -->
 				<div class="row">
 					<div class="col">
 						<p>
 							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getPersonnelNow()+' 명 / '+board.getPersonnelMax()+' 명'}"></small>
+					<!-- 모집관련 정보 (lg 이상) -->
+							th:text="${board.getPersonnelNow()+' 명 / '+board.getPersonnelMax()+' 명'}"></small>
 						</p>
 						<input type="hidden" th:value="${board.getPersonnelNow()}" id="perNow"/>
 						
@@ -95,7 +95,8 @@
 						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex">
-						<th:block th:if="${!#strings.equals(board.getId(),session.userId)}">
+						<th:block
+							th:if="${!#strings.equals(board.getId(),session.userId)}">
 							<small class="m-0 font-weight-bold mr-2"
 								th:text="${board.getNickname}"></small>
 							<span
@@ -114,6 +115,7 @@
 					</div>
 				</div>
 
+
 <!-- 게시글본문 -->
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
@@ -125,11 +127,11 @@
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
 								<h5 th:text="|[${board.getBrand()}] ${board.getProductName()}|"></h5>
-								<h2 th:attr="data-prTitle=${board.getTitle}"
+								<h2 th:attr="data-title=${board.getTitle}"
 									class="mb-0 pie-omitted display-5"
 									th:text="${board.getTitle()}">타이틀 자리</h2>
 							</div>
-							<div th:attr="data-prPrice=${board.getPricePer}"
+							<div th:attr="data-price=${board.getPricePer}"
 								class="col-12 pie-c-red p-0">
 								<h5 class="mb-0" th:text="|인/${board.getPricePer()}원|"></h5>
 							</div>
@@ -164,9 +166,9 @@
 									<div class="col-6">
 										<p>
 											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:attr="data-prNow=${board.getPersonnelNow()}"
+												th:attr="data-now=${board.getPersonnelNow()}"
 												th:text="${board.getPersonnelNow()}+' 명 /'"></small> <small
-												th:attr="data-prMax=${board.getPersonnelMax()}"
+												th:attr="data-max=${board.getPersonnelMax()}"
 												th:text="${board.getPersonnelMax()}+' 명'"></small>
 										</p>
 										<p>
@@ -344,7 +346,6 @@
 								</div>
 							</div>
 						
-						<div class="d-flex align-items-end justify-content-between">
 
 							<!-- 모달 동작 버튼 -->
 							<th:block th:if="${session.userId != board.getId() && board.getProcess().equals('1')}">
@@ -485,8 +486,6 @@
 								</div>
 							</div>
 
-						</div>
-
 					</div>
 
 				</div>
@@ -605,16 +604,17 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
 	<script>
+	const nowUrl = window.location.href;
 		$(function() {
 			/***************************************************
 			 * URL 복사기능
 			 * *************************************************/
-			const url = window.location.href;
+		
 
 			let urlInput = $("#downloadURL");
 			let urlBtn = $(".copyBtn");
 
-			urlInput.val(url);
+			urlInput.val(nowUrl);
 
 			urlBtn.click(function() {
 				new ClipboardJS('.copyBtn');

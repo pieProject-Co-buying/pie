@@ -15,27 +15,17 @@
 		boardTable = #{param3}
 	</delete>
 	<update id="countLike">
-		update ${param2} set ${param3} = (select count(*) from likeTable where
-		boardNum = #{param1}) where ${param4} = #{param1}
+		update ${param2} set likeNum = (select count(*) from liketable where
+		boardNum = #{param1} and boardTable=#{param2}) where num = #{param1}
 	</update>
 	<select id="getLike" resultType="_int">
-		select ${param1} from ${param2}
-		where ${param3} = #{param4}
+		select likeNum from ${param1}
+		where num = #{param2}
 	</select>
 
-	<select id="likeTListById">
+	<select id="likeListById" resultType="com.pie.pieProject.DTO.BoardDto">
 		SELECT *
-		FROM townBuyBoard
-		WHERE to_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='townBuyBoard')
-	</select>
-	<select id="likePListById">
-		SELECT *
-		FROM proxybuyboard
-		WHERE pr_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='proxyBuyBoard')
-	</select>
-	<select id="likeSListById">
-		SELECT *
-		FROM shareServiceBoard
-		WHERE sh_num IN (SELECT boardNum FROM likeTable where likingid = #{param1} and boardtable='shareServiceBoard')
+		FROM ${param1}
+		WHERE num IN (SELECT boardNum FROM likeTable where likingid = #{param2} and boardtable=#{param1})
 	</select>
 </mapper>

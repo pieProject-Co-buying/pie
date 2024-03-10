@@ -51,27 +51,27 @@
 					<tbody>
 						<th:block th:each="board:${list}">
 								<tr>
-									<td th:text="${board.getSh_num()}"></td>
-									<td th:text="${board.getSh_category()}"></td>
-									<td th:text="${board.getSh_id}"></td>
+									<td th:text="${board.getNum()}"></td>
+									<td th:text="${board.getCategory()}"></td>
+									<td th:text="${board.getId}"></td>
 									<th>
 										<b>
-											<a class="d-block text-truncate" style="max-width:100px;" th:href="'boardList?num='+${board.getSh_num()}" th:text="${board.getSh_title()}"></a>
+											<a class="d-block text-truncate" style="max-width:100px;" th:href="'boardList?num='+${board.getNum()}" th:text="${board.getTitle()}"></a>
 										</b>
 									</th>
 									<td>
-										<small class="badge badge-secondary" th:if="${board.getSh_process().equals('3')}"> 기간만료</small> 
-										<small class="badge badge-warning" th:if="${board.getSh_process().equals('2')}"> 모집중단</small> 
-										<small class="badge badge-success" th:if="${board.getSh_process().equals('1')}"> 모집진행중</small> 
-										<small class="badge badge-danger" th:if="${board.getSh_process().equals('0')}"> 모집완료</small>
+										<small class="badge badge-secondary" th:if="${board.getProcess().equals('3')}"> 기간만료</small> 
+										<small class="badge badge-warning" th:if="${board.getProcess().equals('2')}"> 모집중단</small> 
+										<small class="badge badge-success" th:if="${board.getProcess().equals('1')}"> 모집진행중</small> 
+										<small class="badge badge-danger" th:if="${board.getProcess().equals('0')}"> 모집완료</small>
 									</td> 
 									<td>
-										<th:block th:if="${board.getSh_process().equals('1') || board.getSh_process().equals('2')}"> <!-- || board.getSh_personnelNow() < board.getSh_personnelMax() -->									
-											<a th:href="'processRemote?page=1&num='+${board.getSh_num()}" class="badge badge-warning">
+										<th:block th:if="${board.getProcess().equals('1') || board.getProcess().equals('2')}"> <!-- || board.getPersonnelNow() < board.getPersonnelMax() -->									
+											<a th:href="'processRemote?page=1&num='+${board.getNum()}" class="badge badge-warning">
 												<b>변경</b>
 											</a>
 										</th:block>
-										<th:block th:if="${board.getSh_process().equals('0') && board.getSh_personnelNow() >= board.getSh_personnelMax()}">
+										<th:block th:if="${board.getProcess().equals('0') && board.getPersonnelNow() >= board.getPersonnelMax()}">
 											<span class="badge badge-secondary">변경불가</span>
 										</th:block>
 									</td>
