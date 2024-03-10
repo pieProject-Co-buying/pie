@@ -30,7 +30,7 @@
 				<form action="shareServiceBoard" class="pie-search">
 					<div class="dropdown" id="selectCategory">
 						<a class="btn dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
+							data-toggle="dropdown" aria-expanded="false" data-category="all"> 카테고리 </a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" data-category="OTT">OTT</a>
 							<a class="dropdown-item" data-category="game">게임</a>
@@ -117,7 +117,17 @@
 	</div>
 	<!--container-->
 	<!--wrapper-->
-
+<script>
+$(document).ready(function() {
+    $(".dropdown-item").click(function() {
+        // 클릭된 항목의 data-category 값을 가져옴
+        var selectedCategory = $(this).data("category");
+        
+        // 숨겨진 input 요소의 값을 설정
+        $("#Scategory").val(selectedCategory);
+    });
+});
+</script>
 	<!--더보기 스크립트-->
 	<script>
 		$(function () {
@@ -139,8 +149,8 @@
 			all.push(...books);
 			for (i = 0; i < all.length; i++) {
 				dropdown.append('<a class="dropdown-item">' + all[i] + '</a>')
-			}
-			let selectInit = $("#selectCategory .dropdown-toggle"); */
+			}*/
+			let selectInit = $("#selectCategory .dropdown-toggle");
 
 			let card = $(".col-md-4");
 			let strCard = ".col-md-4:hidden";
@@ -148,7 +158,7 @@
 			card.hide();
 			card.slice(0, 6).show();
 
-			/*
+			
 			
 			categories.click(function () {
 				let movieCards = $(".col-md-4[data-category='OTT']");
@@ -214,7 +224,7 @@
 				 for (i = 0; i < list.length; i++) {
 					dropdown.append('<a class="dropdown-item">' + list[i] + '</a>')
 				} 
-			});*/
+			});
 			
 			
 			/****************************************************/

@@ -157,7 +157,6 @@ function kakaoPay() {
 				buyer_postcode: member.postCode
 			}, function(rsp) {
 				if (rsp.success) {
-
 					var result = {
 						"pay_num" : numID,
 						"buyer_id": member.id,

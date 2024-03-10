@@ -22,6 +22,8 @@ public interface IShareServiceDao {
 	public ArrayList<ShareServiceDto> searchTitle(String category,String keyword);
 	// 제목,내용 기반 검색
 	public ArrayList<ShareServiceDto> searchBoard(String keyword);
+	// 카테고리 검색
+	public ArrayList<ShareServiceDto> searchCategory(String category);
 	// 게시물 작성
 	public void insertBoard(ShareServiceDto dto);
 	// 내가 쓴 게시물 조회
