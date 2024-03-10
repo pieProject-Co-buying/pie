@@ -72,11 +72,7 @@
                     <hr>
 
        
-
  
-                    
-                    
-
 
 
 
@@ -85,6 +81,18 @@
 
 		
 					<div class="row mt-5">
+												
+						<ul class="">
+						    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown btn">
+						        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> 진행상태변경 </a>
+						        <div class="dropdown-menu">
+						            <a class="dropdown-item" id="1">진행중</a>
+						            <a class="dropdown-item" id="2">승인</a>
+						            <a class="dropdown-item" id="3">반려</a>
+						        </div>
+						    </li>     						
+						</ul>  
+						 	
 						<div class="col text-right">
 							 <a class="btn pie-btn-red" th:href="@{'businessApplyUpdateForm?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">수정</a>
 							 <a class="btn pie-btn-red"th:href="@{'deletebusApply?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">삭제</a>
