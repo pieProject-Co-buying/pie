@@ -98,9 +98,9 @@
 					<div class="form-group row pt-3">
 						<div class="col-md-6 pt-3">
 							<label for=""> <small class="pl-1">모집인원</small>
-							</label> 
-							<input type="number" class="form-control" id="personnelMax"
-								name="personnelMax" min="1" max="300" maxlength="3" value="2" readonly
+							</label> <input type="number" class="form-control" id="personnelMax"
+								name="personnelMax" min="1" max="300" maxlength="3" value="2"
+								readonly
 								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 						</div>
 						<div class="col-md-6 pt-3">
@@ -178,8 +178,10 @@
 										".dropdown-toggle").removeClass(
 										"disabled");
 							}
-							console.log(select1);
 
+							$(".sh-categories2").siblings(".dropdown-toggle")
+									.text("지원서비스");
+							$("#brand").val('');
 							$(".sh-categories2").empty(); // 선택 시 이전 내용 지우기
 
 							if (select1 in data) {
@@ -213,6 +215,11 @@
 											}
 
 											if (select2) {
+												$(".sh-categories3").siblings(
+														".dropdown-toggle")
+														.text("플랜선택");
+												$("#productName").val('');
+
 												$(".sh-categories3").empty();
 
 												let subcategoryData = data[$(
@@ -228,20 +235,40 @@
 											}
 										});
 
-						$(".sh-categories3").on(
-								"click",
-								".dropdown-item",
-								function() {
-									let idx=$(this).index();
-									let select3 = $(this).data("plan");
-									$(this).parent().siblings(
-											".dropdown-toggle").text(select3);
-									$("#productName").val(select3);
+						$(".sh-categories3")
+								.on(
+										"click",
+										".dropdown-item",
+										function() {
+											let idx = $(this).index();
+											let select3 = $(this).data("plan");
+											$(this).parent().siblings(
+													".dropdown-toggle").text(
+													select3);
+											$("#productName").val(select3);
 
-									$("#personnelMax").val(data[$("#h-input").val()][$("#brand").val()][idx].person);
-									$("#price_total").val(data[$("#h-input").val()][$("#brand").val()][idx].price);
-									$("#price_per").val(Math.ceil($("#price_total").val()/$("#personnelMax").val()));
-								})
+											$("#personnelMax")
+													.val(
+															data[$("#h-input")
+																	.val()][$(
+																	"#brand")
+																	.val()][idx].person);
+											$("#price_total")
+													.val(
+															data[$("#h-input")
+																	.val()][$(
+																	"#brand")
+																	.val()][idx].price);
+											$("#price_per")
+													.val(
+															Math
+																	.ceil($(
+																			"#price_total")
+																			.val()
+																			/ $(
+																					"#personnelMax")
+																					.val()));
+										})
 					}
 				});
 	</script>

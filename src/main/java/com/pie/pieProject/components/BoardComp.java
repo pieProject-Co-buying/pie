@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.pie.pieProject.DAO.IFriendDao;
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
@@ -66,7 +67,6 @@ public class BoardComp {
 			text = "게임";
 		else if (str.equals("bookAndMusic"))
 			text = "도서/음악";
-
 		return text;
 	}
 
@@ -99,11 +99,41 @@ public class BoardComp {
 
 		return text;
 	}
-
+	
+	public List<BoardDto> translateList(List<BoardDto> list) {
+		for (BoardDto d : list) {
+			d.setCategory(translate(d.getCategory()));
+			d.setThumbnail(setThumbNail(d.getProductImg()));
+		}
+		return list;
+	}
+	
+	public List<BoardDto> setTURL(List<BoardDto> list) {
+		for (BoardDto d : list) {
+			d.setUrl("townBuyproduct?num="+d.getNum());
+		}
+		return list;
+	}
+	
+	public List<BoardDto> setPURL(List<BoardDto> list) {
+		for (BoardDto d : list) {
+			d.setUrl("viewProxyBoard?num="+d.getNum());
+		}
+		return list;
+	}
+	
+	public List<BoardDto> setSURL(List<BoardDto> list) {
+		for (BoardDto d : list) {
+			d.setUrl("boardList?num="+d.getNum());
+		}
+		return list;
+	}
+	
 	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list) {
 		for (ProxyBuyBoardDto d : list) {
 			d.setCategory(translate(d.getCategory()));
 			d.setThumbnail(setThumbNail(d.getProductImg()));
+			d.setUrl("viewProxyBoard?num="+d.getNum());
 		}
 		return list;
 	}
@@ -116,6 +146,7 @@ public class BoardComp {
 		for (TownBuyBoardDto d : list) {
 			d.setCategory(translate(d.getCategory()));
 			d.setThumbnail(setThumbNail(d.getProductImg()));
+			d.setUrl("townBuyproduct?num="+d.getNum());
 		}
 		return list;
 	}
@@ -124,6 +155,7 @@ public class BoardComp {
 		for (ShareServiceDto d : list) {
 			d.setCategory(translate(d.getCategory()));
 			d.setThumbnail(setThumbNail(d.getProductImg()));
+			d.setUrl("boardList?num="+d.getNum());
 		}
 		return list;
 	}

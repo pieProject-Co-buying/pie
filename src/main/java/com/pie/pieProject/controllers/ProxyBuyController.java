@@ -193,13 +193,15 @@ public class ProxyBuyController {
 			List<ProxyBuyBoardDto> list2 = dao.listDaoByCategoryNumber(dto.getFeed2(), 10);
 			List<ProxyBuyBoardDto> list3 = dao.listDaoByCategoryNumber(dto.getFeed3(), 10);
 
-			Bcomp.translateProxyList(list1);
-			Bcomp.translateProxyList(list2);
-			Bcomp.translateProxyList(list3);
+			
+			System.out.println("list1:"+list1);
+			System.out.println("list2:"+list2);
+			System.out.println("list3:"+list3);
+			
 
-			model.addAttribute("list1", list1);
-			model.addAttribute("list2", list2);
-			model.addAttribute("list3", list3);
+			model.addAttribute("list1", Bcomp.translateProxyList(list1));
+			model.addAttribute("list2", Bcomp.translateProxyList(list2));
+			model.addAttribute("list3", Bcomp.translateProxyList(list3));
 			
 			model.addAttribute("text1" , Bcomp.listText(dto.getFeed1()));
 			model.addAttribute("text2" , Bcomp.listText(dto.getFeed2()));

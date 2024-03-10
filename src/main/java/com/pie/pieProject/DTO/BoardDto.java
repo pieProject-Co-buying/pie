@@ -37,4 +37,6 @@ public class BoardDto {
 	private String thumbnail; // 썸네일
 	private String brand; // 브랜드
 	private String productName; //제품명
+	
+	private String url; //링크
 }
