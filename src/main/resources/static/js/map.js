@@ -192,6 +192,12 @@ $.ajax({
 				infowindow.close();
 			};
 		}
+		
+		let keys = ["food","baby","beautyAndFashion","pet","life","etc"]
+		for(i=0; i<keys.length; i++){
+			if(markerGroups[keys[i]]==undefined) markerGroups[keys[i]] = [];
+		}
+		if(markerGroupsByDay['1']==undefined) markerGroupsByDay['1'] = [];
 
 		let mapBtns = $(".categoryBtn");
 		let nums = {
@@ -203,6 +209,9 @@ $.ajax({
 			etcNum: markerGroups["etc"].length,
 			endNum: markerGroupsByDay['1'].length
 		}
+		
+		
+		
 
 		let numsSum = nums.foodNum + nums.babyNum + nums.bFNum + nums.petNum + nums.lifeNum + nums.etcNum
 

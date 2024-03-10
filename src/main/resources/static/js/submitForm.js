@@ -37,7 +37,7 @@ function submitForm() {
 		},
 		success: function(response) {
 			console.log('전송 성공', response);
-			$("#files").val(response);
+			$("#fileStr").val(response);
 			form.submit();
 		},
 		error: function(xhr, desc, err) {

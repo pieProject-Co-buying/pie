@@ -23,32 +23,31 @@
 	<div class="container">
 		<input type="hidden" id="tableName" value="t" />
 		<div class="row">
-		<!-- lg이상화면 작성자 프로필 -->
+			<!-- lg이상화면 작성자 프로필 -->
 			<div class="col-lg-3 d-none d-lg-block">
-
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
-							<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}"
+							<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
 							<div
 								class="card-body px-2 d-flex align-items-center justify-content-center flex-wrap">
 								<h5 class="card-title text-center mb-0 mr-2"
-									th:text="${board.getTo_nickname}">Card title</h5>
-								<th:block th:if="${!#strings.equals(board.getTo_id(),session.userId)}">
+									th:text="${board.getNickname}">Card title</h5>
+								<th:block
+									th:if="${!#strings.equals(board.getId(),session.userId)}">
 									<span
-										th:unless="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
+										th:unless="${@boardComp.rUFollowing(session.userId,board.getId())}"
 										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn py-0"
-										th:attr="data-following = ${board.getTo_id()}"> <span
+										th:attr="data-following = ${board.getId()}"> <span
 										class="small">팔로우</span>
 									</span>
 									<span
-										th:if="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
+										th:if="${@boardComp.rUFollowing(session.userId,board.getId())}"
 										class="btn pie-btn-outline-red-custom btn-sm rounded-pill follow-btn unfollow py-0"
-										data-hover="언팔로우"
-										th:attr="data-following = ${board.getTo_id()}"> <span
-										class="small">팔로잉</span>
+										data-hover="언팔로우" th:attr="data-following = ${board.getId()}">
+										<span class="small">팔로잉</span>
 									</span>
 								</th:block>
 							</div>
@@ -60,15 +59,17 @@
 					<div class="col">
 						<p>
 							<small class="font-weight-bold">모집인원</small><br /> <small
-								th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
+								th:text="${board.getPersonnelNow()+' 명 / '+board.getPersonnelMax()+' 명'}"></small>
 						</p>
+						<input type="hidden" th:value="${board.getPersonnelNow()}" id="perNow"/>
+						
 						<p id="processNow">
 
 							<small class="font-weight-bold">진행현황</small><br />
-							<th:block th:if="${board.getTo_process().equals('1')}">
+							<th:block th:if="${board.getProcess().equals('1')}">
 								<small class="badge badge-success" th:text="모집진행중"></small>
 							</th:block>
-							<th:block th:if="${board.getTo_process().equals('0')}">
+							<th:block th:if="${board.getProcess().equals('0')}">
 								<small class="badge badge-danger" th:text="모집마감"></small>
 							</th:block>
 						</p>
@@ -77,81 +78,83 @@
 
 
 							<small class="font-weight-bold">모집시작</small><br /> <small
-								th:text="${board.getTo_registDay()}"></small>
+								th:text="${board.getRegistDay()}"></small>
 						</p>
 						<p>
 							<small class="font-weight-bold">모집마감</small><br /> <small
-								th:text="${board.getTo_deadLine()}"></small>
+								th:text="${board.getDeadLine()}"></small>
 						</p>
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- md 이하 화면 작성자 프로필 -->
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getTo_profileImg()}}"
+					<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
 						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex">
-						<th:block th:if="${!#strings.equals(board.getTo_id(),session.userId)}">
+						<th:block
+							th:if="${!#strings.equals(board.getId(),session.userId)}">
 							<small class="m-0 font-weight-bold mr-2"
-								th:text="${board.getTo_nickname}"></small>
+								th:text="${board.getNickname}"></small>
 							<span
-								th:unless="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
+								th:unless="${@boardComp.rUFollowing(session.userId,board.getId())}"
 								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn py-0"
-								th:attr="data-following = ${board.getTo_id()}"> <span
+								th:attr="data-following = ${board.getId()}"> <span
 								class="small">팔로우</span>
 							</span>
 							<span
-								th:if="${@boardComp.rUFollowing(session.userId,board.getTo_id())}"
+								th:if="${@boardComp.rUFollowing(session.userId,board.getId())}"
 								class="btn btn-outline-secondary btn-sm rounded-pill follow-btn unfollow py-0"
-								data-hover="언팔로우" th:attr="data-following = ${board.getTo_id()}">
+								data-hover="언팔로우" th:attr="data-following = ${board.getId()}">
 								<span class="small">팔로잉</span>
 							</span>
 						</th:block>
 					</div>
 				</div>
-				
+
 				<!-- 게시글본문 -->
 				<div class="row p-0">
 					<div class="col-12 pie-imgheader p-0">
-						<img th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[0]}}"
+						<img th:src="@{'/imgs/test/' + ${board.getProductImgs()[0]}}"
 							alt="" class="img-fluid hj-detail-img">
 						<div class="pie-viewCategory ml-3">
-							<h5 th:text="${board.getTo_category()}"></h5>
+							<h5 th:text="${board.getCategory()}"></h5>
 						</div>
 						<div class="pie-viewTitle row ml-3 align-items-baseline pb-3">
 							<div class="col-12 p-0 mb-1">
-								<h2 th:attr="data-prTitle=${board.getTo_title}"
+								<h5 th:text="|[${board.getBrand()}] ${board.getProductName()}|"></h5>
+								<h2 th:attr="data-prTitle=${board.getTitle}"
 									class="mb-0 pie-omitted display-5"
-									th:text="${board.getTo_title()}">타이틀 자리</h2>
+									th:text="${board.getTitle()}">타이틀 자리</h2>
 							</div>
-							<div th:attr="data-prPrice=${board.getTo_pricePer}"
+							<div th:attr="data-prPrice=${board.getPricePer}"
 								class="col-12 pie-c-red p-0">
-								<h5 class="mb-0" th:text="|인/${board.getTo_pricePer()}원|"></h5>
+								<h5 class="mb-0" th:text="|인/${board.getPricePer()}원|"></h5>
 							</div>
 
 						</div>
 					</div>
-					
+
 					<!-- 이미지 갤러리 -->
 					<div class="col-12 px-5">
-					<div
-						class="d-flex justify-content-center p-2 fancyBox-container mx-auto">
-						<th:block
-							th:each="i : ${#numbers.sequence(0,board.getTo_productImgs().length-1)}">
-							<a class="d-block mx-1" data-fancybox="gallery"
-								th:attr="data-src='/imgs/test/'+ ${board.getTo_productImgs()[i]}">
-								<img th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[i]}}"
-								width="100" height="100" alt="" />
-							</a>
-						</th:block>
+						<div
+							class="d-flex justify-content-center p-2 fancyBox-container mx-auto">
+							<th:block
+								th:each="i : ${#numbers.sequence(0,board.getProductImgs().length-1)}">
+								<a class="d-block mx-1" data-fancybox="gallery"
+									th:attr="data-src='/imgs/test/'+ ${board.getProductImgs()[i]}">
+									<img th:src="@{'/imgs/test/' + ${board.getProductImgs()[i]}}"
+									width="100" height="100" alt="" />
+								</a>
+							</th:block>
+						</div>
+						<hr class="mt-0 d-md-none" />
 					</div>
-					<hr class="mt-0 d-md-none"/>
-					</div>
-					
+
 					<!-- 모집관련 정보 (md 이하) -->
 					<div class="col-12 px-5 mb-5">
 						<div class="row d-lg-none">
@@ -161,15 +164,15 @@
 									<div class="col-6">
 										<p>
 											<small class="font-weight-bold">모집인원</small><br /> <small
-												th:text="${board.getTo_personnelNow()+' 명 / '+board.getTo_personnelMax()+' 명'}"></small>
+												th:text="${board.getPersonnelNow()+' 명 / '+board.getPersonnelMax()+' 명'}"></small>
 										</p>
 										<p>
 
 											<small class="font-weight-bold">진행현황</small><br />
-											<th:block th:if="${board.getTo_process().equals('1')}">
+											<th:block th:if="${board.getProcess().equals('1')}">
 												<small class="badge badge-success" th:text="모집진행중"></small>
 											</th:block>
-											<th:block th:if="${board.getTo_process().equals('0')}">
+											<th:block th:if="${board.getProcess().equals('0')}">
 												<small class="badge badge-danger" th:text="모집마감"></small>
 											</th:block>
 
@@ -179,61 +182,52 @@
 										<p>
 
 											<small class="font-weight-bold">모집시작</small><br /> <small
-												th:text="${board.getTo_registDay()}"></small>
+												th:text="${board.getRegistDay()}"></small>
 										</p>
 										<p>
 											<small class="font-weight-bold">모집마감</small><br /> <small
-												th:text="${board.getTo_registDay()}"></small>
+												th:text="${board.getRegistDay()}"></small>
 										</p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<hr class="mt-0"/>
-						
+						<hr class="mt-0" />
+
 						<!-- 태그 -->
-						<div class="w-100 py-5" th:utext="${board.getTo_content()}"></div>
+						<div class="w-100 py-5" th:utext="${board.getContent()}"></div>
 						<div class="">
-							<small> <th:block th:if="${board.getTo_tags()!=null}">
+							<small> <th:block th:if="${board.getTags()!=null}">
 									<th:block
-										th:each="i: ${#numbers.sequence(1, board.getTo_tags()?.length - 1)}">
+										th:each="i: ${#numbers.sequence(1, board.getTags()?.length - 1)}">
 										<span class="badge badge-light"
-											th:text="|#${board.getTo_tags()[i]}|">#태그</span>
+											th:text="|#${board.getTags()[i]}|">#태그</span>
 									</th:block>
 								</th:block>
 							</small>
 						</div>
-						
+
 						<!-- 수정 / 삭제 버튼 -->
 						<div class="d-flex justify-content-between align-items-center">
-
-							<div class="mt-3" th:if="${session.userId == board.getTo_id()}">
-							<!-- 수정 -->
-								<a class="mr-2"
-									th:href="@{'updateTownProductForm?num=' + ${board.getTo_num()}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-pencil-fill"
-										viewBox="0 0 16 16">
-					                <path
-											d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
-					            </svg>
-								</a> 
+							<div class="mt-3" th:if="${session.userId == board.getId()}">
+								<!-- 수정 -->
+								<a class="mr-2 updateIconBtn"
+									th:href="@{'updateTownProductForm?num=' + ${board.getNum()}}">
+									<span th:if="${board.getPersonnelNow()>1}" class="pie-icons pie-update-icon disabled"></span>
+									<span th:if="${board.getPersonnelNow()<=1}" class="pie-icons pie-update-icon"></span>
+								</a>
 								<!-- 삭제 -->
-								<a class=""
-									th:href="@{'deleteTownProduct?num=' + ${board.getTo_num()}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-										fill="currentColor" class="bi bi-trash-fill"
-										viewBox="0 0 16 16">
-					                <path
-											d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-					            </svg>
+								<a class="deleteIconBtn"
+									th:href="@{'deleteTownProduct?num=' + ${board.getNum()}}">
+									<span th:if="${board.getPersonnelNow()>1}" class="pie-icons pie-delete-icon disabled"></span>
+									<span th:if="${board.getPersonnelNow()<=1}" class="pie-icons pie-delete-icon"></span>
 								</a>
 							</div>
-							
+
 							<!-- 조회수 / 좋아요 / 채팅 / 공유 -->
 							<div class="d-flex align-items-center ml-auto">
 								<span><small class="mr-1">조회수</small><small
-									th:text="${board.getTo_hit()}"></small></span>
+									th:text="${board.getHit()}"></small></span>
 
 								<th:block th:if="${like}">
 									<span class="pie-heart-icon pie-icons mx-2 active"></span>
@@ -243,11 +237,11 @@
 									<span class="pie-heart-icon pie-icons mx-2"></span>
 								</th:block>
 
-								<small id="likeCount" th:text="${board.getTo_like()}">12</small>
+								<small id="likeCount" th:text="${board.getLikeNum()}">12</small>
 
 								<span class="pie-share-icon pie-icons mx-3"></span> <a
 									class="pie-chat-icon pie-icons"
-									th:href="@{'room?mem='+${board.getTo_id}}"></a>
+									th:href="@{'room?mem='+${board.getId}}"></a>
 
 								<!-- Modal -->
 								<div class="modal fade" id="shareModal" tabindex="-1"
@@ -286,7 +280,7 @@
 							</div>
 						</div>
 						<hr>
-						
+
 						<!-- 참여중인 멤버확인하기 -->
 						<div>
 							<div class="py-2 pb-4 d-flex align-items-center dropup"
@@ -347,42 +341,50 @@
 							</div>
 
 							<!-- 모달 동작 버튼 -->
-							<th:block th:if="${session.userId != board.getTo_id() && board.getTo_process().equals('1')}">
+							<th:block
+								th:if="${session.userId != board.getId() && board.getProcess().equals('1')}">
 								<!-- 참여 -->
-								<button th:if="${!in&&!cancel}" type="button" class="btn pie-btn-red btn-block"
-									data-toggle="modal" data-target="#staticBackdrop">
+								<button th:if="${!in&&!cancel}" type="button"
+									class="btn pie-btn-red btn-block" data-toggle="modal"
+									data-target="#staticBackdrop">
 									<small>참여하기</small>
 								</button>
 								<!-- 이미 참여한 경우 -->
-								<button th:if="${in && !cancel}" type="button" class="btn pie-btn-red btn-block" disabled>
+								<button th:if="${in && !cancel}" type="button"
+									class="btn pie-btn-red btn-block" disabled>
 									<small>이미 참여가 완료되었습니다.</small>
 								</button>
-								<a th:href="@{'cancelBuying?num='+${board.getTo_num()}}" th:if="${in && !cancel}" type="button" class="btn pie-btn-outline-red-custom btn-block">
-									<small>참여 취소</small>
+								<a th:href="@{'cancelBuying?num='+${board.getNum()}}"
+									th:if="${in && !cancel}" type="button"
+									class="btn pie-btn-outline-red-custom btn-block"> <small>참여
+										취소</small>
 								</a>
-								<button th:if="${!in&&cancel}" type="button" class="btn pie-btn-outline-red-custom btn-block" disabled>
+								<button th:if="${!in&&cancel}" type="button"
+									class="btn pie-btn-outline-red-custom btn-block" disabled>
 									<small>참여 취소한 모집글에 다시 참여할 수 없습니다.</small>
 								</button>
 							</th:block>
-							
+
 							<!--게시글 작성자가 본인일 경우-->
-							<th:block th:if="${session.userId eq board.getTo_id() && board.getTo_process().equals('1')}">
+							<th:block
+								th:if="${session.userId eq board.getId() && board.getProcess().equals('1')}">
 								<button type="button" class="btn pie-btn-red btn-block" disabled>
 									<small>작성자는 신청이 불가합니다.</small>
 								</button>
 							</th:block>
-							
-								<!--모집 마감-->
-							<button th:if="${board.getTo_process().equals('0')}"
-								type="button" class="btn btn-secondary btn-block"
-								data-toggle="modal" data-target="#staticBackdrop" disabled>
+
+							<!--모집 마감-->
+							<button th:if="${board.getProcess().equals('0')}" type="button"
+								class="btn btn-secondary btn-block" data-toggle="modal"
+								data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
 							</button>
-							
+
 							<!--작정자에 의한 모집중단-->
-							<button th:if="${board.getTo_process().equals('2')}"
-    							id="paymentButton" type="button" class="btn pie-btn-red btn-block" disabled>
-    							<small>관리자에 의해 중단된 모집입니다.</small>
+							<button th:if="${board.getProcess().equals('2')}"
+								id="paymentButton" type="button"
+								class="btn pie-btn-red btn-block" disabled>
+								<small>관리자에 의해 중단된 모집입니다.</small>
 							</button>
 
 							<!-- Modal -->
@@ -413,18 +415,17 @@
 
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
-											<img
-												th:src="@{'/imgs/test/' + ${board.getTo_productImgs()[0]}}"
+											<img th:src="@{'/imgs/test/' + ${board.getProductImgs()[0]}}"
 												alt="" class="img-fluid">
 											<h5 class="mb-3 mt-5 text-center"
-												th:text="|함께하면 ${board.getTo_pricePer()}원에 구매할 수 있어요|"></h5>
+												th:text="|함께하면 ${board.getPricePer()}원에 구매할 수 있어요|"></h5>
 										</div>
 
 
 										<div class="modal-footer">
 
 											<!--											<a type="button" class="btn btn-outline-secondary"
-												th:href="@{'townBuyResult?num='+${board.getTo_num()}}">좋아요!
+												th:href="@{'townBuyResult?num='+${board.getNum()}}">좋아요!
 												함께해요</a>-->
 
 											<button type="button" class="btn btn-outline-secondary"
@@ -454,7 +455,7 @@
 		</div>
 
 	</div>
-	
+
 	<div class="container mt-5 border-bottom">
 		<div class="row">
 			<div class="col-12">
@@ -470,26 +471,34 @@
 				<div class="owl-carousel owl-theme owl-loaded loop">
 					<div class="owl-stage-outer">
 						<div class="owl-stage">
-							<th:block th:each="item : ${list}" th:if="${item.getTo_process().equals('1')}">
-								<th:block th:if="${item.to_num==board.getTo_num()}">
+							<th:block th:each="item : ${list}"
+								th:if="${item.getProcess().equals('1')}">
+								<th:block th:if="${item.num==board.getNum()}">
 									<div class="owl-item text-center">
-										<small><b>&#9656;현재 게시물&#9666;</b></small>
-										<a th:href="'townBuyproduct?num='+${item.to_num}" class="shareActive ">
-											<img th:src="@{'/imgs/test/' + ${item.to_productImg}}" class="img-fluid" style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2">
-											<b><span class="badge badge-info" th:text="${item.to_category}"></span></b>
-											<b><span class="d-block text-truncate" style="max-width:100%" th:text="${item.to_title}"></span></b>
-											</small>
+										<small><b>&#9656;현재 게시물&#9666;</b></small> <a
+											th:href="'townBuyproduct?num='+${item.num}"
+											class="shareActive "> <img
+											th:src="@{'/imgs/test/' + ${item.thumbnail}}"
+											class="img-fluid"
+											style="width: 100%; height: 200px; border-radius: 20px">
+											<small class="mt-2"> <b><span
+													class="badge badge-info" th:text="${item.category}"></span></b>
+												<b><span class="d-block text-truncate"
+													style="max-width: 100%" th:text="${item.title}"></span></b>
+										</small>
 										</a>
-									</div>	
+									</div>
 								</th:block>
-								<th:block th:if="${item.to_num!=board.getTo_num()}">
+								<th:block th:if="${item.num!=board.getNum()}">
 									<div class="owl-item text-center">
-										<a th:href="'townBuyproduct?num='+${item.to_num}" class="">
-											<img th:src="@{'/imgs/test/' + ${item.to_productImg}}" class="img-fluid" style="width: 100%; height: 200px; border-radius: 20px">
-											<small class="mt-2">
-											<b><span class="badge badge-info" th:text="${item.to_category}"></span></b>
-											<b><span class="d-block text-truncate" style="max-width:100%" th:text="${item.to_title}"></span></b>
+										<a th:href="'townBuyproduct?num='+${item.num}" class=""> <img
+											th:src="@{'/imgs/test/' + ${item.thumbnail}}"
+											class="img-fluid"
+											style="width: 100%; height: 200px; border-radius: 20px">
+											<small class="mt-2"> <b><span
+													class="badge badge-info" th:text="${item.category}"></span></b>
+												<b><span class="d-block text-truncate"
+													style="max-width: 100%" th:text="${item.title}"></span></b>
 										</small>
 										</a>
 									</div>
@@ -513,7 +522,7 @@
 
 	<!-- 수정 / 삭제 -->
 
-<script>
+	<script>
 		$('.loop').owlCarousel({
 			center : false,
 			items : 5,
@@ -553,8 +562,19 @@
 		} */
 	</script>
 	<script>
-		if ($("#processNow").find(".badge").text() == "완료") {
+		if ($("#processNow").find(".badge").text() == "모집마감") {
 			alert("모집이 완료된 게시글이예요!")
+		}
+		
+		if($("#perNow").val()>1){
+			$(".updateIconBtn").on("click",function(e){
+				e.preventDefault();
+				alert("모집이 진행중인 글은 수정할 수 없습니다.");
+			})
+			$(".deleteIconBtn").on("click",function(e){
+				e.preventDefault();
+				alert("모집이 진행중인 글은 삭제할 수 없습니다.");
+			})
 		}
 	</script>
 
@@ -610,19 +630,19 @@
 	<script type="text/javascript" th:inline="javascript">
 		var board = /*[[${board}]]*/null;
 
-		var to_personnelMax = null;
-		var to_personnelNow = null;
+		var personnelMax = null;
+		var personnelNow = null;
 
 		if (board) {
-			to_personnelMax = board.to_personnelMax;
-			to_personnelNow = board.to_personnelNow;
+			personnelMax = board.personnelMax;
+			personnelNow = board.personnelNow;
 		}
 
 		$(document).ready(function() {
 
 			var applyButton = $("#applyBtn");
 
-			if (to_personnelNow >= to_personnelMax) {
+			if (personnelNow >= personnelMax) {
 				applyButton.prop('disabled', true);
 				applyButton.addClass('btn-secondary');
 				applyButton.text('모집마감');
@@ -634,19 +654,19 @@
 
 			var applyButton = $("#applyBtn");
 
-			if (to_personnelNow >= to_personnelMax) {
+			if (personnelNow >= personnelMax) {
 				applyButton.prop('disabled', true);
 				applyButton.addClass('btn-secondary');
 				applyButton.text('모집마감');
 
-				console.log(board.to_personnelMax);
-				console.log(board.to_personnelNow);
+				console.log(board.personnelMax);
+				console.log(board.personnelNow);
 			}
 
 			$(document).ready(function() {
 				var applyButton = $("#applyBtn");
 
-				if (to_personnelNow >= to_personnelMax) {
+				if (personnelNow >= personnelMax) {
 					// 모집이 마감되었을 때 버튼의 속성과 텍스트를 변경합니다.
 					applyButton.prop('disabled', true);
 					applyButton.addClass('btn-secondary');

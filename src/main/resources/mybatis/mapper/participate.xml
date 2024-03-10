@@ -11,15 +11,15 @@
 		#{param2}, #{param3},sysdate,'1','1')
 	</insert>
 	<select id="getTownboard"
-		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		resultType="com.pie.pieProject.DTO.BoardDto">
 		SELECT *
 		FROM townBuyBoard
 		JOIN checkParticipate ON
 		checkParticipate.boardNum
-		= townBuyBoard.to_num
+		= townBuyBoard.num
 		WHERE
 		checkParticipate.mem = #{param1} and checkParticipate.tableName = 'townBuyBoard' order
-		by townBuyBoard.to_num desc
+		by townBuyBoard.num desc
 	</select>
 	<select id="getDate" resultType="string">
 		select partiDate from

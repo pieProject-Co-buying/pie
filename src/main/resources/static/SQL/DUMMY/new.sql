@@ -1,27 +1,29 @@
 -- townBoard 생성         
 create table townBuyBoard (
-    to_num integer unique not null, -- 게시글 번호
-    to_id varchar2(16) not null, -- 게시글 ID
-    to_nickname  varchar2(30) not null, -- 게시글 닉네임
-    to_category varchar2(30) not null, -- 물품 카테고리
-    to_premium char(1), -- 프리미엄 회원 여부
-    to_title varchar2(150) not null, -- 게시글 제목
-    to_content varchar2(3000) not null, -- 게시글 내용
-    to_profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
-    to_productImg varchar2(550), -- 게시글 내 이미지
-    to_hit number, -- 조회수 추가
-    to_tag varchar2(50), -- 게시글 태그
-    to_address varchar2(150), -- 작성자 주소
-    to_process char(1), -- 모집 진행 여부
-    to_registDay date default sysdate, -- 게시글 등록날짜
-    to_updateDay date default sysdate, -- 게시글 수정 날짜
-    to_deadLine date, -- 모집 마감일자
-    to_personnelMax integer not null, -- 최대 모집인원
-    to_personnelNow integer, -- 현재 모집인원
-    to_priceTotal number, -- 가격 총합
-    to_pricePer number, -- 인당 가격
-    to_ip varchar2(32), -- 게시글 작성 Ip
-    to_like number -- 게시글 좋아요
+    num integer unique not null, -- 게시글 번호
+    id varchar2(16) not null, -- 게시글 ID
+    nickname  varchar2(30) not null, -- 게시글 닉네임
+    category varchar2(30) not null, -- 물품 카테고리
+    premium char(1), -- 프리미엄 회원 여부
+    title varchar2(150) not null, -- 게시글 제목
+    content varchar2(3000) not null, -- 게시글 내용
+    profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
+    productImg varchar2(1000), -- 게시글 내 이미지
+    hit number, -- 조회수 추가
+    tag varchar2(50), -- 게시글 태그
+    address varchar2(150), -- 작성자 주소
+    process char(1), -- 모집 진행 여부
+    registDay date default sysdate, -- 게시글 등록날짜
+    updateDay date default sysdate, -- 게시글 수정 날짜
+    deadLine date, -- 모집 마감일자
+    personnelMax integer not null, -- 최대 모집인원
+    personnelNow integer, -- 현재 모집인원
+    priceTotal number, -- 가격 총합
+    pricePer number, -- 인당 가격
+    ip varchar2(32), -- 게시글 작성 Ip
+    likeNum number, -- 게시글 좋아요
+    brand varchar2(300),
+    productName varchar2(300)
 );
 
 -- townBoard 시퀀스 생성
@@ -29,26 +31,28 @@ create sequence to_num nocache nocycle;
 
 -- 대리공동구매 보드
 create table proxyBuyBoard (
-    pr_num integer unique not null, -- 게시글 번호
-    pr_id varchar2(16) not null, -- 게시글 ID
-    pr_nickname  varchar2(30) not null, -- 게시글 닉네임
-    pr_category varchar2(30) not null, -- 물품 카테고리
-    pr_title varchar2(150) not null, -- 게시글 제목
-    pr_content varchar2(3000) not null, -- 게시글 내용
-    pr_profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
-    pr_productImg varchar2(550), -- 게시글 내 이미지
-    pr_hit number default 0, -- 조회수 추가
-    pr_tag varchar2(50), -- 게시글 태그
-    pr_process char(1), -- 모집 진행 여부
-    pr_registDay date default sysdate, -- 게시글 등록날짜
-    pr_updateDay date default sysdate, -- 게시글 수정 날짜
-    pr_deadLine date, -- 모집 마감일자
-    pr_personnelMax integer not null, -- 최대 모집인원
-    pr_personnelNow integer, -- 현재 모집인원
-    pr_priceTotal number, -- 가격 총합
-    pr_pricePer number, -- 인당 가격
-    pr_ip varchar2(32), -- 게시글 작성 Ip
-    pr_like number -- 게시글 좋아요
+    num integer unique not null, -- 게시글 번호
+    id varchar2(16) not null, -- 게시글 ID
+    nickname  varchar2(30) not null, -- 게시글 닉네임
+    category varchar2(30) not null, -- 물품 카테고리
+    title varchar2(150) not null, -- 게시글 제목
+    content varchar2(3000) not null, -- 게시글 내용
+    profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
+    productImg varchar2(550), -- 게시글 내 이미지
+    hit number default 0, -- 조회수 추가
+    tag varchar2(50), -- 게시글 태그
+    process char(1), -- 모집 진행 여부
+    registDay date default sysdate, -- 게시글 등록날짜
+    updateDay date default sysdate, -- 게시글 수정 날짜
+    deadLine date, -- 모집 마감일자
+    personnelMax integer not null, -- 최대 모집인원
+    personnelNow integer, -- 현재 모집인원
+    priceTotal number, -- 가격 총합
+    pricePer number, -- 인당 가격
+    ip varchar2(32), -- 게시글 작성 Ip
+    likeNum number, -- 게시글 좋아요
+     brand varchar2(300),
+    productName varchar2(300)
 );
 
 -- 대리공동구매 시퀀스
@@ -56,53 +60,62 @@ create sequence pr_num nocache nocycle;
 
 -- 서비스 공유 보드
 create table shareServiceBoard (
-    sh_num integer not null, -- 게시글 번호
-    sh_id varchar2(16) not null, -- 게시글 ID
-    sh_nickname  varchar2(30) not null, -- 게시글 닉네임
-    sh_category varchar2(30) not null, -- 물품 카테고리
-    sh_premium char(1), -- 프리미엄 회원 여부
-    sh_title varchar2(150) not null, -- 게시글 제목
-    sh_content varchar2(3000) not null, -- 게시글 내용
-    sh_profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
-    sh_productImg varchar2(550), -- 게시글 내 이미지
-    sh_hit number, -- 조회수 추가
-    sh_tag varchar2(50), -- 게시글 태그
-    sh_process char(1), -- 모집 진행 여부
-    sh_registDay date default sysdate, -- 게시글 등록날짜
-    sh_updateDay date default sysdate, -- 게시글 수정 날짜
-    sh_deadLine date, -- 모집 마감일자
-    sh_personnelMax integer not null, -- 최대 모집인원
-    sh_personnelNow integer, -- 현재 모집인원
-    sh_priceTotal number, -- 가격 총합
-    sh_pricePer number, -- 인당 가격
-    sh_ip varchar2(32), -- 게시글 작성 Ip
-    sh_like number, -- 게시글 좋아요
-    sh_product varchar2(30) -- 상품넘버
+    num integer not null, -- 게시글 번호
+    id varchar2(16) not null, -- 게시글 ID
+    nickname  varchar2(30) not null, -- 게시글 닉네임
+    category varchar2(30) not null, -- 물품 카테고리
+    premium char(1), -- 프리미엄 회원 여부
+    title varchar2(150) not null, -- 게시글 제목
+    content varchar2(3000) not null, -- 게시글 내용
+    profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
+    productImg varchar2(550), -- 게시글 내 이미지
+    hit number, -- 조회수 추가
+    tag varchar2(50), -- 게시글 태그
+    process char(1), -- 모집 진행 여부
+    registDay date default sysdate, -- 게시글 등록날짜
+    updateDay date default sysdate, -- 게시글 수정 날짜
+    deadLine date, -- 모집 마감일자
+    personnelMax integer not null, -- 최대 모집인원
+    personnelNow integer, -- 현재 모집인원
+    priceTotal number, -- 가격 총합
+    pricePer number, -- 인당 가격
+    ip varchar2(32), -- 게시글 작성 Ip
+    likeNum number, -- 게시글 좋아요
+   brand varchar2(300),
+    productName varchar2(300)
 );
+
+select* from makefeed;
+
+select * from (select * from proxyBuyBoard where category= 'baby'
+		and process=1
+		order by updateDay desc) where ROWNUM  <= 10;
+        
+        select* from proxyBuyBoard;
 
 -- 서비스 공유 시퀀스
 create sequence sh_num nocache nocycle;
 
 -- 대리공구 신청 글
 create table proxyApplyBoard(
-  pr_num integer unique not null, -- 게시글 번호
-    pr_id varchar2(16) not null, -- 게시글 ID
-    pr_nickname  varchar2(30) not null, -- 게시글 닉네임
-    pr_category varchar2(30) not null, -- 물품 카테고리
-    pr_title varchar2(150) not null, -- 게시글 제목
-    pr_content varchar2(3000) not null, -- 게시글 내용
-    pr_profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
-    pr_productImg varchar2(550), -- 게시글 내 이미지
-    pr_process number(1) not null, -- 모집 진행 여부
-    pr_registDay date default sysdate, -- 게시글 등록날짜
-    pr_updateDay date default sysdate, -- 게시글 수정 날짜
-    pr_chkDay date default sysdate,
-    pr_ip varchar2(32), -- 게시글 작성 Ip
-    pr_URL varchar2(300)
+  num integer unique not null, -- 게시글 번호
+    id varchar2(16) not null, -- 게시글 ID
+    nickname  varchar2(30) not null, -- 게시글 닉네임
+    category varchar2(30) not null, -- 물품 카테고리
+    title varchar2(150) not null, -- 게시글 제목
+    content varchar2(3000) not null, -- 게시글 내용
+    profileImg varchar2(50), -- 게시글 작성자 프로필 이미지
+    productImg varchar2(550), -- 게시글 내 이미지
+    process number(1) not null, -- 모집 진행 여부
+    registDay date default sysdate, -- 게시글 등록날짜
+    updateDay date default sysdate, -- 게시글 수정 날짜
+    chkDay date default sysdate,
+    ip varchar2(32), -- 게시글 작성 Ip
+    URL varchar2(300)
 );
 
 -- 대리공구 시퀀스
-create sequence pr_applyNum NOCACHE NOCYCLE;
+create sequence applyNum NOCACHE NOCYCLE;
 
 -- 좋아요 테이블
 create table likeTable(

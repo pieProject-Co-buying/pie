@@ -1,16 +1,5 @@
 
 function boardval() {
-	const url = window.location.href;
-	const str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
-	let prefix;
-
-	if (str == 'updateTownProductForm') prefix = "to_";
-	else if (str == 'updateProxyForm') prefix = "pr_";
-	else if (str == 'updateShareBoardForm') prefix = "sh_";
-
-	const title = "#" + prefix + "title"
-	const deadLine = "#" + prefix + "deadLine"
-
 	/*카테고리 검증*/
 	if ($("#h-input").val() == '') {
 		alert("카테고리를 선택해주세요.");
@@ -18,11 +7,11 @@ function boardval() {
 	}
 
 	/*제목검증*/
-	if ($(title).val() == '') {
+	if ($("#title").val() == '') {
 		alert("제목을 입력해주세요.");
 		return false;
 	}
-	if ($(title).val().length > 50) {
+	if ($("#title").val().length > 50) {
 		alert("제목은 50자 이하로 작성해주세요.")
 		return false;
 	}
@@ -50,11 +39,11 @@ function boardval() {
 	}
 
 	/*날짜검증*/
-	if ($(deadLine).val() == '') {
+	if ($("#deadLine").val() == '') {
 		alert("모집마감일을 지정해주세요.")
 		return false;
 	} else {
-		if (!checkDate($(deadLine).val())) {
+		if (!checkDate($("#deadLine").val())) {
 			alert("모집마감일은 오늘 날짜보다 이후로 설정해야합니다.")
 			return false;
 		}
@@ -86,20 +75,9 @@ function checkDate(inputD) {
 	else return true;
 }
 
-const url = window.location.href;
-const str = url.substring(url.lastIndexOf('/') + 1, url.indexOf('?'));
-
-if (str == 'updateTownProductForm') prefix = "to_";
-else if (str == 'updateProxyForm') prefix = "pr_";
-else if (str == 'updateShareBoardForm') prefix = "sh_";
-
-const title = "#" + prefix + "title"
-const content = "#" + prefix + "content"
-const deadLine = "#" + prefix + "deadLine"
-
 $(deadLine).on({
 	change: function() {
-		if (!checkDate($(deadLine).val())) {
+		if (!checkDate($("#deadLine").val())) {
 			alert("모집마감일은 오늘 날짜보다 이후로 설정해야합니다.")
 			$(this).val('');
 		}

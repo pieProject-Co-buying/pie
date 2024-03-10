@@ -22,24 +22,20 @@
 								<span class="sr-only">(current)</span>
 						</a></li>-->
 						<li class="nav-item"><a class="nav-link" href="townBuySearch">동네
-								공구 <span class="sr-only">businessApply</span>
+								공구
 						</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 대신 사드려요 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="proxyBuyMain">메인</a> <a
+								<a
 									class="dropdown-item" href="chkFeed">파이 피드</a> <a
 									class="dropdown-item" href="proxyBuyApply?page=1">공구해주세요
 									게시판</a>
 							</div></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false"> 같이써요 서비스 </a>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="shareService">메인</a> <a
-									class="dropdown-item" href="shareServiceBoard">신청해요 게시판</a>
-							</div></li>
+							
+							<li class="nav-item"><a class="nav-link" href="shareServiceBoard">같이써요 서비스
+						</a></li>
 
 						<li sec:authorize="hasRole('ROLE_ADMIN')"
 							class="nav-item dropdown"><a
@@ -81,9 +77,14 @@
 								<a class="dropdown-item" href="updateForm">회원 정보 수정</a> <a
 									class="dropdown-item" href="likeList?category=all">좋아요한 게시글</a>
 								<a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-									href="shareServiceApply">신청중인 내역 조회</a> <a
-									class="dropdown-item"
-									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
+									href="shareServiceApply">신청중인 내역 조회</a> 
+									<a sec:authorize="isAuthenticated()" class="dropdown-item">
+									<form action="logout" method="post" name="logout">
+										<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+										<span role="button" onclick="document.logout.submit()">로그아웃</span>
+									</form>
+								</a>
+									
 							</div>
 
 
@@ -103,18 +104,12 @@
 						<li class="nav-item">
 							<div>
 								<!-- <th:block th:if="${session.userId!=null}"> -->
-								<a sec:authorize="isAuthenticated()" class="nav-link">
-									<form action="logout" method="post" name="logout">
-										<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-										<span role="button" onclick="document.logout.submit()">로그아웃</span>
-									</form>
-								</a>
+								<a
+									class="nav-link"
+									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
 								<!-- </th:block> -->
-								<th:block th:if="${session.userId==null}">
-									<a sec:authorize="!isAuthenticated()" class="nav-link"
-										href="join">회원가입</a>
-								</th:block>
-							</div> </th:block>
+								
+							</div> 
 						</li>
 					</ul>
 				</div>
