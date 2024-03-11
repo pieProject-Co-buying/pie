@@ -45,7 +45,7 @@ public interface IShareServiceDao {
 	// 구매자 이름 및 아이디로 검색
 	public ArrayList<ShareServiceDto> searchBuyer(String keyword);
 	// 환불 시 현재 인원 감소
-	public void refundNowPerson(int num);
+	public void refundNowPerson(String num);
 	// 기간만료
 	public void dateOver(int num);
 	// 0시마다 마감 체크
