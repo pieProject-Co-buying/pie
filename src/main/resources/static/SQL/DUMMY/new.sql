@@ -193,6 +193,7 @@ hit number
 
 -- 기업신청 테이블
 
+
 CREATE TABLE businessApplyForm (
     bus_apply_num NUMBER UNIQUE NOT NULL,
     
@@ -217,9 +218,12 @@ CREATE TABLE businessApplyForm (
     
     bus_hit NUMBER,
 	
-    bus_proceed VARCHAR2(100) DEFAULT 'inProgress',
+    bus_status VARCHAR2(100) DEFAULT 'inProgress',
     bus_writeDay DATE DEFAULT SYSDATE
 );
+
+
+drop table businessApplyForm ;
 
 -- 시퀀스 생성/삭제
 create sequence bus_apply_num nocache nocycle;
