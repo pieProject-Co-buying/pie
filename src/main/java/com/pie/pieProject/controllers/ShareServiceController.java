@@ -1,16 +1,14 @@
 package com.pie.pieProject.controllers;
 
-import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -45,20 +43,24 @@ public class ShareServiceController {
 
 
 	/********** 전체 게시물 조회 **********/
-	@RequestMapping("/shareServiceBoard")
+	@RequestMapping("/shareServiceBoard") 
 	public String showBoardList(@RequestParam(value="category", required = false)String category,@RequestParam(value="search", required = false) String key, Model model) {
 		List<ShareServiceDto> list = new ArrayList<>();
 		
+		
 		if(category==null||category.equals("")||key==null||key.equals("")) {
 			list = dao.getBoardList();
-		}else if((category==null||category.equals(""))&&key!=null&&!key.equals("")) {
+		}else if((category==null||category.equals(""))&&(key!=null&&!key.equals(""))) {
+			//category="";
 			list = dao.searchBoard(key);
 		}else if(category!=null&&!category.equals("")&&(key==null||key.equals(""))) {
-			
+			//key="";
+			list=dao.searchCategory(category);
 		}else if(category!=null&&!category.equals("")&&key!=null&&!key.equals("")) {
 			list= dao.searchTitle(category, key);
 		}
-			
+			System.out.println("category="+category);
+			System.out.println("key="+key);
 		for (ShareServiceDto d : list) {
 			if(d.getTag()==null||d.getTag().equals("#")) {
 				d.setTags(null);
