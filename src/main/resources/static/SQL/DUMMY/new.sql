@@ -216,6 +216,8 @@ CREATE TABLE businessApplyForm (
     bus_password VARCHAR2(30) NOT NULL,
     
     bus_hit NUMBER,
+	
+    bus_proceed VARCHAR2(100) DEFAULT 'inProgress',
     bus_writeDay DATE DEFAULT SYSDATE
 );
 
