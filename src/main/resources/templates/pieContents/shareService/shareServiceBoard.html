@@ -30,8 +30,9 @@
 				<form action="shareServiceBoard" class="pie-search">
 					<div class="dropdown" id="selectCategory">
 						<a class="btn dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false" data-category="all"> 카테고리 </a>
+							data-toggle="dropdown" aria-expanded="false"> 카테고리 </a>
 						<div class="dropdown-menu">
+							<a class="dropdown-item" data-category="">전체</a>
 							<a class="dropdown-item" data-category="OTT">OTT</a>
 							<a class="dropdown-item" data-category="game">게임</a>
 							<a class="dropdown-item" data-category="bookAndMusic">도서/음악</a>
@@ -119,6 +120,25 @@
 	<!--wrapper-->
 <script>
 $(document).ready(function() {
+	let categories = $(".pie-tab-box ul li");
+    let shaerHeader = $("#shareServiceTitle");
+    let categorySel = $("#selectCategory");
+    let dropdown = categorySel.find(".dropdown-menu");
+    let selectInit = $("#selectCategory .dropdown-toggle");
+    let card = $(".col-md-4");
+    let strCard = ".col-md-4:hidden";
+    
+    if ($("#Scategory").val() === "OTT") {
+        selectInit.text("OTT");
+    } else if ($("#Scategory").val() === "game") {
+        selectInit.text("게임");
+    } else if ($("#Scategory").val() === "bookAndMusic") {
+        selectInit.text("도서/음악");
+    } else {
+        $("#Scategory").val("");
+    }
+
+    
     $(".dropdown-item").click(function() {
         // 클릭된 항목의 data-category 값을 가져옴
         var selectedCategory = $(this).data("category");
@@ -126,162 +146,58 @@ $(document).ready(function() {
         // 숨겨진 input 요소의 값을 설정
         $("#Scategory").val(selectedCategory);
     });
-});
-</script>
-	<!--더보기 스크립트-->
-	<script>
-		$(function () {
-			let categories = $(".pie-tab-box ul li");
-			let shaerHeader = $("#shareServiceTitle");
-			let categorySel = $("#selectCategory");
-			let dropdown = categorySel.find(".dropdown-menu");
-			categories.css("cursor", "pointer");
-			let category=$(".col-md-4").data("category");
 
-			/* let movies = ["OTT"];
-			let game = ["게임"];
-			let books = ["도서/음악"];
 
-			let all = [];
+    card.hide();
+    card.slice(0, 6).show();
 
-			all.push(...movies);
-			all.push(...game);
-			all.push(...books);
-			for (i = 0; i < all.length; i++) {
-				dropdown.append('<a class="dropdown-item">' + all[i] + '</a>')
-			}*/
-			let selectInit = $("#selectCategory .dropdown-toggle");
+    categories.click(function () {
+        var idx = $(this).index();
+        dropdown.empty(); // 카테고리를 클릭할 때마다 드롭다운 메뉴 초기화
 
-			let card = $(".col-md-4");
-			let strCard = ".col-md-4:hidden";
+        if (idx === 0) {
+            location.href = "/shareServiceBoard";
+        } else if (idx === 1) {
+            location.href = "/shareServiceBoard?category=OTT&search=";
+        } else if (idx === 2) {
+            location.href = "/shareServiceBoard?category=game&search=";
+        } else if (idx === 3) {
+            location.href = "/shareServiceBoard?category=bookAndMusic&search=";
+        }
+    });
 
-			card.hide();
-			card.slice(0, 6).show();
-
-			
-			
-			categories.click(function () {
-				let movieCards = $(".col-md-4[data-category='OTT']");
-				let gameCards = $(".col-md-4[data-category='게임']");
-				let bookCards = $(".col-md-4[data-category='도서/음악']");
-				let idx = $(this).index();
-				let option = {};
-				dropdown.empty();
-				selectInit.text("카테고리");
-
-				if (idx === 0) {
-					option = {
-						"background": "url(imgs/boong.jpg) center / cover no-repeat"
-					};
-					card = $(".col-md-4");
-					strCard = ".col-md-4:hidden";
-
-					card.hide();
-					card.slice(0, 6).show();
-					 list = all; 
-				} else {
-					$(".col-md-4").hide();
-
-					if (idx === 1) {
-						option = {
-							"background": "url(imgs/netflix.png) center / cover no-repeat"
-						};
-						card = $(".col-md-4[data-category='OTT']");
-						strCard = ".col-md-4[data-category='OTT']:hidden";
-
-						movieCards.slice(0, 6).show();
-
-						selectInit.text("OTT서비스");
-						 list = movies; 
-					} else if (idx === 2) {
-						option = {
-							"background": "url(imgs/nintendoOnline.jpeg) center / cover no-repeat"
-						};
-
-						card = $(".col-md-4[data-category='게임']");
-						strCard = ".col-md-4[data-category='게임']:hidden";
-
-						gameCards.slice(0, 6).show();
-
-						selectInit.text("게임");
-						list = game; 
-					} else if (idx === 3) {
-						option = {
-							"background": "url(imgs/milli.jpg) center / cover no-repeat"
-						};
-
-						card = $(".col-md-4[data-category='도서/음악']");
-						strCard = ".col-md-4[data-category='도서/음악']:hidden";
-
-						bookCards.slice(0, 6).show();
-
-						selectInit.text("도서/음악");
-						 list = books; 
-					}
-				}
-				shaerHeader.addClass("selected").css(option);
-
-				 for (i = 0; i < list.length; i++) {
-					dropdown.append('<a class="dropdown-item">' + list[i] + '</a>')
-				} 
-			});
-			
-			
-			/****************************************************/
-			
-	// 현재 URL에서 쿼리 문자열 가져오기
+    // 현재 URL에서 쿼리 문자열 가져오기
     var queryString = window.location.search;
     // URLSearchParams 객체를 사용하여 쿼리 문자열 파싱
     var queryParams = new URLSearchParams(queryString);
     // num 매개변수의 값을 가져오기
     var numValue = queryParams.get('num');
-    
-	$('document').ready(function(){
-		let selectInit = $("#selectCategory .dropdown-toggle");
-		if(numValue==1){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='OTT']");
-			strCard = ".col-md-4[data-category='OTT']:hidden";
 
-			card.slice(0, 6).show();
+    // 페이지 이동 후에도 카테고리 초기화 및 드롭다운 텍스트 변경
+    if (numValue == 1) {
+        location.href = "/shareServiceBoard?category=OTT&search=";
+    } else if (numValue == 2) {
+        location.href = "/shareServiceBoard?category=game&search=";
+    } else if (numValue == 3) {
+        location.href = "/shareServiceBoard?category=bookAndMusic&search=";
+    }
 
-			selectInit.text("OTT서비스");
-		}else if(numValue==2){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='게임']");
-			strCard = ".col-md-4[data-category='게임']:hidden";
+    $(document).on(
+        "click", ".dropdown-item", function () {
+            selectInit.text($(this).text());
+        }
+    )
 
-			card.slice(0, 6).show();
-
-			selectInit.text("게임");
-		}else if(numValue==3){
-			$(".col-md-4").hide();
-			card = $(".col-md-4[data-category='도서/음악']");
-			strCard = ".col-md-4[data-category='도서/음악']:hidden";
-
-			card.slice(0, 6).show();
-
-			selectInit.text("도서/음악");
-		}
-	})
-			
-
-			$(document).on(
-				"click", ".dropdown-item", function () {
-					selectInit.text($(this).text());
-				}
-			)
-
-			$("#load").click(function (e) {
-				e.preventDefault();
-				if ($(strCard).length > 0) {
-					$(strCard).slice(0, 3).show();
-				} else if ($(strCard).length == 0) {
-					alert("마지막 게시물입니다.");
-				}
-			});
-		})
-	</script>
+    $("#load").click(function (e) {
+        e.preventDefault();
+        if ($(strCard).length > 0) {
+            $(strCard).slice(0, 3).show();
+        } else if ($(strCard).length == 0) {
+            alert("마지막 게시물입니다.");
+        }
+    });
+});
+</script>
 </div>
 
 </html>

@@ -48,13 +48,11 @@ public class ShareServiceController {
 		List<ShareServiceDto> list = new ArrayList<>();
 		
 		
-		if(category==null||category.equals("")||key==null||key.equals("")) {
+		if((category==null||category.equals(""))&&(key==null||key.equals(""))) {
 			list = dao.getBoardList();
-		}else if((category==null||category.equals(""))&&(key!=null&&!key.equals(""))) {
-			//category="";
+		}else if((category==null||category.equals(""))&&key!=null&&!key.equals("")) {
 			list = dao.searchBoard(key);
 		}else if(category!=null&&!category.equals("")&&(key==null||key.equals(""))) {
-			//key="";
 			list=dao.searchCategory(category);
 		}else if(category!=null&&!category.equals("")&&key!=null&&!key.equals("")) {
 			list= dao.searchTitle(category, key);
