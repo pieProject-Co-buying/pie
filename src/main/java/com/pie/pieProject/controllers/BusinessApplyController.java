@@ -265,8 +265,22 @@ public class BusinessApplyController {
 		
 		return "redirect:/businessApplyBoard";
 	}
+	
+	
 
-
+	
+	@RequestMapping("/updateStatus")
+	public String updateProcess(HttpServletRequest request,
+			@RequestParam("bus_apply_num") String bus_apply_num,
+			@RequestParam("bus_status") String bus_status
+			) {
+		
+		
+		
+		dao.updateStatusDao(Integer.parseInt(bus_apply_num), bus_status);
+		
+		return "redirect:/readApplyBoard?bus_apply_num=" + bus_apply_num;
+	}
 	
 	
 

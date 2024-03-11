@@ -43,13 +43,15 @@
 				  <tbody>
 				    	<tr th:each="item, rowStat : ${list}" onclick="checkPassword(this, document.getElementById('bus_password_${item.getBus_apply_num()}').textContent)" role="button" class="goBoard border-bottom">
 					        <td scope="row" th:text="${item.getBus_apply_num()}" class="bus_apply_num small"> </td>
-					        <td th:text="${item.getBus_name()}" class="small">회사명</td>
+					        <td th:text="${item.getBus_name()}" class="small  text-truncate">회사명</td>
 					        <td class="hj-table-width"><div th:text="${item.getBus_title()}" class="small text-left text-truncate"></div></td>
 					        <td th:text="${#strings.substring(item.getBus_writeDay(), 0, 10)}" class="small d-none d-md-table-cell"></td>
-							<td th:text="${item.getBus_status()}"
-							    th:class="${item.getBus_status() == 'inProgress' ? 'badge badge-warning p-1' : 
-							               item.getBus_status() == 'reject' ? 'badge badge-danger p-1' : 
-							               item.getBus_status() == 'accept' ? 'badge badge-success p-1' : ''}">
+							<td th:text="${item.getBus_status() == 'inProgress' ? '검토중' : 
+						               item.getBus_status() == 'reject' ? '반려' : 
+						               item.getBus_status() == 'accept' ? '승인완료' : ''}"
+							    th:class="${item.getBus_status() == 'inProgress' ? 'badge badge-warning badge-pill p-1 mt-2' : 
+							               item.getBus_status() == 'reject' ? 'badge badge-danger badge-pill p-1 mt-2' : 
+							               item.getBus_status() == 'accept' ? 'badge badge-success badge-pill p-1 mt-2' : ''}">
 							</td>
 
 					        <td id="bus_password_${item.getBus_apply_num()}" th:text="${item.getBus_password()}" style="display: none;"  class="small"></td>

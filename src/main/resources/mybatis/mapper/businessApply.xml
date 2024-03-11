@@ -79,6 +79,8 @@
 	    WHERE bus_apply_num = #{bus_apply_num}
 	</update>
 		
+		
+		
 	<select id="getTotalItems" resultType="int">
     	SELECT COUNT(*) FROM businessApplyForm
 	</select>
