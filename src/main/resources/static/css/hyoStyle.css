@@ -44,9 +44,39 @@
 }
 
 /* 하단 span 태그 가상선택자 적용 */
-#pie_info span:not(:last-child)::after {
-	content: " |";
-	margin: 0 2px;
+#pie_info span {
+	position: relative;
+	padding: 0 10px;
+}
+
+#pie_info span::after {
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 80%;
+	padding: 0 10px;
+	border-right: 1px solid gray;
+	display: flex;
+	align-items: center;
+	top: 5%;
+	left: 0;
+}
+
+#pie_info span:nth-of-type(3)::after {
+	border-right: none;
+}
+
+#pie_info span:last-of-type::after {
+	border-right: none;
+}
+
+@media ( max-width : 767px) {
+	#pie_info span:nth-of-type(2)::after {
+		border-right: none;
+	}
+	#pie_info span:nth-of-type(4)::after {
+		border-right: none;
+	}
 }
 
 /* ####################################
@@ -130,14 +160,10 @@
 	height: 70vh;
 }
 
-
 .hj-chat-scroll-x {
 	overflow-x: auto;
 	width: 100vh;
 }
-
-
-
 
 .chating {
 	height: 500px;
@@ -145,31 +171,20 @@
 	scroll-behavior: auto;
 }
 
-
-
-.chating::-webkit-scrollbar-track
-{
- border-radius: 10px;
- background-color: transparent;
+.chating::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: transparent;
 }
 
-.chating::-webkit-scrollbar
-{
- width: 8px;
- background-color:transparent;
+.chating::-webkit-scrollbar {
+	width: 8px;
+	background-color: transparent;
 }
 
-.chating::-webkit-scrollbar-thumb
-{
- border-radius: 10px;
- background-color: #555;
-
-
+.chating::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--lightgray);
 }
-
-
-
-
 
 #yourMsg {
 	display: none;
@@ -302,13 +317,6 @@
 	padding: 20px 25px;
 }
 
-.page-item.hj-active .page-link {
-	z-index: 3;
-	color: #fff;
-	background-color: #c0c0c0;
-	border-color: #c0c0c0;
-}
-
 .hj-table-width {
 	width: 50%;
 	max-width: 10px;
@@ -333,6 +341,7 @@
 	left: 30px;
 	top: 10px;
 }
+
 .hj-toast-wd {
 	width: 300px !important;
 	bottom: 10px;
@@ -342,4 +351,57 @@
 .hj-indicator-btn {
 	width: 9px;
 	height: 9px;
+}
+
+/*채팅방목록*/
+#roomContainer:has(#roomList) {
+	overflow: hidden;
+}
+
+#roomList {
+	overflow-y: scroll;
+	height: 350px;
+}
+
+#follwingList {
+	height: 350px;
+	overflow-y: scroll;
+}
+
+#follwingBox>.roomContainer {
+	overflow: hidden;
+}
+
+#roomList::-webkit-scrollbar-track, #follwingList::-webkit-scrollbar-track {
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+#roomList::-webkit-scrollbar, #follwingList::-webkit-scrollbar {
+	width: 8px;
+	background-color: transparent;
+}
+
+#roomList::-webkit-scrollbar-thumb, #follwingList::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background-color: var(--lightgray);
+}
+
+/*채팅방 팔로잉 목록*/
+@media ( max-width : 1000px) {
+	#follwingBox {
+		position: absolute;
+		z-index: 99;
+		width: 350px;
+		left: -100%;
+		-webkit-transition: all 0.2s;
+		-moz-transition: all 0.2s;
+		-ms-transition: all 0.2s;
+		-o-transition: all 0.2s;
+		transition: all 0.2s;
+		left: -100%;
+	}
+	#follwingBox.popUp {
+		left: 0%;
+	}
 }

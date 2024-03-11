@@ -22,7 +22,7 @@
 					<a class="card hj-radius-30" th:each="list:${list}"
 						th:href="@{'townBuyproduct?num=' + ${list.getNum()}}">
 						<img
-						th:src="@{'/imgs/test/' + ${list.getProductImg().substring(0,list.getProductImg().indexOf('/'))}}"
+						th:src="@{'/imgs/test/' + ${list.getThumbnail()}}"
 						class="card-img-top hj-radius-img-30" alt="...">
 						
 						
@@ -40,7 +40,7 @@
 						
 						
 						<div class="card-body">
-							<h6 class="card-title font-weight-bold" th:text="${list.getTo_title()}"></h6>
+							<h6 class="card-title font-weight-bold" th:text="${list.getTitle()}"></h6>
 
 
 							<div class="row mt-5 hj-height-category">

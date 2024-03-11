@@ -27,7 +27,7 @@
 								class="btn btn-block dropdown-toggle text-left bg-transparent border"
 								type="button" data-toggle="dropdown" aria-expanded="false">
 								카테고리</button>
-							<input type="hidden" name="pr_category" id="h-input" value="" />
+							<input type="hidden" name="category" id="h-input" value="" />
 							<div class="dropdown-menu">
 								<a class="dropdown-item" data-category="food">식품</a> <a
 									class="dropdown-item" data-category="baby">육아</a> <a
@@ -38,9 +38,30 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="form-group container-fluid border py-3 rounded">
+						<div class="row">
+							<div class="col-12 mb-2">
+								<p class="m-0 px-1">
+									<sup class="pie-c-red">*</sup>신청하는 제품에 대해서 입력해주세요.
+								</p>
+							</div>
+							<div class="col-md-6">
+								<label for="brand"><small class="pl-1">제품 브랜드</small></label> <input
+									type="text" class="form-control" id="brand" name="brand">
+							</div>
+							<div class="col-md-6">
+								<label for="productName"><small class="pl-1">제품명</small></label>
+								<input type="text" class="form-control" id="productName"
+									name="productName">
+
+							</div>
+						</div>
+					</div>
+					
 					<div class="form-group">
-						<input type="text" class="form-control" id="pr_title"
-							placeholder="제목" name="pr_title">
+						<input type="text" class="form-control" id="title"
+							placeholder="제목" name="title">
 					</div>
 					<div class="form-group d-flex">
 						<label for="file">
@@ -56,21 +77,20 @@
 							</div>
 						</label>
 						<div class="file-uploadGroup"></div>
-						<input type="file" name="pr_pic[]" id="file" multiple()
+						<input type="file" name="pic[]" id="file" multiple()
 							onchange="addFile(event)"> <input type="hidden"
-							name="pr_files" id="files" />
+							name="fileStr" id="fileStr" />
 					</div>
-					<textarea id="summernote" name="pr_content" class="pr_content"></textarea>
+					<textarea id="summernote" name="content" class="content"></textarea>
 					<div class="text-right">
 						<small>잔여 bytes :: </small><small id="messagebyte">11</small><small>
 							/ 2000</small>
 					</div>
 					<div class="form-group row pt-3">
 						<div class="col pt-3">
-							<label for="pr_URL"><small class="pl-1">참고 URL</small></label><input
-								type="text" class="form-control" id="pr_URL"
-								name="pr_personnelMax" min="2" max="100" maxlength="3"
-								oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+							<label for="URL"><small class="pl-1">참고 URL</small></label><input
+								type="text" class="form-control" id="URL"
+								name="URL">
 						</div>
 					</div>
 

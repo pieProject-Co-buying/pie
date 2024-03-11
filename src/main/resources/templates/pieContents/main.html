@@ -12,7 +12,7 @@
 
 				<div id="section1Carousel" class="carousel slide"
 					data-ride="carousel">
-					
+
 
 					<div class="carousel-inner">
 
@@ -68,8 +68,9 @@
 											<p class="pie-c-darkgray px-3 mt-5 pie-carousel-text">
 												가격비교, 공구사기. <br /> 머리 아픈 사전조사는 그만!
 											</p>
-											<h5 class="px-3 m-0 pie-carousel-subtext">파이가 준비한 공구템으로
-												안심하고 함께 쇼핑해요!<br />　</h5>
+											<h5 class="px-3 m-0 pie-carousel-subtext">
+												파이가 준비한 공구템으로 안심하고 함께 쇼핑해요!<br />
+											</h5>
 										</div>
 
 									</div>
@@ -98,8 +99,9 @@
 												class="pie-c-darkgray text-center px-3 mt-5 pie-carousel-text">
 												가격은 나눠도 내 몫은 확실하게. <br /> 깔끔하고 확실한 공유, 파이에서 해드릴게요.
 											</p>
-											<h5 class="px-3 m-0 pie-carousel-subtext">공유 플랜 서비스도
-												저렴하게 즐겨요!<br />　</h5>
+											<h5 class="px-3 m-0 pie-carousel-subtext">
+												공유 플랜 서비스도 저렴하게 즐겨요!<br />
+											</h5>
 										</div>
 
 									</div>
@@ -114,29 +116,32 @@
 
 
 					<div class="row user-select-none">
-					
-						<div class="col-lg-7 mb-5 mt mb-lg-0 mt-0-lg-0">						
+
+						<div class="col-lg-7 mb-5 mt mb-lg-0 mt-0-lg-0">
 							<ol class="carousel-indicators my-2">
-								<li data-target="#section1Carousel" data-slide-to="0" class="active mx-3">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle-fill hj-indicator-btn" viewBox="0 0 16 16">
-									  <circle cx="8" cy="8" r="8"/>
-									</svg>
-								</li>
-								<li data-target="#section1Carousel" data-slide-to="1" class="mx-3">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle-fill hj-indicator-btn" viewBox="0 0 16 16">
-									  <circle cx="8" cy="8" r="8"/>
-									</svg>								
-								</li>
-								<li data-target="#section1Carousel" data-slide-to="2" class="mx-3">
-									<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-circle-fill hj-indicator-btn" viewBox="0 0 16 16">
-									  <circle cx="8" cy="8" r="8"/>
-									</svg>								
-								</li>
-							</ol>											
-						</div>						
-											
-					
-					
+								<li data-target="#section1Carousel" data-slide-to="0"
+									class="active mx-3"><svg
+										xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+										class="bi bi-circle-fill hj-indicator-btn" viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8" />
+									</svg></li>
+								<li data-target="#section1Carousel" data-slide-to="1"
+									class="mx-3"><svg xmlns="http://www.w3.org/2000/svg"
+										fill="currentColor" class="bi bi-circle-fill hj-indicator-btn"
+										viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8" />
+									</svg></li>
+								<li data-target="#section1Carousel" data-slide-to="2"
+									class="mx-3"><svg xmlns="http://www.w3.org/2000/svg"
+										fill="currentColor" class="bi bi-circle-fill hj-indicator-btn"
+										viewBox="0 0 16 16">
+									  <circle cx="8" cy="8" r="8" />
+									</svg></li>
+							</ol>
+						</div>
+
+
+
 						<div class="col-lg-5">
 							<ol
 								class="row justify-content-center text-center font-weight-bold h5 carousel-indicators m-0">
@@ -148,13 +153,13 @@
 									data-slide-to="2">파이하다</li>
 							</ol>
 						</div>
-						
 
-						
 
-						
 
-						
+
+
+
+
 					</div>
 				</div>
 
@@ -174,8 +179,9 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 ############################################### -->
 
 	<section class="pie-section-py position-relative">
-	<div class="position-absolute pie-bg-red-light" id="pie-main-sharebackground1"></div>
-	
+		<div class="position-absolute pie-bg-red-light"
+			id="pie-main-sharebackground1"></div>
+
 		<div class="container">
 
 
@@ -197,7 +203,6 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 						<p sec:authorize="!isAuthenticated()" class="pie-c-brown">
 							같은 동네, 가까운 곳에서 공구를 모집하는 사람들이 있어요. <br /> 우리 동네 파이는 같은 동네, 친숙한
 							이웃끼리 공동구매를 편리하게 할 수 있도록하는 서비스입니다.
-
 						</p>
 					</div>
 
@@ -233,6 +238,12 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 						<div id="map" class="mb-5 hj-radius-30 shadow"
 							style="width: 100%; height: 500px;">
+							<div class="loading w-100 h-100 bg-white hj-radius-30 d-flex justify-content-center align-items-center">
+								<div class="spinner-border pie-c-red"
+									role="status">
+									<span class="sr-only">Loading...</span>
+								</div>
+							</div>
 
 							<!-- 지도 표시될 영역 -->
 							<ul
@@ -434,8 +445,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 								th:if="${iterStat.index} &lt; 9" class="item">
 								<a
 									class="card pie-radius border-0 position-relative overflow-hidden"
-									th:href="@{'townBuyproduct?num=' + ${tBoard.getNum()}}">
-									<img
+									th:href="@{'townBuyproduct?num=' + ${tBoard.getNum()}}"> <img
 									th:src="@{'/imgs/test/' + ${tBoard.getProductImg().substring(0,tBoard.getProductImg().indexOf('/'))}}"
 									class="card-img-top hj-main-product-img" alt="...">
 									<div class="pie-townCarousel-cover"></div>
@@ -449,15 +459,13 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 									</div>
 
 									<div class="position-absolute p-4 hj-main_town_hover_text">
-										<p class="pie-c-red m-0 small"
-											th:text="${tBoard.getCategory}"></p>
+										<p class="pie-c-red m-0 small" th:text="${tBoard.getCategory}"></p>
 										<h5 th:text="${tBoard.getTitle}"
 											class="font-weight-bold text-truncate"></h5>
 
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
-												<img
-													th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
+												<img th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
 													alt="" class="pie-profilePic mr-2" />
 												<h6 class="m-0" th:text="${tBoard.getNickname}"></h6>
 											</div>
@@ -594,9 +602,8 @@ secion2 #sec2 - 대리공구 영역
 										</div>
 										<div class="d-flex align-items-center">
 											<span class="pie-man-icon active pie-icons mr-2"></span> <span
-												id="bestNow" th:text=${list[0].getPersonnelNow()}></span>
-											<span>/</span> <span id="bestMax"
-												th:text=${list[0].getPersonnelMax()}></span>
+												id="bestNow" th:text=${list[0].getPersonnelNow()}></span> <span>/</span>
+											<span id="bestMax" th:text=${list[0].getPersonnelMax()}></span>
 										</div>
 									</div>
 								</div>
@@ -635,8 +642,7 @@ secion2 #sec2 - 대리공구 영역
 													</div>
 													<div class="d-flex align-items-center mx-2">
 														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
-														<span id="bestHit" class="small"
-															th:text=${board.getHit()}></span>
+														<span id="bestHit" class="small" th:text=${board.getHit()}></span>
 													</div>
 													<div class="d-flex align-items-center">
 														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
@@ -698,39 +704,44 @@ secion2 #sec3 - 서비스 공유 영역
 				<div class="container-fluid p-0">
 					<div class="row justify-content-end">
 						<div class="container">
-								<div
-									class="d-flex align-items-center justify-content-between w-100 mt-5">
-									<h1
-										class="text-center text-sm-left font-weight-bolder pie-c-red">즐겨요
-										파이타임!</h1>
-									<a class="btn btn-light border" href="shareServiceBoard"> <small>┼</small>
-									</a>
-								</div>
-								<div class="mb-5">
-									<p class="pie-c-brown">
-										볼거리는 너무 많고, 싱글 플랜은 너무 비싸고... 고민해본적 있으신가요? <br /> 파이에서 서비스
-										쉐어플랜을 함께할 쉐어메이트를 찾아보세요!
-									</p>
-								</div>
+							<div
+								class="d-flex align-items-center justify-content-between w-100 mt-5">
+								<h1
+									class="text-center text-sm-left font-weight-bolder pie-c-red">즐겨요
+									파이타임!</h1>
+								<a class="btn btn-light border" href="shareServiceBoard"> <small>┼</small>
+								</a>
 							</div>
+							<div class="mb-5">
+								<p class="pie-c-brown">
+									볼거리는 너무 많고, 싱글 플랜은 너무 비싸고... 고민해본적 있으신가요? <br /> 파이에서 서비스
+									쉐어플랜을 함께할 쉐어메이트를 찾아보세요!
+								</p>
+							</div>
+						</div>
 						<div class="container">
-							<div class="row mt-3 justify-content-around p-3 pie-sharemain-images">
-								<a class="col-sm-4 p-2 pie-radius overflow-hidden" 
+							<div
+								class="row mt-3 justify-content-around p-3 pie-sharemain-images">
+								<a class="col-sm-4 p-2 pie-radius overflow-hidden"
 									href="shareServiceBoard?num=1"> <img src="imgs/ott2.jpg"
 									alt="" class="img-fluid mb-3 pie-radius">
 									<h5 class="text-center">
 										<b>OTT 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
 											width="25" height="25">
 									</h5>
-									<p class="mt-2 small text-center">넷플릭스, 디즈니, 웨이브... <br/> 재밌는 컨텐츠를 마음껏 즐기세요!</p>
-								</a> <a class="col-sm-4 p-2"
-									onclick="game()" href="shareServiceBoard?num=2"> <img
-									src="imgs/game.jpg" alt="" class="img-fluid mb-3 pie-radius">
+									<p class="mt-2 small text-center">
+										넷플릭스, 디즈니, 웨이브... <br /> 재밌는 컨텐츠를 마음껏 즐기세요!
+									</p>
+								</a> <a class="col-sm-4 p-2" onclick="game()"
+									href="shareServiceBoard?num=2"> <img src="imgs/game.jpg"
+									alt="" class="img-fluid mb-3 pie-radius">
 									<h5 class="text-center">
 										<b>게임 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
 											width="25" height="25">
 									</h5>
-									<p class="mt-2 small text-center">세상은 넓고, 할 게임은 많다! <br/> 유료 게임 플랜을 쉐어 메이트와 나눠보세요.</p>
+									<p class="mt-2 small text-center">
+										세상은 넓고, 할 게임은 많다! <br /> 유료 게임 플랜을 쉐어 메이트와 나눠보세요.
+									</p>
 								</a> <a class="col-sm-4 p-2 pie-radius overflow-hidden"
 									href="shareServiceBoard?num=3"> <img src="imgs/book.jpg"
 									alt="" class="img-fluid mb-3 pie-radius">
@@ -738,7 +749,9 @@ secion2 #sec3 - 서비스 공유 영역
 										<b>도서/음악 둘러보기</b> <img src="imgs/circleArrows.png" alt=""
 											width="25" height="25">
 									</h5>
-									<p class="mt-2 small text-center">마음의 양식을 위한 풍요로운 문화생활! <br/> 파이에서 친구들과 함께하세요.</p>
+									<p class="mt-2 small text-center">
+										마음의 양식을 위한 풍요로운 문화생활! <br /> 파이에서 친구들과 함께하세요.
+									</p>
 								</a>
 							</div>
 							<!--row-->
@@ -771,7 +784,7 @@ secion2 #sec3 - 서비스 공유 영역
 					<div class="item">
 						<h4>
 							<a href="shareServiceBoard?num=2"> <img src="imgs/xbox.jpg"
-								alt="" >
+								alt="">
 							</a>
 						</h4>
 					</div>
@@ -948,23 +961,21 @@ secion2 #sec3 - 서비스 공유 영역
 	<script sec:authorize="isAuthenticated()" th:src="@{'js/map.js'}"></script>
 
 
-	
+
 	<script>
-		$('#section1Carousel').on('slide.bs.carousel', function (event) {
-		    var newIndex = event.to;
-		    $('ol.carousel-indicators li').removeClass('active');
-		    $('ol.carousel-indicators').each(function() {
-		        $(this).find('li').eq(newIndex).addClass('active');
-		    });
+		$('#section1Carousel').on('slide.bs.carousel', function(event) {
+			var newIndex = event.to;
+			$('ol.carousel-indicators li').removeClass('active');
+			$('ol.carousel-indicators').each(function() {
+				$(this).find('li').eq(newIndex).addClass('active');
+			});
 		});
-	
+
 		// 두 번째 인디케이터를 클릭했을 때 첫 번째 인디케이터 상태와 동기화하기 위한 핸들러
 		$('.carousel-indicators li').on('click', function() {
-		    $('ol.carousel-indicators li').removeClass('active');
-		    $(this).addClass('active');
-		});	
-		
-	
+			$('ol.carousel-indicators li').removeClass('active');
+			$(this).addClass('active');
+		});
 	</script>
 
 </div>

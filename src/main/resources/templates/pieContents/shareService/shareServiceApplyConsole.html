@@ -153,7 +153,12 @@
 										</a>
 									</li>
 									<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
-										<li class="page-item">
+										<li th:if="${#strings.equals(param.page, i)}"
+											class="page-item active">
+											<a class="page-link" th:href="@{'shareServiceApplyConsole?page='+${i}}" th:text="${i}"></a>
+										</li>
+										<li th:unless="${#strings.equals(param.page, i)}"
+											class="page-item active">
 											<a class="page-link" th:href="@{'shareServiceApplyConsole?page='+${i}}" th:text="${i}"></a>
 										</li>
 									</th:block>

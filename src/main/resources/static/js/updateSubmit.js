@@ -12,8 +12,7 @@ function submitForm() {
 	if (str == 'updateTownProductForm') form = document.townUpdateForm;
 	else if (str == 'updateProxyForm') form = proxyUpdateForm
 	else if (str == 'updateShareBoardForm') form = document.shareUpdateForm;
-	else if (str == 'proxyApplyupdateForm') document.proxyApplyUpdateForm;
-	else if (str == 'proxyApplyupdateForm') document.proxyApplyUpdateForm;
+	else if (str == 'proxyApplyupdateForm') form = document.proxyApplyUpdateForm;
 	else if (str == 'businessApplyUpdateForm') form = document.busApplyUpdate;	
 	
 	var formData = new FormData(form);
