@@ -84,7 +84,7 @@ public class ImageUploadController {
 					fileNames.append(file.getOriginalFilename());
 					byte[] fileSize = file.getBytes();
 					Files.write(fileNameAndPath, fileSize);
-					System.out.println(fileNames + "업로드완료");
+					
 	
 					fileData.append(newFileName);
 					fileData.append("/");
@@ -95,7 +95,7 @@ public class ImageUploadController {
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-
+		System.out.println("업로드완료");
 		return ResponseEntity.ok(fileData.toString());
 	}
 

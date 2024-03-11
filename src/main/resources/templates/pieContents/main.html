@@ -370,32 +370,32 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 										th:if="${iterStat.index} &lt; 9" class="item">
 										<a
 											class="card pie-radius border-0 position-relative overflow-hidden"
-											th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
+											th:href="@{'townBuyproduct?num=' + ${tBoard.getNum()}}">
 											<img
-											th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
+											th:src="@{'/imgs/test/' + ${tBoard.getProductImg().substring(0,tBoard.getProductImg().indexOf('/'))}}"
 											class="card-img-top hj-main-product-img" alt="...">
 											<div class="pie-townCarousel-cover"></div>
 
 											<div class="position-absolute p-4 hj-main_town_hover_text">
 												<div class="d-flex align-items-center">
 													<span class="pie_view-icon active pie-icons"></span> <span
-														th:text="${tBoard.getTo_hit()}"
+														th:text="${tBoard.getHit()}"
 														class="h6 mb-0 ml-2 pie-c-darkgray font-weight-bold"></span>
 												</div>
 											</div>
 
 											<div class="position-absolute p-4 hj-main_town_hover_text">
 												<p class="pie-c-red m-0 small"
-													th:text="${tBoard.getTo_category}"></p>
-												<h5 th:text="${tBoard.getTo_title}"
+													th:text="${tBoard.getCategory}"></p>
+												<h5 th:text="${tBoard.getTitle}"
 													class="font-weight-bold text-truncate"></h5>
 
 												<div class="row">
 													<div class="col w-100 d-flex align-items-center">
 														<img
-															th:src="@{'imgs/profiles/'+${tBoard.getTo_profileImg()}}"
+															th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
 															alt="" class="pie-profilePic mr-2" />
-														<h6 class="m-0" th:text="${tBoard.getTo_nickname}"></h6>
+														<h6 class="m-0" th:text="${tBoard.getNickname}"></h6>
 													</div>
 												</div>
 											</div>
@@ -434,32 +434,32 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 								th:if="${iterStat.index} &lt; 9" class="item">
 								<a
 									class="card pie-radius border-0 position-relative overflow-hidden"
-									th:href="@{'townBuyproduct?num=' + ${tBoard.getTo_num()}}">
+									th:href="@{'townBuyproduct?num=' + ${tBoard.getNum()}}">
 									<img
-									th:src="@{'/imgs/test/' + ${tBoard.getTo_productImg().substring(0,tBoard.getTo_productImg().indexOf('/'))}}"
+									th:src="@{'/imgs/test/' + ${tBoard.getProductImg().substring(0,tBoard.getProductImg().indexOf('/'))}}"
 									class="card-img-top hj-main-product-img" alt="...">
 									<div class="pie-townCarousel-cover"></div>
 
 									<div class="position-absolute p-4 hj-main_town_hover_text">
 										<div class="d-flex align-items-center">
 											<span class="pie-heart-icon active pie-icons"></span> <span
-												th:text="${tBoard.getTo_like()}"
+												th:text="${tBoard.getLikeNum()}"
 												class="h6 mb-0 ml-2 pie-c-darkgray font-weight-bold"></span>
 										</div>
 									</div>
 
 									<div class="position-absolute p-4 hj-main_town_hover_text">
 										<p class="pie-c-red m-0 small"
-											th:text="${tBoard.getTo_category}"></p>
-										<h5 th:text="${tBoard.getTo_title}"
+											th:text="${tBoard.getCategory}"></p>
+										<h5 th:text="${tBoard.getTitle}"
 											class="font-weight-bold text-truncate"></h5>
 
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
 												<img
-													th:src="@{'imgs/profiles/'+${tBoard.getTo_profileImg()}}"
+													th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
 													alt="" class="pie-profilePic mr-2" />
-												<h6 class="m-0" th:text="${tBoard.getTo_nickname}"></h6>
+												<h6 class="m-0" th:text="${tBoard.getNickname}"></h6>
 											</div>
 										</div>
 									</div>
@@ -520,12 +520,12 @@ secion2 #sec2 - 대리공구 영역
 						<div class="container-fluid hyej-customCard pt-1 bg-white shadow">
 							<div class="row border-bottom">
 								<div class="col-12 px-5 py-3 d-flex align-items-center">
-									<img th:src="@{'imgs/profiles/'+${list[0].getPr_profileImg()}}"
+									<img th:src="@{'imgs/profiles/'+${list[0].getProfileImg()}}"
 										class=" border rounded-circle pie-profilePic-mid align-self-center"
 										id="bestProfileImg" alt=>
 									<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
 										<small class="m-0 font-weight-bold"
-											th:text="${list[0].getPr_nickname()}" id="bestNickName">아이디</small>
+											th:text="${list[0].getNickname()}" id="bestNickName">아이디</small>
 									</div>
 								</div>
 							</div>
@@ -535,13 +535,13 @@ secion2 #sec2 - 대리공구 영역
 										data-ride="carousel">
 										<ol class="carousel-indicators">
 											<th:block
-												th:each="i : ${#numbers.sequence(0,list[0].getPr_productImgs().length-1)}">
+												th:each="i : ${#numbers.sequence(0,list[0].getProductImgs().length-1)}">
 												<li data-target="#proxyMainCarousel"
 													th:attr="data-slide-to=${i}"></li>
 											</th:block>
 										</ol>
 										<div class="carousel-inner">
-											<th:block th:each="img : ${list[0].getPr_productImgs()}">
+											<th:block th:each="img : ${list[0].getProductImgs()}">
 												<div class="carousel-item">
 													<img th:src="@{'imgs/test/'+${img}}" class="d-block w-100"
 														alt="...">
@@ -565,20 +565,20 @@ secion2 #sec2 - 대리공구 영역
 							<div class="row px-5 pt-5">
 								<div class="col">
 									<p class="mb-1 pie-c-red font-weight-bolder">
-										<small id="bestCategory" th:text="${list[0].getPr_category()}"></small>
+										<small id="bestCategory" th:text="${list[0].getCategory()}"></small>
 									</p>
 									<h4 id="bestTitle" class="text-truncate mb-4"
-										th:text="${list[0].getPr_title()}"></h4>
+										th:text="${list[0].getTitle()}"></h4>
 									<div id="bestContent" class="hyej-text-truncate">
-										<p th:text="${list[0].getPr_content()}"></p>
+										<p th:text="${list[0].getContent()}"></p>
 									</div>
 									<div class="">
 										<small id="bestTags"> <th:block
-												th:if="${list[0].getPr_tags()!=null}">
+												th:if="${list[0].getTags()!=null}">
 												<th:block
-													th:each="i: ${#numbers.sequence(1, list[0].getPr_tags()?.length - 1)}">
+													th:each="i: ${#numbers.sequence(1, list[0].getTags()?.length - 1)}">
 													<span class="badge badge-light"
-														th:text="|#${list[0].getPr_tags()[i]}|">#태그</span>
+														th:text="|#${list[0].getTags()[i]}|">#태그</span>
 												</th:block>
 											</th:block>
 										</small>
@@ -586,24 +586,24 @@ secion2 #sec2 - 대리공구 영역
 									<div class="d-flex justify-content-end">
 										<div class="d-flex align-items-center">
 											<span class="pie-heart-icon active pie-icons mr-2"></span> <span
-												id="bestLike" th:text=${list[0].getPr_like()}></span>
+												id="bestLike" th:text=${list[0].getLikeNum()}></span>
 										</div>
 										<div class="d-flex align-items-center mx-3">
 											<span class="pie_view-icon active pie-icons mr-2"></span> <span
-												id="bestHit" th:text=${list[0].getPr_hit()}></span>
+												id="bestHit" th:text=${list[0].getHit()}></span>
 										</div>
 										<div class="d-flex align-items-center">
 											<span class="pie-man-icon active pie-icons mr-2"></span> <span
-												id="bestNow" th:text=${list[0].getPr_personnelNow()}></span>
+												id="bestNow" th:text=${list[0].getPersonnelNow()}></span>
 											<span>/</span> <span id="bestMax"
-												th:text=${list[0].getPr_personnelMax()}></span>
+												th:text=${list[0].getPersonnelMax()}></span>
 										</div>
 									</div>
 								</div>
 							</div>
 							<div class="row px-5 py-5">
 								<div class="col">
-									<a th:href="@{'viewProxyBoard?num='+${list[0].getPr_num()}}"
+									<a th:href="@{'viewProxyBoard?num='+${list[0].getNum()}}"
 										class="btn pie-btn-red btn-block" id="bestBtn">보러가기</a>
 								</div>
 							</div>
@@ -617,13 +617,13 @@ secion2 #sec2 - 대리공구 영역
 									<div class="col-lg-6 col-md-12 col-6 p-1 bestProduct">
 										<div class="hyej-custom-img-box position-relative">
 											<img
-												th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
+												th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 												alt="" class="shadow" />
 											<div class="hyej-cover">
 												<div>
 													<p class="small m-0 pie-c-red"
-														th:text="${board.getPr_category()}"></p>
-													<h6 class="text-truncate" th:text="${board.getPr_title()}"></h6>
+														th:text="${board.getCategory()}"></p>
+													<h6 class="text-truncate" th:text="${board.getTitle()}"></h6>
 												</div>
 
 
@@ -631,18 +631,18 @@ secion2 #sec2 - 대리공구 영역
 													<div class="d-flex align-items-center">
 														<span class="pie-heart-icon active pie-icons-mini mr-1"></span>
 														<span id="bestLike" class="small"
-															th:text=${board.getPr_like()}></span>
+															th:text=${board.getLikeNum()}></span>
 													</div>
 													<div class="d-flex align-items-center mx-2">
 														<span class="pie_view-icon active pie-icons-mini mr-1"></span>
 														<span id="bestHit" class="small"
-															th:text=${board.getPr_hit()}></span>
+															th:text=${board.getHit()}></span>
 													</div>
 													<div class="d-flex align-items-center">
 														<span class="pie-man-icon active pie-icons-mini mr-1"></span>
-														<span id="bestNow" th:text=${board.getPr_personnelNow()}></span>
+														<span id="bestNow" th:text=${board.getPersonnelNow()}></span>
 														<span>/</span> <span id="bestMax" class="small"
-															th:text=${board.getPr_personnelMax()}></span>
+															th:text=${board.getPersonnelMax()}></span>
 													</div>
 												</div>
 											</div>

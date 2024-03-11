@@ -1,5 +1,6 @@
 package com.pie.pieProject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pie.pieProject.DAO.ILikeDao;
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
@@ -31,17 +33,13 @@ public class LikeController {
 			@RequestParam("tableName") String tableName, HttpServletRequest request) {
 
 		String table = null;
-		String prefix = null;
 
 		if (tableName.equals("p")) {
 			table = "proxyBuyBoard";
-			prefix = "pr_";
 		}else if(tableName.equals("t")) {
 			table = "townBuyBoard";
-			prefix = "to_";
 		}else if(tableName.equals("s")) {
 			table = "shareServiceBoard";
-			prefix = "sh_";
 		}
 
 		if (ldao.checkLike(bcomp.getSession(request, "userId"), num, table) > 0) {
@@ -49,9 +47,11 @@ public class LikeController {
 		} else {
 			ldao.LikePlus(bcomp.getSession(request, "userId"), num, table);
 		}
-		ldao.countLike(num, table, prefix+"like", prefix+"num");
+		ldao.countLike(num, table);
 		
-		int result = ldao.getLike(prefix+"like", table, prefix+"num", num);
+		int result = ldao.getLike(table, num);
+		System.out.println("num:"+num);
+		System.out.println("result:"+result);
 		
 		return ResponseEntity.ok(result);
 	}
@@ -60,49 +60,30 @@ public class LikeController {
 	public String likeList(@RequestParam(value = "category", required = false) String category, HttpServletRequest request, Model model) {
 		
 		String id = bcomp.getSession(request, "userId");
-		if(category.equals("town")) {
-			List<TownBuyBoardDto> list = ldao.likeTListById(id);
-			for(TownBuyBoardDto d : list) {
-				d.setTo_category(bcomp.translate(d.getTo_category()));
+		String table = "";
+		List<BoardDto> list = new ArrayList<>();
+		System.out.println(category);
+		
+		if(category!=null&&!category.equals("")&&!category.equals("all")) {
+			if(category.equals("town")) {
+				table = "townBuyBoard";
+				list = bcomp.setTURL(ldao.likeListById(table, id));
 			}
-			model.addAttribute("list1",list);
-			model.addAttribute("table","town");
-		}else if(category.equals("proxy")) {
-			List<ProxyBuyBoardDto> list = ldao.likePListById(id);
-			for(ProxyBuyBoardDto d : list) {
-				d.setPr_category(bcomp.translate(d.getPr_category()));
+			else if(category.equals("proxy")) {
+				 table = "proxyBuyBoard";
+				 list = bcomp.setPURL(ldao.likeListById(table, id));
 			}
-			model.addAttribute("list1",list);
-			model.addAttribute("table","proxy");
-		}else if(category.equals("share")) {
-			List<ShareServiceDto> list = ldao.likeSListById(id);
-			for(ShareServiceDto d : list) {
-				d.setSh_category(bcomp.translate(d.getSh_category()));
+			else if(category.equals("share")) {
+				table = "shareServiceBoard";
+				 list = bcomp.setSURL(ldao.likeListById(table, id));
 			}
-			model.addAttribute("list1",list);
-			model.addAttribute("table","share");
-		}else if(category.equals("all")) {
-			List<TownBuyBoardDto> list1 = ldao.likeTListById(id);
-			for(TownBuyBoardDto d : list1) {
-				d.setTo_category(bcomp.translate(d.getTo_category()));
-			}
-			
-			System.out.println("list1 : "+list1.size());
-			List<ProxyBuyBoardDto> list2 = ldao.likePListById(id);
-			for(ProxyBuyBoardDto d : list2) {
-				d.setPr_category(bcomp.translate(d.getPr_category()));
-			}
-			System.out.println("list2 : "+list2.size());
-			List<ShareServiceDto> list3 = ldao.likeSListById(id);
-			for(ShareServiceDto d : list3) {
-				d.setSh_category(bcomp.translate(d.getSh_category()));
-			}
-			System.out.println("list3 : "+list3.size());
-			model.addAttribute("list1",list1);
-			model.addAttribute("list2",list2);
-			model.addAttribute("list3",list3);
-			model.addAttribute("table","all");
+		}else if(category==null||category.equals("")||category.equals("all")) {
+			list.addAll(bcomp.setTURL(ldao.likeListById("townBuyBoard", id)));
+			list.addAll(bcomp.setPURL(ldao.likeListById("proxyBuyBoard", id)));
+			list.addAll(bcomp.setSURL(ldao.likeListById("shareServiceBoard", id)));
 		}
+		
+		model.addAttribute("list",bcomp.translateList(list));
 		
 		return "/pieContents/members/likeList";
 	}	

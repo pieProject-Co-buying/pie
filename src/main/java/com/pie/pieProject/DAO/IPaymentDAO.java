@@ -20,6 +20,9 @@ public interface IPaymentDAO {
 
 	// 구매 목록 출력
 	public ArrayList<PaymentDTO> buyList(String id, String category);
+	
+	// 구매 목록 출력
+	public ArrayList<PaymentDTO> buyListbyId(String table, String id, String category);
 
 	// 상품 코드와 카테고리로 검색
 	public PaymentDTO payBoard(int num, String category);

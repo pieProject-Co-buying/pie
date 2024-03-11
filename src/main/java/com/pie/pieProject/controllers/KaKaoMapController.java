@@ -115,7 +115,7 @@ public class KaKaoMapController {
 		for (TownBuyBoardDto dto : list) {
 			try {
 				/* System.out.println("검색된 주소 : "+dto.getTo_address()); */
-				roadFullAddr = URLEncoder.encode(dto.getTo_address(), "UTF-8");
+				roadFullAddr = URLEncoder.encode(dto.getAddress(), "UTF-8");
 				String addr = apiUrl + "?query=" + roadFullAddr; // 수정
 				URL url = new URL(addr);
 				URLConnection conn = url.openConnection();
@@ -165,13 +165,13 @@ public class KaKaoMapController {
 				if(a1.equals(nowA1)&&a2.equals(nowA2)) {
 
 					 JSONObject item = new JSONObject();
-					 item.put("title", dto.getTo_title());
+					 item.put("title", dto.getTitle());
 					 item.put("x", x);
 					 item.put("y", y);
-					 item.put("num", dto.getTo_num());
-					 item.put("category", dto.getTo_category());
-					 int max = dto.getTo_personnelMax();
-					 int now = dto.getTo_personnelNow();
+					 item.put("num", dto.getNum());
+					 item.put("category", dto.getCategory());
+					 int max = dto.getPersonnelMax();
+					 int now = dto.getPersonnelNow();
 						/* System.out.println(max-now); */
 					 item.put("endSoon", max-now);
 					 

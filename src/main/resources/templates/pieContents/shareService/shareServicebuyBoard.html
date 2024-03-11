@@ -67,9 +67,9 @@
 				th:if="${param.category==null||(param.category!=null&&(#strings.equals(param.category, '')||#strings.equals(param.category, 'town')))}">
 				<th:block th:if="${list.size()!=0}"
 					th:each="board, boardStat:${list}">
-					<div th:href="'boardList?num='+${board.getTo_num()}"
+					<div th:href="'boardList?num='+${board.getNum()}"
 						class="col-12 mb-3 border ApplyList pie-radius"
-						th:attr="data-pieCate=${board.getTo_process()}">
+						th:attr="data-pieCate=${board.getProcess()}">
 						<div class="row no-gutters">
 							<div class="col-md-4 my-3">
 								<img
@@ -79,29 +79,25 @@
 							<!--col-->
 							<div class="col-md-8">
 								<div class="card-body pt-5">
-									<th:block th:if="${board.getTo_process().equals('3')}">
+									<th:block th:if="${board.getProcess().equals('3')}">
 										<small class="badge badge-secondary" th:text="기간만료"></small>
 									</th:block>
-									<th:block th:if="${board.getTo_process().equals('2')}">
+									<th:block th:if="${board.getProcess().equals('2')}">
 										<small class="badge badge-warning" th:text="모집중단"></small>
 									</th:block>
-									<th:block th:if="${board.getTo_process().equals('1')}">
+									<th:block th:if="${board.getProcess().equals('1')}">
 										<small class="badge badge-success" th:text="모집진행중"></small>
 									</th:block>
-									<th:block th:if="${board.getTo_process().equals('0')}">
+									<th:block th:if="${board.getProcess().equals('0')}">
 										<small class="badge badge-danger" th:text="모집마감"></small>
 									</th:block>
 									<h5 class="card-title d-block w-100 text-truncate mt-2"
-										th:text="${board.getTo_title}"></h5>
-									<small class="d-flex"> 
-										<span><b>참여일시 :&nbsp;</b></span>
+										th:text="${board.getTitle}"></h5>
+									<small class="d-flex"> <span><b>참여일시 :&nbsp;</b></span>
 										<span th:text="${partList.get(boardStat.index)}"></span>
-									</small> 
-									<small class="d-flex">
-										<span><b>참여금액 :&nbsp;</b></span> 
-										<span th:text="${board.getTo_personnelNow}+'원'"></span>
-									</small> 
-										<a th:href="'townBuyproduct?num='+${board.getTo_num()}"
+									</small> <small class="d-flex"> <span><b>참여금액
+												:&nbsp;</b></span> <span th:text="${board.getPersonnelNow}+'원'"></span>
+									</small> <a th:href="'townBuyproduct?num='+${board.getNum()}"
 										class="btn btn-sm pie-btn-red mt-3">상세보기</a>
 								</div>
 								<div class="col d-flex justify-content-end content-div mt-4">
@@ -145,7 +141,8 @@
 									<th:block th:if="${board.getPay_refund.equals('0')}">
 										<small class="badge badge-info" th:text="정상처리"></small>
 									</th:block>
-									<th:block th:if="${board.getPay_refund.equals('1') || board.getPay_refund.equals('3')}">
+									<th:block
+										th:if="${board.getPay_refund.equals('1') || board.getPay_refund.equals('3')}">
 										<small class="badge badge-danger" th:text="환불요청중"></small>
 									</th:block>
 									<th:block th:if="${board.getPay_refund.equals('2')}">
@@ -153,23 +150,19 @@
 									</th:block>
 									<h5 class="card-title d-block w-100 text-truncate mt-2"
 										th:text="${board.getPay_name}"></h5>
-									<small class="d-flex"> 
-										<span><b>상품코드 :&nbsp;</b></span>
+									<small class="d-flex"> <span><b>상품코드 :&nbsp;</b></span>
 										<span th:text="${board.getPay_Merchant_uid}"></span>
-									</small> 
-									<small class="d-flex"> 
-										<span><b>결제일시 :&nbsp;</b></span> 
-										<span th:text="${board.getPay_date}"></span>
-									</small> 
-									<small class="d-flex"> 
-										<span><b>결제수단 :&nbsp;</b></span> 
-										<span th:text="${board.getPay_method}"></span>
-									</small> 
-									<small class="d-flex"> 
-										<span><b>결제금액 :&nbsp;</b></span> 
-										<span th:text="${board.getPay_amount}+'원'"></span>
-									</small> 
-									<a th:href="'boardList?num='+${board.getNum()}"
+									</small> <small class="d-flex"> <span><b>결제일시
+												:&nbsp;</b></span> <span th:text="${board.getPay_date}"></span>
+									</small> <small class="d-flex"> <span><b>결제수단
+												:&nbsp;</b></span> <span th:text="${board.getPay_method}"></span>
+									</small> <small class="d-flex"> <span><b>결제금액
+												:&nbsp;</b></span> <span th:text="${board.getPay_amount}+'원'"></span>
+									</small> <a th:if="${board.getPay_category=='Share'}"
+										th:href="'boardList?num='+${board.getPay_num()}"
+										class="btn btn-sm pie-btn-red mt-3">상세보기</a> <a
+										th:if="${board.getPay_category=='Proxy'}"
+										th:href="'viewProxyBoard?num='+${board.getPay_num()}"
 										class="btn btn-sm pie-btn-red mt-3">상세보기</a>
 									<th:block th:if="${board.getPay_refund.equals('0')}">
 										<a th:href="'refundPay?num='+${board.getPay_Merchant_uid()}"

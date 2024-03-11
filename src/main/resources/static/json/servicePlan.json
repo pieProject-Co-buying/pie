@@ -1,0 +1,97 @@
+{
+	"OTT": {
+		"넷플릭스(Netflix)": [
+			{
+				"plan": "스탠다드(standard)",
+				"price": 13500,
+				"person": 2,
+				"period": "month"
+			},
+			{
+				"plan": "프리미엄(premium)",
+				"price": 17000,
+				"person": 3,
+				"period": "month"
+			}
+		],
+		"티빙(Tving)": [
+			{
+				"plan": "스탠다드(standard)",
+				"price": 13500,
+				"person": 2,
+				"period": "month"
+			},
+			{
+				"plan": "프리미엄(premium)",
+				"price": 17000,
+				"person": 4,
+				"period": "month"
+			}
+		],
+		"왓챠(Watcha)": [
+			{
+				"plan": "프리미엄(premium)",
+				"price": 10830,
+				"person": 4,
+				"period": "month"
+			}
+		],
+		"웨이브(Wavve)": [
+			{
+				"plan": "스탠다드(standard)",
+				"price": 10900,
+				"person": 2,
+				"period": "month"
+			},
+			{
+				"plan": "프리미엄(premium)",
+				"price": 13900,
+				"person": 4,
+				"period": "month"
+			}
+		],
+		"디즈니플러스(Disney+)": [
+			{
+				"plan": "스탠다드(standard)",
+				"price": 9900,
+				"person": 2,
+				"period": "month"
+			},
+			{
+				"plan": "프리미엄(premium)",
+				"price": 13900,
+				"person": 4,
+				"period": "month"
+			}
+		]
+
+	},
+	"bookAndMusic": {
+		"밀리의 서재(Millie)": [
+			{
+				"plan": "전자책 정기구독(standard)",
+				"price": 9900,
+				"person": 5,
+				"period": "month"
+			}
+		],
+		"스포티파이(Spotify)": [
+			{
+				"plan": "듀오(duo)",
+				"price": 16350,
+				"person": 2,
+				"period": "month"
+			}
+		]
+	},
+	"game": {
+		"닌텐도(Nintendo)": [
+			{
+				"plan": "패밀리 플랜(family)",
+				"price": 37900,
+				"person": 8,
+				"period": "year"
+			}
+		]
+	}
+}

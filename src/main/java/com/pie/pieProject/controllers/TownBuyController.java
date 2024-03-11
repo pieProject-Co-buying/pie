@@ -59,16 +59,16 @@ public class TownBuyController {
 		
 		
 		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
-		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		MemberDto mdto = mdao.find(bcomp.getSession(request, "userId")); //현재 로그인한 유저
 		String useraddr = mdto.getAddress_main();
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
 		
 		
 //		for(TownBuyBoardDto towndto : tlist) {
-//			String addr = towndto.getTo_address(); //addr에 towndto.getTo_address() 담음	
+//			String addr = towndto.getAddress(); //addr에 towndto.getAddress() 담음	
 //			String mainAddr = addr.substring(0, 6);
-//			int boardNum = towndto.getTo_num();
+//			int boardNum = towndto.getNum();
 //			
 //			
 //			obj.put("realaddr", addr);
@@ -82,12 +82,7 @@ public class TownBuyController {
 		
 		//listLocal 메소드를 이용해 유저의 주소를 담아 해당하는 주소와 일치하는 게시물들을 불러온다
 		// 현재 모집마감 게시글도 불러옴
-		List<TownBuyBoardDto> townlist = dao.listLocal(userMainAddr);
-		
-		//영문 번역 메소드 활용해 카테고리 변경
-		for(TownBuyBoardDto d : townlist) {
-			d.setTo_category(bcomp.translate(d.getTo_category()));
-		}
+		List<TownBuyBoardDto> townlist = bcomp.translateTownList(dao.listLocal(userMainAddr));
 		
 		/*
 		 * model.addAttribute("townlist", townlist);
@@ -123,7 +118,7 @@ public class TownBuyController {
 	public String toBoardView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		
 			String sId = request.getParameter("num");
-			MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+			MemberDto mdto = mdao.find(bcomp.getSession(request, "userId")); //현재 로그인한 유저
 			String useraddr = mdto.getAddress_main();
 			String userMainAddr = useraddr.substring(0, 6);
 			
@@ -135,27 +130,26 @@ public class TownBuyController {
 			
 			TownBuyBoardDto dto = dao.viewDao(sId);
 			
-
-
-			dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
-			if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
-				dto.setTo_tags(null);
+			dto.setProductImgs(bcomp.setArraysData(dto.getProductImg(), "/"));
+			if(dto.getTag()==null||dto.getTag().equals("#")) {
+				dto.setTags(null);
 			}else {
-				dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+				dto.setTags(bcomp.setArraysData(dto.getTag(), "#"));
 			}
+			dto.setCategory(bcomp.translate(dto.getCategory()));
 			
 			/* dao.updateHit(sId); */
 			
 //			좋아요
 			String table = "townBuyBoard";
-			if (ldao.checkLike(getSession(request, "userId"), sId, table) > 0) {
+			if (ldao.checkLike(bcomp.getSession(request, "userId"), sId, table) > 0) {
 				model.addAttribute("like", true);
 			} else {
 				model.addAttribute("like", false);
 			}
 						
 			
-		    if (dto.getTo_personnelNow() >= dto.getTo_personnelMax()) {
+		    if (dto.getPersonnelNow() >= dto.getPersonnelMax()) {
 		        dao.updateTownProcess(sId);
 		    }
 			
@@ -168,9 +162,9 @@ public class TownBuyController {
 			model.addAttribute("board", dto);
 			
 //			참여 여부 확인
-			model.addAttribute("in",(paDao.chkPartiMem(getSession(request, "userId"), "townBuyBoard", num)>0));
+			model.addAttribute("in",(paDao.chkPartiMem(bcomp.getSession(request, "userId"), "townBuyBoard", num)>0));
 //			참여 했다가 취소 여부 확인
-			model.addAttribute("cancel",(paDao.canceledBuying(getSession(request, "userId"), "townBuyBoard", num)>0));
+			model.addAttribute("cancel",(paDao.canceledBuying(bcomp.getSession(request, "userId"), "townBuyBoard", num)>0));
 			
 
 		return "pieContents/townBuying/townBuyproduct";
@@ -200,30 +194,39 @@ public class TownBuyController {
 	    
 	    
 		TownBuyBoardDto dto = new TownBuyBoardDto();
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(bcomp.getSession(request, "userId"));
 		
-		System.out.println(request.getParameter("to_category"));
-		System.out.println(request.getParameter("to_title"));
-		System.out.println(request.getParameter("to_content"));
-		System.out.println(request.getParameter("to_price"));
-		System.out.println(request.getParameter("to_personnelMax"));
-		System.out.println(request.getParameter("to_deadLine"));
-		System.out.println(request.getParameter("num"));
+		if(dto.getPersonnelNow()>1) {
+			return "redirect:/townBuyproduct?num=" + request.getParameter("num");
+		}
+		
+		/*
+		 * System.out.println(request.getParameter("category"));
+		 * System.out.println(request.getParameter("title"));
+		 * System.out.println(request.getParameter("content"));
+		 * System.out.println(request.getParameter("price"));
+		 * System.out.println(request.getParameter("personnelMax"));
+		 * System.out.println(request.getParameter("deadLine"));
+		 * System.out.println(request.getParameter("num"));
+		 */
 
-		dto.setTo_category(request.getParameter("to_category"));
-		dto.setTo_title(request.getParameter("to_title"));
-		dto.setTo_content(request.getParameter("to_content"));
-		dto.setTo_num(Integer.parseInt(request.getParameter("num")));
-		/* dto.setTo_num(request.getParameter("id")); */
-		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
-		dto.setTo_deadLine(request.getParameter("to_deadLine"));
-		dto.setTo_productImg(request.getParameter("to_files"));
-		dto.setTo_tag(request.getParameter("pie_tagsOutput"));
+		dto.setCategory(request.getParameter("category"));
+		dto.setTitle(request.getParameter("title"));
+		dto.setContent(request.getParameter("content"));
+		dto.setNum(request.getParameter("num"));
+		/* dto.setNum(request.getParameter("id")); */
+		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
+		dto.setDeadLine(request.getParameter("deadLine"));
+		dto.setProductImg(request.getParameter("fileStr"));
+		dto.setTag(request.getParameter("pie_tagsOutput"));
 		
-		dto.setTo_address(mdto.getAddress_main());
-		dto.setTo_pricePer(Integer.parseInt(request.getParameter("price_per")));
-		dto.setTo_priceTotal(Integer.parseInt(request.getParameter("price_total")));
-		dto.setTo_ip(request.getRemoteAddr());
+		dto.setAddress(mdto.getAddress_main());
+		dto.setPricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setPriceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setIp(request.getRemoteAddr());
+		
+		dto.setBrand(request.getParameter("brand"));
+		dto.setProductName(request.getParameter("productName"));
 		
 		
 		dao.updateDao(dto);
@@ -240,11 +243,11 @@ public class TownBuyController {
 		String sId = request.getParameter("num");
 		
 		TownBuyBoardDto dto = dao.viewDao(sId);
-		dto.setTo_productImgs(setArraysData(dto.getTo_productImg(), "/"));
-		if(dto.getTo_tag()==null||dto.getTo_tag().equals("#")) {
-			dto.setTo_tags(null);
+		dto.setProductImgs(bcomp.setArraysData(dto.getProductImg(), "/"));
+		if(dto.getTag()==null||dto.getTag().equals("#")) {
+			dto.setTags(null);
 		}else {
-			dto.setTo_tags(setArraysData(dto.getTo_tag(), "#"));
+			dto.setTags(bcomp.setArraysData(dto.getTag(), "#"));
 		}
 		model.addAttribute("board", dto);
 		return "pieContents/townBuying/updateTownProductForm";
@@ -265,14 +268,13 @@ public class TownBuyController {
 	
 
 	@RequestMapping("/townBuyingCategoryChoice")
-
 	public String category(HttpServletRequest request, Model model) {
 
 		String category = request.getParameter("category");
 
 		
 		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
-		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
+		MemberDto mdto = mdao.find(bcomp.getSession(request, "userId")); //현재 로그인한 유저
 		String useraddr = mdto.getAddress_main();
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
@@ -290,29 +292,31 @@ public class TownBuyController {
 	public String write(HttpServletRequest request, Model model) {
 
 		TownBuyBoardDto dto = new TownBuyBoardDto();
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(bcomp.getSession(request, "userId"));
 
-		dto.setTo_id(getSession(request, "userId"));
-		dto.setTo_category(request.getParameter("to_category"));
+		dto.setId(bcomp.getSession(request, "userId"));
+		dto.setCategory(request.getParameter("category"));
 		
 		if (mdto.getPremium().equals("pro")) {
-			dto.setTo_premium("1");
+			dto.setPremium("1");
 		} else {
-			dto.setTo_premium("0");
+			dto.setPremium("0");
 		}
 		
-		dto.setTo_nickname(getSession(request,"nickName"));
-		dto.setTo_title(request.getParameter("to_title"));
-		dto.setTo_content(request.getParameter("to_content"));
-		dto.setTo_profileImg(getSession(request, "pic"));
-		dto.setTo_productImg(request.getParameter("to_files"));
-		dto.setTo_tag(request.getParameter("pie_tagsOutput"));
-		dto.setTo_address(mdto.getAddress_main());
-		dto.setTo_personnelMax(Integer.parseInt(request.getParameter("to_personnelMax")));
-		dto.setTo_pricePer(Integer.parseInt(request.getParameter("price_per")));
-		dto.setTo_priceTotal(Integer.parseInt(request.getParameter("price_total")));
-		dto.setTo_ip(request.getRemoteAddr());
-		dto.setTo_deadLine(request.getParameter("to_deadLine"));
+		dto.setNickname(bcomp.getSession(request,"nickName"));
+		dto.setTitle(request.getParameter("title"));
+		dto.setContent(request.getParameter("content"));
+		dto.setProfileImg(bcomp.getSession(request, "pic"));
+		dto.setProductImg(request.getParameter("fileStr"));
+		dto.setTag(request.getParameter("pie_tagsOutput"));
+		dto.setAddress(mdto.getAddress_main());
+		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
+		dto.setPricePer(Integer.parseInt(request.getParameter("price_per")));
+		dto.setPriceTotal(Integer.parseInt(request.getParameter("price_total")));
+		dto.setIp(request.getRemoteAddr());
+		dto.setDeadLine(request.getParameter("deadLine"));
+		dto.setBrand(request.getParameter("brand"));
+		dto.setProductName(request.getParameter("productName"));
 		
 		
 		dao.writeDao(dto);
@@ -324,7 +328,7 @@ public class TownBuyController {
 	// 동네 공구 메인페이지
 	@RequestMapping("/townBuying")
 	public String townBPage(HttpServletRequest request, Model model) {
-		MemberDto mdto = mdao.find(getSession(request, "userId"));
+		MemberDto mdto = mdao.find(bcomp.getSession(request, "userId"));
 		String addr = mdto.getAddress_main().substring(0,6);
 
 		List<TownBuyBoardDto> list = dao.listLocal(addr);
@@ -341,19 +345,5 @@ public class TownBuyController {
 		return "redirect:/townBuyproduct?num="+num;
 	}
 	
-	
-	
-	private String[] setArraysData(String key, String wallWord) {
-		String[] str_imgs = key.split(wallWord);
-		for (String s : str_imgs) {
-			s.replace(wallWord, "");
-		}
-		return str_imgs;
-	}
-
-	private String getSession(HttpServletRequest request, String key) {
-		HttpSession session = request.getSession();
-		return (String) session.getAttribute(key);
-	}
 	
 }
