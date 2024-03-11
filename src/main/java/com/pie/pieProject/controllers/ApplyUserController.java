@@ -35,31 +35,36 @@ public class ApplyUserController {
 	}
 
 	@PostMapping("/proxyApplyFormUpload")
-	public String proxyuploadAction(@RequestParam("pr_title") String title, @RequestParam("pr_content") String content,
-			@RequestParam("pr_files") String pictures, @RequestParam(value = "pr_URL", required = false) String url,
-			@RequestParam("pr_category") String pr_category, HttpServletRequest request) {
+	public String proxyuploadAction(@RequestParam("title") String title, @RequestParam("content") String content,
+			@RequestParam("fileStr") String pictures, @RequestParam(value = "URL", required = false) String url,
+			@RequestParam("category") String category, @RequestParam("brand") String brand,  @RequestParam("productName") String productName, HttpServletRequest request) {
 
 		ProxyApplyBoardDto dto = new ProxyApplyBoardDto();
 
 		System.out.println(title);
-		System.out.println(pr_category);
+		System.out.println(category);
 		System.out.println(content);
 		System.out.println(pictures);
 		System.out.println(url);
+		System.out.println(brand);
+		System.out.println(productName);
 
-		if (url == null) {
-			dto.setPr_URL("");
+		if (url == null||url.equals("")) {
+			dto.setURL("");
 		}
 
-		dto.setPr_id(Bcomp.getSession(request, "userId"));
-		dto.setPr_category(pr_category);
-		dto.setPr_nickname(Bcomp.getSession(request, "nickName"));
-		dto.setPr_title(title);
-		dto.setPr_content(content);
-		dto.setPr_profileImg(Bcomp.getSession(request, "pic"));
-		dto.setPr_productImg(pictures);
+		dto.setId(Bcomp.getSession(request, "userId"));
+		dto.setCategory(category);
+		dto.setNickname(Bcomp.getSession(request, "nickName"));
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProductImg(pictures);
+		dto.setURL(url);
+		dto.setBrand(brand);
+		dto.setProductName(productName);
 
-		dto.setPr_ip(request.getRemoteAddr());
+		dto.setIp(request.getRemoteAddr());
 		dao.insertProxyBoard(dto);
 
 		return "redirect:/proxyBuyApply?page=1";
@@ -74,8 +79,8 @@ public class ApplyUserController {
 		if(pageNum<=0) pageNum=1;
 
 		for (ProxyApplyBoardDto dto : allList) {
-			dto.setPr_category(Bcomp.translate(dto.getPr_category()));
-			dto.setPr_process(Bcomp.setProcess(dto.getPr_process()));
+			dto.setCategory(Bcomp.translate(dto.getCategory()));
+			dto.setProcess(Bcomp.setProcess(dto.getProcess()));
 		}
 
 		List<ProxyApplyBoardDto> list = new ArrayList<>();
@@ -102,10 +107,10 @@ public class ApplyUserController {
 		
 		ProxyApplyBoardDto dto = dao.getView(num);
 		
-		int process = Integer.parseInt(dto.getPr_process());
+		int process = Integer.parseInt(dto.getProcess());
 		
-		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
-		dto.setPr_process(Bcomp.setProcess(dto.getPr_process()));
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
+		dto.setProcess(Bcomp.setProcess(dto.getProcess()));
 		
 		
 		model.addAttribute("board", dto);
@@ -120,26 +125,28 @@ public class ApplyUserController {
 	public String proxyUpdateForm(@RequestParam("num") String num, Model model) {
 		System.out.println(num);
 		ProxyApplyBoardDto dto = dao.getView(num);
-		dto.setPr_productImgs(Bcomp.setArraysData(dto.getPr_productImg(), "/"));
+		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
 
 		model.addAttribute("board", dto);
 		return "/pieContents/proxyBuying/proxyApplyupdateForm";
 	}
 
 	@PostMapping("/proxyApplyFormUpdate")
-	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("pr_title") String title,
-			@RequestParam("pr_content") String content, @RequestParam("pr_files") String pictures,
-			@RequestParam("pr_URL") String url, @RequestParam("pr_category") String pr_category,
+	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("title") String title,
+			@RequestParam("content") String content, @RequestParam("fileStr") String pictures,
+			@RequestParam("URL") String url, @RequestParam("category") String category, @RequestParam("brand") String brand,  @RequestParam("productName") String productName,
 			HttpServletRequest request) {
 		ProxyApplyBoardDto dto = new ProxyApplyBoardDto();
 
-		dto.setPr_num(num);
-		dto.setPr_category(pr_category);
-		dto.setPr_title(title);
-		dto.setPr_content(content);
-		dto.setPr_productImg(pictures);
-		dto.setPr_URL(url);
-		dto.setPr_ip(request.getRemoteAddr());
+		dto.setNum(num);
+		dto.setCategory(category);
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setProductImg(pictures);
+		dto.setURL(url);
+		dto.setIp(request.getRemoteAddr());
+		dto.setBrand(brand);
+		dto.setProductName(productName);
 		dao.updateProxyBoard(dto);
 
 		return "redirect:/viewProxyApplyBoard?num=" + num;
@@ -152,26 +159,26 @@ public class ApplyUserController {
 	}
 	
 	@PostMapping("/stateUpdateAction")
-	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("pr_statement") String pr_statement
+	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("statement") String statement
 ) {
 		ProxyApplyBoardDto chk = dao.getView(num);
-		if(chk.getPr_process().equals("0")&&(pr_statement.equals("3")||pr_statement.equals("4"))) {
+		if(chk.getProcess().equals("0")&&(statement.equals("3")||statement.equals("4"))) {
 			return "redirect:/viewProxyApplyBoard?num=" + num;
-		}else if(chk.getPr_process().equals("1")&&(pr_statement.equals("0")||pr_statement.equals("4"))) {
+		}else if(chk.getProcess().equals("1")&&(statement.equals("0")||statement.equals("4"))) {
 			return "redirect:/viewProxyApplyBoard?num=" + num;
-		}else if(chk.getPr_process().equals("2")||chk.getPr_process().equals("4")){
+		}else if(chk.getProcess().equals("2")||chk.getProcess().equals("4")){
 			return "redirect:/viewProxyApplyBoard?num=" + num;
-		}else if(chk.getPr_process().equals("3")&&!pr_statement.equals("4")) {
+		}else if(chk.getProcess().equals("3")&&!statement.equals("4")) {
 			return "redirect:/viewProxyApplyBoard?num=" + num;
 		}
 		
 		ProxyApplyBoardDto dto = new ProxyApplyBoardDto();
 		
 		System.out.println(num);
-		System.out.println(pr_statement);
+		System.out.println(statement);
 
-		dto.setPr_num(num);
-		dto.setPr_process(pr_statement);
+		dto.setNum(num);
+		dto.setProcess(statement);
 
 		dao.updateState(dto);
 

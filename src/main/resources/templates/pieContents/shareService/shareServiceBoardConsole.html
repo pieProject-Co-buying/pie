@@ -14,14 +14,13 @@
 		<!-------------------------------------------------------------->
 		<div id="board-search" class="container-fluid">
 			<div class="container-fluid p-0">
-					<small>
-						<a href="shareServiceBoardConsole?category=Proxy">동네공구</a>
-						<small> / </small>
-						<a href="shareServiceBoardConsole?category=Share">서비스공유</a>
-					</small>
+				<small> <a href="shareServiceBoardConsole?category=Proxy">동네공구</a>
+					<small> / </small> <a
+					href="shareServiceBoardConsole?category=Share">서비스공유</a>
+				</small>
 				<div class="search-window">
-					<form action="searchBoardName" >
-					<input type="hidden" name = "page" value="1" />
+					<form action="searchBoardName">
+						<input type="hidden" name="page" value="1" />
 						<div class="search-wrap">
 							<label for="search" class="blind">게시글 검색</label> <input
 								type="text" id="search" name="search" placeholder="검색어를 입력해주세요.">
@@ -50,32 +49,34 @@
 					</thead>
 					<tbody>
 						<th:block th:each="board:${list}">
-								<tr>
-									<td th:text="${board.getNum()}"></td>
-									<td th:text="${board.getCategory()}"></td>
-									<td th:text="${board.getId}"></td>
-									<th>
-										<b>
-											<a class="d-block text-truncate" style="max-width:100px;" th:href="'boardList?num='+${board.getNum()}" th:text="${board.getTitle()}"></a>
-										</b>
-									</th>
-									<td>
-										<small class="badge badge-secondary" th:if="${board.getProcess().equals('3')}"> 기간만료</small> 
-										<small class="badge badge-warning" th:if="${board.getProcess().equals('2')}"> 모집중단</small> 
-										<small class="badge badge-success" th:if="${board.getProcess().equals('1')}"> 모집진행중</small> 
-										<small class="badge badge-danger" th:if="${board.getProcess().equals('0')}"> 모집완료</small>
-									</td> 
-									<td>
-										<th:block th:if="${board.getProcess().equals('1') || board.getProcess().equals('2')}"> <!-- || board.getPersonnelNow() < board.getPersonnelMax() -->									
-											<a th:href="'processRemote?page=1&num='+${board.getNum()}" class="badge badge-warning">
-												<b>변경</b>
-											</a>
-										</th:block>
-										<th:block th:if="${board.getProcess().equals('0') && board.getPersonnelNow() >= board.getPersonnelMax()}">
-											<span class="badge badge-secondary">변경불가</span>
-										</th:block>
-									</td>
-								</tr>
+							<tr>
+								<td th:text="${board.getNum()}"></td>
+								<td th:text="${board.getCategory()}"></td>
+								<td th:text="${board.getId}"></td>
+								<th><b> <a class="d-block text-truncate"
+										style="max-width: 100px;"
+										th:href="'boardList?num='+${board.getNum()}"
+										th:text="${board.getTitle()}"></a>
+								</b></th>
+								<td><small class="badge badge-secondary"
+									th:if="${board.getProcess().equals('3')}"> 기간만료</small> <small
+									class="badge badge-warning"
+									th:if="${board.getProcess().equals('2')}"> 모집중단</small> <small
+									class="badge badge-success"
+									th:if="${board.getProcess().equals('1')}"> 모집진행중</small> <small
+									class="badge badge-danger"
+									th:if="${board.getProcess().equals('0')}"> 모집완료</small></td>
+								<td><th:block
+										th:if="${board.getProcess().equals('1') || board.getProcess().equals('2')}">
+										<!-- || board.getPersonnelNow() < board.getPersonnelMax() -->
+										<a th:href="'processRemote?page=1&num='+${board.getNum()}"
+											class="badge badge-warning"> <b>변경</b>
+										</a>
+									</th:block> <th:block
+										th:if="${board.getProcess().equals('0') && board.getPersonnelNow() >= board.getPersonnelMax()}">
+										<span class="badge badge-secondary">변경불가</span>
+									</th:block></td>
+							</tr>
 						</th:block>
 					</tbody>
 				</table>
@@ -93,7 +94,12 @@
 											<span aria-hidden="true">&laquo;</span>
 									</a></li>
 									<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
-										<li class="page-item"><a class="page-link"
+										<li th:if="${#strings.equals(param.page, i)}"
+											class="page-item active"><a class="page-link"
+											th:href="@{'shareServiceBoardConsole?page='+${i}}"
+											th:text="${i}"></a></li>
+										<li th:unless="${#strings.equals(param.page, i)}"
+											class="page-item"><a class="page-link"
 											th:href="@{'shareServiceBoardConsole?page='+${i}}"
 											th:text="${i}"></a></li>
 									</th:block>

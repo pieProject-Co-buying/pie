@@ -9,6 +9,15 @@
 	<!--container-->
 	<!--------------------------------게시글 로직-------------------------------->
 	<div class="container">
+		<div sec:authorize="hasRole('ROLE_ADMIN')" class="row mb-5">
+			<div class="col">
+				<a href="proxyWriteForm" class="btn btn-block pie-btn-outline-red">모집글
+					등록하기</a>
+			</div>
+		</div>
+
+
+
 		<th:block th:if="${haveFeed}">
 			<div class="row">
 				<div class="col text-center">
@@ -38,19 +47,13 @@
 				</div>
 			</div>
 		</th:block>
-		
-		<div class="row">
-			<div class="col">
-			<a href="proxyWriteForm">글쓰기</a>
-			</div>
-		</div>
-
 
 		<th:block th:if="${list1!=null}">
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text1.get(0)}|"></h3>
+						<h3 class="font-weight-bolder pie-c-red"
+							th:text="|#${text1.get(0)}|"></h3>
 					</div>
 				</div>
 				<div class="row align-items-center">
@@ -59,8 +62,8 @@
 						<div class="py-4 px-1 pie-c-brown">
 							<h4 th:text="${text1.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
-									몰라요!
+								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고
+									있답니다! <br /> 서두르지 않으면 자리가 없을지도 몰라요!
 								</small>
 							</p>
 						</div>
@@ -116,7 +119,8 @@
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text2.get(0)}|"># 현재 진행중</h3>
+						<h3 class="font-weight-bolder pie-c-red"
+							th:text="|#${text2.get(0)}|"># 현재 진행중</h3>
 					</div>
 				</div>
 				<div class="row align-items-center flex-row-reverse">
@@ -125,8 +129,8 @@
 						<div class="py-4 px-1 pie-c-brown">
 							<h4 th:text="${text2.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
-									몰라요!
+								<small th:utext="${text1.get(2)}"> 파이가 함께할 사람들을 구하고
+									있답니다! <br /> 서두르지 않으면 자리가 없을지도 몰라요!
 								</small>
 							</p>
 						</div>
@@ -183,7 +187,8 @@
 			<section class="my-5 py-5 hyej-lists">
 				<div class="row py-2">
 					<div class="col">
-						<h3 class="font-weight-bolder pie-c-red" th:text="|#${text3.get(0)}|"># 현재 진행중</h3>
+						<h3 class="font-weight-bolder pie-c-red"
+							th:text="|#${text3.get(0)}|"># 현재 진행중</h3>
 					</div>
 				</div>
 				<div class="row align-items-center">
@@ -192,8 +197,8 @@
 						<div class="py-4 px-1 pie-c-brown">
 							<h4 th:text="${text3.get(1)}">파이는 현재 진행중!</h4>
 							<p>
-								<small th:utext="${text3.get(2)}"> 파이가 함께할 사람들을 구하고 있답니다! <br /> 서두르지 않으면 자리가 없을지도
-									몰라요!
+								<small th:utext="${text3.get(2)}"> 파이가 함께할 사람들을 구하고
+									있답니다! <br /> 서두르지 않으면 자리가 없을지도 몰라요!
 								</small>
 							</p>
 						</div>
@@ -244,7 +249,7 @@
 				</div>
 			</section>
 		</th:block>
-		
+
 		<div class="row pt-5">
 			<div class="col text-center">
 				<h1>원하는 상품을 검색해보세요!</h1>

@@ -105,9 +105,9 @@ public class TownBuyController {
 		
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
-		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4, userMainAddr));
-		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4, userMainAddr));
-		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4, userMainAddr));
+		model.addAttribute("PFoodList", bcomp.translateTownList(dao.listPremiumDao("food", 4, userMainAddr)));
+		model.addAttribute("PBabyList", bcomp.translateTownList(dao.listPremiumDao("baby", 4, userMainAddr)));
+		model.addAttribute("PLifeList", bcomp.translateTownList(dao.listPremiumDao("life", 4, userMainAddr)));
 		
 
 		return "pieContents/townBuying/townBuySearch";
@@ -279,7 +279,7 @@ public class TownBuyController {
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
 
-		model.addAttribute("list", dao.categoryDao(category, userMainAddr));
+		model.addAttribute("list", bcomp.translateTownList(dao.categoryDao(category, userMainAddr)));
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";
