@@ -14,13 +14,16 @@
 		<!-------------------------------------------------------------->
 		<div id="board-search" class="container-fluid">
 			<div class="container-fluid p-0">
-				<small> <a href="shareServiceBoardConsole?category=Proxy">동네공구</a>
-					<small> / </small> <a
-					href="shareServiceBoardConsole?category=Share">서비스공유</a>
+				<small> <a href="shareServiceBoardConsole?category=town&page=1">동네공구</a>
+					 /  <a
+					href="shareServiceBoardConsole?category=proxy&page=1">대리구매</a>
+					/  <a
+					href="shareServiceBoardConsole?category=share&page=1">서비스공유</a>
 				</small>
 				<div class="search-window">
-					<form action="searchBoardName">
+					<form action="searchBoardName" method="get">
 						<input type="hidden" name="page" value="1" />
+						<input type="hidden" name="category" th:value="${param.category}" />
 						<div class="search-wrap">
 							<label for="search" class="blind">게시글 검색</label> <input
 								type="text" id="search" name="search" placeholder="검색어를 입력해주세요.">
@@ -55,7 +58,7 @@
 								<td th:text="${board.getId}"></td>
 								<th><b> <a class="d-block text-truncate"
 										style="max-width: 100px;"
-										th:href="'boardList?num='+${board.getNum()}"
+										th:href="${board.getUrl()}"
 										th:text="${board.getTitle()}"></a>
 								</b></th>
 								<td><small class="badge badge-secondary"

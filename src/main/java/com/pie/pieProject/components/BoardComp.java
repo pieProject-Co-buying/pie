@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.pie.pieProject.DAO.IFriendDao;
 import com.pie.pieProject.DTO.BoardDto;
+import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
@@ -134,6 +135,17 @@ public class BoardComp {
 			d.setCategory(translate(d.getCategory()));
 			d.setThumbnail(setThumbNail(d.getProductImg()));
 			d.setUrl("viewProxyBoard?num="+d.getNum());
+		}
+		return list;
+	}
+	
+	public List<ProxyApplyBoardDto> translateProxyApplyList(List<ProxyApplyBoardDto> list) {
+		for (ProxyApplyBoardDto d : list) {
+			d.setCategory(translate(d.getCategory()));
+			d.setThumbnail(setThumbNail(d.getProductImg()));
+			d.setUrl("viewProxyApplyBoard?num="+d.getNum());
+			d.setProcess(setProcess(d.getProcess()));
+			
 		}
 		return list;
 	}

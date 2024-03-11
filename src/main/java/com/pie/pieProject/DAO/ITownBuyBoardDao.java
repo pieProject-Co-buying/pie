@@ -3,6 +3,7 @@ package com.pie.pieProject.DAO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 @Mapper
 public interface ITownBuyBoardDao {
 	
+	public List<BoardDto> listDaoBoard();
 	// 목록
 	public List<TownBuyBoardDto> listDao();
 	//TownBuyBoardDto 값을 list 타입으로 리턴

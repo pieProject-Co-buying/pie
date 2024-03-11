@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.DTO.ScrollProxyBuyBoardDto;
 
 @Mapper
 public interface IProxyBuyDao {
+	public List<BoardDto> listDaoBoard();
+	
 	public List<ProxyBuyBoardDto> listDao();
 
 	public List<ProxyBuyBoardDto> listDaoByNewer();

@@ -73,9 +73,9 @@
 								<div class="w-100 py-5" th:utext="${board.getContent()}"></div>
 
 
-								<div th:if="${!board.getURL.equals('')}">
+								<div th:if="${board.getUrl!=null&&!board.getUrl.equals('')}">
 									<p>참고 URL</p>
-									<a th:href="${board.getURL()}" th:text="${board.getURL()}"
+									<a th:href="${board.getUrl()}" th:text="${board.getUrl()}"
 										class="text-truncate border d-block rounded p-3"></a>
 								</div>
 

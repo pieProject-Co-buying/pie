@@ -3,32 +3,41 @@
 
 
 <mapper namespace="com.pie.pieProject.DAO.ITownBuyBoardDao">
-
+	<select id="listDaoBoard"
+		resultType="com.pie.pieProject.DTO.BoardDto">
+		select * from townBuyBoard order by num desc
+	</select>
 
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard order by registDay desc
 
 	</select>
-	
-	
+
+
 	<!-- 조회순으로 보여주기 -->
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%' order by hit desc
+		select * from townBuyBoard where address like '${param1}%'
+		order by hit desc
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%' order by likeNum desc
+		select * from townBuyBoard where address like '${param1}%'
+		order by likeNum desc
 	</select>
-	
+
 	<!-- 프리미엄 목록 -->
-	<select id="listPremiumDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		 select * from (select * from townBuyBoard where premium = 1 and process = 1 
-		 and category = #{param1} and address like '${param3}%' order by dbms_random.value) 
-		 where rownum <![CDATA[ <= ]]> ${param2}
+	<select id="listPremiumDao"
+		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		select * from (select * from townBuyBoard where premium = 1 and
+		process = 1
+		and category = #{param1} and address like '${param3}%' order by
+		dbms_random.value)
+		where rownum <![CDATA[ <= ]]>
+		${param2}
 	</select>
 
 
@@ -36,12 +45,12 @@
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where num = #{param1}
 	</select>
-	
-	
+
+
 	<!-- id로 내가쓴 게시글 불러오기 -->
 	<select id="townListbyID"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-	select * from townBuyBoard where id = #{param1}
+		select * from townBuyBoard where id = #{param1}
 	</select>
 
 
@@ -53,15 +62,17 @@
 
 
 		update townBuyBoard set category=#{category},
-		title=#{title}, content=#{content},
+		title=#{title},
+		content=#{content},
 		productImg=#{productImg}, tag=#{tag},
 		deadLine=TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
 		personnelMax=#{personnelMax}, priceTotal=#{priceTotal},
 		pricePer=#{pricePer}, ip=#{ip}, updateDay=sysdate,
-		address = #{address},
+		address =
+		#{address},
 		brand = #{brand},
 		productName = #{productName}
-		 where num=#{num}
+		where num=#{num}
 
 	</update>
 
@@ -75,25 +86,30 @@
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where (title like
-		'%${param1}%' or
-		content like '%${param1}%' or tag like '%${param1}%') and address like
+		'%${param1}%'
+		or
+		content like '%${param1}%' or tag like '%${param1}%') and address
+		like
 		'${param2}%'
 	</select>
-	
+
 
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where category = #{param2} and (title like
+		select * from townBuyBoard where category = #{param2} and
+		(title like
 		'%${param1}%' or
-		content like '%${param1}%' or tag like '%${param1}%') and address like
-		'${param3}%' order by num desc 
+		content like '%${param1}%' or tag like
+		'%${param1}%') and address like
+		'${param3}%' order by num desc
 	</select>
 
 
 	<select id="categoryDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where category = #{param1} and address like
-		'${param2}%'  order by num desc 
+		select * from townBuyBoard where category = #{param1} and
+		address like
+		'${param2}%' order by num desc
 	</select>
 
 	<select id="categoryDaoNum"
@@ -101,7 +117,7 @@
 		select * from (select * from townBuyBoard where category =
 		#{param1})
 		where ROWNUM <![CDATA[ <= ]]>
-		#{param2} 
+		#{param2}
 	</select>
 
 	<insert id="writeDao">
@@ -138,19 +154,22 @@
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where address like
-		'${param1}%' order by num desc 
+		'${param1}%'
+		order by num desc
 	</select>
-	
+
 	<select id="listLocalActive"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where address like
-		'${param1}%' and process= '1'
+		'${param1}%'
+		and process= '1'
 	</select>
 
 
 	<update id="updatePer">
 		update townBuyBoard set personnelNow =
-		personnelNow+1 where num = #{param1}
+		personnelNow+1
+		where num = #{param1}
 	</update>
 
 	<update id="updateProcess">
@@ -161,9 +180,10 @@
 
 	<update id="updateHit">
 		update townBuyBoard set hit = hit+1 where
-		num = #{param1}
+		num =
+		#{param1}
 	</update>
-	
+
 	<!-- 0시마다 마감체크 -->
 	<update id="expireTownBuyBoard">
 		UPDATE townBuyBoard
@@ -176,16 +196,18 @@
 	<!-- 참여자수 증가 -->
 	<update id="updatePersonnelNow">
 		UPDATE townBuyBoard
-		SET personnelNow = personnelNow + 1
+		SET personnelNow = personnelNow +
+		1
 		WHERE num = #{param1}
 	</update>
-	
+
 
 	<!-- 진행상태 변경 -->
 	<update id="updateTownProcess">
 		UPDATE townBuyBoard
-		SET process =  0
-		WHERE num = #{param1}
+		SET process = 0
+		WHERE num =
+		#{param1}
 	</update>
 
 

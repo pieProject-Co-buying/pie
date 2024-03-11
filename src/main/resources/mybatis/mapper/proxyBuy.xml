@@ -2,9 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pie.pieProject.DAO.IProxyBuyDao">
+	<select id="listDaoBoard"
+		resultType="com.pie.pieProject.DTO.BoardDto">
+		select * from proxyBuyBoard order by num desc
+	</select>
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-
 		select * from proxyBuyBoard order by num desc
 	</select>
 	<select id="listDaoByNewer"
@@ -22,7 +25,8 @@
 	<select id="listDaoByFavorite"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from ( select * from proxyBuyBoard order by likeNum desc,
-		hit desc)
+		hit
+		desc)
 		where ROWNUM <![CDATA[ <= ]]>
 		5
 	</select>
@@ -32,17 +36,20 @@
 		SELECT *
 		FROM (
 		SELECT t.*, ROW_NUMBER() OVER (ORDER BY
-		num DESC) AS rnum
+		num
+		DESC) AS rnum
 		FROM proxyBuyBoard t
 		)
 		WHERE rnum BETWEEN #{param1}
-		AND #{param2}
+		AND
+		#{param2}
 	</select>
 
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard where title like
-		'%${param1}%' or
+		'%${param1}%'
+		or
 		content like '%${param1}%' or tag like
 		'%${param1}%'
 	</select>
@@ -50,16 +57,19 @@
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard where category = #{param2}
-		and (title like
+		and
+		(title like
 		'%${param1}%' or
 		content like '%${param1}%' or
-		tag like '%${param1}%')
+		tag like
+		'%${param1}%')
 	</select>
 
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
 		select * from proxyBuyBoard where category=#{param1}
-		order by
+		order
+		by
 		updateDay desc
 	</select>
 	<select id="listDaoByCategoryNumber"
@@ -87,7 +97,8 @@
 		'1',
 		sysdate,
 		sysdate,
-		TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
+		TO_DATE(#{deadLine},
+		'YYYY-MM-DD'),
 		#{personnelMax},
 		1,
 		#{priceTotal},
@@ -100,13 +111,15 @@
 	</insert>
 	<update id="updateHit">
 		update proxyBuyBoard set hit = hit+1 where
-		num = #{param1}
+		num =
+		#{param1}
 	</update>
 	<update id="updateProxyBoard">
 		update proxybuyboard set category=#{category},
 		title=#{title},
 		content=#{content},
-		productImg=#{productImg}, tag=#{tag},
+		productImg=#{productImg},
+		tag=#{tag},
 		deadLine=TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
 		personnelMax=#{personnelMax},
 		priceTotal=#{priceTotal},
@@ -115,7 +128,7 @@
 		productName = #{productName}
 		where
 		num=#{num}
-		
+
 	</update>
 	<delete id="deleteProxyBoard">
 		delete proxyBuyBoard where num = #{param1}
@@ -123,18 +136,20 @@
 	<!-- 현재 인원 증가 -->
 	<update id="updateNow">
 		update proxyBuyBoard set personnelNow =
-		personnelNow + 1 where num = #{param1}
+		personnelNow +
+		1 where num = #{param1}
 	</update>
 	<!-- -->
 	<update id="maxChk">
 		update proxyBuyBoard set process = '0' where
-		num = #{param1}
+		num =
+		#{param1}
 	</update>
 	<select id="chkFeed" resultType="_int">
 		select count (id) from makeFeed
 		where id = #{param1}
 	</select>
-<!-- 0시마다 마감체크 -->
+	<!-- 0시마다 마감체크 -->
 	<update id="expireProxyBuyBoard">
 		UPDATE proxyBuyBoard
 		SET process = 0

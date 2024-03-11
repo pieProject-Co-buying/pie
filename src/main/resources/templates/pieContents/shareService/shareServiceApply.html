@@ -41,6 +41,16 @@
 						<a href="shareServiceApply?category=town"
 							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">동네공구</a>
 					</th:block>
+
+					<th:block th:unless="${#strings.equals(param.category, 'proxy')}">
+						<a href="shareServiceApply?category=proxy"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill">대리구매</a>
+					</th:block>
+					<th:block th:if="${#strings.equals(param.category, 'proxy')}">
+						<a href="shareServiceApply?category=proxy"
+							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">대리구매</a>
+					</th:block>
+
 					<th:block th:if="${#strings.equals(param.category, 'share')}">
 						<a href="shareServiceApply?category=share"
 							class="btn btn-sm pie-btn-outline-red-custom rounded-pill active">서비스공유</a>
@@ -63,11 +73,11 @@
 				<!------------게시물이 있는 경우------------>
 				<a class="col-12 mb-3 border ApplyList pie-radius"
 					th:attr="data-pieCate=${board.getProcess}"
-					th:href="'townBuyproduct?num='+${board.getNum()}">
+					th:href="${board.getUrl()}">
 					<div class="row no-gutters">
 						<div class="col-md-4 my-3">
 							<img
-								th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
+								th:src="@{'/imgs/test/' + ${board.getThumbnail()}}"
 								alt="..." class="img-fluid hyej-cardsNow-img-custom">
 						</div>
 						<!--col-->
@@ -79,15 +89,39 @@
 								<th:block th:if="${board.getProcess().equals('0')}">
 									<small class="badge badge-danger" th:text="모집마감"></small>
 								</th:block>
+								
+								<small th:if="${board.getProcess() eq '접수중'}"
+									class="badge badge-info" th:text="${board.getProcess()}"></small>
+								<small th:if="${board.getProcess() eq '검토중'}"
+									class="badge badge-warning" th:text="${board.getProcess()}"></small>
+								<small th:if="${board.getProcess() eq '접수반려'}"
+									class="badge badge-warning" th:text="${board.getProcess()}"></small>
+								<small th:if="${board.getProcess() eq '공구진행중'}"
+									class="badge badge-primary" th:text="${board.getProcess()}"></small>
+								<small th:if="${board.getProcess() eq '공구종료'}"
+									class="badge badge-secondary" th:text="${board.getProcess()}"></small>
+
+
+
 								<p class="mt-2 mb-0" th:text="${board.getCategory}"></p>
 								<h5 class="card-title d-block w-100 text-truncate"
 									th:text="${board.getTitle}"></h5>
-								<small class="d-flex"> <span><b>진행일 :&nbsp;</b></span> <span
-									th:text="${board.getRegistDay}"></span> <span>&nbsp;~&nbsp;</span>
-									<span th:text="${board.getDeadLine}"></span>
-								</small> <small class="d-flex"> <span><b>모집인원 :&nbsp;</b></span>
-									<span th:text="${board.getPersonnelNow}"></span> <span
-									th:text="'&nbsp;/ '+${board.getPersonnelMax}"></span>
+								<small class="d-flex"> 
+								
+								<span th:unless="${#strings.equals(param.category, 'proxy')}"><b>진행일 :&nbsp;</b></span> 
+								<span th:if="${#strings.equals(param.category, 'proxy')}"><b>등록일 :&nbsp;</b></span> 
+								
+								<span
+									th:text="${board.getRegistDay}"></span> <span th:unless="${#strings.equals(param.category, 'proxy')}">&nbsp;~&nbsp;</span>
+									<span th:text="${board.getDeadLine}">
+									
+									</span>
+								</small> 
+								
+								<small class="d-flex" th:unless="${#strings.equals(param.category, 'proxy')}"> 
+								<span><b>모집인원 :&nbsp;</b></span>
+									<span th:text="${board.getPersonnelNow}"></span> 
+									<span th:text="'&nbsp;/ '+${board.getPersonnelMax}"></span>
 								</small>
 							</div>
 							<div class="col d-flex justify-content-end content-div mt-4">

@@ -1,14 +1,18 @@
 package com.pie.pieProject.DAO;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.PaymentDTO;
 import com.pie.pieProject.DTO.ShareServiceDto;
 
 @Mapper
 public interface IShareServiceDao {
+	public List<BoardDto> listDaoBoard();
+	public List<BoardDto> searchAll(String key, String table);
 	
 	// 전체 게시물 조회
 	public ArrayList<ShareServiceDto> getBoardList();
@@ -22,6 +26,8 @@ public interface IShareServiceDao {
 	public ArrayList<ShareServiceDto> searchTitle(String category,String keyword);
 	// 제목,내용 기반 검색
 	public ArrayList<ShareServiceDto> searchBoard(String keyword);
+	// 서비스 이름
+		public ArrayList<ShareServiceDto> searchBoardByPreset(String keyword);
 	// 카테고리 검색
 	public ArrayList<ShareServiceDto> searchCategory(String category);
 	// 게시물 작성
