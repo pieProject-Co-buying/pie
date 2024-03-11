@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/chatting}">
 
 <div layout:fragment="chatContent" class="col">
@@ -21,79 +22,82 @@
 					<div clas="row">
 						<div class="col  text-center mb-4">
 							<img src="imgs/logo_color_C_red.png" class="">
-							<h2 class="mb-2">함께해요 파이채팅</h2>
-							<div class="my-3 mb-5">
-								파이채팅 이용시 민감한 개인정보 노출 주의해주세요!		
-										
-							</div>
-							
+							<div class="my-3 mb-5">파이채팅 이용시 민감한 개인정보 노출 주의해주세요!</div>
+
 						</div>
 					</div>
-					
+
 					<hr>
-					
+
 					<div class="row mb-3">
 
 						<div class="col">
 
 
 							<input type="hidden" id="userId" th:value="${session.userId}">
-							<input type="hidden" id="sessionId" th:value="${session.nickName}">
-							<input type="hidden" id="roomNumber" th:value="${roomInfo.roomNumber}">
-							<input type="hidden" id="mem1" th:value="${roomInfo.joinMemNickname}">
-							<input type="hidden" id="mem2" th:value="${roomInfo.managerMemNickname}">
-							<input type="hidden" id="sendDate" th:value="${sendDate}">
-							<input type="hidden" id="realNick" th:value="${session.nickName}">
+							<input type="hidden" id="sessionId"
+								th:value="${session.nickName}"> <input type="hidden"
+								id="roomNumber" th:value="${roomInfo.roomNumber}"> <input
+								type="hidden" id="mem1" th:value="${roomInfo.joinMemNickname}">
+							<input type="hidden" id="mem2"
+								th:value="${roomInfo.managerMemNickname}"> <input
+								type="hidden" id="sendDate" th:value="${sendDate}"> <input
+								type="hidden" id="realNick" th:value="${session.nickName}">
 							<input type="hidden" id="roomName" th:value="${session.roomName}">
 
 
-						
-						<div class="row my-3 px-3">
-							<div class="col-6 text-left">
-								<button  onclick="goBack()" id="goBack" class="btn pie-btn-red hj-radius-30 small">뒤로가기</button>
+
+							<div class="row my-3 px-3 align-items-end">
+								<div class="col-6 text-left">
+									<button onclick="goBack()" id="goBack"
+										class="btn pie-btn-red hj-radius-30 small">목록으로</button>
+								</div>
+								<div class="col-6 col-md">
+									<p class="text-right h6 m-0">
+										 <span th:text="${roomInfo.managerMemNickname}"></span>
+										 <span class="small">님과 대화중</span>
+										 </p>
+
+								</div>
 							</div>
-							<div class="col-6 col-md">
-								<p class="text-right h5" th:text="${roomInfo.managerMemNickname} + '님과 대화중'"></p>
-								
-							</div>
-						</div>
 
 							<div id="chating" class="chating border p-4 hj-radius-30 shadow">
 
+								<div th:each="message:${chatList}">
+									<div th:if="${session.nickName == message.getSender()}">
+										<!-- 내가 보낸 대화목록 -->
+										<div class='me d-flex w-100 justify-content-end my-2'>
+											<div
+												class='chatBallon rounded bg-warning py-1 px-3 d-flex flex-wrap text-wrap text-break'>
+
+												<p class='w-100 my-2' th:text="${message.message}"></p>
+											</div>
+										</div>
+										<div>
+											<p class="text-right" th:text="${message.sendTime}"></p>
+										</div>
+									</div>
+									<div th:unless="${session.nickName == message.sender}">
+										<!-- 상대방이 보낸 대화목록 -->
+										<div class='others w-100 text-left my-2'>
 
 
+											<div class='mb-2 chatBallon h-4' th:text="${message.sender}"></div>
+											<!-- sender -->
+											<div
+												class="  d-flex flex-wrap text-wrap text-break chatBallon">
+												<div
+													class='chatBallon rounded bg-info py-1 px-3 d-flex flex-wrap text-wrap text-break'>
+													<p class='w-100  my-2' th:text="${message.message}"></p>
+												</div>
+											</div>
 
-						<div th:each="message:${chatList}">
-						    <div th:if="${session.nickName == message.getSender()}">
-						        <!-- 내가 보낸 대화목록 -->
-						        <div class='me d-flex w-100 justify-content-end my-2'>
-						            <div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'>
-										
-						                <p class='w-100 my-2' th:text="${message.message}"></p>
-						            </div>
-						        </div>
-						        <div>
-						            <p class="text-right" th:text="${message.sendTime}"></p>
-						        </div>
-						    </div>
-						    <div th:unless="${session.nickName == message.sender}">
-						        <!-- 상대방이 보낸 대화목록 -->
-						        <div class='others w-100 text-left my-2'>
-									
-									
-							            <div class='mb-2 chatBallon h-4' th:text="${message.sender}"></div> <!-- sender -->
-							            <div class="  d-flex flex-wrap text-wrap text-break chatBallon">
-							            <div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'>
-							                <p class='w-100  my-2' th:text="${message.message}"></p>
-							            </div>	            
-						            </div>
-						            
-						        </div>
-						        <div>
-						            <p class="text-left" th:text="${message.sendTime}"></p>
-						        </div>
-						    </div>
-						</div>
+										</div>
+										<div>
+											<p class="text-left" th:text="${message.sendTime}"></p>
+										</div>
+									</div>
+								</div>
 
 
 							</div>
@@ -112,15 +116,16 @@
 
 						<div class="inputTable col-9">
 
-							
-							<input type="text" name="userName" id="userName" placeholder="" class="form-control"
-								th:value="${session.nickName}" readonly>
+
+							<input type="text" name="userName" id="userName" placeholder=""
+								class="form-control" th:value="${session.nickName}" readonly>
 
 						</div>
 
 						<div class="inputTable col-3">
 
-							<button onclick="chatName()" id="startBtn" class="btn pie-btn-red w-100">시작</button>
+							<button onclick="chatName()" id="startBtn"
+								class="btn pie-btn-red w-100">시작</button>
 
 						</div>
 
@@ -133,40 +138,44 @@
 
 						<div class="inputTable col-9">
 
-							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요." class="form-control hj-radius-30 hj-chat-padding"
+							<input id="chatting" type="text" placeholder="보내실 메시지를 입력하세요."
+								class="form-control hj-radius-30 hj-chat-padding"
 								name="chat_messages">
 
 						</div>
 
 						<div class="inputTable col-3">
 
-							<button onclick="send()" id="sendBtn" class="btn pie-btn-red w-100  hj-radius-30">전송</button>
+							<button onclick="send()" id="sendBtn"
+								class="btn pie-btn-red w-100  hj-radius-30">전송</button>
 
 						</div>
 
 					</div>
-					
+
 
 
 
 				</div>
 
-			</div> <!-- col -->
+			</div>
+			<!-- col -->
 
-		</div> <!-- row -->
+		</div>
+		<!-- row -->
 
-	</div> <!-- container-fluid -->
+	</div>
+	<!-- container-fluid -->
 
 	<script>
 		function goBack() {
-		    window.history.back(); // 뒤로가기
+			window.history.back(); // 뒤로가기
 		}
 	</script>
 
 	<script>
-
 		// .chating 요소를 감시할 Mutation Observer 생성
-		var observer = new MutationObserver(function (mutationsList, observer) {
+		var observer = new MutationObserver(function(mutationsList, observer) {
 			// 새로운 요소가 추가될 때마다 스크롤을 아래로 이동
 			chatingDiv.scrollTop = chatingDiv.scrollHeight;
 		});
@@ -175,17 +184,15 @@
 		var chatingDiv = document.getElementById('chating');
 
 		// Mutation Observer를 .chating 요소에 연결하여 하위 요소의 변화를 감지
-		observer.observe(chatingDiv, {childList: true});
+		observer.observe(chatingDiv, {
+			childList : true
+		});
 
 		// .chating 요소의 스크롤을 자동으로 아래로 이동
 		chatingDiv.scrollTop = chatingDiv.scrollHeight;
-
 	</script>
 
 	<script type="text/javascript">
-
-
-
 		var ws;
 
 		function wsOpen() {
@@ -193,25 +200,22 @@
 			wsEvt();
 		}
 
-
-
 		// WebSocket 서버 URL
-		var webSocketUrl = "ws://" + location.host + "/chating" 
-			+ "?roomNumber=" + $('#roomNumber').val() 
-			+ "&sessionId=" + $('#sessionId').val()
-			+ "&mem1=" + $('#mem1').val()
-			+ "&mem2=" + $('#mem2').val();
+		var webSocketUrl = "ws://" + location.host + "/chating"
+				+ "?roomNumber=" + $('#roomNumber').val() + "&sessionId="
+				+ $('#sessionId').val() + "&mem1=" + $('#mem1').val()
+				+ "&mem2=" + $('#mem2').val();
 
 		// WebSocket 연결
 		var ws = new WebSocket(webSocketUrl);
 
 		// WebSocket 연결이 열렸을 때 실행되는 함수
-		ws.onopen = function (event) {
+		ws.onopen = function(event) {
 			console.log("WebSocket 연결이 열렸습니다.");
 		};
 
 		// WebSocket 서버로부터 메시지를 받았을 때 실행되는 함수
-		ws.onmessage = function (event) {
+		ws.onmessage = function(event) {
 			console.log("서버로부터 메시지를 받았습니다: " + event.data);
 			// 받은 메시지를 채팅창에 표시하는 등의 처리를 할 수 있습니다.
 		};
@@ -223,17 +227,13 @@
 			$("#chatInput").val(""); // 메시지를 전송한 후 입력창을 비움
 		}
 
-
-
-
-	
 		function wsEvt() {
-			ws.onopen = function (data) {
+			ws.onopen = function(data) {
 				//소켓이 열리면 동작
 			}
 
 			/* 수신시 동작하는 이벤트 핸들러 */
-			ws.onmessage = function (data) {
+			ws.onmessage = function(data) {
 				//메시지를 받으면 동작
 				var msg = data.data;
 
@@ -247,73 +247,83 @@
 						}
 					} else if (d.type == "message") {
 						if (d.msg.trim() != '') { //메세지 공란일 경우를 체크
-							if ((d.mem1 == $("#mem1").val() && d.mem2 == $("#mem2").val()) || (d.mem1 == $("#mem2").val() && d.mem2 == $("#mem1").val())) {
+							if ((d.mem1 == $("#mem1").val() && d.mem2 == $(
+									"#mem2").val())
+									|| (d.mem1 == $("#mem2").val() && d.mem2 == $(
+											"#mem1").val())) {
 								if (d.sessionId == $("#sessionId").val()) {
-									$("#chating").append("<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div class='message-time text-right'><p>" + getYmd10() + "</p></div>");
+									$("#chating")
+											.append(
+													"<div class='me d-flex w-100 justify-content-end my-2'><div class='chatBallon rounded bg-warning py-1 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>"
+															+ d.msg
+															+ "</p></div></div><div class='message-time text-right'><p>"
+															+ getYmd10()
+															+ "</p></div>");
 								} else {
-									$("#chating").append("<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>" + d.userName + "</div><div class='d-flex flex-wrap text-wrap text-break chatBallon'><div class='chatBallon rounded bg-info py-2 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>" + d.msg + "</p></div></div><div></div></div><div class='message-time text-left'><p>" + getYmd10() + "</p></div>");
+									$("#chating")
+											.append(
+													"<div class='others w-100 text-left my-2'><div class='mb-2 h-4'>"
+															+ d.userName
+															+ "</div><div class='d-flex flex-wrap text-wrap text-break chatBallon'><div class='chatBallon rounded bg-info py-1 px-3 d-flex flex-wrap text-wrap text-break'><p class='w-100 my-2'>"
+															+ d.msg
+															+ "</p></div></div><div></div></div><div class='message-time text-left'><p>"
+															+ getYmd10()
+															+ "</p></div>");
 								}
 							}
 						}
-					} 
+					}
 				} else {
 					console.warn("unknown type!")
 				}
 			}
-		}		
-		
-		
-		
+		}
+
 		/* 엔터로 채팅 막음 */
- 		document.addEventListener("keypress", function (e) {
+		document.addEventListener("keypress", function(e) {
 			if (e.keyCode == 13) { //enter press
 				send();
 			}
 		});
-		
 
-
-		
-		
-		
 		function getYmd10() {
 			//yyyy-mm-dd 포맷 날짜 생성
 			var d = new Date();
-			return d.getFullYear() + "-" + ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString() : "0" + (d.getMonth() + 1)) + "-" + (d.getDate() > 9 ? d.getDate().toString() : "0" + d.getDate().toString()) + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+			return d.getFullYear()
+					+ "-"
+					+ ((d.getMonth() + 1) > 9 ? (d.getMonth() + 1).toString()
+							: "0" + (d.getMonth() + 1))
+					+ "-"
+					+ (d.getDate() > 9 ? d.getDate().toString() : "0"
+							+ d.getDate().toString()) + " " + d.getHours()
+					+ ":" + d.getMinutes() + ":" + d.getSeconds();
 		}
 
-
-
-		$(function () {
+		$(function() {
 			wsOpen();
 			$("#yourName").hide();
 			$("#yourMsg").css("display", "flex");
 		})
 
-
-
 		function send() {
 
 			var option = {
-				
-				type: "message",
-				sessionId: $("#sessionId").val(),
-				roomNumber: $("#roomNumber").val(),
-				roomName: $("#mem1").val() + $("#mem2").val(),
-				mem1:$("#mem1").val(),
-				mem2: $("#mem2").val(),
-				userId: $("#userId").val(),
-				userName: $("#userName").val(),
-				sendDate: $("#sendDate").val(),
-				msg: $("#chatting").val()
+
+				type : "message",
+				sessionId : $("#sessionId").val(),
+				roomNumber : $("#roomNumber").val(),
+				roomName : $("#mem1").val() + $("#mem2").val(),
+				mem1 : $("#mem1").val(),
+				mem2 : $("#mem2").val(),
+				userId : $("#userId").val(),
+				userName : $("#userName").val(),
+				sendDate : $("#sendDate").val(),
+				msg : $("#chatting").val()
 			}
 
 			ws.send(JSON.stringify(option))
 			$('#chatting').val("");
 
 		}
-
-
 	</script>
-
 </html>

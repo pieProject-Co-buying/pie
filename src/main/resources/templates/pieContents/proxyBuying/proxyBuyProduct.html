@@ -254,6 +254,28 @@
 							</div>
 						</div>
 						<hr>
+						
+						
+						<div class="col-12 p-0">
+							<div class="d-flex justify-content-between">
+								<h5 class="font-weight-bold mb-1">꼼꼼 가격 비교!</h5>
+								<h6>
+									<span>평균가 : </span><span class="priceBetween"></span><span>원</span>
+								</h6>
+							</div>
+							<p class="small mb-3">현재 쇼핑몰에서 판매중인 비슷한 상품과 가격비교해서 똑똑하고 알뜰하게
+								구매하세요!</p>
+							<input type="hidden" id="shoppingKey"
+								th:value="|${board.getBrand()} ${board.getProductName()}|" />
+							<div class="row row-cols-2 row-cols-md-4" id="serachResult"></div>
+
+							<p class="small pie-c-lightgray mb-3">
+								<sup>*</sup> 입력해주신 브랜드와 제품을 기준으로 네이버 쇼핑에서 현재 판매중인 상품정보를 제공드립니다.
+							</p>
+						</div>
+
+						<hr>
+						
 
 						<!-- 참여중인 멤버확인하기 -->
 						<div>
@@ -599,5 +621,6 @@
 		</script>
 		<script src="js/product.js"></script>
 		<script th:src="@{js/iamport.js}"></script>
+		<script src="js/townBuyingSearch.js"></script>
 	</div>
 </html>

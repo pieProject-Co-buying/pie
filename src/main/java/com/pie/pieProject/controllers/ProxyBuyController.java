@@ -53,7 +53,6 @@ public class ProxyBuyController {
 
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage(Model model) {
-		model.addAttribute("bestKey", sdao.bestKeyword("proxyBuy"));
 		return "pieContents/proxyBuying/proxyBuyMain";
 	}
 
@@ -174,6 +173,7 @@ public class ProxyBuyController {
 
 	@GetMapping("/proxyBuyProducts")
 	public String getList(HttpServletRequest request, Model model) {
+		model.addAttribute("bestKey", sdao.bestKeyword("proxyBuy"));
 		FeedDto dto = null;
 		if (Bcomp.getSession(request, "userId") != null && !Bcomp.getSession(request, "userId").equals("")) {
 			dto = fdao.getFeed(Bcomp.getSession(request, "userId"));

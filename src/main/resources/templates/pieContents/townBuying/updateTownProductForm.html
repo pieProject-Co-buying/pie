@@ -94,7 +94,7 @@
 						<input type="hidden" name="ori_files" id="ori_files"
 							th:value="${board.getProductImg()}" /> <input type="file"
 							name="pic[]" id="file" multiple onchange="addFile(event)">
-						<input type="hidden" name="files" id="files"
+						<input type="hidden" name="fileStr" id="fileStr"
 							th:value="${board.getProductImg()}" />
 					</div>
 					<textarea id="summernote" name="content"

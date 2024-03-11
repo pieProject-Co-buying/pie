@@ -846,7 +846,6 @@ secion2 #sec3 - 서비스 공유 영역
 
 	<script type="text/javascript" th:inline="javascript">
 		var list = /*[[${list}]]*/[];
-		console.log(list);
 	</script>
 	<script>
 		$(function() {
@@ -865,28 +864,28 @@ secion2 #sec3 - 서비스 공유 영역
 								$("#bestProfileImg").attr(
 										"src",
 										'imgs/profiles/'
-												+ list[idx].pr_profileImg);
-								$("#bestNickName").text(list[idx].pr_nickname);
-								$("#bestTitle").text(list[idx].pr_title);
-								$("#bestLike").text(list[idx].pr_like);
-								$("#bestHit").text(list[idx].pr_hit);
-								$("#bestNow").text(list[idx].pr_personnelNow);
-								$("#bestMax").text(list[idx].pr_personnelMax);
-								$("#bestCategory").text(list[idx].pr_category)
+												+ list[idx].profileImg);
+								$("#bestNickName").text(list[idx].nickname);
+								$("#bestTitle").text(list[idx].title);
+								$("#bestLike").text(list[idx].likeNum);
+								$("#bestHit").text(list[idx].hit);
+								$("#bestNow").text(list[idx].personnelNow);
+								$("#bestMax").text(list[idx].personnelMax);
+								$("#bestCategory").text(list[idx].category)
 
 								$("#bestTags").empty();
 
-								console.log(list[idx].pr_tags);
-								if (list[idx].pr_tags != null) {
-									for (i = 1; i < list[idx].pr_tags.length; i++) {
+								console.log(list[idx].tags);
+								if (list[idx].tags != null) {
+									for (i = 1; i < list[idx].tags.length; i++) {
 										$("#bestTags").append(
 												'<span class="badge badge-light">#'
-														+ list[idx].pr_tags[i]
+														+ list[idx].tags[i]
 														+ '</span>')
 									}
 								}
 
-								let el = list[idx].pr_content;
+								let el = list[idx].content;
 								const newText = el.replace(/<[^>]*>?/g, '');
 
 								console.log(newText);
@@ -896,10 +895,10 @@ secion2 #sec3 - 서비스 공유 영역
 								$("#bestBtn").attr(
 										"href",
 										'viewProxyBoard?num='
-												+ list[idx].pr_num);
+												+ list[idx].num);
 								$("#proxyMainCarousel").find(
 										".carousel-indicators").empty();
-								for (i = 0; i < list[idx].pr_productImgs.length; i++) {
+								for (i = 0; i < list[idx].productImgs.length; i++) {
 									$("#proxyMainCarousel")
 											.find(".carousel-indicators")
 											.append(
@@ -909,11 +908,11 @@ secion2 #sec3 - 서비스 공유 영역
 										.addClass("active");
 								$("#proxyMainCarousel").find(".carousel-inner")
 										.empty();
-								for (i = 0; i < list[idx].pr_productImgs.length; i++) {
+								for (i = 0; i < list[idx].productImgs.length; i++) {
 									$("#proxyMainCarousel")
 											.find(".carousel-inner")
 											.append(
-													'<div class="carousel-item"><img src="imgs/test/'+list[idx].pr_productImgs[i]+'" class="d-block w-100" alt="..."></div>');
+													'<div class="carousel-item"><img src="imgs/test/'+list[idx].productImgs[i]+'" class="d-block w-100" alt="..."></div>');
 								}
 								$("#proxyMainCarousel").find(".carousel-item")
 										.eq(0).addClass("active");

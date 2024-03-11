@@ -39,7 +39,7 @@ public class ShoppingController {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}
 
-		String apiURL = "https://openapi.naver.com/v1/search/shop?sort=sim&display=5&query=" + text; // JSON 결과
+		String apiURL = "https://openapi.naver.com/v1/search/shop?sort=sim&display=4&query=" + text; // JSON 결과
 		// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text;
 		// // XML 결과
 
