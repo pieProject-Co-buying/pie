@@ -200,21 +200,26 @@ public class TownBuyController {
 			return "redirect:/townBuyproduct?num=" + request.getParameter("num");
 		}
 		
-		/*
-		 * System.out.println(request.getParameter("category"));
-		 * System.out.println(request.getParameter("title"));
-		 * System.out.println(request.getParameter("content"));
-		 * System.out.println(request.getParameter("price"));
-		 * System.out.println(request.getParameter("personnelMax"));
-		 * System.out.println(request.getParameter("deadLine"));
-		 * System.out.println(request.getParameter("num"));
-		 */
+		
+		  System.out.println(request.getParameter("category"));
+		  System.out.println(request.getParameter("title"));
+		  System.out.println(request.getParameter("content"));
+		  System.out.println(request.getParameter("price"));
+		  System.out.println(request.getParameter("personnelMax"));
+		  System.out.println(request.getParameter("deadLine"));
+		  System.out.println(request.getParameter("num"));
+		  System.out.println(request.getParameter("pie_tagsOutput"));
+		  System.out.println(request.getParameter("fileStr"));
+		  System.out.println(request.getParameter("price_per"));
+		  System.out.println(request.getParameter("price_total"));
+		  System.out.println(request.getParameter("brand"));
+		  System.out.println(request.getParameter("productName"));
+		 
 
 		dto.setCategory(request.getParameter("category"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
 		dto.setNum(request.getParameter("num"));
-		/* dto.setNum(request.getParameter("id")); */
 		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
 		dto.setDeadLine(request.getParameter("deadLine"));
 		dto.setProductImg(request.getParameter("fileStr"));

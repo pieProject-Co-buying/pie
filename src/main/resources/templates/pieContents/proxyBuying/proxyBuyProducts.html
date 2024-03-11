@@ -21,7 +21,7 @@
 		<th:block th:if="${haveFeed}">
 			<div class="row">
 				<div class="col text-center">
-					<h1>내게 딱 맞는 피드!</h1>
+					<h1>내가 원하는 것만 쏙쏙 골라보기!</h1>
 					<p th:text="|${session.nickName}님이 고르신 키워드를 바탕으로 피드를 구성해봤어요!|"></p>
 				</div>
 			</div>
@@ -331,7 +331,7 @@
 							<div
 								class="button-group filters-button-group btn-group btn-group-sm"
 								data-filter-group="category">
-								<button
+								<button id="restBtn_isotope"
 									class="button filter-btn is-checked btn pie-btn-outline-red-custom"
 									data-filter="">전체</button>
 								<button class="button filter-btn btn pie-btn-outline-red-custom"
@@ -419,8 +419,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="row my-5 pt-5" id="showMoreButton">
-				<div class="col mt-5 pt-5">
+			<div class="row my-5 pb-5" id="showMoreButton">
+				<div class="col mb-5 pb-5">
 					<div class="alert alert-light border text-center">
 						<small> 마지막 게시물입니다. </small>
 					</div>
