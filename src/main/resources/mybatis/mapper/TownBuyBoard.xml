@@ -16,21 +16,19 @@
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where address like '${param1}%' order by hit desc
-
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where address like '${param1}%' order by likeNum desc
-
 	</select>
 	
 	<!-- 프리미엄 목록 -->
-	<select id="listPremiumDao"
-		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		
-		 select * from (select * from townBuyBoard where premium = 1 and process = 1 and category = #{param1} and address like '${param3}%' order by dbms_random.value) where rownum <![CDATA[ <= ]]> ${param2}
+	<select id="listPremiumDao" resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
+		 select * from (select * from townBuyBoard where premium = 1 and process = 1 
+		 and category = #{param1} and address like '${param3}%' order by dbms_random.value) 
+		 where rownum <![CDATA[ <= ]]> ${param2}
 	</select>
 
 
@@ -141,7 +139,6 @@
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard where address like
 		'${param1}%' order by num desc 
-
 	</select>
 	
 	<select id="listLocalActive"

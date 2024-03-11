@@ -27,6 +27,7 @@
 		#{bus_email},
 		#{bus_password},		
         0,
+        'inProgress',
 		sysdate
 		
 		)	
