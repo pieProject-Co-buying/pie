@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.IPaymentDAO;
+import com.pie.pieProject.DAO.IProxyApplyDao;
 import com.pie.pieProject.DAO.IProxyBuyDao;
 import com.pie.pieProject.DAO.IShareServiceDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.BoardDto;
 import com.pie.pieProject.DTO.PaymentDTO;
+import com.pie.pieProject.DTO.ProxyApplyBoardDto;
 import com.pie.pieProject.DTO.ShareServiceDto;
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
@@ -28,6 +30,8 @@ public class ParticpateController {
 	IShareServiceDao sdao;
 	@Autowired
 	IProxyBuyDao pdao;
+	@Autowired
+	IProxyApplyDao pappdao;
 	@Autowired
 	ITownBuyBoardDao tdao;
 	@Autowired
@@ -47,7 +51,10 @@ public class ParticpateController {
 			List<TownBuyBoardDto> list = bcomp.translateTownList(tdao.townListbyID(sId));
 			model.addAttribute("list", list);
 			
-		} else if (category.equals("share")) {
+		}else if(category.equals("proxy")) {
+			List<ProxyApplyBoardDto> list = bcomp.translateProxyApplyList(pappdao.listDaoByNewerAndId(sId));	
+			model.addAttribute("list", list);	
+		}else if (category.equals("share")) {
 			List<ShareServiceDto> list = bcomp.translateShareList(sdao.myBoard(sId));
 			model.addAttribute("list", list);
 		} 

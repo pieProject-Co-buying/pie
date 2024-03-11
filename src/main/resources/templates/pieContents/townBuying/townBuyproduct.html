@@ -10,9 +10,12 @@
 	<div class="container mt-5 mb-5">
 		<div class="row">
 			<div class="col-12 border-bottom">
-				<h5>
-					<b>게시물 정보</b>
-				</h5>
+				<div class="d-flex justify-content-between align-items-center my-1">
+					<h5>
+						<b>게시물 정보</b>
+					</h5>
+					<a href="townBuySearch" class="btn pie-btn-red rounded-pill btn-sm">목록으로</a>
+				</div>
 			</div>
 			<!--col-12-->
 		</div>
@@ -244,7 +247,8 @@
 
 								<small id="likeCount" th:text="${board.getLikeNum()}">12</small>
 
-								<span class="pie-share-icon pie-icons mx-3"></span> <a
+								<span class="pie-share-icon pie-icons mx-3"  data-toggle="modal"
+									data-target="#shareModal"></span> <a
 									class="pie-chat-icon pie-icons"
 									th:href="@{'room?mem='+${board.getId}}"></a>
 
@@ -252,10 +256,9 @@
 								<div class="modal fade" id="shareModal" tabindex="-1"
 									aria-labelledby="shareModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
-										<div class="modal-content">
+										<div class="modal-content pie-radius">
 											<div class="modal-header">
-												<h5 class="modal-title" id="shareModalLabel">Modal
-													title</h5>
+												<h5 class="modal-title pt-3 pl-3" id="shareModalLabel">공유하기</h5>
 												<button type="button" class="close" data-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
@@ -268,16 +271,23 @@
 															placeholder="">
 														<div class="input-group-append">
 															<div data-clipboard-target="#downloadURL"
-																class="input-group-text copyBtn">공유하기</div>
+																class="input-group-text copyBtn" role="button">
+																<svg xmlns="http://www.w3.org/2000/svg" width="20"
+																	height="20" fill="currentColor"
+																	class="bi bi-link-45deg" viewBox="0 0 16 16">
+  <path
+																		d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z" />
+  <path
+																		d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z" />
+</svg>
+															</div>
 														</div>
 													</div>
 												</div>
 											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save
-													changes</button>
+											<div class="modal-footer justify-content-center">
+												<button type="button" class="btn pie-btn-outline-red-custom"
+													data-dismiss="modal">닫기</button>
 											</div>
 										</div>
 									</div>
@@ -414,7 +424,7 @@
 							</button>
 
 							<!-- Modal -->
-							<div class="modal fade" id="staticBackdrop"
+							<div class="modal fade p-0" id="staticBackdrop"
 								data-backdrop="static" data-keyboard="false" tabindex="-1"
 								aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
@@ -422,15 +432,15 @@
 
 
 
-									<div class="modal-content">
+									<div class="modal-content pie-radius">
 
 
 										<div class="modal-header">
 
 
 											<!-- 모달 title -->
-											<h5 class="modal-title" id="staticBackdropLabel">함께
-												하실래요?</h5>
+											<h5 class="modal-title pt-3 text-center pl-3"
+												id="staticBackdropLabel">공구에 참여할까요?</h5>
 											<button type="button" class="close" data-dismiss="modal"
 												aria-label="Close">
 												<span aria-hidden="true">&times;</span>
@@ -442,22 +452,34 @@
 										<!-- 모달에 표시될 제품내용 -->
 										<div class="modal-body">
 											<img th:src="@{'/imgs/test/' + ${board.getProductImgs()[0]}}"
-												alt="" class="img-fluid">
-											<h5 class="mb-3 mt-5 text-center"
-												th:text="|함께하면 ${board.getPricePer()}원에 구매할 수 있어요|"></h5>
+												alt="" class="img-fluid pie-radius pie-modal-img">
+											<h5 class="mb-3 my-5 text-center">
+												<span
+													th:text="|함께하면 [${board.getBrand()}] ${board.getProductName()}을(를)|"></span><br />
+												<span th:text="|${board.getPricePer()}원에 구매할 수 있어요|"></span>
+											</h5>
+											<p class="small mb-1 font-weight-bold">공동구매 참여시 주의사항</p>
+											<div class="small">
+												<sup class="pie-c-red">*</sup><span class="ml-1">공구에
+													참여 후 취소할 경우 재참여할 수 없습니다.</span><br /> <sup class="pie-c-red">*</sup><span
+													class="ml-1">공구에 참여하기 전 공구 진행자의 글을 꼼꼼히 읽고 참여해주세요.</span><br />
+												<sup class="pie-c-red">*</sup><span class="ml-1">공구과
+													관련된 정보 외 개인정보를 묻는 경우는 주의해주세요.</span><br />
+
+											</div>
 										</div>
 
 
-										<div class="modal-footer">
+										<div class="modal-footer justify-content-center">
 
 											<!--											<a type="button" class="btn btn-outline-secondary"
 												th:href="@{'townBuyResult?num='+${board.getNum()}}">좋아요!
 												함께해요</a>-->
 
-											<button type="button" class="btn btn-outline-secondary"
+											<button type="button" class="btn pie-btn-outline-red-custom"
 												id="joinShop" data-dismiss="modal">좋아요! 함께해요</button>
 
-											<button type="button" class="btn btn-outline-secondary"
+											<button type="button" class="btn pie-btn-outline-red-custom"
 												data-dismiss="modal">다시생각해볼게요</button>
 										</div>
 
@@ -539,10 +561,10 @@
 		<!--row-->
 	</div>
 	<!--container-->
-	<div class="text-center mt-2 mb-5">
+<!-- 	<div class="text-center mt-2 mb-5">
 		<button class="customPrevBtn pie-btn-custom">&larr;</button>
 		<button class="customNextBtn pie-btn-custom">&rarr;</button>
-	</div>
+	</div> -->
 
 
 
@@ -551,6 +573,7 @@
 	<script>
 		$('.loop').owlCarousel({
 			center : false,
+			nav : true,
 			items : 5,
 			loop : false,
 			smartSpeed : 1300,

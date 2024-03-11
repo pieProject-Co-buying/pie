@@ -36,7 +36,7 @@ public class ApplyUserController {
 
 	@PostMapping("/proxyApplyFormUpload")
 	public String proxyuploadAction(@RequestParam("title") String title, @RequestParam("content") String content,
-			@RequestParam("fileStr") String pictures, @RequestParam(value = "URL", required = false) String url,
+			@RequestParam("fileStr") String pictures, @RequestParam(value = "url", required = false) String url,
 			@RequestParam("category") String category, @RequestParam("brand") String brand,  @RequestParam("productName") String productName, HttpServletRequest request) {
 
 		ProxyApplyBoardDto dto = new ProxyApplyBoardDto();
@@ -50,7 +50,7 @@ public class ApplyUserController {
 		System.out.println(productName);
 
 		if (url == null||url.equals("")) {
-			dto.setURL("");
+			dto.setUrl("");
 		}
 
 		dto.setId(Bcomp.getSession(request, "userId"));
@@ -60,7 +60,7 @@ public class ApplyUserController {
 		dto.setContent(content);
 		dto.setProfileImg(Bcomp.getSession(request, "pic"));
 		dto.setProductImg(pictures);
-		dto.setURL(url);
+		dto.setUrl(url);
 		dto.setBrand(brand);
 		dto.setProductName(productName);
 
@@ -106,11 +106,13 @@ public class ApplyUserController {
 		System.out.println("넘버:"+num);
 		
 		ProxyApplyBoardDto dto = dao.getView(num);
+
 		
 		int process = Integer.parseInt(dto.getProcess());
 		
 		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
 		dto.setProcess(Bcomp.setProcess(dto.getProcess()));
+		dto.setCategory(Bcomp.translate(dto.getCategory()));
 		
 		
 		model.addAttribute("board", dto);
@@ -134,7 +136,7 @@ public class ApplyUserController {
 	@PostMapping("/proxyApplyFormUpdate")
 	public String proxyUpdateAction(@RequestParam("num") String num, @RequestParam("title") String title,
 			@RequestParam("content") String content, @RequestParam("fileStr") String pictures,
-			@RequestParam("URL") String url, @RequestParam("category") String category, @RequestParam("brand") String brand,  @RequestParam("productName") String productName,
+			@RequestParam("url") String url, @RequestParam("category") String category, @RequestParam("brand") String brand,  @RequestParam("productName") String productName,
 			HttpServletRequest request) {
 		ProxyApplyBoardDto dto = new ProxyApplyBoardDto();
 
@@ -143,7 +145,7 @@ public class ApplyUserController {
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setProductImg(pictures);
-		dto.setURL(url);
+		dto.setUrl(url);
 		dto.setIp(request.getRemoteAddr());
 		dto.setBrand(brand);
 		dto.setProductName(productName);

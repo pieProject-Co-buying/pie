@@ -12,57 +12,71 @@
 		<div class="row">
 			<div class="col">
 				<a href="likeList?category=all"
-					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#전체</a> <a
-					href="likeList?category=town"
-					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#동네공구</a> <a
-					href="likeList?category=proxy"
-					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#대리공구</a> <a
-					href="likeList?category=share"
+					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#전체</a>
+				<a href="likeList?category=town"
+					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#동네공구</a>
+				<a href="likeList?category=proxy"
+					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#대리공구</a>
+				<a href="likeList?category=share"
 					class="btn pie-btn-outline-red-custom btn-sm rounded-pill">#서비스공유</a>
 			</div>
 		</div>
 
 		<!--row-->
-		<div class="row category jh-cards">
-			<div th:if="${not #lists.isEmpty(list)}"
-				th:each="board:${list}"
-				th:attr="data-category=${board.getCategory()}"
-				class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
+		<th:block th:unless="${#lists.isEmpty(list) && list.size()==0}">
+			<div class="row category jh-cards">
+				<div th:if="${not #lists.isEmpty(list)}" th:each="board:${list}"
+					th:attr="data-category=${board.getCategory()}"
+					class="col-lg-4 col-md-6 pt-3" style="cursor: pointer;">
 
-				<!--등록 게시물이 있을 경우-->
-				<a th:href="${board.getUrl()}"
-					class="card pie-radius overflow-hidden">
-					<img
-					th:src="@{'/imgs/test/' + ${board.getThumbnail()}}"
-					class="card-img-top img-fluid" alt="..." height="300px">
-					<div class="card-body">
-						<small class="badge badge-success"
-							th:if="${board.getProcess().equals('1')}">모집진행중</small> <small
-							class="badge badge-danger"
-							th:if="${board.getProcess().equals('0')}">모집완료</small>
-						<h5 class="card-title mt-2 text-truncate">
-							<b th:text="${board.getTitle()}"></b>
-						</h5>
-						<p class="card-text">
-							<small> <th:block th:if="${board.getTags()!=null}">
-									<th:block
-										th:each="i: ${#numbers.sequence(1, board.getTags()?.length - 1)}">
-										<span class="badge badge-light"
-											th:text="|#${board.getTags()[i]}|">#태그</span>
+					<!--등록 게시물이 있을 경우-->
+					<a th:href="${board.getUrl()}"
+						class="card pie-radius overflow-hidden"> <img
+						th:src="@{'/imgs/test/' + ${board.getThumbnail()}}"
+						class="card-img-top img-fluid" alt="..." height="300px">
+						<div class="card-body">
+							<small class="badge badge-success"
+								th:if="${board.getProcess().equals('1')}">모집진행중</small> <small
+								class="badge badge-danger"
+								th:if="${board.getProcess().equals('0')}">모집완료</small>
+							<h5 class="card-title mt-2 text-truncate">
+								<b th:text="${board.getTitle()}"></b>
+							</h5>
+							<p class="card-text">
+								<small> <th:block th:if="${board.getTags()!=null}">
+										<th:block
+											th:each="i: ${#numbers.sequence(1, board.getTags()?.length - 1)}">
+											<span class="badge badge-light"
+												th:text="|#${board.getTags()[i]}|">#태그</span>
+										</th:block>
 									</th:block>
-								</th:block>
+								</small>
+							</p>
+							<small th:text="${board.getCategory()}"></small> <small
+								class="pie-writer"> <img
+								th:src="@{'imgs/profiles/'+${board.getProfileImg()}}" alt=""
+								onerror="this.onerror=null; this.src='imgs/default.png';"
+								class="img-fluid pie-profilePic " /> <span
+								th:text="${board.getNickname()}"></span>
 							</small>
-						</p>
-						<small th:text="${board.getCategory()}"></small> <small
-							class="pie-writer"> <img
-							th:src="@{'imgs/profiles/'+${board.getProfileImg()}}" alt=""
-							onerror="this.onerror=null; this.src='imgs/default.png';"class="img-fluid pie-profilePic " /> <span
-							th:text="${board.getNickname()}"></span>
-						</small>
-					</div>
-				</a>
+						</div>
+					</a>
+				</div>
 			</div>
-		</div>
+		</th:block>
+
+		<th:block th:if="${#lists.isEmpty(list) && list.size()==0}">
+
+			<div class="row">
+				<div class="col">
+					<hr class="my-5" />
+					<p class="lead py-5 px-5">현재 좋아요한 글이 없습니다.</p>
+					<hr class="my-5" />
+				</div>
+			</div>
+
+		</th:block>
+
 		<!--게시글 row-->
 		<div class="container text-center mb-3 mt-5">
 			<div class="row">

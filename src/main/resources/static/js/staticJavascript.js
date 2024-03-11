@@ -9,6 +9,8 @@ $(function() {
 
 	$(".pie-otherGnbStyled .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
 	$(".pie-otherGnbStyled .row:has(#gnb)").removeClass("bg-white");
+	$(".pie-otherGnbStyled .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
+	
 	$(".pie-otherGnbStyled2 .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
 	$(".pie-otherGnbStyled2 .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
 
@@ -21,8 +23,11 @@ $(function() {
 			logo.attr("src", "imgs/logo_color_C_red.png");
 			gnb.removeClass("pie-bg-red").removeClass("navbar-dark").addClass("navbar-light");
 
+
 			$(".pie-otherGnbStyled2 .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
 			$(".pie-otherGnbStyled2 .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
+			$(".pie-otherGnbStyled .pie-logo-gnb").attr("src", "imgs/logo_color_C_white.png");
+			$(".pie-otherGnbStyled .row:has(#gnb)").addClass("navbar-dark").removeClass("navbar-light");
 		}
 	})
 

@@ -7,6 +7,12 @@
 		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
 		select * from proxyApplyBoard order by registDay desc
 	</select>
+	
+	<select id="listDaoByNewerAndId"
+		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
+		select * from proxyApplyBoard where id = #{id} order by registDay desc
+	</select>
+	
 	<select id="getView" resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
 		SELECT * FROM proxyApplyBoard where num = #{param1}
 	</select>
@@ -25,13 +31,13 @@
 		sysdate,
 		sysdate,
 		#{ip},
-		#{URL},
+		#{url},
 		#{brand},
 		#{productName}
 		)
 	</insert>
 	<update id="updateProxyBoard">
-		update proxyApplyBoard set category=#{category}, title=#{title}, URL=#{URL},
+		update proxyApplyBoard set category=#{category}, title=#{title}, url=#{url},
 		content=#{content}, productImg=#{productImg}, ip=#{ip}, updateDay=sysdate, brand=#{brand}, productName=#{productName} where num=#{num}
 	</update>
 	<delete id="deleteProxyBoard">

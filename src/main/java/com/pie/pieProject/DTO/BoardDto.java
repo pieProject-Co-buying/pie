@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class BoardDto {
 	private String num; // 게시물 번호
 	private String id; // 작성자 ID
