@@ -17,6 +17,18 @@
                 
                 
                    <!-- 게시글 제목 출력 -->
+
+
+				<div class="input-group col">
+				    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">진행상태변경</button>
+				    <div class="dropdown-menu">
+				        <a class="dropdown-item" data-status="inProgress">검토중</a>
+				        <a class="dropdown-item" data-status="accept">승인완료</a>
+				        <a class="dropdown-item" data-status="reject">반려</a>
+				    </div>
+				    <span id="statusBadge" class="badge badge-warning p-3" th:text="${post.getBus_status()}"></span>
+				</div>
+
 					<h3 th:text="${post.getBus_title()}" class="my-5">제목</h3>
 					
                     <div class="row mb-5">
@@ -72,11 +84,7 @@
                     <hr>
 
        
-
  
-                    
-                    
-
 
 
 
@@ -85,7 +93,11 @@
 
 		
 					<div class="row mt-5">
+																	
+	
+			
 						<div class="col text-right">
+							
 							 <a class="btn pie-btn-red" th:href="@{'businessApplyUpdateForm?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">수정</a>
 							 <a class="btn pie-btn-red"th:href="@{'deletebusApply?bus_apply_num=' + ${board.get(0).getBus_apply_num()}}">삭제</a>
 						</div>
@@ -97,7 +109,8 @@
 	
 	<script src="js/PostCode.js"></script>
 	
-	
+
+
 </div>
 
 </html>

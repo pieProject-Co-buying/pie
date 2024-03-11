@@ -35,6 +35,8 @@ public class BusinessApplyDto {
 	
 	
 	private String bus_password;
+	
+	private String bus_status;
 
 	
 	
