@@ -11,28 +11,30 @@
 	<th:block th:each="post : ${board}">
 
 
-		<div class="container">
+		<div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
 
-		<div class="row mb-3">
-		    <div class="input-group col">
-		        <button class="btn btn-outline-secondary dropdown-toggle mr-2"
-		            type="button" data-toggle="dropdown"
-		            aria-expanded="false">
-		            <span class="small">진행상태변경</span>
-		        </button>
-		        <div class="dropdown-menu">
-		            <a class="dropdown-item" data-status="inProgress"
-		                onclick="updateStatus('inProgress')">검토중</a> 
-		            <a class="dropdown-item" data-status="accept"
-		                onclick="updateStatus('accept')">승인완료</a> 
-		            <a class="dropdown-item" data-status="reject"
-		                onclick="updateStatus('reject')">반려</a>
-		        </div>
-		    </div>
+			<div class="row mb-3">
+			    <div class="input-group col">
+			        <button class="btn btn-outline-secondary dropdown-toggle mr-2"
+			            type="button" data-toggle="dropdown"
+			            aria-expanded="false">
+			            <span class="small">진행상태변경</span>
+			        </button>
+			        <div class="dropdown-menu">
+			            <a class="dropdown-item" data-status="inProgress"
+			                onclick="updateStatus('inProgress')">검토중</a> 
+			            <a class="dropdown-item" data-status="accept"
+			                onclick="updateStatus('accept')">승인완료</a> 
+			            <a class="dropdown-item" data-status="reject"
+			                onclick="updateStatus('reject')">반려</a>
+			        </div>
+			    </div>
+			</div>
+
+
 		</div>
-
-
-		</div>
+		
+		
 
 		<div class="container border hj-radius-30 shadow p-5">
 
