@@ -27,6 +27,7 @@
 		#{bus_email},
 		#{bus_password},		
         0,
+        'inProgress',
 		sysdate
 		
 		)	
@@ -71,6 +72,16 @@
 	</update> 
 	
 	
+		
+	<!-- 진행상태 변경하는 쿼리 -->
+	<update id="updateStatusDao">
+	    UPDATE businessApplyForm
+	    SET bus_status = #{bus_status}
+	    WHERE bus_apply_num = #{bus_apply_num}
+	</update>
+		
+		
+		
 	<select id="getTotalItems" resultType="int">
     	SELECT COUNT(*) FROM businessApplyForm
 	</select>

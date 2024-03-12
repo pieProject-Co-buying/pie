@@ -11,6 +11,8 @@ import com.pie.pieProject.DTO.TownBuyBoardDto;
 @Mapper
 public interface IProxyApplyDao {
 	public List<ProxyApplyBoardDto> listDaoByNewer();
+	
+	public List<ProxyApplyBoardDto> listDaoByNewerAndId(String id);
 
 	public ProxyApplyBoardDto getView(String num);
 
@@ -21,6 +23,8 @@ public interface IProxyApplyDao {
 	public void deleteProxyBoard(String num);
 	
 	public void updateState(ProxyApplyBoardDto dto);
+	
+	
 	
 
 

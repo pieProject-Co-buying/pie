@@ -21,20 +21,19 @@
 						<!--						<li class="nav-item active"><a class="nav-link" href="/">Home
 								<span class="sr-only">(current)</span>
 						</a></li>-->
-						<li class="nav-item"><a class="nav-link" href="townBuySearch">동네
-								공구
+						<li class="nav-item"><a class="nav-link" href="townBuySearch">우리동네 파이
 						</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" role="button"
-							data-toggle="dropdown" aria-expanded="false"> 대신 사드려요 </a>
+							data-toggle="dropdown" aria-expanded="false"> 오늘의 파이박스 </a>
 							<div class="dropdown-menu">
 								<a
-									class="dropdown-item" href="chkFeed">파이 피드</a> <a
+									class="dropdown-item" href="chkFeed">파이 골라보기</a> <a
 									class="dropdown-item" href="proxyBuyApply?page=1">공구해주세요
 									게시판</a>
 							</div></li>
 							
-							<li class="nav-item"><a class="nav-link" href="shareServiceBoard">같이써요 서비스
+							<li class="nav-item"><a class="nav-link" href="shareServiceBoard">파이 타임
 						</a></li>
 
 						<li sec:authorize="hasRole('ROLE_ADMIN')"
@@ -42,9 +41,8 @@
 							class="nav-link dropdown-toggle" href="#" role="button"
 							data-toggle="dropdown" aria-expanded="false"> 관리자 콘솔 </a>
 							<div class="dropdown-menu">
-								<a class="dropdown-item" href="shareServiceBoardConsole?page=1">공유
-									게시글 관리</a> <a class="dropdown-item"
-									href="shareServiceApplyConsole?page=1">결제 내역 확인</a> <a
+								<a class="dropdown-item" href="shareServiceBoardConsole?page=1">게시글 관리</a> <a class="dropdown-item"
+									href="shareServiceApplyConsole?page=1">결제 내역 관리</a> <a
 									class="dropdown-item"
 									href="https://classic-admin.portone.io/payments"
 									target="_blank">결제통합관리</a>
@@ -106,7 +104,7 @@
 								<!-- <th:block th:if="${session.userId!=null}"> -->
 								<a
 									class="nav-link"
-									th:href="@{'room?mem='+${session.userId}}">파이채팅</a>
+									th:href="@{'room?mem='+${session.userId}}">파이 채팅</a>
 								<!-- </th:block> -->
 								
 							</div> 
@@ -180,8 +178,8 @@
 				// 토스트 HTML 코드 생성
 				var toastHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">'
 						+ '<div class="toast-header">'
-						+ '<img src="imgs/logo_color_C_red.png" class="rounded me-2 mr-2" alt="..." style="width: 30px;">'
-						+ '<strong class="mr-auto">파이채팅 알림</strong>'
+						+ '<img src="imgs/logo_pie_color.png" class="rounded me-2 mr-2" alt="..." style="width: 20px;">'
+						+ '<strong class="mr-auto">파이채팅</strong>'
 						+ '<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'
 						+ '<span aria-hidden="true">&times;</span>'
 						+ '</button>'

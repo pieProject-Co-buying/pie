@@ -105,9 +105,9 @@ public class TownBuyController {
 		
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
-		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4, userMainAddr));
-		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4, userMainAddr));
-		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4, userMainAddr));
+		model.addAttribute("PFoodList", bcomp.translateTownList(dao.listPremiumDao("food", 4, userMainAddr)));
+		model.addAttribute("PBabyList", bcomp.translateTownList(dao.listPremiumDao("baby", 4, userMainAddr)));
+		model.addAttribute("PLifeList", bcomp.translateTownList(dao.listPremiumDao("life", 4, userMainAddr)));
 		
 
 		return "pieContents/townBuying/townBuySearch";
@@ -200,21 +200,26 @@ public class TownBuyController {
 			return "redirect:/townBuyproduct?num=" + request.getParameter("num");
 		}
 		
-		/*
-		 * System.out.println(request.getParameter("category"));
-		 * System.out.println(request.getParameter("title"));
-		 * System.out.println(request.getParameter("content"));
-		 * System.out.println(request.getParameter("price"));
-		 * System.out.println(request.getParameter("personnelMax"));
-		 * System.out.println(request.getParameter("deadLine"));
-		 * System.out.println(request.getParameter("num"));
-		 */
+		
+		  System.out.println(request.getParameter("category"));
+		  System.out.println(request.getParameter("title"));
+		  System.out.println(request.getParameter("content"));
+		  System.out.println(request.getParameter("price"));
+		  System.out.println(request.getParameter("personnelMax"));
+		  System.out.println(request.getParameter("deadLine"));
+		  System.out.println(request.getParameter("num"));
+		  System.out.println(request.getParameter("pie_tagsOutput"));
+		  System.out.println(request.getParameter("fileStr"));
+		  System.out.println(request.getParameter("price_per"));
+		  System.out.println(request.getParameter("price_total"));
+		  System.out.println(request.getParameter("brand"));
+		  System.out.println(request.getParameter("productName"));
+		 
 
 		dto.setCategory(request.getParameter("category"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
 		dto.setNum(request.getParameter("num"));
-		/* dto.setNum(request.getParameter("id")); */
 		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
 		dto.setDeadLine(request.getParameter("deadLine"));
 		dto.setProductImg(request.getParameter("fileStr"));
@@ -279,7 +284,7 @@ public class TownBuyController {
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
 
-		model.addAttribute("list", dao.categoryDao(category, userMainAddr));
+		model.addAttribute("list", bcomp.translateTownList(dao.categoryDao(category, userMainAddr)));
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";

@@ -35,29 +35,38 @@
 
 					<th:block th:if=${list!=null||list.size()!=0}>
 						<th:block th:each="board : ${list}">
-							<a th:href="@{'viewProxyApplyBoard?num='+${board.getPr_num()}}"
+							<a th:href="@{'viewProxyApplyBoard?num='+${board.getNum()}}"
 								class="list-group-item list-group-item-action">
 								<div class="row align-items-center">
 									<div class="col-lg-2 col-3">
 										<img
-											th:src="@{'/imgs/test/' + ${board.getPr_productImg().substring(0,board.getPr_productImg().indexOf('/'))}}"
-											alt="" class="img-thumbnail" width="100" />
+											th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
+											alt="" class="img-thumbnail pie-applyThumbnails" width="100"/>
 									</div>
 									<div class="col-lg-10 col-9">
-										<div class="d-flex w-100 justify-content-between">
+										<div class="d-flex w-100 justify-content-between align-items-center">
 
-											<h5 class="mb-1"
-												th:text="|[${board.getPr_category()}] ${board.getPr_title()}|">상품
+											<h5 class="mb-0"
+												th:text="|[${board.getCategory()}] ${board.getTitle()}|">상품
 												요청합니다!</h5>
+
 											<div class="d-flex flex-column">
 												<small
-													th:text="${#strings.substring(board.getPr_chkDay(), 0, 10)}"></small>
-												<span class="badge badge-info"
-													th:text="${board.getPr_process()}">접수완료</span>
+													th:text="${#strings.substring(board.getChkDay(), 0, 10)}"></small>
+												<span th:if="${board.getProcess() eq '접수중'}" class="badge badge-info"
+													th:text="${board.getProcess()}"></span>
+													<span th:if="${board.getProcess() eq '검토중'}" class="badge badge-warning"
+													th:text="${board.getProcess()}"></span>
+													<span th:if="${board.getProcess() eq '접수반려'}" class="badge badge-warning"
+													th:text="${board.getProcess()}"></span>
+													<span th:if="${board.getProcess() eq '공구진행중'}" class="badge badge-primary"
+													th:text="${board.getProcess()}"></span>
+													<span th:if="${board.getProcess() eq '공구종료'}" class="badge badge-secondary"
+													th:text="${board.getProcess()}"></span>
 											</div>
-
 										</div>
-										<small>And some small print.</small>
+										<small
+											th:text="|[${board.getBrand()}] ${board.getProductName()}|"></small>
 									</div>
 								</div>
 							</a>
@@ -81,7 +90,9 @@
 								aria-hidden="true">&laquo;</span>
 						</a></li>
 						<th:block th:each="i : ${#numbers.sequence(1,pageNum)}">
-							<li class="page-item"><a class="page-link"
+						<li th:if="${#strings.equals(param.page, i)}" class="page-item active"><a class="page-link"
+								th:href="@{'proxyBuyApply?page='+${i}}" th:text="${i}"></a></li>
+							<li th:unless="${#strings.equals(param.page, i)}" class="page-item"><a class="page-link"
 								th:href="@{'proxyBuyApply?page='+${i}}" th:text="${i}"></a></li>
 						</th:block>
 						<li class="page-item"><a class="page-link"

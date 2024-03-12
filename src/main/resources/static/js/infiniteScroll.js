@@ -5,6 +5,7 @@ const options = {
 	threshold: 0, // 타켓의 가시성 0%일 때 옵저버 실행
 };
 const productList = document.getElementById("allCards");
+let translateYValue = 0;
 
 let page = 0;
 const onIntersect = (entries, observer) => {
@@ -36,13 +37,15 @@ const onIntersect = (entries, observer) => {
 				/*productList.insertAdjacentHTML(
 					'beforeend',$newItems
 				);*/
-				$('#allCards').isotope().append($newItems)
+				$('#allCards').append($newItems)
 				$('#allCards').isotope('appended', $newItems).isotope('layout');
 			});
+			 $("#restBtn_isotope").trigger("click");
+			listEnd.style.transform = 'translateY(300px)';
+			 // 추가된 코드: onIntersect 함수가 끝나면 click 이벤트를 강제로 발생
+           
 		}
-		
 	});
-	
 };
 
 const observer = new IntersectionObserver(onIntersect, options);

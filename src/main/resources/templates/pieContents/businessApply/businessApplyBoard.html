@@ -35,6 +35,7 @@
 							<th scope="col">회사명</th>
 							<th scope="col">제목</th>
 							<th scope="col" class=" d-none d-md-table-cell">작성일</th>
+							<th scope="col"></th>
 						</tr>
 					</thead>
 								  
@@ -42,9 +43,17 @@
 				  <tbody>
 				    	<tr th:each="item, rowStat : ${list}" onclick="checkPassword(this, document.getElementById('bus_password_${item.getBus_apply_num()}').textContent)" role="button" class="goBoard border-bottom">
 					        <td scope="row" th:text="${item.getBus_apply_num()}" class="bus_apply_num small"> </td>
-					        <td th:text="${item.getBus_name()}" class="small">회사명</td>
+					        <td th:text="${item.getBus_name()}" class="small  text-truncate">회사명</td>
 					        <td class="hj-table-width"><div th:text="${item.getBus_title()}" class="small text-left text-truncate"></div></td>
 					        <td th:text="${#strings.substring(item.getBus_writeDay(), 0, 10)}" class="small d-none d-md-table-cell"></td>
+							<td th:text="${item.getBus_status() == 'inProgress' ? '검토중' : 
+						               item.getBus_status() == 'reject' ? '반려' : 
+						               item.getBus_status() == 'accept' ? '승인완료' : ''}"
+							    th:class="${item.getBus_status() == 'inProgress' ? 'badge badge-warning badge-pill p-1 mt-2' : 
+							               item.getBus_status() == 'reject' ? 'badge badge-danger badge-pill p-1 mt-2' : 
+							               item.getBus_status() == 'accept' ? 'badge badge-success badge-pill p-1 mt-2' : ''}">
+							</td>
+
 					        <td id="bus_password_${item.getBus_apply_num()}" th:text="${item.getBus_password()}" style="display: none;"  class="small"></td>
 					        					    
 				    	</tr>
@@ -73,8 +82,8 @@
 				        
 				        <!-- 페이지 링크 생성 -->
 				        <th:block th:each="pageNum : ${#numbers.sequence(1, totalPages)}">
-				            <li th:class="${pageNum == currentPage} ? 'page-item hj-active' : 'page-item'">
-				                <a class="page-link text-dark" th:href="@{/businessApplyBoard(page=${pageNum})}" th:text="${pageNum}"></a>
+				            <li th:class="${pageNum == currentPage} ? 'page-item active' : 'page-item'">
+				                <a class="page-link" th:href="@{/businessApplyBoard(page=${pageNum})}" th:text="${pageNum}"></a>
 				            </li>
 				        </th:block>
 				        
@@ -101,8 +110,8 @@
 	<script src="js/businessApply.js"></script>
 
 
-
-    <!-- 세션에 저장된 사용자 ID가 admin인 경우에는 비밀번호를 입력하지 않고도 이동할 수 있도록 설정 -->
+<!-- 
+    세션에 저장된 사용자 ID가 admin인 경우에는 비밀번호를 입력하지 않고도 이동할 수 있도록 설정
     <script th:inline="javascript">
         /*<![CDATA[*/
         var isAdmin = /*[[${#strings.equals(session.userId, 'admin')}]]*/ false;
@@ -116,7 +125,24 @@
             });
         }
         /*]]>*/
-    </script>
+    </script> -->
+	
+	
+	<!-- 아이디가 아닌 권한이 admin일 경우 -->
+	<script th:inline="javascript">
+	    /*<![CDATA[*/
+	    var isAdmin = /*[[${#authorization.expression('hasRole(''ROLE_ADMIN'')')}]]*/ false;
+	    if (isAdmin) {
+	        var trList = document.querySelectorAll('.goBoard');
+	        trList.forEach(function(tr) {
+	            tr.onclick = function() {
+	                var bus_apply_num = this.querySelector('.bus_apply_num').textContent;
+	                window.location.href = '/readApplyBoard?bus_apply_num=' + bus_apply_num;
+	            };
+	        });
+	    }
+	    /*]]>*/
+	</script>
 
 
 		

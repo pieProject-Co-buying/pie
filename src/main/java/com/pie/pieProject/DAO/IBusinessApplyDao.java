@@ -37,5 +37,10 @@ public interface IBusinessApplyDao {
 	
     
     public List<BusinessApplyDto> getApplyBoardByPage(@Param("start") int start, @Param("pageSize") int pageSize);
+    
+    
+    //진행상태 수정
+    public int updateStatusDao(@Param("bus_apply_num") int bus_apply_num, @Param("bus_status") String bus_status);
+    
 	
 }

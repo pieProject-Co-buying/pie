@@ -27,8 +27,8 @@
 							<button
 								class="btn btn-block dropdown-toggle text-left bg-transparent border"
 								type="button" data-toggle="dropdown" aria-expanded="false"
-								th:attr="data-category=${board.getPr_category()}">카테고리</button>
-							<input type="hidden" name="pr_category" id="h-input" value="test" />
+								th:attr="data-category=${board.getCategory()}">카테고리</button>
+							<input type="hidden" name="category" id="h-input" value="test" />
 							<div class="dropdown-menu">
 								<a class="dropdown-item" data-category="food">식품</a> <a
 									class="dropdown-item" data-category="baby">육아</a> <a
@@ -39,10 +39,31 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="form-group container-fluid border py-3 rounded">
+						<div class="row">
+							<div class="col-12 mb-2">
+								<p class="m-0 px-1">
+									<sup class="pie-c-red">*</sup>신청하는 제품에 대해서 입력해주세요.
+								</p>
+							</div>
+							<div class="col-md-6">
+								<label for="brand"><small class="pl-1">제품 브랜드</small></label> <input
+									type="text" class="form-control" id="brand" name="brand" th:value="${board.getBrand()}">
+							</div>
+							<div class="col-md-6">
+								<label for="productName"><small class="pl-1">제품명</small></label>
+								<input type="text" class="form-control" id="productName"
+									name="productName" th:value="${board.getProductName()}">
+
+							</div>
+						</div>
+					</div>
+					
 					<div class="form-group">
-						<input type="text" class="form-control" id="pr_title"
-							placeholder="제목" name="pr_title"
-							th:value="${board.getPr_title()}">
+						<input type="text" class="form-control" id="title"
+							placeholder="제목" name="title"
+							th:value="${board.getTitle()}">
 					</div>
 					<div class="form-group d-flex">
 						<label for="file">
@@ -59,34 +80,34 @@
 						</label>
 						<div class="file-uploadGroup">
 							<th:block
-								th:each="i : ${#numbers.sequence(0,board.getPr_productImgs().length-1)}">
+								th:each="i : ${#numbers.sequence(0,board.getProductImgs().length-1)}">
 								<figure onclick="deleteFile(this)"
-									th:attr="data-originFile = ${board.getPr_productImgs()[i]}">
+									th:attr="data-originFile = ${board.getProductImgs()[i]}">
 									<img
-										th:src="@{'/imgs/test/' + ${board.getPr_productImgs()[i]}}"
+										th:src="@{'/imgs/test/' + ${board.getProductImgs()[i]}}"
 										class='pie-img-viewsThumbs'>
 									<figcaption></figcaption>
 								</figure>
 							</th:block>
 
 						</div>
-						<input type="hidden" name="ori_pr_files" id="ori_files"
-							th:value="${board.getPr_productImg()}" /> <input type="file"
-							name="pr_pic[]" id="file" multiple onchange="addFile(event)">
-						<input type="hidden" name="pr_files" id="files"
-							th:value="${board.getPr_productImg()}" />
+						<input type="hidden" name="ori_files" id="ori_files"
+							th:value="${board.getProductImg()}" /> <input type="file"
+							name="pic[]" id="file" multiple onchange="addFile(event)">
+						<input type="hidden" name="fileStr" id="fileStr"
+							th:value="${board.getProductImg()}" />
 					</div>
-					<textarea id="summernote" name="pr_content"
-						th:text="${board.getPr_content()}"></textarea>
+					<textarea id="summernote" name="content"
+						th:text="${board.getContent()}"></textarea>
 					<div class="text-right">
 						<small>잔여 bytes :: </small><small id="messagebyte">11</small><small>
 							/ 2000</small>
 					</div>
 					<div class="form-group row pt-3">
 						<div class="col pt-3">
-							<label for="pr_URL"><small class="pl-1">참고 URL</small></label><input
-								type="text" class="form-control" id="pr_URL" name="pr_URL"
-								maxlength="500" th:value="${board.getPr_URL()}">
+							<label for="URL"><small class="pl-1">참고 URL</small></label><input
+								type="text" class="form-control" id="URL" name="URL"
+								maxlength="500" th:value="${board.getUrl()}">
 						</div>
 					</div>
 

@@ -17,12 +17,12 @@ function deleteFileNum(num) {
 // 이미지 파일 삽입하기
 var filesArr = new Array();
 /*첨부되어있는 파일 load 해오기*/
-let loadFiles = $("#files").val().split("/")
+let loadFiles = $("#fileStr").val().split("/")
 let idx = loadFiles.indexOf("");
 let removed = loadFiles.splice(idx, 1);
 var fileNo = 0;
 
-let originFile = $("#files").val();
+let originFile = $("#fileStr").val();
 
 console.log(idx);
 console.log(loadFiles);
