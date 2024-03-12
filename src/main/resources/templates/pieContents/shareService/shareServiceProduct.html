@@ -72,7 +72,10 @@
 							<small class="font-weight-bold">진행현황</small><br />
 							<th:block th:if="${board.getProcess().equals('3')}">
 								<small class="badge badge-secondary" th:text="기간만료"></small>
-								</th:block>
+							</th:block>
+							<th:block th:if="${board.getProcess().equals('2')}">
+								<small class="badge badge-warning" th:text="모집중단"></small>
+							</th:block>
 							<th:block th:if="${board.getProcess().equals('1')}">
 								<small class="badge badge-success" th:text="모집진행중"></small>
 							</th:block>
@@ -559,7 +562,7 @@
 								<th:block th:if="${item.num==board.getNum()}">
 									<div class="owl-item text-center">
 										<small><b>&#9656;현재 게시물&#9666;</b></small> <a
-											th:href="'viewProxyBoard?num='+${item.num}"
+											th:href="'boardList?num='+${item.num}"
 											class="shareActive "> <img
 											th:src="@{'/imgs/test/' + ${item.thumbnail}}"
 											class="img-fluid"
@@ -573,7 +576,7 @@
 								</th:block>
 								<th:block th:if="${item.num!=board.getNum()}">
 									<div class="owl-item text-center">
-										<a th:href="'viewProxyBoard?num='+${item.num}" class=""> <img
+										<a th:href="'boardList?num='+${item.num}" class=""> <img
 											th:src="@{'/imgs/test/' + ${item.thumbnail}}"
 											class="img-fluid"
 											style="width: 100%; height: 200px; border-radius: 20px">
