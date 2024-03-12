@@ -99,7 +99,7 @@ public class PaymentController {
 		model.addAttribute("productImg" , productImg);
 		model.addAttribute("title", title);
 		model.addAttribute("price", price);
-		model.addAttribute("pay", dao.payBoard(Integer.parseInt(merchant),category));
+		model.addAttribute("pay", dao.payBoard(merchant,category));
 		
 		return "pieContents/shareService/shareServiceFinish";
 	}
@@ -175,11 +175,10 @@ public class PaymentController {
 		String num = request.getParameter("num");
 		String pnum = request.getParameter("pnum");
 		String category = request.getParameter("category");
-		System.out.println(category);
 
-		PaymentDTO dto=dao.payBoard(Integer.parseInt(pnum), "Share");
+		PaymentDTO dto=dao.payBoard(pnum, "Share");
 		
-		dao.refundPay(Integer.parseInt(pnum));
+		dao.refundPay(pnum);
 		paDao.cancelBuying(dto.getBuyer_id(), category, num);
 		return "redirect:/boardList?num="+num;
 	}
@@ -192,7 +191,7 @@ public class PaymentController {
 
 		dto.setPay_refund("1");
 		
-		dao.refundPay(Integer.parseInt(num));
+		dao.refundPay(num);
 		return "redirect:/shareServicebuyBoard";
 	}
 	/**********환불요청 확인**********/
@@ -203,13 +202,13 @@ public class PaymentController {
 		 
 		 String num = request.getParameter("num");
 		 String pnum = request.getParameter("pnum");
-		 PaymentDTO dto=dao.payBoard(Integer.parseInt(pnum), "Share");
+		 PaymentDTO dto=dao.payBoard(pnum, "Share");
 		 
 		 
-		 Sdao.refundNowPerson(Integer.parseInt(pnum));
-		 dao.refundPayCheck(Integer.parseInt(num));
+		 Sdao.refundNowPerson(pnum);
+		 dao.refundPayCheck(num);
 //		 취소
-		 paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
+		 //paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
 		 
 		 List<PaymentDTO> list = dao.paymentList();
 			model.addAttribute("pay", list);
@@ -267,7 +266,7 @@ public class PaymentController {
 	 }
 	 @PostMapping("/getPayData")
 	 public ResponseEntity<PaymentDTO> insertPayment(@RequestParam("num") String num, @RequestParam("category") String category) {
-	        return ResponseEntity.ok(dao.payBoard(Integer.parseInt(num),category));
+	        return ResponseEntity.ok(dao.payBoard(num,category));
 	    }
 }
 

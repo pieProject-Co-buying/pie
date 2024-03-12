@@ -70,6 +70,9 @@
 						<p id="processNow">
 
 							<small class="font-weight-bold">진행현황</small><br />
+							<th:block th:if="${board.getProcess().equals('3')}">
+								<small class="badge badge-secondary" th:text="기간만료"></small>
+								</th:block>
 							<th:block th:if="${board.getProcess().equals('1')}">
 								<small class="badge badge-success" th:text="모집진행중"></small>
 							</th:block>
@@ -407,6 +410,13 @@
 								class="btn pie-btn-red btn-block" disabled>
 								<small>관리자에 의해 중단된 모집입니다.</small>
 							</button>
+							
+							<!--기간만료-->
+							<button th:if="${board.getProcess().equals('3')}"
+								type="button" class="btn btn-secondary btn-block"
+								data-toggle="modal" data-target="#staticBackdrop" disabled>
+								<small>기간이 만료된 모집입니다.</small>
+							</button>
 
 							<!-- Modal -->
 							<div class="modal fade p-0" id="staticBackdrop"
@@ -508,10 +518,6 @@
 											<div class="m-3" onclick="tossPay()">
 												<small class="d-block"><b>토스페이</b></small> <img
 													src="imgs/toss.jpg" alt="" class="payLogo">
-											</div>
-											<div class="m-3" onclick="paycoPay()">
-												<small class="d-block"><b>페이코</b></small> <img
-													src="imgs/payco.jpg" alt="" class="payLogo">
 											</div>
 										</div>
 										<div class="modal-footer">

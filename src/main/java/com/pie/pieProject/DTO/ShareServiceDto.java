@@ -4,7 +4,7 @@ public class ShareServiceDto extends BoardDto {
 	
 	 //private int num; // 게시물 번호 
 	 //private String id; // 사용자 id 
-	 //private String  nickname; // 사용자 닉네임 
+	 //private String nickname; // 사용자 닉네임 
 	 //private String title; // 게시글 제목 
 	 //private String content; // 게시글 내용 
 	 //private String productImg; // 게시글 이미지 
