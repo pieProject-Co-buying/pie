@@ -206,7 +206,7 @@
 
 					<div class="col-12 mb-2" id="searchResult" th:each="board:${list}">
 
-						<a class="card hj-radius-30 border-0 shadow"
+						<a class="card hj-radius-30 border-0 shadow townBuyCard"
 							th:href="@{'townBuyproduct?num=' + ${board.getNum()}}">
 
 							<div class="row">
@@ -270,7 +270,7 @@
 							
 							
 							
-					<div class="col-12 text-center mt-5">
+					<div class="col-12 text-center mt-2">
 						<button type="button" class="btn border btn-block"
 							id="loadMoreButton">더보기</button>
 						<div id="cardContainer"></div>
