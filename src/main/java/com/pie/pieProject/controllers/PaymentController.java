@@ -265,7 +265,7 @@ public class PaymentController {
 		 return "pieContents/shareService/shareServiceApplyConsole";
 	 }
 	 @PostMapping("/getPayData")
-	 public ResponseEntity<PaymentDTO> insertPayment(@RequestParam("num") String num, @RequestParam("category") String category) {
+	 public ResponseEntity<PaymentDTO> insertPayment(@RequestParam("num") String num,@RequestParam("category") String category) {
 	        return ResponseEntity.ok(dao.payBoard(num,category));
 	    }
 }

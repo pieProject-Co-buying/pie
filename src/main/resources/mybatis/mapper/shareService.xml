@@ -116,8 +116,7 @@
 	</update>
 	<!--기간만료 -->
 	<update id="dateOver">
-		update shareServiceBoard set process = '3' where
-		num = #{param1}
+		update shareServiceBoard set process = '3' where num = #{param1}
 	</update>
 	<!--조회수 증가 -->
 	<update id="updateHit">
