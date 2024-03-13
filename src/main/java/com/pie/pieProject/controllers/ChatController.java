@@ -52,8 +52,7 @@ public class ChatController {
 	List<RoomDto> roomList = new ArrayList<RoomDto>();
 	static int roomNumber = 0;
 
-	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됨
-	
+	@MessageMapping("/chating") // WebSocket에서 "/chating"으로 메시지가 오면 이 메서드가 호출됨	
 	public void handleChatMessage(String message, Model model) {
 
 		JSONObject obj = new JSONObject(); // 받은 JSON 형태의 메시지를 파싱

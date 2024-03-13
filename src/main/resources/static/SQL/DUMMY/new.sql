@@ -225,6 +225,8 @@ CREATE TABLE businessApplyForm (
 
 drop table businessApplyForm ;
 
+
+
 -- 시퀀스 생성/삭제
 create sequence bus_apply_num nocache nocycle;
 
