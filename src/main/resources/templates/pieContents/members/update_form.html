@@ -217,7 +217,7 @@
 				</th:block>
 				<th:block
 					th:if="${mem.getPremium().equals('none')&&mem.getPreEndDate()>#dates.createNow()}">
-					<button type="button" class="btn btn-primary flex-shrink-0 mr-2 "
+					<button type="button" class="btn pie-btn-red flex-shrink-0 mr-2 "
 						data-toggle="modal" data-target="#resubscribe">구독 재시작하기</button>
 				</th:block>
 				<th:block th:if="${mem.getPreEndDate()>#dates.createNow()}">
@@ -225,7 +225,7 @@
 						name="preEndDate" readOnly
 						th:value="|~${#dates.format(mem.getPreEndDate(),'yyyy-MM-dd')}까지|">
 					<small th:if="${mem.getPremium().equals('pro')}"
-						class="flex-shrink-0" onclick="confirmUnSub()">구독취소</small>
+						class="flex-shrink-0" onclick="confirmUnSub()" style="cursor:pointer">구독취소</small>
 				</th:block>
 			</div>
 		</div>
@@ -277,31 +277,20 @@
 					</div>
 					<div class="modal-body">
 						<div class="row">
-							<div class="col-6">
-								<h3>일반회원</h3>
-								<ul>
-									<li>혜택1</li>
-									<li>혜택2</li>
-									<li>혜택3</li>
-									<li>혜택4</li>
+							<div class="col">
+								<img src="imgs/nowing.png" class="img-fluid pie-radius" alt="" />
+								<h5 class="text-center py-2 pt-4">구독회원이 되면...</h5>
+								<ul class="mt-3 ml-2 mr-3">
+									<li>우리동네에서 공구를 모집할 때 상단에 게시글을 노출할 수 있어요!</li>
 								</ul>
-							</div>
-							<div class="col-6 border-left">
-								<h3>구독회원</h3>
-								<ul>
-									<li>혜택1</li>
-									<li>혜택2</li>
-									<li>혜택3</li>
-									<li>혜택4</li>
-								</ul>
+
 							</div>
 						</div>
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-dismiss="modal">Close</button>
-						<a href="subScribe" type="button" class="btn btn-primary">구독하기</a>
+						<a href="subScribe" type="button" class="btn pie-btn-red">구독하기</a>
 						<!-- href="reSubScribe" -->
 					</div>
 				</div>
