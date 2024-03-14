@@ -99,6 +99,11 @@ public interface ITownBuyBoardDao {
 	
 	//진행 상태 변경
 	/* public void updateProcess(String sId); */
+	
+	
+	//공구 취소시 참여자수 감소
+	public void canclePersonnelNow(String num);
+
 
 	
 	

@@ -8,6 +8,7 @@
 		select * from townBuyBoard order by num desc
 	</select>
 
+
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
 		select * from townBuyBoard order by registDay desc
@@ -18,14 +19,14 @@
 	<!-- 조회순으로 보여주기 -->
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%'
+		select * from townBuyBoard where address like '${param1}%' and process = 1
 		order by hit desc
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%'
+		select * from townBuyBoard where address like '${param1}%' and process = 1 
 		order by likeNum desc
 	</select>
 
@@ -208,6 +209,14 @@
 		SET process = 0
 		WHERE num =
 		#{param1}
+	</update>
+
+
+	<!-- 참여자수 증가 -->
+	<update id="canclePersonnelNow">
+		UPDATE townBuyBoard
+		SET personnelNow = personnelNow - 1
+		WHERE num = #{param1}
 	</update>
 
 
