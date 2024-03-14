@@ -19,7 +19,7 @@
 					<img th:src="@{'imgs/test/'+${productImg}}" class="img-fluid border" width="300" height="300">
 				</div>
 				<p>상품코드 : <span th:text="${pay.getPay_Merchant_uid()}"></span></p>
-				<p>제품명 : <span th:attr="data-title=${title}" th:text="${title}">감자</span></p>
+				<p>제품명 : <span th:text="${brand}+' '+${productName}"></span></p>
 				<p>결제일시 : <span th:text="${pay.getPay_date()}"></span></p>
 				<p>결제금액 : <span th:attr="data-price=${price}" th:text="${price}+' 원'"></span></p>
 				<p>결제수단 : <span th:text="${pay.getPay_method()}"></span></p>
@@ -35,10 +35,15 @@
 				<p>이메일 : <span th:text="${member.email}"></span></p>
 			</div>
 			<div class="col-12 mt-3 mb-3 d-flex justify-content-center">
-				<form action="">
-					<button type="button" class="btn pie-btn-yellow" onclick="shareServicebuyBoard()">주문내역</button>
-					<button type="button" class="btn pie-btn-red" onclick="main()">메인으로</button>
-				</form>
+			<form action="">
+				<a th:href="'shareServicebuyBoard?category='+${pay.getPay_category()}" type="button" class="btn pie-btn-yellow">주문내역</a>					
+				<th:block th:if="${pay.getPay_category().equals('Share')}">				
+					<a th:href="shareServiceBoard" type="button" class="btn pie-btn-red">메인으로</a>
+				</th:block>
+				<th:block th:if="${pay.getPay_category().equals('Proxy')}">				
+					<a th:href="proxyBuyProducts" type="button" class="btn pie-btn-red">메인으로</a>
+				</th:block>
+			</form>
 			</div>
 		</div><!--row-->
 	</div><!--container-->

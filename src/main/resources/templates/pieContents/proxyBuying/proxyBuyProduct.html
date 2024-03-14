@@ -56,6 +56,12 @@
 						<p id="processNow">
 
 							<small class="font-weight-bold">진행현황</small><br />
+							<th:block th:if="${board.getProcess().equals('3')}">
+								<small class="badge badge-secondary" th:text="기간만료"></small>
+							</th:block>
+							<th:block th:if="${board.getProcess().equals('2')}">
+								<small class="badge badge-warning" th:text="모집중단"></small>
+							</th:block>
 							<th:block th:if="${board.getProcess().equals('1')}">
 								<small class="badge badge-success" th:text="모집진행중"></small>
 							</th:block>
@@ -387,6 +393,13 @@
 								type="button" class="btn btn-secondary btn-block"
 								data-toggle="modal" data-target="#staticBackdrop" disabled>
 								<small>모집마감</small>
+							</button>
+							
+							<!--기간만료-->
+							<button th:if="${board.getProcess().equals('3')}"
+								type="button" class="btn btn-secondary btn-block"
+								data-toggle="modal" data-target="#staticBackdrop" disabled>
+								<small>기간이 만료된 모집입니다.</small>
 							</button>
 
 							<!--모집이 마감 되었을 때 작성자 최종 결제-->
