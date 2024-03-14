@@ -383,7 +383,7 @@ public class ShareServiceController {
 		for (int i = minPage; i < maxPage; i++) {
 			templist.add(list.get(i));
 		}
-  
+   
 		model.addAttribute("list", templist);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
