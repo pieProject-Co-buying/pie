@@ -145,6 +145,11 @@
 		num =
 		#{param1}
 	</update>
+	<!--환불시 인원 감소 -->
+	<update id="refundNowPerson">
+		update proxyBuyBoard set personnelNow =
+		personnelNow - 1 where num = #{param1}
+	</update>
 	<select id="chkFeed" resultType="_int">
 		select count (id) from makeFeed
 		where id = #{param1}

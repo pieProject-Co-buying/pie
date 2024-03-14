@@ -352,27 +352,6 @@ public class ShareServiceController {
 			e.printStackTrace();
 			return "redirect:/shareServiceBoardConsole?page=1";
 		}
-
-		/*
-		 * List<ShareServiceDto> list = dao.searchBuyer(search);
-		 * 
-		 * int pageLimit = 10; int pageNum = (int) Math.ceil((double) list.size() /
-		 * pageLimit);
-		 * 
-		 * List<ShareServiceDto> templist = new ArrayList<>();
-		 * 
-		 * int minPage = (page - 1) * pageLimit; int maxPage = Math.min(page *
-		 * pageLimit, list.size());
-		 * 
-		 * for (int i = minPage; i < maxPage; i++) { templist.add(list.get(i)); }
-		 * 
-		 * 
-		 * model.addAttribute("list", templist); model.addAttribute("page", page);
-		 * model.addAttribute("pageNum", pageNum);
-		 * 
-		 * model.addAttribute("list", templist);
-		 */
-
 	}
 
 	/********** admin 게시물관리 페이지 진행여부 **********/
