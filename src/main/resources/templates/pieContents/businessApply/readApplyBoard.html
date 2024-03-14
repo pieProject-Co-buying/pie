@@ -11,28 +11,39 @@
 	<th:block th:each="post : ${board}">
 
 
-		<div class="container">
+		<div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
 
-		<div class="row mb-3">
-		    <div class="input-group col">
-		        <button class="btn btn-outline-secondary dropdown-toggle mr-2"
-		            type="button" data-toggle="dropdown"
-		            aria-expanded="false">
-		            <span class="small">진행상태변경</span>
-		        </button>
-		        <div class="dropdown-menu">
-		            <a class="dropdown-item" data-status="inProgress"
-		                onclick="updateStatus('inProgress')">검토중</a> 
-		            <a class="dropdown-item" data-status="accept"
-		                onclick="updateStatus('accept')">승인완료</a> 
-		            <a class="dropdown-item" data-status="reject"
-		                onclick="updateStatus('reject')">반려</a>
-		        </div>
-		    </div>
+			<div class="row mb-3">
+			    <div class="input-group col">
+			    
+			    
+					<!-- 게시글 상태가 'accept'인 경우에는 드롭다운 메뉴를 비활성화 -->
+					<div th:if="${post.getBus_status()} == 'accept'">
+					    <button class="btn btn-outline-secondary dropdown-toggle mr-2" type="button" data-toggle="dropdown" aria-expanded="false" disabled>
+					        <span class="small">진행상태변경</span>
+					    </button>
+					</div>
+					<!-- 게시글 상태가 'accept'가 아닌 경우에는 드롭다운 메뉴를 활성화 -->
+					<div th:unless="${post.getBus_status()} == 'accept'">
+					    <div class="input-group col">
+					        <button class="btn btn-outline-secondary dropdown-toggle mr-2" type="button" data-toggle="dropdown" aria-expanded="false">
+					            <span class="small">진행상태변경</span>
+					        </button>
+					        <div class="dropdown-menu">
+					            <a class="dropdown-item" data-status="inProgress" onclick="updateStatus('inProgress')">검토중</a> 
+					            <a class="dropdown-item" data-status="accept" onclick="updateStatus('accept')">승인완료</a> 
+					            <a class="dropdown-item" data-status="reject" onclick="updateStatus('reject')">반려</a>
+					        </div>
+					    </div>
+					</div>
+					
+			    </div>
+			</div>
+
+
 		</div>
-
-
-		</div>
+		
+		
 
 		<div class="container border hj-radius-30 shadow p-5">
 
@@ -140,7 +151,7 @@
 						<div class="row my-5">
 							<div class="col text-right">
 								<a class="btn btn-outline-secondary"
-									th:href="'http://' + ${post.getBus_img()}" target="_blank"><small>사이트
+									th:href="${post.getBus_img()}" target="_blank"><small>사이트
 										확인하기</small></a>
 							</div>
 						</div>
@@ -170,7 +181,7 @@
 
 			<script src="js/PostCode.js"></script>
 
-
+<!-- 
 			<script>
 				function updateStatus(status) {
 					var bus_apply_num = document
@@ -178,11 +189,43 @@
 					var url = "/updateStatus?bus_apply_num=" + bus_apply_num
 							+ "&bus_status=" + status; // URL 생성
 					window.location.href = url; // 페이지 이동
+					
+					
 				}
 				
 
 				
 			</script>
+		 -->
+
+
+		<script>
+		    function updateStatus(status) {
+		        var bus_apply_num = document.getElementById('bus_apply_num').value;
+		        
+		       
+		        if (status === 'accept') {
+		            var confirmMsg = "승인완료로 상태를 변경하시겠습니까?";
+		            if (!confirm(confirmMsg)) {
+		               
+		                return;
+		            }
+		        }
+		
+		        var url = "/updateStatus?bus_apply_num=" + bus_apply_num + "&bus_status=" + status; 
+		        window.location.href = url;
+		    }
+		</script>
+
+		<script>
+		    function openSite() {
+		        var protocol = '${post.getBus_img()}'.startsWith('https://') ? 'https://' : 'http://';
+		        window.open(protocol + '${post.getBus_img()}', '_blank');
+		    }
+		</script>
+								
+			
+			
 	</th:block>
 
 </div>

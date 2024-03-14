@@ -1575,7 +1575,7 @@ h1, h2, h3, h4, h5, h6, p {
 	object-position : center;
 }
 
-.loop .owl-nav button.owl-prev, .owl-nav button.owl-next {
+.loop .owl-nav button.owl-prev, .loop .owl-nav button.owl-next {
 	font-size: 50px;
 	position: absolute;
 	top: 20%;
