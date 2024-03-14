@@ -99,7 +99,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	
 	
 
-	// 알람기능 구현위한 테스트중
+	// 알람기능 구현
 	private void showMessageNotification(String mem1, String mem2, String userName, String roomNumber) {
 		// 알림을 표시하는 로직
 
