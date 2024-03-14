@@ -196,7 +196,7 @@ public class PaymentController {
 	}
 	/**********환불요청 확인**********/
 	 @RequestMapping("/refundPayCheck")
-	 public String refundPayCheck(@RequestParam("page") int page,HttpServletRequest request,Model model) { 
+	 public String refundPayCheck(@RequestParam("page") int page, @RequestParam("category") String category,HttpServletRequest request,Model model) { 
 		
 		 ShareServiceDto sdto =new ShareServiceDto();
 		 
@@ -204,8 +204,11 @@ public class PaymentController {
 		 String pnum = request.getParameter("pnum");
 		 PaymentDTO dto=dao.payBoard(pnum, "Share");
 		 
-		 
-		 Sdao.refundNowPerson(pnum);
+		 if(category.equals("Share")) {			 
+			 Sdao.refundNowPerson(pnum);
+		 }else if(category.equals("Proxy")) {			 
+			 Pdao.refundNowPerson(pnum);
+		 }
 		 dao.refundPayCheck(num);
 //		 취소
 		 //paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
