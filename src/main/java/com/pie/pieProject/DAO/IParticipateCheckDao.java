@@ -25,7 +25,7 @@ public interface IParticipateCheckDao {
 //	참여 여부 확인
 	public int chkPartiMem(String id, String tablename , String num);
 //	참여 취소
-	public void cancelBuying(String id, String tablename , String num);
+	public  void cancelBuying(String id, String tablename , String num);
 //	이전 참여 취소 여부
 	public int canceledBuying(String id, String tablename , String num);
 	

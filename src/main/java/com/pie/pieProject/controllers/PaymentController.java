@@ -207,7 +207,9 @@ public class PaymentController {
 		 
 		 String num = request.getParameter("num");
 		 String pnum = request.getParameter("pnum");
-		 PaymentDTO dto=dao.payBoard(pnum, "Share");
+		 PaymentDTO dto=dao.payBoard(num, "Share");
+		 System.out.println(pnum);
+		 System.out.println(dto);
 		 
 		 if(category.equals("Share")) {			 
 			 Sdao.refundNowPerson(pnum);
@@ -216,7 +218,7 @@ public class PaymentController {
 		 }
 		 dao.refundPayCheck(num);
 //		 취소
-		 //paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
+		 paDao.cancelBuying(pnum, "Share", dto.getBuyer_id());
 		 
 		 List<PaymentDTO> list = dao.paymentList();
 			model.addAttribute("pay", list);
