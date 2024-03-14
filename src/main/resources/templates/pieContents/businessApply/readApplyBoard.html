@@ -151,7 +151,7 @@
 						<div class="row my-5">
 							<div class="col text-right">
 								<a class="btn btn-outline-secondary"
-									th:href="'http://' + ${post.getBus_img()}" target="_blank"><small>사이트
+									th:href="${post.getBus_img()}" target="_blank"><small>사이트
 										확인하기</small></a>
 							</div>
 						</div>
@@ -217,7 +217,13 @@
 		    }
 		</script>
 
-						
+		<script>
+		    function openSite() {
+		        var protocol = '${post.getBus_img()}'.startsWith('https://') ? 'https://' : 'http://';
+		        window.open(protocol + '${post.getBus_img()}', '_blank');
+		    }
+		</script>
+								
 			
 			
 	</th:block>
