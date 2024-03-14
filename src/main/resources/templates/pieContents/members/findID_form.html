@@ -59,11 +59,20 @@
 											event.preventDefault();
 											event.stopPropagation();
 										}
+										return false;
 										form.classList.add('was-validated');
 									}, false);
 								});
 					}, false);
 		})();
+		
+		function phoneForm(phone) {
+			let temp = phone.replace(/-/g, "");
+			let p1 = temp.substring(0, 3);
+			let p2 = temp.substring(3, 7);
+			let p3 = temp.substring(7);
+			return p1 + "-" + p2 + "-" + p3;
+		}
 	</script>
 	<script>
 		$("#findByPhone")

@@ -4,15 +4,6 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
-gradlePlugin {
-	plugins {
-		springBoot {
-			id = 'org.springframework.boot'
-			version = '3.2.2'
-		}
-	}
-}
-
 group = 'com.pie'
 version = '0.0.1-SNAPSHOT'
 

@@ -1589,3 +1589,15 @@ h1, h2, h3, h4, h5, h6, p {
 .loop .owl-nav button.owl-next {
 	right: 3%;
 }
+
+#boardTitle{
+	background: url(../imgs/board.jpg) center/cover no-repeat;
+}
+
+#admintitle{
+	background: url(../imgs/admin.jpg) center/cover no-repeat;
+}
+
+#chatTitle{
+	background: url(../imgs/chat.jpg) center/cover no-repeat;
+}
