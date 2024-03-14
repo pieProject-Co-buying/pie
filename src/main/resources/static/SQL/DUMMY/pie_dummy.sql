@@ -43,7 +43,6 @@ insert into member_user values ( mem_seq.nextval, 'pie1152', '1234', '1234', '�
 insert into member_user values ( mem_seq.nextval, 'pie1153', '1234', '1234', '김파이1153', '파이유저43', 'none', 'default.png', 'pie1153@daum.net', '010-1153-1153', '06353', '서울 강남구 논현로 338', '144호', '1', null, 'none', TO_DATE('19000101','YYYYMMDD'), TO_DATE('19000101','YYYYMMDD'));
 insert into member_user values ( mem_seq.nextval, 'pie1154', '1234', '1234', '김파이1154', '파이유저44', 'none', 'default.png', 'pie1154@pie.com', '010-1154-1154', '06354', '서울 강남구 논현로 340', '145호', '1', null, 'none', TO_DATE('19000101','YYYYMMDD'), TO_DATE('19000101','YYYYMMDD'));
 
-
 insert into member_auth values ('pie1111', 'ROLE_USER');
 insert into member_auth values ('pie1112', 'ROLE_USER');
 insert into member_auth values ('pie1113', 'ROLE_USER');
