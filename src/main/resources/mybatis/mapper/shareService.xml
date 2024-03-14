@@ -5,47 +5,44 @@
 		resultType="com.pie.pieProject.DTO.BoardDto">
 		select * from shareServiceBoard order by num desc
 	</select>
-
-	<!--게시판 리스트 최신순 불러오기 -->
+	<!-- 게시판 리스트 최신순 불러오기 -->
 	<select id="getBoardList"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard order by num desc
+		select * from shareServiceBoard order by registDay desc
 	</select>
-	<!--해당 게시물 상세 페이지 -->
-	<select id="selectBoard"
-		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where num=#{param1}
-	</select>
-	<!--게시물 제목,내용 검색 -->
+	<!-- 게시글 검색 -->
 	<select id="searchBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard where title like
-		'%${param1}%' or content like '%${param1}%'
+		'%${param1}%' or content like '%${param1}%' order by registDay desc
 	</select>
-	
-	<select id="searchBoardByPreset"
-		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where brand like
-		'%${brand}%'
+	<!-- 카테고리 검색 -->
+	<select id="searchCategory" resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where category = '${param1}' order by registDay desc
 	</select>
-	
 	<!--상세 검색 -->
 	<select id="searchTitle"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard where category =
 		'${param1}' and (title like '%${param2}%' OR content like
-		'%${param2}%')
-	</select>
-	<!--카테고리 검색 -->
-	<select id="searchCategory" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where category = '${param1}'
+		'%${param2}%') order by registDay desc
 	</select>
 	<!--내가 쓴 게시글 -->
 	<select id="myBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
 		select * from shareServiceBoard where id=#{param1} order
-		by
-		registDay desc
+		by registDay desc
+	</select>
+	<!--게시물 제목,내용 검색 -->
+	<select id="searchBoardByPreset"
+		resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where brand like
+		'%${brand}%' order by registDay desc
+	</select>
+	<!--해당 게시물 상세 페이지 -->
+	<select id="selectBoard"
+		resultType="com.pie.pieProject.DTO.ShareServiceDto">
+		select * from shareServiceBoard where num=#{param1} order by registDay desc
 	</select>
 	<!--결제 완료 페이지 -->
 	<select id="completePay"

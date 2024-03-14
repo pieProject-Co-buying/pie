@@ -36,19 +36,19 @@
 			</div>
 			<div class="col-12 mt-3 mb-3 d-flex justify-content-center">
 				<form action="">
-					<button type="button" class="custom-btn" onclick="shareServicebuyBoard()">주문내역</button>
-					<button type="button" class="custom-btn3" onclick="shareServiceBoard()">목록으로</button>
+					<button type="button" class="btn pie-btn-yellow" onclick="shareServicebuyBoard()">주문내역</button>
+					<button type="button" class="btn pie-btn-red" onclick="main()">메인으로</button>
 				</form>
 			</div>
 		</div><!--row-->
 	</div><!--container-->
 	<script>
 		/*목록으로*/
-		function shareServiceBoard(){
-			location.href="shareServiceBoard";
-		}
 		function shareServicebuyBoard(){
 			location.href="shareServicebuyBoard";
+		}
+		function main(){
+			location.href="/";
 		}
 	</script>
 </div>

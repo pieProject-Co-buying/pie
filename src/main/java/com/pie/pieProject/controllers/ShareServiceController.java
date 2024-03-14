@@ -330,6 +330,7 @@ public class ShareServiceController {
 			templist.add(list.get(i));
 		}
 
+		model.addAttribute("category", category);
 		model.addAttribute("list", templist);
 		model.addAttribute("page", page);
 		model.addAttribute("pageNum", pageNum);
