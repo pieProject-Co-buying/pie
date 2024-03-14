@@ -107,7 +107,8 @@ public class UserService {
 		if (email != null && !email.equals("")) {
 			id = mdao.findByEmail(email);
 		} else if (phone != null && !phone.equals("")) {
-			id = mdao.findByPhone(phone);
+			System.out.println(formatPhoneNumber(phone));
+			id = mdao.findByPhone(formatPhoneNumber(phone));
 		}
 
 		if (id != null)
@@ -115,6 +116,17 @@ public class UserService {
 		else
 			return null;
 	}
+	
+	public static String formatPhoneNumber(String phoneNumber) {
+        // 정규 표현식을 사용하여 숫자만 추출
+        String numbers = phoneNumber.replaceAll("\\D", "");
+
+        // 010 다음에 오는 번호 부분을 3자리, 4자리로 나눔
+        String formattedNumber = numbers.replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3");
+
+        return formattedNumber;
+    }
+	
 
 	// 비밀번호 찾기
 	public int getFindingPw(String id, String email, String phone) {
@@ -122,7 +134,7 @@ public class UserService {
 		if (email != null && !email.equals("")) {
 			su = mdao.findByEmailId(email, id);
 		} else if (phone != null && !phone.equals("")) {
-			su = mdao.findByPhoneId(phone, id);
+			su = mdao.findByPhoneId(formatPhoneNumber(phone), id);
 		}
 
 		return su;

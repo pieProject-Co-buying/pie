@@ -1,3 +1,34 @@
+-- member_user : 회원 데이터 베이스
+create table member_user
+(
+    mem_num integer unique not null,
+    id       varchar2(16) primary key,
+    password varchar2(100) not null,
+    salt varchar2(40) not null,
+    name     varchar2(51) not null,
+    nickname varchar2(24) not null,
+    gender varchar2(12) not null,
+    profile_pic varchar2(500) default 'default.png',
+    email varchar2(50),
+    phone varchar2(13),
+    postCode varchar2(6),
+    address_main varchar2(100),
+    address_sub varchar2(200),
+    agreement char(1) not null,
+    friends varchar2(620),
+    premium varchar2(4) default 'none',
+    preDate date default sysdate,
+    preEndDate date default sysdate+30
+);
+
+
+create sequence mem_seq nocache nocycle;
+
+create table member_auth(
+id varchar2(20),
+auth varchar2(30)
+);
+
 -- townBoard 생성         
 create table townBuyBoard (
     num integer unique not null, -- 게시글 번호
@@ -111,11 +142,13 @@ create table proxyApplyBoard(
     updateDay date default sysdate, -- 게시글 수정 날짜
     chkDay date default sysdate,
     ip varchar2(32), -- 게시글 작성 Ip
-    URL varchar2(300)
+    URL varchar2(600),
+      brand varchar2(300),
+    productName varchar2(300)
 );
 
 -- 대리공구 시퀀스
-create sequence applyNum NOCACHE NOCYCLE;
+create sequence pr_applyNum NOCACHE NOCYCLE;
 
 -- 좋아요 테이블
 create table likeTable(
@@ -183,6 +216,7 @@ create table subScribe(
 -- 구독결제내역 시퀀스
 create sequence sub_num nocache nocycle;
 
+select * from pie_messages;
 
 --검색어인기차트
 create table searchKey(
@@ -222,11 +256,6 @@ CREATE TABLE businessApplyForm (
     bus_writeDay DATE DEFAULT SYSDATE
 );
 
-
-drop table businessApplyForm ;
-
-
-
 -- 시퀀스 생성/삭제
 create sequence bus_apply_num nocache nocycle;
 
@@ -235,7 +264,37 @@ followingId varchar2(30),
 followedId varchar2(30)
 );
 
-select DISTINCT keyWord from ( select * from searchKey order by hit
-		desc)
-		where ROWNUM  <=
-		25;
+create table pie_chatRoom (
+    roomName varchar2(200) not null,
+    roomNumber number unique not null,
+    partyMem varchar2(40)
+);
+
+
+-- 채팅룸 생성
+create table chatRoom (
+  roomNumber NUMBER PRIMARY KEY,
+  managerMemNum VARCHAR2(16),
+  joinMemNum VARCHAR2(16),
+  foreign key (managerMemNum) references member_user (id),
+  foreign key (joinMemNum) references member_user (id)
+
+)
+
+-- 시퀀스 생성/삭제
+create sequence roomNumber nocache nocycle;
+
+
+-- 채팅 메세지 저장
+create table pie_messages (
+    roomName varchar(200) not null,
+    roomNumber varchar(200) not null,
+    sender_id varchar(200) not null,
+    sender varchar(200) not null,
+    message varchar(1000) not NULL,
+    sendTime date default sysdate
+);
+
+
+
+

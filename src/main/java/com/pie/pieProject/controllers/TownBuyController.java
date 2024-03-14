@@ -166,6 +166,8 @@ public class TownBuyController {
 //			참여 했다가 취소 여부 확인
 			model.addAttribute("cancel",(paDao.canceledBuying(bcomp.getSession(request, "userId"), "townBuyBoard", num)>0));
 			
+			
+		
 
 		return "pieContents/townBuying/townBuyproduct";
 
@@ -186,6 +188,18 @@ public class TownBuyController {
 
 	
 	
+	
+	// 참여인원 감소
+	@RequestMapping("/canclePersonnelNow")
+	public String canclePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {
+
+		dao.canclePersonnelNow(num);	
+		paDao.cancelBuying(bcomp.getSession(request, "userId"),"townBuyBoard" ,num);
+		
+		System.out.println("체크" + num);
+				
+		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
+	}	
 	
 	
 	@RequestMapping("/updateTownProduct")
