@@ -43,6 +43,9 @@ public interface IProxyBuyDao {
 	
 	public void maxChk(int num);
 	
+	// 환불 시 현재 인원 감소
+	public void refundNowPerson(String num);
+	
 	public int chkFeed(String id);
 
 	public List<ProxyBuyBoardDto> searchCateDao(String townKeyword, String category);
