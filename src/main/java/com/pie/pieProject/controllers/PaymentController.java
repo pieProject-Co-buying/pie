@@ -62,14 +62,16 @@ public class PaymentController {
 		String category = request.getParameter("category");
 		
 		String productImg = null;
-		String title = null;
+		String brand = null;
+		String productName = null;
 		int price = 0;		
 		
 		if(category.equals("Share")) {
 			ShareServiceDto bl = Sdao.selectBoard(Integer.parseInt(nid));
 			productImg = bl.getProductImg();
-			title = bl.getTitle();
 			price = bl.getPricePer();
+			brand = bl.getBrand();
+			productName = bl.getProductName();
 			
 			// 작성자가 아닐 경우에만 현재 인원 카운트
 			if(!bl.getId().equals(uId)) {				
@@ -86,8 +88,10 @@ public class PaymentController {
 		}else if(category.equals("Proxy")) {
 			ProxyBuyBoardDto bl = Pdao.getView(nid);
 			productImg = bl.getProductImg();
-			title = bl.getTitle();
 			price = bl.getPricePer();
+			brand = bl.getBrand();
+			productName = bl.getProductName();
+			
 			Pdao.updateNow(Integer.parseInt(nid));
 			bl = Pdao.getView(nid);
 			if(bl.getPersonnelMax()<=bl.getPersonnelNow()) {
@@ -97,7 +101,8 @@ public class PaymentController {
 
 		model.addAttribute("find", mdao.find(uId));
 		model.addAttribute("productImg" , productImg);
-		model.addAttribute("title", title);
+		model.addAttribute("brand", brand);
+		model.addAttribute("productName", productName);
 		model.addAttribute("price", price);
 		model.addAttribute("pay", dao.payBoard(merchant,category));
 		

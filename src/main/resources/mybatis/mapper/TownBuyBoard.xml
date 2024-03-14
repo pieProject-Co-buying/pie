@@ -188,9 +188,9 @@
 	<!-- 0시마다 마감체크 -->
 	<update id="expireTownBuyBoard">
 		UPDATE townBuyBoard
-		SET process = 0
+		SET process = 3
 		WHERE deadLine <![CDATA[ <= ]]>
-		sysdate
+		sysdate and personnelnow <![CDATA[ < ]]> personnelMax
 	</update>
 
 

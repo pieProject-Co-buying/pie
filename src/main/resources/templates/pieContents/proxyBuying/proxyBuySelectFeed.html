@@ -30,8 +30,12 @@
 				<div class="row justify-content-center">
 					<th:block th:each="tag : ${list}">
 						<div role="button"
-							class="col-2 tagbuttons d-flex justify-content-center align-items-center m-1 py-5 pie-btn-outline-red-custom border pie-radius"
-							th:text="|#${tag}|"></div>
+							class="col-4 col-lg-2 col-md-3 mt-2 px-1"
+							>
+							<div th:text="|#${tag}|" class="tagbuttons d-flex justify-content-center  align-items-center py-5 pie-btn-outline-red-custom border pie-radius"></div>
+							
+							
+							</div>
 					</th:block>
 				</div>
 
