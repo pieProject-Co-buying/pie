@@ -23,8 +23,8 @@
 	<select id="KeywordAll" resultType="string">
 		select DISTINCT keyWord from ( select * from searchKey order by hit
 		desc)
-		where ROWNUM <![CDATA[ <= ]]>
-		26
+		where ROWNUM <![CDATA[ < ]]>
+		27
 	</select>
 	<select id="searchT" resultType="string">
 		select category from

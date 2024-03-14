@@ -36,7 +36,6 @@ public class CustomAutenticationSuccess extends SavedRequestAwareAuthenticationS
         session.setAttribute("userId", username);
         session.setAttribute("nickName", dto.getNickname());
         session.setAttribute("pic", dto.getProfile_pic());
-        
 
         // 로그인 후 리다이렉트할 URL 설정
         // 기본적으로 부모 클래스에서는 SavedRequest에 저장된 URL로 리다이렉트됩니다.

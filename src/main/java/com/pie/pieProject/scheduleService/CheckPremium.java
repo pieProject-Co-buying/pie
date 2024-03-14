@@ -25,7 +25,7 @@ public class CheckPremium {
 		dao.expireSub();
 	}
 
-	@Scheduled(cron = "0 1 0 * * *")
+	@Scheduled(cron = "0 16 15 * * *")
 	public void run() {
 		pdao.expireProxyBuyBoard();
 		tdao.expireTownBuyBoard();
