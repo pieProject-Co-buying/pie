@@ -14,11 +14,9 @@
 		<!-------------------------------------------------------------->
 		<div id="board-search" class="container-fluid">
 			<div class="container-fluid p-0">
-				<small> <a href="shareServiceBoardConsole?category=town&page=1">동네공구</a>
-					 /  <a
-					href="shareServiceBoardConsole?category=proxy&page=1">대리구매</a>
-					/  <a
-					href="shareServiceBoardConsole?category=share&page=1">서비스공유</a>
+				<small> <a th:attr="data-town='town'" class="town onoff" href="shareServiceBoardConsole?category=town&page=1">동네공구</a>
+					 /  <a th:attr="data-proxy='proxy'" class="proxy"href="shareServiceBoardConsole?category=proxy&page=1">대리구매</a>
+					/   <a th:attr="data-share='share'" class="share" href="shareServiceBoardConsole?category=share&page=1">서비스공유</a>
 				</small>
 				<div class="search-window">
 					<form action="searchBoardName" method="get">
@@ -118,5 +116,41 @@
 			</div>
 		</div>
 	</div>
+	<script>
+	$(document).ready(function() {
+	    // 페이지 로드 시 실행되는 코드
+	    activateLink();
+	    // 링크를 클릭할 때 실행되는 코드
+	    $(".town, .proxy, .share").click(function() {
+	        // 현재 클릭된 요소의 data-* 속성 값을 가져옵니다.
+	        var dataAttr = $(this).attr("data-town") || $(this).attr("data-proxy") || $(this).attr("data-share");
+	        // 가져온 data-* 속성 값을 category 파라미터 값으로 설정합니다.
+	        var categoryValue = dataAttr;
+	        // 현재 페이지 URL을 가져옵니다.
+	        var url = new URL(window.location.href);
+	        // category 파라미터 값을 설정합니다.
+	        url.searchParams.set('category', categoryValue);
+	        // 새로운 URL로 페이지를 리로드합니다.
+	        window.location.href = url.toString();
+	    });
+	});
+	// 활성화할 링크를 선택하는 함수
+	function activateLink() {
+	    // 현재 페이지의 URL에서 category 파라미터 값을 가져옵니다.
+	    var urlParams = new URLSearchParams(window.location.search);
+	    var categoryValue = urlParams.get('category');
+	    // category 파라미터 값과 각 링크의 data-* 속성 값을 비교하여 활성화할 링크를 결정합니다.
+	    if (categoryValue === 'town') {
+	        $(".town").addClass("onoff");
+	        $(".proxy, .share").removeClass("onoff");
+	    } else if (categoryValue === 'proxy') {
+	        $(".proxy").addClass("onoff");
+	        $(".town, .share").removeClass("onoff");
+	    } else if (categoryValue === 'share') {
+	        $(".share").addClass("onoff");
+	        $(".town, .proxy").removeClass("onoff");
+	    }
+	}
+	</script>
 </div>
 </html>

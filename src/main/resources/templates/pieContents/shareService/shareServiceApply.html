@@ -14,8 +14,8 @@
 				<span><h5>내가 작성한 게시물</h5></span>
 			</div>
 			<div class="col-6 mb-1 d-flex justify-content-end">
-				<small id="on" style="cursor: pointer">모집중&nbsp;</small> <small>|</small>
-				<small id="off" style="cursor: pointer">&nbsp;모집마감</small>
+				<small class="on" id="on" style="cursor: pointer">모집중&nbsp;</small> <small>|</small>
+				<small class="off" id="off" style="cursor: pointer">&nbsp;모집마감</small>
 			</div>
 		</div>
 		<div class="row mb-2">
@@ -180,45 +180,37 @@
 				}
 			});
 			/*************모집중인 게시물 확인*************/
-			on
-					.click(function() {
-						$(".ApplyList[data-pieCate!='1']").hide();
-						$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
+			on.click(function() {
+				on.addClass("onoff");
+				off.removeClass("onoff");
+				$(".ApplyList[data-pieCate!='1']").hide();
+				$(".ApplyList[data-pieCate='1']").slice(0, 3).show();
 
-						$("#load")
-								.off()
-								.click(
-										function(e) {
-											e.preventDefault();
-											if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
-												$(
-														".ApplyList[data-pieCate='1']:hidden")
-														.slice(0, 3).show();
-											} else {
-												alert("마지막 게시물입니다.");
-											}
-										});
+				$("#load").off().click(function(e) {
+					e.preventDefault();
+					if ($(".ApplyList[data-pieCate='1']:hidden").length > 0) {
+							$(".ApplyList[data-pieCate='1']:hidden").slice(0, 3).show();
+							} else {
+								alert("마지막 게시물입니다.");
+							}
+						});
 					});
 			/*************모집마감 게시물 확인*************/
-			off
-					.click(function() {
-						$(".ApplyList[data-pieCate!='0']").hide();
-						$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
+			off.click(function() {
+				on.removeClass("onoff");
+				off.addClass("onoff");
+				$(".ApplyList[data-pieCate!='0']").hide();
+				$(".ApplyList[data-pieCate='0']").slice(0, 3).show();
 
-						$("#load")
-								.off()
-								.click(
-										function(e) {
-											e.preventDefault();
-											if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
-												$(
-														".ApplyList[data-pieCate='0']:hidden")
-														.slice(0, 3).show();
-											} else {
-												alert("마지막 게시물입니다.");
-											}
-										});
+				$("#load").off().click(function(e) {
+					e.preventDefault();
+					if ($(".ApplyList[data-pieCate='0']:hidden").length > 0) {
+							$(".ApplyList[data-pieCate='0']:hidden").slice(0, 3).show();
+						} else {
+							alert("마지막 게시물입니다.");
+						}
 					});
+				});
 		})
 	</script>
 </div>
