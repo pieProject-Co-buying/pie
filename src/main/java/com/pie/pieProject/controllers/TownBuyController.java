@@ -193,14 +193,11 @@ public class TownBuyController {
 	@RequestMapping("/canclePersonnelNow")
 	public String canclePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {
 
-		dao.canclePersonnelNow(num);
-	
+		dao.canclePersonnelNow(num);	
 		paDao.cancelBuying(bcomp.getSession(request, "userId"),"townBuyBoard" ,num);
 		
 		System.out.println("체크" + num);
-		
-		
-		
+				
 		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
 	}	
 	
