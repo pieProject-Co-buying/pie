@@ -390,9 +390,9 @@
 									class="btn pie-btn-red btn-block" disabled>
 									<small>이미 참여가 완료되었습니다.</small>
 								</button>
-								<a th:href="@{'cancelBuying?num='+${board.getNum()}}"
+								<a th:href="'canclePersonnelNow?num=' + ${board.getNum()}"
 									th:if="${in && !cancel}" type="button"
-									class="btn pie-btn-outline-red-custom btn-block"> <small>참여
+									class="btn pie-btn-outline-red-custom btn-block" onclick="return confirm('정말로 취소하시겠습니까? 취소하면 다시 참여할 수 없습니다.');"> <small>참여
 										취소</small>
 								</a>
 								<button th:if="${!in&&cancel}" type="button"
