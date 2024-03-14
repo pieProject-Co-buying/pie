@@ -43,6 +43,7 @@ insert into member_user values ( mem_seq.nextval, 'pie1152', '1234', '1234', '�
 insert into member_user values ( mem_seq.nextval, 'pie1153', '1234', '1234', '김파이1153', '파이유저43', 'none', 'default.png', 'pie1153@daum.net', '010-1153-1153', '06353', '서울 강남구 논현로 338', '144호', '1', null, 'none', TO_DATE('19000101','YYYYMMDD'), TO_DATE('19000101','YYYYMMDD'));
 insert into member_user values ( mem_seq.nextval, 'pie1154', '1234', '1234', '김파이1154', '파이유저44', 'none', 'default.png', 'pie1154@pie.com', '010-1154-1154', '06354', '서울 강남구 논현로 340', '145호', '1', null, 'none', TO_DATE('19000101','YYYYMMDD'), TO_DATE('19000101','YYYYMMDD'));
 
+
 insert into member_auth values ('pie1111', 'ROLE_USER');
 insert into member_auth values ('pie1112', 'ROLE_USER');
 insert into member_auth values ('pie1113', 'ROLE_USER');
@@ -88,6 +89,7 @@ insert into member_auth values ('pie1152', 'ROLE_USER');
 insert into member_auth values ('pie1153', 'ROLE_USER');
 insert into member_auth values ('pie1154', 'ROLE_USER');
 insert into member_auth values ('admin', 'ROLE_ADMIN');
+
 
 commit;
 
@@ -252,3 +254,4 @@ insert into proxyApplyBoard values (pr_applyNum.nextval,'pie1119', '김파이111
 insert into proxyApplyBoard values (pr_applyNum.nextval,'pie1120', '김파이1120', 'pet', '영양제 같은것도 공구 가능할까요?', '<p>영양제 완전 짱 추천드립니다. 우리애기 눈 영양제 먹고 엄청 효과 봤어여</p>', 'pr10.png', 'petcare.png/', '1', TO_DATE('2024-03-10', 'yyyy-mm-dd'), TO_DATE('2024-03-10', 'yyyy-mm-dd'), TO_DATE('2024-03-12', 'yyyy-mm-dd'), '0:0:0:0:0:0:0:1', 'https://goldrony.com/product/detail.html?product_no=233&gad_source=1&gclid=Cj0KCQjwwMqvBhCtARIsAIXsZpYMw1E5wUb_7cbIFVOYW8N4GGwzEREHhGEuo5lEbN43ExcTD8b7F4oaAueJEALw_wcB', '예스아임리얼', '비트트릿');
 insert into proxyApplyBoard values (pr_applyNum.nextval,'pie1121', '김파이1121', 'food', '요즘 당근 철인데~', '<p>당근은 묶음으로 공구 안하나요? <br> 요즘 베이킹하는데 당근케이크 완전 괜찮더라구요</p>', 'pr11.png', 'carrot.jpg/', '0', TO_DATE('2024-03-09', 'yyyy-mm-dd'), TO_DATE('2024-03-11', 'yyyy-mm-dd'), TO_DATE('2024-03-09', 'yyyy-mm-dd'), '0:0:0:0:0:0:0:1', 'https://mart.baemin.com/goods/detail/443945?gad_source=1&gclid=Cj0KCQjwwMqvBhCtARIsAIXsZpb11dylop0jOtQshrzXY9SZzv7MsVscnZucLXdSTGO1feB30QNuOi0aAhEPEALw_wcB', '쿠팡', '당근');
 insert into proxyApplyBoard values (pr_applyNum.nextval,'pie1122', '김파이1122', 'food', '밀키트 좋은 제품 있어서 완전 추천해요!', '<p>헉 혹시 이번에 생긴 밀키트 회사 아시나요?<br> 한번 먹어보고 싶은데 같이 해줄사람이 없어서 ㅠㅠ<br> 제발 해주세여 많이 사먹을게요</p>', 'pr12.png', 'mealkit.jpg/mealkit.png', '0', TO_DATE('2024-03-12', 'yyyy-mm-dd'), TO_DATE('2024-03-12', 'yyyy-mm-dd'), TO_DATE('2024-03-12', 'yyyy-mm-dd'), '0:0:0:0:0:0:0:1', 'https://atemshop.com/product/detail.html?product_no=1276&gad_source=1', '한끼통살', '주먹밥');
+
