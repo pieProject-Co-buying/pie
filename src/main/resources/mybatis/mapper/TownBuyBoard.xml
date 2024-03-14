@@ -212,7 +212,7 @@
 	</update>
 
 
-	<!-- 참여자수 증가 -->
+	<!-- 참여자수 감소 -->
 	<update id="canclePersonnelNow">
 		UPDATE townBuyBoard
 		SET personnelNow = personnelNow - 1
