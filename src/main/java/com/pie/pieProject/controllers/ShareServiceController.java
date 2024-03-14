@@ -356,7 +356,7 @@ public class ShareServiceController {
 
 	/********** admin 게시물관리 페이지 진행여부 **********/
 	@RequestMapping("/processRemote")
-	public String processRemote(HttpServletRequest request, Model model) {
+	public String processRemote(@RequestParam("category") String category,HttpServletRequest request, Model model) {
 		String sId = request.getParameter("num");
 		String search = request.getParameter("search");
 		int page = Integer.parseInt(request.getParameter("page"));
@@ -389,6 +389,6 @@ public class ShareServiceController {
 		model.addAttribute("pageNum", pageNum);
 
 		model.addAttribute("list", templist);
-		return "redirect:/shareServiceBoardConsole?page=1";
+		return "redirect:/shareServiceBoardConsole?category="+category+"&page=1";
 	}
 }

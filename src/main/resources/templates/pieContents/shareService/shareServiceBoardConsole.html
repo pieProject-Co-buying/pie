@@ -70,7 +70,7 @@
 								<td><th:block
 										th:if="${board.getProcess().equals('1') || board.getProcess().equals('2')}">
 										<!-- || board.getPersonnelNow() < board.getPersonnelMax() -->
-										<a th:href="'processRemote?page=1&num='+${board.getNum()}"
+										<a th:href="'processRemote?page=1&num='+${board.getNum()}+'&category='+${category}"
 											class="badge badge-warning"> <b>변경</b>
 										</a>
 									</th:block> <th:block
