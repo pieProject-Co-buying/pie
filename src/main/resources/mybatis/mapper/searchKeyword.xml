@@ -32,7 +32,7 @@
 		'%${param1}%' or
 		content like
 		'%${param1}%' or tag like
-		'%${param1}%'
+		'%${param1}%' or brand like '%${param1}%' or productName like '%${param1}%'
 	</select>
 	<select id="searchP" resultType="string">
 		select category from
@@ -40,7 +40,7 @@
 		'%${param1}%' or
 		content like
 		'%${param1}%' or tag like
-		'%${param1}%'
+		'%${param1}%'or brand like '%${param1}%' or productName like '%${param1}%'
 	</select>
 	<select id="getCategories" resultType="string">
 		SELECT category
