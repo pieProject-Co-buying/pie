@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="buyModal" class="modal fade mt-5 p-0"
+	id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content bg-light">
+			<div class="modal-header">
+				<h5 class="modal-title" id="paymentModalLabel">
+					<b>결제 수단 선택</b>
+				</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body d-flex justify-content-around text-center">
+				<div class="m-3" onclick="payment('kgPay')">
+					<small class="d-block"><b>kg 이니시스</b></small> <img
+						src="imgs/kg.png" alt="" class="payLogo">
+				</div>
+				<div class="m-3" onclick="payment('kakaoPay')">
+					<small class="d-block"><b>카카오페이</b></small> <img
+						src="imgs/kakaopay.jpg" alt="" class="payLogo">
+				</div>
+				<div class="m-3" onclick="payment('tossPay')">
+					<small class="d-block"><b>토스페이</b></small> <img src="imgs/toss.jpg"
+						alt="" class="payLogo">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="custom-btn" data-dismiss="modal"
+					style="background-color: grey">닫기</button>
+			</div>
+			<input type="hidden" id="nowLogin" th:value="${session.userId}" /> 
+			<input type="hidden" id="nowBoard" th:value="${board.num}" />
+		</div>
+	</div>
+
+	<script th:src="@{js/iamport.js}"></script>
+
+</div>
+
+
+
+
+
+</html>
