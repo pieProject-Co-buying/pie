@@ -1,24 +1,51 @@
 var IMP = window.IMP;
-IMP.init("imp80647284");
+
 /*******************상품 아이디*******************/
 var today = new Date();
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}` + document.querySelector('[data-num]').getAttribute('data-num');
+var makeMerchantUid = `${hours}` + `${minutes}` + `${seconds}` + `${milliseconds}` + $("#nowBoard").val() + $("#nowLogin").val();
 
-var DataTitle = document.querySelector('[data-title]');
-var DataPrice = document.querySelector('[data-price]');
-var DataNumID = document.querySelector('[data-num]');
 var category;
-var Title = DataTitle.getAttribute('data-title');;
-var Price = parseFloat(DataPrice.getAttribute('data-price'));
-var numID = parseFloat(DataNumID.getAttribute('data-num'));
-/*var url = window.location.href;*/
+
 var str = nowUrl.substring(nowUrl.lastIndexOf('/') + 1, nowUrl.indexOf('?'));
 
-function kgPay() {
+
+
+function payment(method){
+	$.ajax({
+		data : {
+			nowLogin : $("#nowLogin").val(),
+			nowBoard : $("#nowBoard").val()
+		},
+		type : "POST",
+		url : "/shoppingInfo",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		dataType : "json",
+		success:function(result){
+			
+			console.log(result);
+			IMP.init(result.shopkey);
+			if(method=="kgPay"){
+				kgPay(result);
+			}else if(method=="kakaoPay"){
+				kakaoPay(result);
+			}else if(method=="tossPay"){
+				tossPay(result);
+			}
+		},
+		error: function(xhr, desc, err) {
+			console.error('전송 실패', err);
+		}
+	})
+}
+
+
+function kgPay(payInfo) {
 	if (confirm("kg 이니시스로 결제 하시겠습니까?") == true) {
 
 		if (str == 'boardList') {
@@ -111,7 +138,7 @@ function kgPay() {
 	}
 
 }
-function kakaoPay() {
+function kakaoPay(payInfo) {
 	if (confirm("카카오페이로 결제 하시겠습니까?") == true) {
 		
 		if (str == 'boardList') {
@@ -123,20 +150,20 @@ function kakaoPay() {
 			{
 				pg: "kakaopay.TC0ONETIME",
 				merchant_uid: makeMerchantUid,
-				name: Title,
-				amount: Price,
-				buyer_name: member.name,
-				buyer_tel: member.phone,
-				buyer_addr: member.address_main + member.address_sub,
-				buyer_email: member.email,
-				buyer_postcode: member.postCode
+				name: payInfo.name,
+				amount: payInfo.amount,
+				buyer_name: payInfo.buyer_name,
+				buyer_tel: payInfo.buyer_tel,
+				buyer_addr: payInfo.buyer_addr,
+				buyer_email: payInfo.buyer_email,
+				buyer_postcode: payInfo.buyer_postcode
 			}, function(rsp) {
 				if (rsp.success) {
 					var result = {
-						"pay_num": numID,
-						"buyer_id": member.id,
+						"pay_num": payInfo.boardNum,
+						"buyer_id": payInfo.id,
 						"buyer_name": rsp.buyer_name,
-						"buyer_nickname": member.nickname,
+						"buyer_nickname": "test",
 						"buyer_tel": rsp.buyer_tel,
 						"buyer_addr": rsp.buyer_addr,
 						"buyer_email": rsp.buyer_email,
@@ -144,8 +171,8 @@ function kakaoPay() {
 						"pay_uid": rsp.imp_uid,
 						"pay_method": "kakaoPay",
 						"pay_Merchant_uid": makeMerchantUid,
-						"pay_name": Title,
-						"pay_amount": Price,
+						"pay_name": payInfo.name,
+						"pay_amount": payInfo.amount,
 						"pay_category": category,
 						"pay_refund": '0'
 					}
@@ -160,9 +187,9 @@ function kakaoPay() {
 						success: function(response) {
 							alert("결제에 성공하였습니다");
 							if (response == 'Share') {
-								document.location.href = "shareServiceFinish?num=" + numID + '&merchant_uid=' + makeMerchantUid + "&category=" + response;
+								document.location.href = "shareServiceFinish?num=" + result.pay_num + '&merchant_uid=' + makeMerchantUid + "&category=" + response;
 							} else if (response == 'Proxy') {
-								document.location.href = "shareServiceFinish?num=" + numID + '&merchant_uid=' + makeMerchantUid + "&category=" + response;
+								document.location.href = "shareServiceFinish?num=" + result.pay_num + '&merchant_uid=' + makeMerchantUid + "&category=" + response;
 							}
 						},
 						error: function(xhr, status, error) {
@@ -180,7 +207,7 @@ function kakaoPay() {
 		return;
 	}
 }
-function tossPay() {
+function tossPay(payInfo) {
 	if (confirm("토스페이로 결제 하시겠습니까?") == true) {
 	/*	var category;
 		var Title;

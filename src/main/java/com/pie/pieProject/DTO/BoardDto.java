@@ -14,7 +14,7 @@ public class BoardDto {
 	private String category; // 게시글 카테고리
 	private String title; // 게시글 제목
 	private String content; // 게시글 내용
-	private String profileImg; // 게시글 작성자 이미지
+	private String profile_pic; // 게시글 작성자 이미지
 	private String productImg; // 게시글 내 이미지
 	private int hit; // 게시글 조회수
 	private String tag; // 게시글 태그

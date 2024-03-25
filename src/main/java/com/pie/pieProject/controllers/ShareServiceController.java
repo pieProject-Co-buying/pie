@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,8 @@ public class ShareServiceController {
 	IProxyBuyDao rdao;
 	@Autowired
 	ITownBuyBoardDao tdao;
+	@Value("${port.shop.code}")
+	String shopCode;
 
 	/********** 전체 게시물 조회 **********/
 	@RequestMapping("/shareServiceBoard")
@@ -157,8 +160,12 @@ public class ShareServiceController {
 			model.addAttribute("productNum",
 					Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Share").getPay_Merchant_uid());
 		}
+//		구분
+		model.addAttribute("form","share");
+//		결제상점
+		model.addAttribute("shop",shopCode);
 
-		return "pieContents/shareService/shareServiceProduct";
+		return "pieContents/townBuying/townBuyproduct";
 	}
 
 	/********** 해당 게시물 수정 페이지 이동 **********/
@@ -243,12 +250,6 @@ public class ShareServiceController {
 		return "pieContents/shareService/shareServiceBoard";
 	}
 
-	/********** 게시판 작성 페이지 이동 **********/
-	@RequestMapping("/writePost")
-	public String witePost() {
-		return "pieContents/shareService/shareForm";
-	}
-
 	/********** 게시판 작성 **********/
 	@RequestMapping("/insertBoard")
 	public String insert(HttpServletRequest request, Model model) {
@@ -269,7 +270,7 @@ public class ShareServiceController {
 		dto.setNickname(Bcomp.getSession(request, "nickName"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
-		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProfile_pic(Bcomp.getSession(request, "pic"));
 		dto.setProductImg(request.getParameter("fileStr"));
 		dto.setTag(request.getParameter("pie_tagsOutput"));
 		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));

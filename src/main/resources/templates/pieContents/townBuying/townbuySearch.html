@@ -78,7 +78,7 @@
 											
 											
 											<img
-												th:src="@{'/imgs/profiles/' + ${Fboard.getProfileImg()}}"
+												th:src="@{'/imgs/profiles/' + ${Fboard.getProfile_pic()}}"
 												alt="" class="hj-chat-proImg-small" />
 												
 												
@@ -179,7 +179,7 @@
 									<div class="row  mt-5">
 										<div class="col d-flex justify-content-end">
 											<img
-												th:src="@{'/imgs/profiles/' + ${Bboard.getProfileImg()}}"
+												th:src="@{'/imgs/profiles/' + ${Bboard.getProfile_pic()}}"
 												alt="" class="hj-chat-proImg-small" />
 											<h6 class="card-title ml-3 mt-2"
 												th:text="${Bboard.getNickname()}"></h6>
@@ -263,7 +263,7 @@
 									<div class="row  mt-5">
 										<div class="col d-flex justify-content-end">
 											<img
-												th:src="@{'/imgs/profiles/' + ${Lboard.getProfileImg()}}"
+												th:src="@{'/imgs/profiles/' + ${Lboard.getProfile_pic()}}"
 												alt="" class="hj-chat-proImg-small" />
 											<h6 class="card-title ml-3 mt-2"
 												th:text="${Lboard.getNickname()}"></h6>
@@ -378,7 +378,7 @@
 								<div class="row mt-5 mr-3">
 									<div class="col d-flex align-items-center">
 										<img
-											th:src="@{'/imgs/profiles/' + ${board.getProfileImg()}}"
+											th:src="@{'/imgs/profiles/' + ${board.getProfile_pic()}}"
 											alt="" class="pie-profilePic" />
 										<h6 class="card-title ml-2 mb-0"
 											th:text="${board.getNickname()}"}></h6>

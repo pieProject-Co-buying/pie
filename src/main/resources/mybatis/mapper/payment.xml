@@ -5,10 +5,10 @@
 	<insert id="insertPayment"
 		parameterType="com.pie.pieProject.DTO.PaymentDTO">
 		insert into payment
-		(pay_num,buyer_id,buyer_name,buyer_nickname,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid,
+		(pay_num,buyer_id,buyer_name,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid,
 		pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date,
 		pay_category,pay_refund) values
-		(#{pay_num},#{buyer_id},#{buyer_name},#{buyer_nickname},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid},
+		(#{pay_num},#{buyer_id},#{buyer_name},#{buyer_tel},#{buyer_addr},#{buyer_email},#{buyer_postcode},#{pay_uid},
 		#{pay_method}, #{pay_Merchant_uid}, #{pay_name}, #{pay_amount},
 		sysdate,#{pay_category},0)
 	</insert>

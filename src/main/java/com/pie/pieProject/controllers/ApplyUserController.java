@@ -15,7 +15,6 @@ import com.pie.pieProject.DAO.IMemberDao;
 import com.pie.pieProject.DAO.IProxyApplyDao;
 import com.pie.pieProject.DTO.MemberDto;
 import com.pie.pieProject.DTO.ProxyApplyBoardDto;
-import com.pie.pieProject.DTO.ProxyBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,7 +57,7 @@ public class ApplyUserController {
 		dto.setNickname(Bcomp.getSession(request, "nickName"));
 		dto.setTitle(title);
 		dto.setContent(content);
-		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProfile_pic(Bcomp.getSession(request, "pic"));
 		dto.setProductImg(pictures);
 		dto.setUrl(url);
 		dto.setBrand(brand);
