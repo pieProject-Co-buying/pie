@@ -5,13 +5,19 @@
 <mapper namespace="com.pie.pieProject.DAO.ITownBuyBoardDao">
 	<select id="listDaoBoard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
-		select * from townBuyBoard order by num desc
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id order by num desc
 	</select>
 
 
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard order by registDay desc
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id order by registDay desc
 
 	</select>
 
@@ -19,23 +25,32 @@
 	<!-- 조회순으로 보여주기 -->
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%' and process = 1
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where address like '${param1}%' and process = 1
 		order by hit desc
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like '${param1}%' and process = 1 
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where address like '${param1}%' and process = 1 
 		order by likeNum desc
 	</select>
 
 	<!-- 프리미엄 목록 -->
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from (select * from townBuyBoard where premium = 1 and
-		process = 1
-		and category = #{param1} and address like '${param3}%' order by
+		select * from (select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where townBuyBoard.premium = 1 and
+		townBuyBoard.process = 1
+		and townBuyBoard.category = #{param1} and townBuyBoard.address like '${param3}%' order by
 		dbms_random.value)
 		where rownum <![CDATA[ <= ]]>
 		${param2}
@@ -44,14 +59,20 @@
 
 	<select id="viewDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where num = #{param1}
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where num = #{param1}
 	</select>
 
 
 	<!-- id로 내가쓴 게시글 불러오기 -->
 	<select id="townListbyID"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where id = #{param1}
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where id = #{param1}
 	</select>
 
 
@@ -86,7 +107,10 @@
 
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where (title like
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where (title like
 		'%${param1}%'
 		or
 		content like '%${param1}%' or tag like '%${param1}%') and address
@@ -97,7 +121,10 @@
 
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where category = #{param2} and
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where category = #{param2} and
 		(title like
 		'%${param1}%' or
 		content like '%${param1}%' or tag like
@@ -108,14 +135,20 @@
 
 	<select id="categoryDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where category = #{param1} and
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where category = #{param1} and
 		address like
 		'${param2}%' order by num desc
 	</select>
 
 	<select id="categoryDaoNum"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from (select * from townBuyBoard where category =
+		select * from (select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where category =
 		#{param1})
 		where ROWNUM <![CDATA[ <= ]]>
 		#{param2}
@@ -123,14 +156,12 @@
 
 	<insert id="writeDao">
 		insert into townBuyBoard values(
-		to_num.nextval,
+		piebr_num.nextval,
 		#{id},
-		#{nickname},
 		#{category},
 		#{premium},
 		#{title},
 		#{content},
-		#{profileImg},
 		#{productImg},
 		0,
 		#{tag},
@@ -154,14 +185,20 @@
 
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where address like
 		'${param1}%'
 		order by num desc
 	</select>
 
 	<select id="listLocalActive"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from townBuyBoard where address like
+		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
+from member_user JOIN townBuyBoard ON
+		townBuyBoard.id
+		= member_user.id where address like
 		'${param1}%'
 		and process= '1'
 	</select>

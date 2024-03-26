@@ -406,7 +406,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 												<div class="row">
 													<div class="col w-100 d-flex align-items-center">
 														<img
-															th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
+															th:src="@{'imgs/profiles/'+${tBoard.getProfile_pic()}}"
 															alt="" class="pie-profilePic mr-2" />
 														<h6 class="m-0" th:text="${tBoard.getNickname}"></h6>
 													</div>
@@ -467,7 +467,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 										<div class="row">
 											<div class="col w-100 d-flex align-items-center">
-												<img th:src="@{'imgs/profiles/'+${tBoard.getProfileImg()}}"
+												<img th:src="@{'imgs/profiles/'+${tBoard.getProfile_pic()}}"
 													alt="" class="pie-profilePic mr-2" />
 												<h6 class="m-0" th:text="${tBoard.getNickname}"></h6>
 											</div>
@@ -530,7 +530,7 @@ secion2 #sec2 - 대리공구 영역
 						<div class="container-fluid hyej-customCard pt-1 bg-white shadow">
 							<div class="row border-bottom">
 								<div class="col-12 px-5 py-3 d-flex align-items-center">
-									<img th:src="@{'imgs/profiles/'+${list[0].getProfileImg()}}"
+									<img th:src="@{'imgs/profiles/'+${list[0].getProfile_pic()}}"
 										class=" border rounded-circle pie-profilePic-mid align-self-center"
 										id="bestProfileImg" alt=>
 									<div class="pl-3 pie-view-text pie-omitted d-flex flex-column">
@@ -836,7 +836,7 @@ secion2 #sec3 - 서비스 공유 영역
 										.attr(
 												"src",
 												'imgs/profiles/'
-														+ list[idx].profileImg);
+														+ list[idx].profile_pic);
 								$("#bestNickName").text(list[idx].nickname);
 								$("#bestTitle").text(list[idx].title);
 								$("#bestLike").text(list[idx].likeNum);

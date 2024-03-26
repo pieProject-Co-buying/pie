@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,6 +51,9 @@ public class ProxyBuyController {
 	IParticipateCheckDao paDao;
 	@Autowired
 	IPaymentDAO Pdao;
+	@Value("${port.shop.code}")
+	String shopCode;
+	
 
 	@RequestMapping("/proxyBuyMain")
 	public String proxyBPage(Model model) {
@@ -281,15 +285,16 @@ public class ProxyBuyController {
 		if(Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Proxy")!=null) {
 			model.addAttribute("productNum",Pdao.myPay(Bcomp.getSession(request, "userId"), num, "Proxy").getPay_Merchant_uid());
 		}
+		
+//		구분
+		model.addAttribute("form","proxy");
+//		결제상점
+		model.addAttribute("shop",shopCode);
 
 		
-		return "pieContents/proxyBuying/proxyBuyProduct";
+		return "pieContents/townBuying/townBuyproduct";
 	}
 
-	@GetMapping("/proxyWriteForm")
-	public String proxyWriteForm() {
-		return "pieContents/proxyBuying/proxyForm";
-	}
 
 	@PostMapping("/uploadAction")
 	public String proxyuploadAction(@RequestParam("title") String title, @RequestParam("content") String content,
@@ -305,7 +310,7 @@ public class ProxyBuyController {
 		dto.setNickname(Bcomp.getSession(request, "nickName"));
 		dto.setTitle(title);
 		dto.setContent(content);
-		dto.setProfileImg(Bcomp.getSession(request, "pic"));
+		dto.setProfile_pic(Bcomp.getSession(request, "pic"));
 		dto.setProductImg(files);
 		dto.setTag(tags);
 		dto.setDeadLine(deadLine);

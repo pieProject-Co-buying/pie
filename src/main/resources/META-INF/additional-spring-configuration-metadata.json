@@ -38,5 +38,25 @@
     "name": "test",
     "type": "java.lang.String",
     "description": "A description for 'test'"
+  },
+  {
+    "name": "port.shop.code",
+    "type": "java.lang.String",
+    "description": "A description for 'port.shop.code'"
+  },
+  {
+    "name": "port.shop.key",
+    "type": "java.lang.String",
+    "description": "A description for 'port.shop.key'"
+  },
+  {
+    "name": "port.shop.code",
+    "type": "java.lang.String",
+    "description": "A description for 'port.shop.code'"
+  },
+  {
+    "name": "port.shop.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'port.shop.secret'"
   }
 ]}

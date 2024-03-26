@@ -5,6 +5,9 @@
 	layout:decorate="~{layouts/townBuying}">
 
 <div layout:fragment="townBuyContent" class="col">
+	<script>
+		const nowUrl = window.location.href;
+	</script>
 
 	<!--------------------------타이틀 아래 텍스트-------------------------->
 	<div class="container mt-5 mb-5">
@@ -24,14 +27,16 @@
 	<!--container-->
 	<!--------------------------게시물 컨텐츠-------------------------->
 	<div class="container">
-		<input type="hidden" id="tableName" value="t" />
+		<input th:if="${form}=='town'" type="hidden" id="tableName" value="t" />
+		<input th:if="${form}=='proxy'" type="hidden" id="tableName" value="p" />
+		<input th:if="${form}=='share'" type="hidden" id="tableName" value="s" />
 		<div class="row">
 			<!-- lg이상화면 작성자 프로필 -->
 			<div class="col-lg-3 d-none d-lg-block">
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
-							<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
+							<img th:src="@{'imgs/profiles/'+${board.getProfile_pic()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
 							<div
@@ -96,7 +101,7 @@
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
+					<img th:src="@{'imgs/profiles/'+${board.getProfile_pic()}}"
 						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex">
@@ -247,8 +252,9 @@
 
 								<small id="likeCount" th:text="${board.getLikeNum()}">12</small>
 
-								<span class="pie-share-icon pie-icons mx-3"  data-toggle="modal"
+								<span class="pie-share-icon pie-icons mx-3" data-toggle="modal"
 									data-target="#shareModal"></span> <a
+									th:if="${board.getId()!='admin'}"
 									class="pie-chat-icon pie-icons"
 									th:href="@{'room?mem='+${board.getId}}"></a>
 
@@ -392,9 +398,18 @@
 								</button>
 								<a th:href="'canclePersonnelNow?num=' + ${board.getNum()}"
 									th:if="${in && !cancel}" type="button"
-									class="btn pie-btn-outline-red-custom btn-block" onclick="return confirm('정말로 취소하시겠습니까? 취소하면 다시 참여할 수 없습니다.');"> <small>참여
+									class="btn pie-btn-outline-red-custom btn-block"
+									onclick="return confirm('정말로 취소하시겠습니까? 취소하면 다시 참여할 수 없습니다.');">
+									<small>참여 취소</small>
+								</a>
+								
+								<a
+									th:href="'refundPayInPage?pnum='+${productNum}+'&num='+${board.getNum()}+'&category=Share'"
+									th:if="${in && !cancel && productNum!=null}" type="button"
+									class="btn pie-btn-outline-red-custom btn-block"> <small>참여
 										취소</small>
 								</a>
+								
 								<button th:if="${!in&&cancel}" type="button"
 									class="btn pie-btn-outline-red-custom btn-block" disabled>
 									<small>참여 취소한 모집글에 다시 참여할 수 없습니다.</small>
@@ -476,8 +491,13 @@
 												th:href="@{'townBuyResult?num='+${board.getNum()}}">좋아요!
 												함께해요</a>-->
 
-											<button type="button" class="btn pie-btn-outline-red-custom"
-												id="joinShop" data-dismiss="modal">좋아요! 함께해요</button>
+											<a th:if="${form=='town'}"
+												class="btn pie-btn-outline-red-custom"
+												th:href="@{'updatePersonnelNow?num='+${board.num}}">좋아요!
+												함께해요</a>
+											<button th:unless="${form=='town'}" type="button"
+												class="btn pie-btn-outline-red-custom" data-toggle="modal"
+												data-target="#paymentModal">좋아요! 함께해요</button>
 
 											<button type="button" class="btn pie-btn-outline-red-custom"
 												data-dismiss="modal">다시생각해볼게요</button>
@@ -488,6 +508,8 @@
 									</div>
 								</div>
 							</div>
+
+							<div th:replace="~{pieFragments/boardBuyModal::buyModal}"></div>
 						</div>
 
 
@@ -561,7 +583,7 @@
 		<!--row-->
 	</div>
 	<!--container-->
-<!-- 	<div class="text-center mt-2 mb-5">
+	<!-- 	<div class="text-center mt-2 mb-5">
 		<button class="customPrevBtn pie-btn-custom">&larr;</button>
 		<button class="customNextBtn pie-btn-custom">&rarr;</button>
 	</div> -->
@@ -579,7 +601,7 @@
 			smartSpeed : 1300,
 			margin : 10,
 			responsive : {
-				0:{
+				0 : {
 					items : 2
 				},
 				1000 : {
@@ -613,120 +635,11 @@
 			}
 		} */
 	</script>
-	<script>
-		if ($("#processNow").find(".badge").text() == "모집마감") {
-			alert("모집이 완료된 게시글이예요!")
-		}
-
-		if ($("#perNow").val() > 1) {
-			$(".updateIconBtn").on("click", function(e) {
-				e.preventDefault();
-				alert("모집이 진행중인 글은 수정할 수 없습니다.");
-			})
-			$(".deleteIconBtn").on("click", function(e) {
-				e.preventDefault();
-				alert("모집이 진행중인 글은 삭제할 수 없습니다.");
-			})
-		}
-	</script>
 
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
 
-	<script>
-		$('#partiMem').on('hide.bs.dropdown', function(e) {
-			if (e.clickEvent) {
-				e.preventDefault();
-			}
-		});
-
-		$(function() {
-
-			/***************************************************
-			 * URL 복사기능
-			 * *************************************************/
-			const url = window.location.href;
-
-			let urlInput = $("#downloadURL");
-			let urlBtn = $(".copyBtn");
-
-			urlInput.val(url);
-
-			urlBtn.click(function() {
-				new ClipboardJS('.copyBtn');
-				alert("링크가 복사되었습니다.")
-			})
-
-		})
-	</script>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			// Get the button element
-			var button = document.querySelector('#joinShop');
-
-			button.addEventListener('click', function() {
-				alert('신청이 완료되었습니다.');
-
-				var urlParams = new URLSearchParams(window.location.search);
-				var num = urlParams.get('num');
-
-				console.log(num);
-
-				window.location.href = '/updatePersonnelNow?num=' + num;
-			});
-		});
-	</script>
-
-	<!-- 모두 완료되면 참여버튼 숨기도록 만드는 JS -->
-	<script type="text/javascript" th:inline="javascript">
-		var board = /*[[${board}]]*/null;
-
-		var personnelMax = null;
-		var personnelNow = null;
-
-		if (board) {
-			personnelMax = board.personnelMax;
-			personnelNow = board.personnelNow;
-		}
-
-		$(document).ready(function() {
-
-			var applyButton = $("#applyBtn");
-
-			if (personnelNow >= personnelMax) {
-				applyButton.prop('disabled', true);
-				applyButton.addClass('btn-secondary');
-				applyButton.text('모집마감');
-
-			}
-		});
-
-		$(document).ready(function() {
-
-			var applyButton = $("#applyBtn");
-
-			if (personnelNow >= personnelMax) {
-				applyButton.prop('disabled', true);
-				applyButton.addClass('btn-secondary');
-				applyButton.text('모집마감');
-
-				console.log(board.personnelMax);
-				console.log(board.personnelNow);
-			}
-
-			$(document).ready(function() {
-				var applyButton = $("#applyBtn");
-
-				if (personnelNow >= personnelMax) {
-					// 모집이 마감되었을 때 버튼의 속성과 텍스트를 변경합니다.
-					applyButton.prop('disabled', true);
-					applyButton.addClass('btn-secondary');
-					applyButton.text('모집마감');
-				}
-			});
-		});
-	</script>
+	<script src="js/copyUrl.js"></script>
 	<script src="js/product.js"></script>
 	<script src="js/townBuyingSearch.js"></script>
 

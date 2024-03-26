@@ -3,51 +3,51 @@
 <mapper namespace="com.pie.pieProject.DAO.IShareServiceDao">
 	<select id="listDaoBoard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
-		select * from shareServiceBoard order by num desc
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id order by num desc
 	</select>
 	<!-- 게시판 리스트 최신순 불러오기 -->
 	<select id="getBoardList"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard order by registDay desc
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id order by registDay desc
 	</select>
 	<!-- 게시글 검색 -->
 	<select id="searchBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where title like
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where title like
 		'%${param1}%' or content like '%${param1}%' order by registDay desc
 	</select>
 	<!-- 카테고리 검색 -->
 	<select id="searchCategory" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where category = '${param1}' order by registDay desc
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where category = '${param1}' order by registDay desc
 	</select>
 	<!--상세 검색 -->
 	<select id="searchTitle"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where category =
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where category =
 		'${param1}' and (title like '%${param2}%' OR content like
 		'%${param2}%') order by registDay desc
 	</select>
 	<!--내가 쓴 게시글 -->
 	<select id="myBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where id=#{param1} order
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where id=#{param1} order
 		by registDay desc
 	</select>
 	<!--게시물 제목,내용 검색 -->
 	<select id="searchBoardByPreset"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where brand like
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where brand like
 		'%${brand}%' order by registDay desc
 	</select>
 	<!--해당 게시물 상세 페이지 -->
 	<select id="selectBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where num=#{param1} order by registDay desc
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where num=#{param1} order by registDay desc
 	</select>
 	<!--결제 완료 페이지 -->
 	<select id="completePay"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select * from shareServiceBoard where num=#{numID}
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where num=#{numID}
 	</select>
 	<!--게시글 작성 -->
 	<insert id="insertBoard">
@@ -55,10 +55,9 @@
 			values (numID.nextval,#{id},#{nickname},#{title},#{content},#{category},#{price},#{process},TO_DATE(#{DeadLine}, 
 			'YYYY-MM-DD'),#{personnelNow},#{personnelMax},#{filename},product.nextval) -->
 		insert into shareServiceBoard values(
-		sh_num.nextval, #{id},
-		#{nickname}, #{category}, #{premium},
+		piebr_num.nextval, #{id}, #{category}, #{premium},
 		#{title}, #{content},
-		#{profileImg}, #{productImg}, 0,
+		#{productImg}, 0,
 		#{tag}, '1', sysdate, sysdate,
 		TO_DATE(#{deadLine}, 'YYYY-MM-DD'),
 		#{personnelMax}, 1, #{priceTotal},
@@ -123,7 +122,7 @@
 	</update>
 	<!--작성자 이름 및 아이디로 검색 -->
 	<select id="searchBuyer">
-		select * from shareServiceBoard where id like
+		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where id like
 		'%${param1}%' or nickname like '%${param1}%' or title like '%${param1}%' or content like '%${param1}%'
 	</select>
 	<!--전체 검색 -->

@@ -31,7 +31,7 @@
 				<div class="row">
 					<div class="col">
 						<div class="card border-0">
-							<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
+							<img th:src="@{'imgs/profiles/'+${board.getProfile_pic()}}"
 								class="card-img-top border rounded-circle pie-viewProfilePic align-self-center hj-profile-img"
 								alt=>
 							<div class="card-body px-0">
@@ -86,7 +86,7 @@
 			<div class="col-lg-9 border pie-view-box">
 				<div
 					class="col-12 border-bottom px-2 py-3 d-flex d-lg-none align-items-center">
-					<img th:src="@{'imgs/profiles/'+${board.getProfileImg()}}"
+					<img th:src="@{'imgs/profiles/'+${board.getProfile_pic()}}"
 						class="border rounded-circle pie-profilePic-mid align-self-center"
 						alt=>
 					<div class="pl-3 pie-view-text pie-omitted d-flex">

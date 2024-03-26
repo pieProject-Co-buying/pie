@@ -9,9 +9,9 @@ function submitForm() {
 	const str = url.substring(url.lastIndexOf('/') + 1);
 	var form;
 
-	if (str == 'townForm') form = document.townForm;
-	else if (str == 'proxyWriteForm') form = document.proxyForm;
-	else if (str == 'writePost') form = document.shareForm;
+	if (str == 'townForm') form = document.boardForm;
+	else if (str == 'proxyWriteForm') form = document.boardForm;
+	else if (str == 'writePost') form = document.boardForm;
 	else if (str == 'proxyApplyForm') form = document.proxyApplyForm;
 	else if (str == 'businessApplyForm') form = document.busApply;
 	else if (str == 'businessApplyUpdateForm') form = document.busApplyUpdate;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pie.pieProject.DAO.ILikeDao;
@@ -144,16 +145,41 @@ public class MainController {
 	public String shareSProductPage() {
 		return "pieContents/shareService/shareServiceProduct";
 	}
+	
+	
+	
+	
+	
+	
 
 	@RequestMapping("/finish")
 	public String shareSFinishPage() {
 		return "pieContents/shareService/shareServiceFinish";
 	}
+	
 
-	@RequestMapping("/townForm")
-	public String townFormPage() {
+	@GetMapping("/townForm")
+	public String townFormPage(Model model) {
+		model.addAttribute("form","town");
 		return "pieContents/townBuying/townForm";
 	}
+	
+	@GetMapping("/proxyWriteForm")
+	public String proxyWriteForm(Model model) {
+		model.addAttribute("form","proxy");
+		return "pieContents/townBuying/townForm";
+	}
+	
+	@GetMapping("/writePost")
+	public String witePost(Model model) {
+		model.addAttribute("form","share");
+		return "pieContents/townBuying/townForm";
+	}
+	
+	
+	
+	
+	
 
 	@RequestMapping("/test")
 	public String test() {

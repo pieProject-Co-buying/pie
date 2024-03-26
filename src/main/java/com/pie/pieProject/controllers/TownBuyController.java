@@ -1,15 +1,8 @@
 package com.pie.pieProject.controllers;
 
-import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+
 import java.util.List;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -24,13 +17,11 @@ import com.pie.pieProject.DAO.IParticipateCheckDao;
 import com.pie.pieProject.DAO.ISearchDao;
 import com.pie.pieProject.DAO.ITownBuyBoardDao;
 import com.pie.pieProject.DTO.MemberDto;
-import com.pie.pieProject.DTO.ProxyBuyBoardDto;
-import com.pie.pieProject.DTO.ShareServiceDto;
+
 import com.pie.pieProject.DTO.TownBuyBoardDto;
 import com.pie.pieProject.components.BoardComp;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TownBuyController {
@@ -49,7 +40,7 @@ public class TownBuyController {
 	IParticipateCheckDao paDao;
 	@Autowired
 	BoardComp bcomp;
-	
+
 
 
 	@GetMapping("/townBuySearch")
@@ -127,7 +118,7 @@ public class TownBuyController {
 			
 //			다른 게시글 리스트
 			List<TownBuyBoardDto> townlist = bcomp.translateTownList(dao.listLocal(userMainAddr));			
-			
+
 			TownBuyBoardDto dto = dao.viewDao(sId);
 			
 			dto.setProductImgs(bcomp.setArraysData(dto.getProductImg(), "/"));
@@ -165,7 +156,8 @@ public class TownBuyController {
 			model.addAttribute("in",(paDao.chkPartiMem(bcomp.getSession(request, "userId"), "townBuyBoard", num)>0));
 //			참여 했다가 취소 여부 확인
 			model.addAttribute("cancel",(paDao.canceledBuying(bcomp.getSession(request, "userId"), "townBuyBoard", num)>0));
-			
+//			구분
+			model.addAttribute("form","town");
 			
 		
 
@@ -177,10 +169,16 @@ public class TownBuyController {
 	
 	// 참여인원 증가
 	@RequestMapping("/updatePersonnelNow")
-	public String updatePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {
+	public String updatePersonnelNow(@RequestParam("num") String num, HttpServletRequest request) {		
 
 		dao.updatePersonnelNow(num);
 		paDao.participate(num, "townBuyBoard", bcomp.getSession(request, "userId"));
+		
+		TownBuyBoardDto dto = dao.viewDao(num);
+		
+		 if (dto.getPersonnelNow() >= dto.getPersonnelMax()) {
+		        dao.updateTownProcess(num);
+		    }
 		
 		System.out.println("체크" + num);
 		return "redirect:/townBuyproduct?num=" + request.getParameter("num");
@@ -325,7 +323,7 @@ public class TownBuyController {
 		dto.setNickname(bcomp.getSession(request,"nickName"));
 		dto.setTitle(request.getParameter("title"));
 		dto.setContent(request.getParameter("content"));
-		dto.setProfileImg(bcomp.getSession(request, "pic"));
+		dto.setProfile_pic(bcomp.getSession(request, "pic"));
 		dto.setProductImg(request.getParameter("fileStr"));
 		dto.setTag(request.getParameter("pie_tagsOutput"));
 		dto.setAddress(mdto.getAddress_main());
@@ -361,6 +359,11 @@ public class TownBuyController {
 	@GetMapping("/cancelBuying")
 	public String cancelBuying(@RequestParam("num") String num, HttpServletRequest request) {
 		paDao.cancelBuying(bcomp.getSession(request, "userId"), "townBuyBoard", num);
+		return "redirect:/townBuyproduct?num="+num;
+	}
+	
+	@GetMapping("/joinTownParticipate")
+	public String particpateTown(@RequestParam("num") String num) {
 		return "redirect:/townBuyproduct?num="+num;
 	}
 	

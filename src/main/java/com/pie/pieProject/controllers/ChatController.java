@@ -77,7 +77,7 @@ public class ChatController {
 	    String profileImg = "";
 	    for (TownBuyBoardDto boardDto : tboard) {
 	        if (boardDto.getId().equals(userId)) {
-	            profileImg = boardDto.getProfileImg();
+	            profileImg = boardDto.getProfile_pic();
 	            break;
 	        }
 	    }
