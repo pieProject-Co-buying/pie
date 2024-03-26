@@ -78,7 +78,6 @@ public class ApplyUserController {
 		if(pageNum<=0) pageNum=1;
 
 		for (ProxyApplyBoardDto dto : allList) {
-			dto.setCategory(Bcomp.translate(dto.getCategory()));
 			dto.setProcess(Bcomp.setProcess(dto.getProcess()));
 		}
 
@@ -109,9 +108,7 @@ public class ApplyUserController {
 		
 		int process = Integer.parseInt(dto.getProcess());
 		
-		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
 		dto.setProcess(Bcomp.setProcess(dto.getProcess()));
-		dto.setCategory(Bcomp.translate(dto.getCategory()));
 		
 		
 		model.addAttribute("board", dto);
@@ -126,7 +123,6 @@ public class ApplyUserController {
 	public String proxyUpdateForm(@RequestParam("num") String num, Model model) {
 		System.out.println(num);
 		ProxyApplyBoardDto dto = dao.getView(num);
-		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
 
 		model.addAttribute("board", dto);
 		return "/pieContents/proxyBuying/proxyApplyupdateForm";

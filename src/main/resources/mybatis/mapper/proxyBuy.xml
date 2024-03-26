@@ -4,19 +4,19 @@
 <mapper namespace="com.pie.pieProject.DAO.IProxyBuyDao">
 	<select id="listDaoBoard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id order by num desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id order by num desc
 	</select>
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id order by num desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id order by num desc
 	</select>
 	<select id="listDaoByNewer"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id order by updateDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id order by updateDay desc
 	</select>
 	<select id="listDaoByNewerNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from ( select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id order by updateDay
+		select * from ( select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id order by updateDay
 		desc)
 		where ROWNUM <![CDATA[ <= ]]>
 		#{param1}
@@ -24,7 +24,7 @@
 
 	<select id="listDaoByFavorite"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from ( select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id order by likeNum desc,
+		select * from ( select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id order by likeNum desc,
 		hit
 		desc)
 		where ROWNUM <![CDATA[ <= ]]>
@@ -38,7 +38,7 @@
 		SELECT t.*, ROW_NUMBER() OVER (ORDER BY
 		num
 		DESC) AS rnum
-		FROM proxyBuyBoard t
+		FROM pie_proxyBuyBoard t
 		)
 		WHERE rnum BETWEEN #{param1}
 		AND
@@ -47,7 +47,7 @@
 
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id where title like
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id where title like
 		'%${param1}%'
 		or
 		content like '%${param1}%' or tag like
@@ -56,7 +56,7 @@
 
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id where category = #{param2}
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id where category = #{param2}
 		and
 		(title like
 		'%${param1}%' or
@@ -67,23 +67,23 @@
 
 	<select id="listDaoByCategory"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id where category=#{param1}
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id where category=#{param1}
 		order
 		by
 		updateDay desc
 	</select>
 	<select id="listDaoByCategoryNumber"
 		resultType="com.pie.pieProject.DTO.ProxyBuyBoardDto">
-		select * from (select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id where category=#{param1}
+		select * from (select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id where category=#{param1}
 		and process=1
 		order by updateDay desc) where ROWNUM <![CDATA[ <= ]]>
 		#{param2}
 	</select>
 	<select id="getView">
-		select member_user.nickname, member_user.profile_pic, proxyBuyBoard.* from member_user JOIN proxyBuyBoard ON proxyBuyBoard.id= member_user.id where num = #{param1}
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyBuyBoard.* from pie_member_user JOIN pie_proxyBuyBoard ON pie_proxyBuyBoard.id= pie_member_user.id where num = #{param1}
 	</select>
 	<insert id="insertProxyBoard">
-		insert into proxyBuyBoard values(
+		insert into pie_proxyBuyBoard values(
 		piebr_num.nextval,
 		#{id},
 		#{category},
@@ -108,7 +108,7 @@
 		)
 	</insert>
 	<update id="updateHit">
-		update proxyBuyBoard set hit = hit+1 where
+		update pie_proxyBuyBoard set hit = hit+1 where
 		num =
 		#{param1}
 	</update>
@@ -129,32 +129,32 @@
 
 	</update>
 	<delete id="deleteProxyBoard">
-		delete proxyBuyBoard where num = #{param1}
+		delete pie_proxyBuyBoard where num = #{param1}
 	</delete>
 	<!-- 현재 인원 증가 -->
 	<update id="updateNow">
-		update proxyBuyBoard set personnelNow =
+		update pie_proxyBuyBoard set personnelNow =
 		personnelNow +
 		1 where num = #{param1}
 	</update>
 	<!-- -->
 	<update id="maxChk">
-		update proxyBuyBoard set process = '0' where
+		update pie_proxyBuyBoard set process = '0' where
 		num =
 		#{param1}
 	</update>
 	<!--환불시 인원 감소 -->
 	<update id="refundNowPerson">
-		update proxyBuyBoard set personnelNow =
+		update pie_proxyBuyBoard set personnelNow =
 		personnelNow - 1 where num = #{param1}
 	</update>
 	<select id="chkFeed" resultType="_int">
-		select count (id) from makeFeed
+		select count (id) from pie_makeFeed
 		where id = #{param1}
 	</select>
 	<!-- 0시마다 마감체크 -->
 	<update id="expireProxyBuyBoard">
-		UPDATE proxyBuyBoard
+		UPDATE pie_proxyBuyBoard
 		SET process = 3
 		WHERE deadLine <![CDATA[ <= ]]>
 		sysdate and personnelnow <![CDATA[ < ]]> personnelMax

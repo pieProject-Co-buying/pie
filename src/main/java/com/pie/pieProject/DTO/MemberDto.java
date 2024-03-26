@@ -23,7 +23,6 @@ public class MemberDto {
 	@Pattern(regexp="^[a-zA-Z0-9]{5,16}$", message = "아이디는 영어 대소문자와 숫자로 이루어진 5-16자의 문자열로 작성해야 합니다.")
 	private String id; // 아이디
 	private String password; // 비밀번호
-	private String salt; // salt
 	private String name; // 이름
 	private String nickname; // 닉네임
 	private String gender; // 성별
@@ -33,6 +32,7 @@ public class MemberDto {
 	private String postCode; // 우편번호
 	private String address_main; // 주소
 	private String address_sub; // 세부 주소
+	private String addr_admin; // 행정구역
 	private boolean agreement; // 동의 여부
 	private String friends; // 친구
 	private ArrayList<String> friendsList; // 친구 리스트

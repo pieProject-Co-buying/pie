@@ -66,24 +66,24 @@ public class LikeController {
 		
 		if(category!=null&&!category.equals("")&&!category.equals("all")) {
 			if(category.equals("town")) {
-				table = "townBuyBoard";
-				list = bcomp.setTURL(ldao.likeListById(table, id));
+				table = "pie_townBuyBoard";
+				list = ldao.likeListById(table, id);
 			}
 			else if(category.equals("proxy")) {
-				 table = "proxyBuyBoard";
-				 list = bcomp.setPURL(ldao.likeListById(table, id));
+				 table = "pie_proxyBuyBoard";
+				 list = ldao.likeListById(table, id);
 			}
 			else if(category.equals("share")) {
-				table = "shareServiceBoard";
-				 list = bcomp.setSURL(ldao.likeListById(table, id));
+				table = "pie_shareServiceBoard";
+				 list = ldao.likeListById(table, id);
 			}
 		}else if(category==null||category.equals("")||category.equals("all")) {
-			list.addAll(bcomp.setTURL(ldao.likeListById("townBuyBoard", id)));
-			list.addAll(bcomp.setPURL(ldao.likeListById("proxyBuyBoard", id)));
-			list.addAll(bcomp.setSURL(ldao.likeListById("shareServiceBoard", id)));
+			list.addAll(ldao.likeListById("pie_townBuyBoard", id));
+			list.addAll(ldao.likeListById("pie_proxyBuyBoard", id));
+			list.addAll(ldao.likeListById("pie_shareServiceBoard", id));
 		}
 		
-		model.addAttribute("list",bcomp.translateList(list));
+		model.addAttribute("list",list);
 		
 		return "/pieContents/members/likeList";
 	}	

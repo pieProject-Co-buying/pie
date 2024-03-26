@@ -7,7 +7,7 @@
 	
 	<insert id="saveApply">
 		
-		insert into businessApplyForm values(
+		insert into pie_businessApply values(
 		
 		bus_apply_num.nextval, 
         
@@ -36,24 +36,24 @@
 	
 	
  	<select id="applyBoard"  resultType="com.pie.pieProject.DTO.BusinessApplyDto">
-		select * from businessApplyForm order by bus_writeDay desc
+		select * from pie_businessApply order by bus_writeDay desc
 	</select>
 
 	
  	<select id="applyBoardDetail"  resultType="com.pie.pieProject.DTO.BusinessApplyDto">
-		select * from businessApplyForm where bus_apply_num = #{bus_apply_num} order by bus_writeDay desc
+		select * from pie_businessApply where bus_apply_num = #{bus_apply_num} order by bus_writeDay desc
 	</select>
 	
 	
 	<delete id="deleteDao">
 
-		delete businessApplyForm where bus_apply_num = #{param1}
+		delete pie_businessApply where bus_apply_num = #{param1}
 
 	</delete>
 	
 	
 	<update id="updateDao">
-	    UPDATE businessApplyForm SET 
+	    UPDATE pie_businessApply SET 
 	        bus_title = #{bus_title},
 	        bus_content = #{bus_content},
 	        bus_img = #{bus_img},
@@ -75,7 +75,7 @@
 		
 	<!-- 진행상태 변경하는 쿼리 -->
 	<update id="updateStatusDao">
-	    UPDATE businessApplyForm
+	    UPDATE pie_businessApply
 	    SET bus_status = #{bus_status}
 	    WHERE bus_apply_num = #{bus_apply_num}
 	</update>
@@ -83,11 +83,11 @@
 		
 		
 	<select id="getTotalItems" resultType="int">
-    	SELECT COUNT(*) FROM businessApplyForm
+    	SELECT COUNT(*) FROM pie_businessApply
 	</select>
 
 	<select id="getApplyBoardByPage" resultType="com.pie.pieProject.DTO.BusinessApplyDto">
-	    SELECT * FROM businessApplyForm 
+	    SELECT * FROM pie_businessApply 
 	    ORDER BY bus_apply_num DESC 
 	    OFFSET #{start} ROWS FETCH NEXT #{pageSize} ROWS ONLY
 	</select>

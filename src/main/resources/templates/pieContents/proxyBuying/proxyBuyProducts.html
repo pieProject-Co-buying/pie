@@ -73,7 +73,7 @@
 							<th:block th:each="board:${list1}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:href="@{'proxyBuyProduct?num='+${board.getNum()}}"> <img
 										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
@@ -140,7 +140,7 @@
 							<th:block th:each="board:${list2}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:href="@{'proxyBuyProduct?num='+${board.getNum()}}"> <img
 										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
@@ -208,7 +208,7 @@
 							<th:block th:each="board:${list3}">
 								<div class="item">
 									<a class="card pie-radius position-relatvie"
-										th:href="@{'viewProxyBoard?num='+${board.getNum()}}"> <img
+										th:href="@{'proxyBuyProduct?num='+${board.getNum()}}"> <img
 										th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 										class="" alt="...">
 										<div
@@ -286,6 +286,33 @@
 						class="flex-fill">
 
 					<button type="submit"></button>
+
+					<script>
+						$(function() {
+							if ($("#category").val() != null
+									&& $("#category").val() != "") {
+								$("#selectCategory .dropdown-toggle").text(
+										$(
+												"[data-category="
+														+ $("#category").val()
+														+ "]").text())
+							}
+						})
+
+						$(document).on(
+								'click',
+								'.dropdown-menu .dropdown-item',
+								function() {
+									let selectedCategory = $(this).text();
+									$(this).closest('.dropdown').find(
+											'.dropdown-toggle').text(
+											selectedCategory);
+									$("#category").val(
+											$(this).attr("data-category"));
+									
+									console.log($("#category").val());
+								});
+					</script>
 
 				</form>
 
@@ -375,7 +402,7 @@
 						<!-- <th:block th:each="board:${allList}">
 							<th:block th:if="${board.getProcess().equals('0')}">
 								<a class="card pie-radius-small overflow-hidden pie-close"
-									th:href="@{'viewProxyBoard?num='+${board.getNum()}}"
+									th:href="@{'proxyBuyProduct?num='+${board.getNum()}}"
 									th:attr="data-end = ${board.getProcess()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getCategory()}, data-date=${board.getPr_updateDay()}, data-like=${board.getLikeNum()}, data-hit=${board.getHit()}">
 									<img
 									th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
@@ -396,7 +423,7 @@
 							</th:block>
 							<th:block th:if="${board.getProcess().equals('1')}">
 								<a class="card pie-radius-small overflow-hidden"
-									th:href="@{'viewProxyBoard?num='+${board.getNum()}}"
+									th:href="@{'proxyBuyProduct?num='+${board.getNum()}}"
 									th:attr="data-end = ${board.getProcess()}, data-soon=${@boardComp.closeClosely(board)}, data-category=${board.getCategory()}, data-date=${board.getPr_updateDay()}, data-like=${board.getLikeNum()}, data-hit=${board.getHit()}">
 									<img
 									th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"

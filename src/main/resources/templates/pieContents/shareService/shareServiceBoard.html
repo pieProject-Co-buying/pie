@@ -54,7 +54,7 @@
 				class="col-md-4 col-sm-12" style="cursor: pointer;">
 
 				<!--등록 게시물이 있을 경우-->
-				<a th:href="'boardList?num='+${board.getNum()}" class="card pie-radius overflow-hidden"
+				<a th:href="'shareServiceProduct?num='+${board.getNum()}" class="card pie-radius overflow-hidden"
 					style="cursor: pointer; text-decoration: none; color: black;"> <img
 					th:src="@{'/imgs/test/' + ${board.getProductImg().substring(0,board.getProductImg().indexOf('/'))}}"
 					class="card-img-top img-fluid" alt="..." height="300px">

@@ -56,56 +56,25 @@ public class TownBuyController {
 		System.out.println(userMainAddr);
 		
 		
-//		for(TownBuyBoardDto towndto : tlist) {
-//			String addr = towndto.getAddress(); //addr에 towndto.getAddress() 담음	
-//			String mainAddr = addr.substring(0, 6);
-//			int boardNum = towndto.getNum();
-//			
-//			
-//			obj.put("realaddr", addr);
-//			obj.put("mainAddr", mainAddr);			
-//			obj.put("boardNum", boardNum);
-//			
-//			System.out.println(obj);		
-//		}
-//		
-		
-		
 		//listLocal 메소드를 이용해 유저의 주소를 담아 해당하는 주소와 일치하는 게시물들을 불러온다
 		// 현재 모집마감 게시글도 불러옴
-		List<TownBuyBoardDto> townlist = bcomp.translateTownList(dao.listLocal(userMainAddr));
-		
-		/*
-		 * model.addAttribute("townlist", townlist);
-		 */
+		List<TownBuyBoardDto> townlist = dao.listLocal(userMainAddr);
 		
 		model.addAttribute("list", townlist);
 		
 		
-		
-		/*
-		 * model.addAttribute("foodList", dao.categoryDaoNum("food", 4));
-		 * model.addAttribute("babyList", dao.categoryDaoNum("baby", 4));
-		 * model.addAttribute("lifeList", dao.categoryDaoNum("life", 4));
-		 */
-
-		/*
-		 * String sP = request.getParameter("to_premium");
-		 * model.addAttribute("premiumList", dao.listPremiumDao()); 
-		 */
-		
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
-		model.addAttribute("PFoodList", bcomp.translateTownList(dao.listPremiumDao("food", 4, userMainAddr)));
-		model.addAttribute("PBabyList", bcomp.translateTownList(dao.listPremiumDao("baby", 4, userMainAddr)));
-		model.addAttribute("PLifeList", bcomp.translateTownList(dao.listPremiumDao("life", 4, userMainAddr)));
+		model.addAttribute("PFoodList", dao.listPremiumDao("food", 4, userMainAddr));
+		model.addAttribute("PBabyList", dao.listPremiumDao("baby", 4, userMainAddr));
+		model.addAttribute("PLifeList", dao.listPremiumDao("life", 4, userMainAddr));
 		
 
 		return "pieContents/townBuying/townBuySearch";
 
 	}
 
-	@RequestMapping("/townBuyproduct")
+	@GetMapping("/townBuyproduct")
 	public String toBoardView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		
 			String sId = request.getParameter("num");
@@ -117,17 +86,10 @@ public class TownBuyController {
 			dao.updateHit(num);
 			
 //			다른 게시글 리스트
-			List<TownBuyBoardDto> townlist = bcomp.translateTownList(dao.listLocal(userMainAddr));			
+			List<TownBuyBoardDto> townlist = dao.listLocal(userMainAddr);			
 
 			TownBuyBoardDto dto = dao.viewDao(sId);
 			
-			dto.setProductImgs(bcomp.setArraysData(dto.getProductImg(), "/"));
-			if(dto.getTag()==null||dto.getTag().equals("#")) {
-				dto.setTags(null);
-			}else {
-				dto.setTags(bcomp.setArraysData(dto.getTag(), "#"));
-			}
-			dto.setCategory(bcomp.translate(dto.getCategory()));
 			
 			/* dao.updateHit(sId); */
 			
@@ -296,7 +258,7 @@ public class TownBuyController {
 		String userMainAddr = useraddr.substring(0, 6);
 		System.out.println(userMainAddr);
 
-		model.addAttribute("list", bcomp.translateTownList(dao.categoryDao(category, userMainAddr)));
+		model.addAttribute("list", dao.categoryDao(category, userMainAddr));
 		model.addAttribute("bestKey",sdao.bestKeyword("townBuy"));
 
 		return "pieContents/townBuying/townBuyingCategory";
@@ -327,6 +289,7 @@ public class TownBuyController {
 		dto.setProductImg(request.getParameter("fileStr"));
 		dto.setTag(request.getParameter("pie_tagsOutput"));
 		dto.setAddress(mdto.getAddress_main());
+		dto.setAddr_admin(mdto.getAddr_admin());
 		dto.setPersonnelMax(Integer.parseInt(request.getParameter("personnelMax")));
 		dto.setPricePer(Integer.parseInt(request.getParameter("price_per")));
 		dto.setPriceTotal(Integer.parseInt(request.getParameter("price_total")));

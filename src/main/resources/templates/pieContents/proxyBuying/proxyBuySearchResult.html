@@ -207,7 +207,7 @@
 					<div class="col-12 mb-2" id="searchResult" th:each="board:${list}">
 
 						<a class="card hj-radius-30 border-0 shadow"
-							th:href="@{'townBuyproduct?num=' + ${board.getNum()}}">
+							th:href="@{${board.getUrl()}}">
 
 							<div class="row">
 

@@ -3,17 +3,17 @@
 
 <mapper namespace="com.pie.pieProject.DAO.IMemberAuthDao">
 	<insert id="joinUser">
-		insert into member_auth values (
+		insert into pie_member_auth values (
 		#{id},
 		'ROLE_USER'
 		)
 	</insert>
 	<select id="findAuth">
-		select auth from member_auth where id
+		select auth from pie_member_auth where id
 		= #{param1}
 	</select>
 	<delete id="deleteAuth">
-		delete member_auth where id= #{param1}
+		delete pie_member_auth where id= #{param1}
 	</delete>
 </mapper>
 

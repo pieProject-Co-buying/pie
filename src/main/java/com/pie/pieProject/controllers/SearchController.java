@@ -44,11 +44,7 @@ public class SearchController {
 		
 		//로그인한 유저의 find 메소드를 활용해서 정보를 가지고 온다
 		MemberDto mdto = mdao.find(getSession(request, "userId")); //현재 로그인한 유저
-		String useraddr = mdto.getAddress_main();
-		String userMainAddr = useraddr.substring(0, 6);
-		System.out.println(userMainAddr);
-		
-		
+		String useraddr = mdto.getAddr_admin();		
 
 		int food = 0;
 		int baby = 0;
@@ -72,7 +68,7 @@ public class SearchController {
 				
 				
 				
-				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword, userMainAddr);
+				List<TownBuyBoardDto> list = tdao.searchDao(townKeyword, useraddr);
 				List<TownBuyBoardDto> templist;
 				
 				
@@ -80,10 +76,7 @@ public class SearchController {
 				if(category==null||category.equals("")) {
 					model.addAttribute("list", list);
 				}else {
-					templist = tdao.searchCateDao(townKeyword,category, userMainAddr);
-					for(TownBuyBoardDto b : templist) {
-						b.setCategory(bcomp.translate(b.getCategory()));
-					}
+					templist = tdao.searchCateDao(townKeyword,category, useraddr);
 					
 					model.addAttribute("list", templist);
 				}
@@ -102,7 +95,6 @@ public class SearchController {
 						life++;
 					else if (c.equals("etc"))
 						etc++;
-					b.setCategory(bcomp.translate(b.getCategory()));
 				}
 				
 				model.addAttribute("key",townKeyword);
@@ -131,9 +123,6 @@ public class SearchController {
 					model.addAttribute("list", list);
 				}else {
 					templist = pdao.searchCateDao(townKeyword,category);
-					for(ProxyBuyBoardDto b : templist) {
-						b.setCategory(bcomp.translate(b.getCategory()));
-					}
 					model.addAttribute("list", templist);
 				}
 

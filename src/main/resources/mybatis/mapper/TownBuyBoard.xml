@@ -5,19 +5,27 @@
 <mapper namespace="com.pie.pieProject.DAO.ITownBuyBoardDao">
 	<select id="listDaoBoard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id order by num desc
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id order
+		by num desc
 	</select>
 
 
 	<select id="listDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id order by registDay desc
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id order
+		by registDay desc
 
 	</select>
 
@@ -25,32 +33,51 @@ from member_user JOIN townBuyBoard ON
 	<!-- 조회순으로 보여주기 -->
 	<select id="bestListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where address like '${param1}%' and process = 1
-		order by hit desc
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		pie_townBuyBoard.addr_admin = #{param1} and
+		process = 1
+		order by hit
+		desc
 	</select>
 
 	<!-- 좋아요 순으로 보여주기 -->
 	<select id="likeListDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where address like '${param1}%' and process = 1 
-		order by likeNum desc
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		pie_townBuyBoard.addr_admin = #{param1} and
+		process = 1
+		order by likeNum
+		desc
 	</select>
 
 	<!-- 프리미엄 목록 -->
 	<select id="listPremiumDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from (select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where townBuyBoard.premium = 1 and
-		townBuyBoard.process = 1
-		and townBuyBoard.category = #{param1} and townBuyBoard.address like '${param3}%' order by
+		select * from (select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		pie_townBuyBoard.premium = 1 and
+		pie_townBuyBoard.process = 1
+		and
+		pie_townBuyBoard.category = #{param1}
+		and pie_townBuyBoard.addr_admin =
+		#{param3} order by
 		dbms_random.value)
 		where rownum <![CDATA[ <= ]]>
 		${param2}
@@ -59,31 +86,39 @@ from member_user JOIN townBuyBoard ON
 
 	<select id="viewDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where num = #{param1}
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		num = #{param1}
 	</select>
 
 
 	<!-- id로 내가쓴 게시글 불러오기 -->
 	<select id="townListbyID"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where id = #{param1}
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where pie_townBuyBoard.id = #{param1}
 	</select>
 
 
 	<update id="updateDao">
 
-		<!-- update townBuyBoard set to_category = #{to_category}, to_title = #{to_title}, 
-			to_content = #{to_content}, to_price = #{to_price}, to_personnelMax = #{to_personnelMax}, 
-			to_deadLine = TO_DATE(#{to_deadLine}, 'YYYY-MM-DD') where to_num = #{to_num} -->
+		<!-- update pie_townBuyBoard set to_category = #{to_category}, to_title 
+			= #{to_title}, to_content = #{to_content}, to_price = #{to_price}, to_personnelMax 
+			= #{to_personnelMax}, to_deadLine = TO_DATE(#{to_deadLine}, 'YYYY-MM-DD') 
+			where to_num = #{to_num} -->
 
 
-		update townBuyBoard set category=#{category},
+		update pie_townBuyBoard set category=#{category},
 		title=#{title},
 		content=#{content},
 		productImg=#{productImg}, tag=#{tag},
@@ -94,68 +129,80 @@ from member_user JOIN townBuyBoard ON
 		#{address},
 		brand = #{brand},
 		productName = #{productName}
-		where num=#{num}
+		where
+		num=#{num}
 
 	</update>
 
 
 	<delete id="deleteDao">
 
-		delete townBuyBoard where num = #{param1}
+		delete pie_townBuyBoard where num = #{param1}
 
 	</delete>
 
 	<select id="searchDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where (title like
-		'%${param1}%'
-		or
-		content like '%${param1}%' or tag like '%${param1}%') and address
-		like
-		'${param2}%'
+		SELECT pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		FROM pie_member_user
+		JOIN pie_townBuyBoard ON pie_townBuyBoard.id = pie_member_user.id
+		WHERE (pie_townBuyBoard.title LIKE '%${param1}%'
+		OR
+		pie_townBuyBoard.content LIKE '%${param1}%'
+		OR pie_townBuyBoard.tag
+		LIKE '%${param1}%')
+		AND pie_townBuyBoard.addr_admin = #{param2}
 	</select>
 
 
 	<select id="searchCateDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where category = #{param2} and
-		(title like
-		'%${param1}%' or
-		content like '%${param1}%' or tag like
-		'%${param1}%') and address like
-		'${param3}%' order by num desc
+		SELECT pie_member_user.nickname,
+		pie_member_user.profile_pic,
+		pie_townBuyBoard.*
+		FROM pie_member_user
+		JOIN pie_townBuyBoard ON pie_townBuyBoard.id = pie_member_user.id
+		WHERE category = #{param2}
+		AND (title LIKE '%${param1}%'
+		OR content LIKE '%${param1}%'
+		OR tag LIKE '%${param1}%')
+		AND pie_townBuyBoard.addr_admin = #{param3}
+		ORDER BY num DESC
 	</select>
 
 
 	<select id="categoryDao"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where category = #{param1} and
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		category = #{param1} and
 		address like
 		'${param2}%' order by num desc
 	</select>
 
 	<select id="categoryDaoNum"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select * from (select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where category =
+		select * from (select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		category =
 		#{param1})
 		where ROWNUM <![CDATA[ <= ]]>
 		#{param2}
 	</select>
 
 	<insert id="writeDao">
-		insert into townBuyBoard values(
+		insert into pie_townBuyBoard values(
 		piebr_num.nextval,
 		#{id},
 		#{category},
@@ -166,6 +213,7 @@ from member_user JOIN townBuyBoard ON
 		0,
 		#{tag},
 		#{address},
+		#{addr_admin},
 		'1',
 		sysdate,
 		sysdate,
@@ -185,56 +233,66 @@ from member_user JOIN townBuyBoard ON
 
 	<select id="listLocal"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where address like
-		'${param1}%'
-		order by num desc
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		pie_townBuyBoard.addr_admin = #{param1}
+		order
+		by num desc
 	</select>
 
 	<select id="listLocalActive"
 		resultType="com.pie.pieProject.DTO.TownBuyBoardDto">
-		select member_user.nickname, member_user.profile_pic, townBuyBoard.*
-from member_user JOIN townBuyBoard ON
-		townBuyBoard.id
-		= member_user.id where address like
-		'${param1}%'
-		and process= '1'
+		select pie_member_user.nickname,
+		pie_member_user.profile_pic, pie_townBuyBoard.*
+		from pie_member_user
+		JOIN pie_townBuyBoard ON
+		pie_townBuyBoard.id
+		=
+		pie_member_user.id where
+		pie_townBuyBoard.addr_admin = #{param1}
+		and
+		process= '1'
 	</select>
 
 
 	<update id="updatePer">
-		update townBuyBoard set personnelNow =
+		update pie_townBuyBoard set personnelNow =
 		personnelNow+1
 		where num = #{param1}
 	</update>
 
 	<update id="updateProcess">
-		update townBuyBoard set process = 0 where num =
+		update pie_townBuyBoard set process = 0 where num =
 		#{param1}
 	</update>
 
 
 	<update id="updateHit">
-		update townBuyBoard set hit = hit+1 where
+		update pie_townBuyBoard set hit = hit+1 where
 		num =
 		#{param1}
 	</update>
 
 	<!-- 0시마다 마감체크 -->
 	<update id="expireTownBuyBoard">
-		UPDATE townBuyBoard
+		UPDATE pie_townBuyBoard
 		SET process = 3
 		WHERE deadLine <![CDATA[ <= ]]>
-		sysdate and personnelnow <![CDATA[ < ]]> personnelMax
+		sysdate and personnelnow <![CDATA[ < ]]>
+		personnelMax
 	</update>
 
 
 	<!-- 참여자수 증가 -->
 	<update id="updatePersonnelNow">
-		UPDATE townBuyBoard
-		SET personnelNow = personnelNow +
+		UPDATE pie_townBuyBoard
+		SET personnelNow =
+		personnelNow +
 		1
 		WHERE num = #{param1}
 	</update>
@@ -242,7 +300,7 @@ from member_user JOIN townBuyBoard ON
 
 	<!-- 진행상태 변경 -->
 	<update id="updateTownProcess">
-		UPDATE townBuyBoard
+		UPDATE pie_townBuyBoard
 		SET process = 0
 		WHERE num =
 		#{param1}
@@ -251,8 +309,9 @@ from member_user JOIN townBuyBoard ON
 
 	<!-- 참여자수 감소 -->
 	<update id="canclePersonnelNow">
-		UPDATE townBuyBoard
-		SET personnelNow = personnelNow - 1
+		UPDATE pie_townBuyBoard
+		SET personnelNow =
+		personnelNow - 1
 		WHERE num = #{param1}
 	</update>
 

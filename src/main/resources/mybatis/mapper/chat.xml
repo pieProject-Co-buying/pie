@@ -18,9 +18,9 @@
 			B.nickname AS joinMemNickname,
 			C.nickname AS managerMemNickname
 		FROM 
-			chatRoom A,
-			member_user B,
-			member_user C
+			p_chatRoom A,
+			pie_member_user B,
+			pie_member_user C
 		WHERE
 			A.roomNumber = #{roomNumber}
 			AND B.id = A.joinMemNum
@@ -34,15 +34,15 @@
 	<insert id="insertRoom" parameterType="String">
 <!--        INSERT INTO pie_chatRoom (roomNumber, roomName, partyMem) VALUES (#{roomNumber}, #{roomName}, #{nickName})-->
 		MERGE 
-		   INTO chatRoom a
+		   INTO p_chatRoom a
 		USING dual
 		   ON (a.managerMemNum = #{managerMemNum} AND a.joinMemNum = #{joinMemNum})
 		 WHEN NOT MATCHED THEN
 		      INSERT (a.roomNumber, a.managerMemNum, a.joinMemNum)
-		      VALUES ((SELECT NVL(MAX(roomNumber) + 1, 1) FROM chatRoom), #{managerMemNum}, #{joinMemNum}
+		      VALUES ((SELECT NVL(MAX(roomNumber) + 1, 1) FROM p_chatRoom), #{managerMemNum}, #{joinMemNum}
 	      )
     <selectKey resultType="int" keyProperty="roomNumber" order="AFTER">
-        SELECT MAX(roomNumber) FROM chatRoom
+        SELECT MAX(roomNumber) FROM p_chatRoom
     </selectKey>
     </insert>
     
@@ -88,8 +88,8 @@
 		  A.joinMemNum,
 		  B.nickname
 	    FROM
-	    	chatRoom A,
-	    	member_user B
+	    	p_chatRoom A,
+	    	pie_member_user B
     	WHERE
     		A.managerMemNum = B.id
     		AND A.joinMemNum = #{joinMemNum}
@@ -110,8 +110,8 @@
 	<!-- 채팅리스트 가져오기 -->
 	<select id="chatList" resultType="com.pie.pieProject.DTO.ChatDto">
 		select * from pie_messages where roomNumber = #{roomNumber} OR roomNumber = (select 
-				B.roomNumber from chatRoom A,
-				chatRoom B
+				B.roomNumber from p_chatRoom A,
+				p_chatRoom B
 				WHERE A.ROOMNUMBER = #{roomNumber}
 				AND A.MANAGERMEMNUM = B.JOINMEMNUM AND A.JOINMEMNUM = B.MANAGERMEMNUM)
 		order by sendTime asc

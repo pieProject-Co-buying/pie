@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IFeedDao">
 	<insert id="makeFeed">
-		insert into makeFeed values (#{id},
+		insert into pie_makeFeed values (#{id},
 		#{feed1},#{feed2},#{feed3})
 	</insert>
 	<select id="getFeed" resultType="com.pie.pieProject.DTO.FeedDto">
-		select * from makeFeed where id
+		select * from pie_makeFeed where id
 		= #{param1}
 	</select>
 	<delete id="resetFeed">
-		delete makeFeed where id = #{param1}
+		delete pie_makeFeed where id = #{param1}
 	</delete>
 </mapper>

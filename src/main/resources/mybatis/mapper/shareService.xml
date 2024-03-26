@@ -3,58 +3,58 @@
 <mapper namespace="com.pie.pieProject.DAO.IShareServiceDao">
 	<select id="listDaoBoard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id order by num desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id order by num desc
 	</select>
 	<!-- 게시판 리스트 최신순 불러오기 -->
 	<select id="getBoardList"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id order by registDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id order by registDay desc
 	</select>
 	<!-- 게시글 검색 -->
 	<select id="searchBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where title like
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where title like
 		'%${param1}%' or content like '%${param1}%' order by registDay desc
 	</select>
 	<!-- 카테고리 검색 -->
 	<select id="searchCategory" resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where category = '${param1}' order by registDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where category = '${param1}' order by registDay desc
 	</select>
 	<!--상세 검색 -->
 	<select id="searchTitle"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where category =
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where category =
 		'${param1}' and (title like '%${param2}%' OR content like
 		'%${param2}%') order by registDay desc
 	</select>
 	<!--내가 쓴 게시글 -->
 	<select id="myBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where id=#{param1} order
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where pie_shareServiceBoard.id=#{param1} order
 		by registDay desc
 	</select>
 	<!--게시물 제목,내용 검색 -->
 	<select id="searchBoardByPreset"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where brand like
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where brand like
 		'%${brand}%' order by registDay desc
 	</select>
 	<!--해당 게시물 상세 페이지 -->
 	<select id="selectBoard"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where num=#{param1} order by registDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where num=#{param1} order by registDay desc
 	</select>
 	<!--결제 완료 페이지 -->
 	<select id="completePay"
 		resultType="com.pie.pieProject.DTO.ShareServiceDto">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where num=#{numID}
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where num=#{numID}
 	</select>
 	<!--게시글 작성 -->
 	<insert id="insertBoard">
-		<!--insert into shareServiceBoard (numID,id,nickname,title,content,category,price,process,DeadLine,personnelNow,personnelMax,filename,product) 
+		<!--insert into pie_shareServiceBoard (numID,id,nickname,title,content,category,price,process,DeadLine,personnelNow,personnelMax,filename,product) 
 			values (numID.nextval,#{id},#{nickname},#{title},#{content},#{category},#{price},#{process},TO_DATE(#{DeadLine}, 
 			'YYYY-MM-DD'),#{personnelNow},#{personnelMax},#{filename},product.nextval) -->
-		insert into shareServiceBoard values(
+		insert into pie_shareServiceBoard values(
 		piebr_num.nextval, #{id}, #{category}, #{premium},
 		#{title}, #{content},
 		#{productImg}, 0,
@@ -66,7 +66,7 @@
 	</insert>
 	<!--게시글 수정 -->
 	<update id="updateBoard">
-		update shareServiceBoard set
+		update pie_shareServiceBoard set
 		category=#{category},
 		title=#{title},
 		content=#{content},
@@ -84,45 +84,45 @@
 	</update>
 	<!-- 현재 인원 증가 -->
 	<update id="updateNow">
-		update shareServiceBoard set personnelNow =
+		update pie_shareServiceBoard set personnelNow =
 		personnelNow + 1 where num = #{param1}
 	</update>
 	<!--게시글 삭제 -->
 	<delete id="deleteBoard" parameterType="_int">
-		delete shareServiceBoard
+		delete pie_shareServiceBoard
 		where num=#{param1}
 	</delete>
 	<!--최대인원 체크 -->
 	<update id="maxChk">
-		update shareServiceBoard set process = '0' where
+		update pie_shareServiceBoard set process = '0' where
 		num =
 		#{param1}
 	</update>
 	<!--최소인원 체크 -->
 	<update id="minChk">
-		update shareServiceBoard set process = '1' where
+		update pie_shareServiceBoard set process = '1' where
 		num =
 		#{param1}
 	</update>
 	<!-- 모집중단 -->
 	<update id="stopChk">
-		update shareServiceBoard set process = '2' where
+		update pie_shareServiceBoard set process = '2' where
 		num =
 		#{param1}
 	</update>
 	<!--기간만료 -->
 	<update id="dateOver">
-		update shareServiceBoard set process = '3' where num = #{param1}
+		update pie_shareServiceBoard set process = '3' where num = #{param1}
 	</update>
 	<!--조회수 증가 -->
 	<update id="updateHit">
-		update shareServiceBoard set hit = hit+1 where
+		update pie_shareServiceBoard set hit = hit+1 where
 		num =
 		#{param1}
 	</update>
 	<!--작성자 이름 및 아이디로 검색 -->
 	<select id="searchBuyer">
-		select member_user.nickname, member_user.profile_pic, shareServiceBoard.* from member_user JOIN shareServiceBoard ON shareServiceBoard.id = member_user.id where id like
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_shareServiceBoard.* from pie_member_user JOIN pie_shareServiceBoard ON pie_shareServiceBoard.id = pie_member_user.id where id like
 		'%${param1}%' or nickname like '%${param1}%' or title like '%${param1}%' or content like '%${param1}%'
 	</select>
 	<!--전체 검색 -->
@@ -132,12 +132,12 @@
 	</select>
 	<!--환불시 인원 감소 -->
 	<update id="refundNowPerson">
-		update shareServiceBoard set personnelNow =
+		update pie_shareServiceBoard set personnelNow =
 		personnelNow - 1 where num = #{param1}
 	</update>
 	<!-- 0시마다 마감체크 -->
 	<update id="expireShareServiceBoard">
-		UPDATE shareServiceBoard
+		UPDATE pie_shareServiceBoard
 		SET process = 3
 		WHERE deadLine <![CDATA[ <= ]]>
 		sysdate and personnelnow <![CDATA[ < ]]> personnelMax

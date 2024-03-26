@@ -4,27 +4,26 @@
 	<select id="getUserList"
 		resultType="com.pie.pieProject.DTO.MemberDto">
 		SELECT *
-		FROM member_user
+		FROM pie_member_user
 	</select>
 	<select id="getSalt" resultType="string">
-		select salt from member_user
+		select salt from pie_member_user
 		where id = #{param1}
 	</select>
 	<select id="getAuthList" resultType="String">
 		SELECT AUTHORITY FROM USERAUTH WHERE ID=#{param1}
 	</select>
 	<select id="login" resultType="com.pie.pieProject.DTO.MemberDto">
-		select * from member_user
+		select * from pie_member_user
 		where id
 		= #{param1} and password = #{param2}
 	</select>
 	<insert id="join">
-		insert into member_user values (mem_seq.nextval,
+		insert into pie_member_user values (mem_seq.nextval,
 		#{id},
-		#{password},
-		'_',
-		#{name},
 		#{nickname},
+		#{name},
+		#{password},
 		#{gender},
 		#{profile_pic},
 		#{email},
@@ -32,75 +31,74 @@
 		#{postCode},
 		#{address_main},
 		#{address_sub},
+		#{addr_admin},
 		#{agreement},
-		null,
 		'none',
-		TO_DATE('19000101',
-		'YYYYMMDD'),
+		TO_DATE('19000101', 'YYYYMMDD'),
 		TO_DATE('19000101', 'YYYYMMDD')
 		)
 	</insert>
 	<select id="find" resultType="com.pie.pieProject.DTO.MemberDto">
-		select * from member_user where id
+		select * from pie_member_user where id
 		= #{param1}
 	</select>
 	<update id="sub">
-		update member_user set premium='pro', preDate = sysdate, preEndDate =
+		update pie_member_user set premium='pro', preDate = sysdate, preEndDate =
 		sysdate + 30 where id = #{param1}
 	</update>
 	<update id="resub">
-		update member_user set premium='pro' where id = #{param1}
+		update pie_member_user set premium='pro' where id = #{param1}
 	</update>
 	<delete id="deleteMember">
-		delete member_user where id = #{param1}
+		delete pie_member_user where id = #{param1}
 	</delete>
 	<update id="updateMember">
-		update member_user set name=#{name}, nickname=#{nickname}, gender=#{gender},
+		update pie_member_user set name=#{name}, nickname=#{nickname}, gender=#{gender},
 		profile_pic=#{profile_pic}, email=#{email}, phone=#{phone},
 		postCode=#{postCode}, address_main=#{address_main},
 		address_sub=#{address_sub} where id = #{id}
 	</update>
 	<update id="unSub">
-		update member_user set premium='none' where id = #{param1}
+		update pie_member_user set premium='none' where id = #{param1}
 	</update>
 	<update id="expireSub">
-		update member_user set premium='none' where preEndDate <![CDATA[ < ]]>
+		update pie_member_user set premium='none' where preEndDate <![CDATA[ < ]]>
 		sysdate
 	</update>
 	<select id="chkDuplicate" resultType="_int">
-		select count(*) from member_user where id = #{param1}
+		select count(*) from pie_member_user where id = #{param1}
 	</select>
 	<select id="chkNDuplicate" resultType="_int">
-		select count(*) from member_user where nickName = #{param1}
+		select count(*) from pie_member_user where nickName = #{param1}
 	</select>
 	<select id="chkPDuplicate" resultType="_int">
-		select count(*) from member_user where phone = #{param1}
+		select count(*) from pie_member_user where phone = #{param1}
 	</select>
 	<select id="chkEDuplicate" resultType="_int">
-		select count(*) from member_user where email = #{param1}
+		select count(*) from pie_member_user where email = #{param1}
 	</select>
 	<update id="updatePremium">
-		update member_user set premium=#{param1}
+		update pie_member_user set premium=#{param1}
 	</update>
 	
 	<select id="findByEmail" resultType="String">
-		select id from member_user where email = #{param1}
+		select id from pie_member_user where email = #{param1}
 	</select>
 	
 	<select id="findByPhone" resultType="String">
-		select id from member_user where phone = #{param1}
+		select id from pie_member_user where phone = #{param1}
 	</select>
 	
 		<select id="findByEmailId" resultType="_int">
-		select count(*) from member_user where email = #{param1} and id = #{param2}
+		select count(*) from pie_member_user where email = #{param1} and id = #{param2}
 	</select>
 	
 	<select id="findByPhoneId" resultType="_int">
-		select count(*) from member_user where phone = #{param1} and id = #{param2}
+		select count(*) from pie_member_user where phone = #{param1} and id = #{param2}
 	</select>
 	
 		<update id="initPassword">
-		update member_user set password=#{param1} where id = #{param2}
+		update pie_member_user set password=#{param1} where id = #{param2}
 	</update>
 
 </mapper>

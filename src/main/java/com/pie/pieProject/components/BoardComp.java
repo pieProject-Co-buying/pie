@@ -35,41 +35,26 @@ public class BoardComp {
 		return (String) session.getAttribute(key);
 	}
 
-	public String[] setArraysData(String key, String wallWord) {
-		String[] str_imgs = key.split(wallWord);
-		for (String s : str_imgs) {
-			s.replace(wallWord, "");
-		}
-		return str_imgs;
-	}
+
+	  public String[] setArraysData(String key, String wallWord) { String[]
+	  str_imgs = key.split(wallWord); for (String s : str_imgs) {
+	 s.replace(wallWord, ""); } return str_imgs; }
+
 
 	public Date setDate(String dateStr) throws ParseException {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return dateFormat.parse(dateStr);
 	}
 
-	public String translate(String str) {
-		String text = "";
-		if (str.equals("food"))
-			text = "식품";
-		else if (str.equals("baby"))
-			text = "육아";
-		else if (str.equals("beautyAndFashion"))
-			text = "뷰티/패션";
-		else if (str.equals("pet"))
-			text = "반려동물";
-		else if (str.equals("life"))
-			text = "생활";
-		else if (str.equals("etc"))
-			text = "기타";
-		else if (str.equals("OTT"))
-			text = "OTT";
-		else if (str.equals("game"))
-			text = "게임";
-		else if (str.equals("bookAndMusic"))
-			text = "도서/음악";
-		return text;
-	}
+	/*
+	 * public String translate(String str) { String text = ""; if
+	 * (str.equals("food")) text = "식품"; else if (str.equals("baby")) text = "육아";
+	 * else if (str.equals("beautyAndFashion")) text = "뷰티/패션"; else if
+	 * (str.equals("pet")) text = "반려동물"; else if (str.equals("life")) text = "생활";
+	 * else if (str.equals("etc")) text = "기타"; else if (str.equals("OTT")) text =
+	 * "OTT"; else if (str.equals("game")) text = "게임"; else if
+	 * (str.equals("bookAndMusic")) text = "도서/음악"; return text; }
+	 */
 
 	public String setProcess(String str) {
 		String text = "";
@@ -101,76 +86,48 @@ public class BoardComp {
 		return text;
 	}
 	
-	public List<BoardDto> translateList(List<BoardDto> list) {
-		for (BoardDto d : list) {
-			d.setCategory(translate(d.getCategory()));
-			d.setThumbnail(setThumbNail(d.getProductImg()));
-		}
-		return list;
-	}
-	
-	public List<BoardDto> setTURL(List<BoardDto> list) {
-		for (BoardDto d : list) {
-			d.setUrl("townBuyproduct?num="+d.getNum());
-		}
-		return list;
-	}
-	
-	public List<BoardDto> setPURL(List<BoardDto> list) {
-		for (BoardDto d : list) {
-			d.setUrl("viewProxyBoard?num="+d.getNum());
-		}
-		return list;
-	}
-	
-	public List<BoardDto> setSURL(List<BoardDto> list) {
-		for (BoardDto d : list) {
-			d.setUrl("boardList?num="+d.getNum());
-		}
-		return list;
-	}
-	
-	public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list) {
-		for (ProxyBuyBoardDto d : list) {
-			d.setCategory(translate(d.getCategory()));
-			d.setThumbnail(setThumbNail(d.getProductImg()));
-			d.setUrl("viewProxyBoard?num="+d.getNum());
-		}
-		return list;
-	}
-	
-	public List<ProxyApplyBoardDto> translateProxyApplyList(List<ProxyApplyBoardDto> list) {
-		for (ProxyApplyBoardDto d : list) {
-			d.setCategory(translate(d.getCategory()));
-			d.setThumbnail(setThumbNail(d.getProductImg()));
-			d.setUrl("viewProxyApplyBoard?num="+d.getNum());
-			d.setProcess(setProcess(d.getProcess()));
-			
-		}
-		return list;
-	}
-	
-	public String setThumbNail(String pics) {
-		return pics.substring(0,pics.indexOf("/"));
-	}
-	
-	public List<TownBuyBoardDto> translateTownList(List<TownBuyBoardDto> list) {
-		for (TownBuyBoardDto d : list) {
-			d.setCategory(translate(d.getCategory()));
-			d.setThumbnail(setThumbNail(d.getProductImg()));
-			d.setUrl("townBuyproduct?num="+d.getNum());
-		}
-		return list;
-	}
-	
-	public List<ShareServiceDto> translateShareList(List<ShareServiceDto> list) {
-		for (ShareServiceDto d : list) {
-			d.setCategory(translate(d.getCategory()));
-			d.setThumbnail(setThumbNail(d.getProductImg()));
-			d.setUrl("boardList?num="+d.getNum());
-		}
-		return list;
-	}
+	/*
+	 * public List<BoardDto> translateList(List<BoardDto> list) { for (BoardDto d :
+	 * list) { d.setCategory(translate(d.getCategory()));
+	 * d.setThumbnail(setThumbNail(d.getProductImg())); } return list; }
+	 * 
+	 * public List<BoardDto> setTURL(List<BoardDto> list) { for (BoardDto d : list)
+	 * { d.setUrl("townBuyproduct?num="+d.getNum()); } return list; }
+	 * 
+	 * public List<BoardDto> setPURL(List<BoardDto> list) { for (BoardDto d : list)
+	 * { d.setUrl("viewProxyBoard?num="+d.getNum()); } return list; }
+	 * 
+	 * public List<BoardDto> setSURL(List<BoardDto> list) { for (BoardDto d : list)
+	 * { d.setUrl("boardList?num="+d.getNum()); } return list; }
+	 * 
+	 * public List<ProxyBuyBoardDto> translateProxyList(List<ProxyBuyBoardDto> list)
+	 * { for (ProxyBuyBoardDto d : list) {
+	 * d.setCategory(translate(d.getCategory()));
+	 * d.setThumbnail(setThumbNail(d.getProductImg()));
+	 * d.setUrl("viewProxyBoard?num="+d.getNum()); } return list; }
+	 * 
+	 * public List<ProxyApplyBoardDto>
+	 * translateProxyApplyList(List<ProxyApplyBoardDto> list) { for
+	 * (ProxyApplyBoardDto d : list) { d.setCategory(translate(d.getCategory()));
+	 * d.setThumbnail(setThumbNail(d.getProductImg()));
+	 * d.setUrl("viewProxyApplyBoard?num="+d.getNum());
+	 * d.setProcess(setProcess(d.getProcess()));
+	 * 
+	 * } return list; }
+	 * 
+	 * public String setThumbNail(String pics) { return
+	 * pics.substring(0,pics.indexOf("/")); }
+	 * 
+	 * public List<TownBuyBoardDto> translateTownList(List<TownBuyBoardDto> list) {
+	 * for (TownBuyBoardDto d : list) { d.setCategory(translate(d.getCategory()));
+	 * d.setThumbnail(setThumbNail(d.getProductImg()));
+	 * d.setUrl("townBuyproduct?num="+d.getNum()); } return list; }
+	 * 
+	 * public List<ShareServiceDto> translateShareList(List<ShareServiceDto> list) {
+	 * for (ShareServiceDto d : list) { d.setCategory(translate(d.getCategory()));
+	 * d.setThumbnail(setThumbNail(d.getProductImg()));
+	 * d.setUrl("boardList?num="+d.getNum()); } return list; }
+	 */
 
 	public String lastUpdateMessage(String str) {
 

@@ -55,27 +55,18 @@ public class ProxyBuyController {
 	String shopCode;
 	
 
-	@RequestMapping("/proxyBuyMain")
-	public String proxyBPage(Model model) {
-		return "pieContents/proxyBuying/proxyBuyMain";
-	}
+	/*
+	 * @RequestMapping("/proxyBuyMain") public String proxyBPage(Model model) {
+	 * return "pieContents/proxyBuying/proxyBuyMain"; }
+	 */
 
-	@RequestMapping("/proxyBuyBest")
-	public String proxyBBestPage(Model model) {
-		List<ProxyBuyBoardDto> list = dao.listDaoByFavorite();
-
-		for (ProxyBuyBoardDto dto : list) {
-			dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
-			if (dto.getTag() == null || dto.getTag().equals("#")) {
-				dto.setTags(null);
-			} else {
-				dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
-			}
-		}
-
-		model.addAttribute("list", list);
-		return "pieContents/proxyBuying/proxyBuyBest";
-	}
+	/*
+	 * @RequestMapping("/proxyBuyBest") public String proxyBBestPage(Model model) {
+	 * List<ProxyBuyBoardDto> list = dao.listDaoByFavorite();
+	 * 
+	 * model.addAttribute("list", list); return
+	 * "pieContents/proxyBuying/proxyBuyBest"; }
+	 */
 
 	@GetMapping("/redirectChkFeed")
 	public String redirectChkFeed() {
@@ -186,8 +177,6 @@ public class ProxyBuyController {
 		if (dto == null
 				|| (dto.getFeed1().equals("none") && dto.getFeed2().equals("none") && dto.getFeed3().equals("none"))) {
 			List<ProxyBuyBoardDto> list1 = dao.listDaoByNewerNumber(10);
-
-			Bcomp.translateProxyList(list1);
 			
 			model.addAttribute("text1" , Bcomp.listText("now"));
 			model.addAttribute("list1", list1);
@@ -203,9 +192,9 @@ public class ProxyBuyController {
 			System.out.println("list3:"+list3);
 			
 
-			model.addAttribute("list1", Bcomp.translateProxyList(list1));
-			model.addAttribute("list2", Bcomp.translateProxyList(list2));
-			model.addAttribute("list3", Bcomp.translateProxyList(list3));
+			model.addAttribute("list1", list1);
+			model.addAttribute("list2", list2);
+			model.addAttribute("list3", list3);
 			
 			model.addAttribute("text1" , Bcomp.listText(dto.getFeed1()));
 			model.addAttribute("text2" , Bcomp.listText(dto.getFeed2()));
@@ -236,14 +225,14 @@ public class ProxyBuyController {
 			d.setSoon(Bcomp.closeClosely(d));
 			d.setUpdateinfo(Bcomp.lastUpdateMessage(d.getUpdateDay()));
 			d.setProductImg(d.getProductImg().substring(0, d.getProductImg().indexOf('/')));
-			d.setCategory(Bcomp.translate(d.getCategory()));
+			d.setCategory(d.getCategory());
 		}
 		
 		return ResponseEntity.ok(list);
 	}
 	
 
-	@GetMapping("/viewProxyBoard")
+	@GetMapping("/proxyBuyProduct")
 	public String getView(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 		MemberDto mdto = mdao.find(Bcomp.getSession(request, "userId"));
 
@@ -259,7 +248,7 @@ public class ProxyBuyController {
 		} else {
 			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
 		}
-		dto.setCategory(Bcomp.translate(dto.getCategory()));
+		dto.setCategory(dto.getCategory());
 
 		String table = "proxyBuyBoard";
 		if (ldao.checkLike(Bcomp.getSession(request, "userId"), num, table) > 0) {
@@ -271,7 +260,7 @@ public class ProxyBuyController {
 		
 		List<MemberDto> list = paDao.getPartiMem(num, "Proxy");
 		
-		model.addAttribute("list",Bcomp.translateProxyList(dao.listDaoByNewerNumber(10)));
+		model.addAttribute("list",dao.listDaoByNewerNumber(10));
 		model.addAttribute("partiMem", list);
 		model.addAttribute("partiMemTotal", list.size());
 		model.addAttribute("board", dto);
@@ -364,7 +353,7 @@ public class ProxyBuyController {
 		dto.setProductName(productName);
 		dao.updateProxyBoard(dto);
 
-		return "redirect:/viewProxyBoard?num=" + num;
+		return "redirect:/proxyBuyProduct?num=" + num;
 	}
 
 	@GetMapping("/deleteProxyAction")

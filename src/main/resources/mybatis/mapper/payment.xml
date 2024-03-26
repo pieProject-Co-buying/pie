@@ -4,7 +4,7 @@
 	<!-- 결제 데이터 베이스 -->
 	<insert id="insertPayment"
 		parameterType="com.pie.pieProject.DTO.PaymentDTO">
-		insert into payment
+		insert into pie_payment
 		(pay_num,buyer_id,buyer_name,buyer_tel,buyer_addr,buyer_email,buyer_postcode,pay_uid,
 		pay_method, pay_merchant_uid, pay_name, pay_amount, pay_date,
 		pay_category,pay_refund) values
@@ -14,74 +14,74 @@
 	</insert>
 	<!--고유번호로 해당 제품 검색 -->
 	<select id="payBoard">
-		select * from payment where pay_merchant_uid=#{param1} and pay_category = #{param2}
+		select * from pie_payment where pay_merchant_uid=#{param1} and pay_category = #{param2}
 	</select>
 	<!--결제 내역 리스트 -->
-	<select id="paymentList"
+	<select id="pie_paymentList"
 		resultType="com.pie.pieProject.DTO.PaymentDTO">
-		select * from payment order by pay_date desc
+		select * from pie_payment order by pay_date desc
 	</select>
 	<!--구매자 이름 및 아이디, 상품번호로 검색 -->
 	<select id="searchBuyer">
-		select * from payment where buyer_name like '%${param1}%' or buyer_id like
+		select * from pie_payment where buyer_name like '%${param1}%' or buyer_id like
 		'%${param1}%' or pay_merchant_uid like '%${param1}%'
 	</select>
 	<!-- 사용자 구매 내역 -->
 	<select id="buyList">
-		select * from payment where buyer_id=#{param1} and pay_category=#{param2}
+		select * from pie_payment where buyer_id=#{param1} and pay_category=#{param2}
 		order by pay_num desc
 	</select>
 	<!-- 사용자 구매 내역 -->
 	<select id="buyListbyId">
-		select payment.*,${param1}.productImg,${param1}.process from payment
+		select pie_payment.*,${param1}.productImg,${param1}.process from pie_payment
 		JOIN
-		${param1} ON payment.pay_num = ${param1}.num where buyer_id=#{param2}
+		${param1} ON pie_payment.pay_num = ${param1}.num where buyer_id=#{param2}
 		and pay_category=#{param3} order by pay_num desc
 	</select>
 	<!--해당 게시물 사진 가져오기 -->
 	<select id="buyListpic" resultType="string">
 		SELECT ${param3}.${param4}productImg
-		FROM payment
+		FROM pie_payment
 		JOIN ${param3} ON
-		payment.pay_num = ${param3}.${param4}num
-		WHERE payment.buyer_id =
-		#{param1} and payment.pay_category=#{param2} order by payment.pay_date
+		pie_payment.pay_num = ${param3}.${param4}num
+		WHERE pie_payment.buyer_id =
+		#{param1} and pie_payment.pay_category=#{param2} order by pie_payment.pay_date
 	</select>
 	<!--해당 게시물 현황 가져오기 -->
 	<select id="buyListpro" resultType="string">
 		SELECT ${param3}.${param4}process
-		FROM payment
+		FROM pie_payment
 		JOIN ${param3} ON
-		payment.pay_num = ${param3}.${param4}num
-		WHERE payment.buyer_id =
-		#{param1} and payment.pay_category=#{param2} order by payment.pay_date
+		pie_payment.pay_num = ${param3}.${param4}num
+		WHERE pie_payment.buyer_id =
+		#{param1} and pie_payment.pay_category=#{param2} order by pie_payment.pay_date
 	</select>
 	<!--해당 게시물 넘버 가져오기 -->
 	<select id="buyListNum" resultType="string">
 		SELECT ${param3}.${param4}num
-		FROM payment
-		JOIN ${param3} ON payment.pay_num =
+		FROM pie_payment
+		JOIN ${param3} ON pie_payment.pay_num =
 		${param3}.${param4}num
-		WHERE payment.buyer_id = #{param1} and
-		payment.pay_category=#{param2} order by payment.pay_date
+		WHERE pie_payment.buyer_id = #{param1} and
+		pie_payment.pay_category=#{param2} order by pie_payment.pay_date
 	</select>
 	<!--환불 -->
 	<update id="refundPay">
-		update payment set pay_refund = '1' where pay_merchant_uid = #{param1}
+		update pie_payment set pay_refund = '1' where pay_merchant_uid = #{param1}
 	</update>
 	<!--환불여부 -->
 	<update id="refundPayCheck">
-		update payment set pay_refund = '2' where pay_merchant_uid = #{param1}
+		update pie_payment set pay_refund = '2' where pay_merchant_uid = #{param1}
 	</update>
 	<!--전체환불 -->
 	<update id="allRefund">
-		update payment set pay_refund = '3' where pay_num = #{param1}
+		update pie_payment set pay_refund = '3' where pay_num = #{param1}
 	</update>
 	<update id="allProcessRefund">
-		update payment set pay_refund = '2' where pay_num = #{param1}
+		update pie_payment set pay_refund = '2' where pay_num = #{param1}
 	</update>
 	<select id="myPay">
-		select*from payment where buyer_id=#{param1} and pay_num=#{param2} and
+		select*from pie_payment where buyer_id=#{param1} and pay_num=#{param2} and
 		pay_category=#{param3}
 	</select>
 

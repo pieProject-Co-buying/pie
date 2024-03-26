@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.ISearchDao">
 	<select id="bestKeyword" resultType="string">
-		select keyWord from ( select * from searchKey where
+		select keyWord from ( select * from pie_searchKey where
 		tableName=#{param1} order by hit desc)
 		where ROWNUM <![CDATA[ <= ]]>
 		5
 	</select>
 	<select id="findkey" resultType="_int">
-		select count (*) from searchKey
+		select count (*) from pie_searchKey
 		where keyWord = #{param1} and tableName =
 		#{param2}
 	</select>
 	<insert id="inputNew">
-		insert into searchKey values(#{param1},#{param2},0)
+		insert into pie_searchKey values(#{param1},#{param2},0)
 	</insert>
 	<update id="upHit">
-		update searchKey set hit = hit+1 where keyWord =
+		update pie_searchKey set hit = hit+1 where keyWord =
 		#{param1} and tableName =
 		#{param2}
 	</update>
 	<select id="KeywordAll" resultType="string">
-		select DISTINCT keyWord from ( select * from searchKey order by hit
+		select DISTINCT keyWord from ( select * from pie_searchKey order by hit
 		desc)
 		where ROWNUM <![CDATA[ < ]]>
 		27

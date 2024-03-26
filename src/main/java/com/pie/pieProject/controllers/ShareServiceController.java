@@ -99,7 +99,7 @@ public class ShareServiceController {
 	}
 
 	/********** 게시물 상세 페이지 **********/
-	@RequestMapping("/boardList")
+	@GetMapping("/shareServiceProduct")
 	public String showBoard(@RequestParam("num") String num, HttpServletRequest request, Model model) {
 
 		String sId = num;
@@ -112,18 +112,11 @@ public class ShareServiceController {
 		LocalDateTime now = LocalDateTime.now();
 
 //		다른 게시글 리스트
-		List<ShareServiceDto> list = Bcomp.translateShareList(dao.getBoardList());
+		List<ShareServiceDto> list = (dao.getBoardList());
 
 //		조회수
 		dao.updateHit(num);
 
-		dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
-		if (dto.getTag() == null || dto.getTag().equals("#")) {
-			dto.setTags(null);
-		} else {
-			dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
-		}
-		dto.setCategory(Bcomp.translate(dto.getCategory()));
 
 		// 인원 만원시
 		if (dto.getPersonnelMax() <= dto.getPersonnelNow()) {
@@ -221,7 +214,7 @@ public class ShareServiceController {
 
 		dao.updateBoard(dto);
 
-		return "redirect:/boardList?num=" + numID;
+		return "redirect:/shareServiceProduct?num=" + numID;
 	}
 
 	/********** 해당 게시물 삭제 **********/
@@ -295,25 +288,25 @@ public class ShareServiceController {
 
 		if (search == null || search.equals("")) {
 			if (category == null || category.equals("")) {
-				list = Bcomp.translateList(Bcomp.setTURL(tdao.listDaoBoard()));
+				list = tdao.listDaoBoard();
 			} else if (category.equals("town")) {
-				list = Bcomp.translateList(Bcomp.setTURL(tdao.listDaoBoard()));
+				list = tdao.listDaoBoard();
 			} else if (category.equals("proxy")) {
-				list = Bcomp.translateList(Bcomp.setPURL(rdao.listDaoBoard()));
+				list = rdao.listDaoBoard();
 			} else if (category.equals("share")) {
-				list = Bcomp.translateList(Bcomp.setSURL(dao.listDaoBoard()));
+				list = dao.listDaoBoard();
 			}
 		} else {
 			if (category == null || category.equals("")) {
-				list = Bcomp.translateList(Bcomp.setTURL(dao.searchAll(search, "townBuyBoard")));
-				list.addAll(Bcomp.translateList(Bcomp.setPURL(dao.searchAll(search, "proxyBuyBoard"))));
-				list.addAll(Bcomp.translateList(Bcomp.setPURL(dao.searchAll(search, "shareServiceBoard"))));
+				list = dao.searchAll(search, "townBuyBoard");
+				list.addAll(dao.searchAll(search, "proxyBuyBoard"));
+				list.addAll(dao.searchAll(search, "shareServiceBoard"));
 			} else if (category.equals("town")) {
-				list = Bcomp.translateList(Bcomp.setTURL(dao.searchAll(search, "townBuyBoard")));
+				list = dao.searchAll(search, "townBuyBoard");
 			} else if (category.equals("proxy")) {
-				list = Bcomp.translateList(Bcomp.setPURL(dao.searchAll(search, "proxyBuyBoard")));
+				list = dao.searchAll(search, "proxyBuyBoard");
 			} else if (category.equals("share")) {
-				list = Bcomp.translateList(Bcomp.setSURL(dao.searchAll(search, "shareServiceBoard")));
+				list = dao.searchAll(search, "shareServiceBoard");
 			}
 		}
 

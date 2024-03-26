@@ -48,14 +48,14 @@ public class ParticpateController {
 		String category = request.getParameter("category");
 
 		if (category == null || category.equals("") || category.equals("town") ) {
-			List<TownBuyBoardDto> list = bcomp.translateTownList(tdao.townListbyID(sId));
+			List<TownBuyBoardDto> list = tdao.townListbyID(sId);
 			model.addAttribute("list", list);
 			
 		}else if(category.equals("proxy")) {
-			List<ProxyApplyBoardDto> list = bcomp.translateProxyApplyList(pappdao.listDaoByNewerAndId(sId));	
+			List<ProxyApplyBoardDto> list = pappdao.listDaoByNewerAndId(sId);	
 			model.addAttribute("list", list);	
 		}else if (category.equals("share")) {
-			List<ShareServiceDto> list = bcomp.translateShareList(sdao.myBoard(sId));
+			List<ShareServiceDto> list = sdao.myBoard(sId);
 			model.addAttribute("list", list);
 		} 
 
@@ -82,7 +82,7 @@ public class ParticpateController {
 			if(category==null||category.equals("")||category.equals("town")) {
 				
 				category = "town";
-				List<BoardDto> list = bcomp.setTURL(paDao.getTownboard(sId));
+				List<BoardDto> list = paDao.getTownboard(sId);
 				List<String> partList = paDao.getDate(sId, "townBuyBoard");
 				
 				System.out.println("listSize : "+list.size());

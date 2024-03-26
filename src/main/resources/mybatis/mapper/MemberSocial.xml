@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pie.pieProject.DAO.IMemberSocialDao">
 	<insert id="join">
-		insert into member_user values (mem_seq.nextval,
+		insert into pie_member_user values (mem_seq.nextval,
 		#{id},
 		#{name},
 		#{nickname},
@@ -22,7 +22,7 @@
 		)
 	</insert>
 	<select id="find" resultType="com.pie.pieProject.DTO.MemberDto">
-		select * from member_user where id
+		select * from pie_member_user where id
 		= #{param1}
 	</select>
 </mapper>

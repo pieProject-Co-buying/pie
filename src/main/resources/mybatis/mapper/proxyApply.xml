@@ -5,26 +5,33 @@
 
 	<select id="listDaoByNewer"
 		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
-		select * from proxyApplyBoard order by registDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyApplyBoard.*
+from pie_member_user JOIN pie_proxyApplyBoard ON
+		pie_proxyApplyBoard.id
+		= pie_member_user.id order by registDay desc
 	</select>
 	
 	<select id="listDaoByNewerAndId"
 		resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
-		select * from proxyApplyBoard where id = #{id} order by registDay desc
+		select pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyApplyBoard.*
+from pie_member_user JOIN pie_proxyApplyBoard ON
+		pie_proxyApplyBoard.id
+		= pie_member_user.id where pie_proxyApplyBoard.id = #{id} order by registDay desc
 	</select>
 	
 	<select id="getView" resultType="com.pie.pieProject.DTO.ProxyApplyBoardDto">
-		SELECT * FROM proxyApplyBoard where num = #{param1}
+		SELECT pie_member_user.nickname, pie_member_user.profile_pic, pie_proxyApplyBoard.*
+from pie_member_user JOIN pie_proxyApplyBoard ON
+		pie_proxyApplyBoard.id
+		= pie_member_user.id where pie_proxyApplyBoard.num = #{param1}
 	</select>
 	<insert id="insertProxyBoard">
-		insert into proxyApplyBoard values(
-		pr_applyNum.nextval,
+		insert into pie_proxyApplyBoard values(
+		piebr_num.nextval,
 		#{id},
-		#{nickname},
 		#{category},
 		#{title},
 		#{content},
-		#{profileImg},
 		#{productImg},
 		0,
 		sysdate,
@@ -37,14 +44,14 @@
 		)
 	</insert>
 	<update id="updateProxyBoard">
-		update proxyApplyBoard set category=#{category}, title=#{title}, url=#{url},
+		update pie_proxyApplyBoard set category=#{category}, title=#{title}, url=#{url},
 		content=#{content}, productImg=#{productImg}, ip=#{ip}, updateDay=sysdate, brand=#{brand}, productName=#{productName} where num=#{num}
 	</update>
 	<delete id="deleteProxyBoard">
-		delete proxyApplyBoard where num = #{param1}
+		delete pie_proxyApplyBoard where num = #{param1}
 	</delete>
 	<update id="updateState">
-		update proxyApplyBoard set process = #{process}, chkDay = sysdate where num= #{num}
+		update pie_proxyApplyBoard set process = #{process}, chkDay = sysdate where num= #{num}
 	</update>
 	<!-- 현재 인원 증가 -->
 </mapper>

@@ -115,7 +115,7 @@ public class MemberController {
 			@RequestParam(value = "gender") String gender, @RequestParam(value = "email") String email,
 			@RequestParam(value = "phone") String phone, @RequestParam(value = "postCode") String postCode,
 			@RequestParam(value = "address_main") String address_main,
-			@RequestParam(value = "address_sub") String address_sub,
+			@RequestParam(value = "address_sub") String address_sub, @RequestParam(value = "addr_admin") String addr_admin,
 			@RequestParam(value = "agreement") String agreementChk, @RequestParam("profile_pic") MultipartFile file) { // 회원
 
 		// 프로필 사집 업로드
@@ -174,6 +174,7 @@ public class MemberController {
 			dto.setPostCode(postCode);
 			dto.setAddress_main(address_main);
 			dto.setAddress_sub(address_sub);
+			dto.setAddr_admin(addr_admin);
 			dto.setAgreement(agreement);
 
 			userService.setJoinUser(dto);

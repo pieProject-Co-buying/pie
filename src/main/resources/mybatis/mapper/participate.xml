@@ -3,56 +3,56 @@
 
 <mapper namespace="com.pie.pieProject.DAO.IParticipateCheckDao">
 	<insert id="participateShare">
-		insert into checkParticipate values(#{param1},
+		insert into pie_checkParticipate values(#{param1},
 		#{param2}, #{param3},sysdate,'1','0')
 	</insert>
 	<insert id="participate">
-		insert into checkParticipate values(#{param1},
+		insert into pie_checkParticipate values(#{param1},
 		#{param2}, #{param3},sysdate,'1','1')
 	</insert>
 	<select id="getTownboard"
 		resultType="com.pie.pieProject.DTO.BoardDto">
 		SELECT *
 		FROM townBuyBoard
-		JOIN checkParticipate ON
-		checkParticipate.boardNum
+		JOIN pie_checkParticipate ON
+		pie_checkParticipate.boardNum
 		= townBuyBoard.num
 		WHERE
-		checkParticipate.mem = #{param1} and checkParticipate.tableName = 'townBuyBoard' order
+		pie_checkParticipate.mem = #{param1} and pie_checkParticipate.tableName = 'townBuyBoard' order
 		by townBuyBoard.num desc
 	</select>
 	<select id="getDate" resultType="string">
 		select partiDate from
-		checkParticipate where mem = #{param1} and
+		pie_checkParticipate where mem = #{param1} and
 		tableName =
 		#{param2} order by boardNum desc
 	</select>
 	<select id="getPartiMem" resultType="com.pie.pieProject.DTO.MemberDto">
 		SELECT *
-		FROM member_user
-		JOIN checkParticipate ON
-		checkParticipate.mem
-		= member_user.id
-		WHERE checkParticipate.boardNum =
-		#{param1} and checkParticipate.tableName=#{param2} and checkParticipate.paid='1'
+		FROM pie_member_user
+		JOIN pie_checkParticipate ON
+		pie_checkParticipate.mem
+		= pie_member_user.id
+		WHERE pie_checkParticipate.boardNum =
+		#{param1} and pie_checkParticipate.tableName=#{param2} and pie_checkParticipate.paid='1'
 	</select>
 	<select id="getPartiMemNum" resultType="int">
 	SELECT count(*)
-		FROM member_user
-		JOIN checkParticipate ON
-		checkParticipate.mem
-		= member_user.id
-		WHERE checkParticipate.boardNum =
-		#{param1} and checkParticipate.tableName=#{param2}
+		FROM pie_member_user
+		JOIN pie_checkParticipate ON
+		pie_checkParticipate.mem
+		= pie_member_user.id
+		WHERE pie_checkParticipate.boardNum =
+		#{param1} and pie_checkParticipate.tableName=#{param2}
 	</select>
 		<select id="canceledBuying" resultType="int">
-	select count(*) from checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '0'
+	select count(*) from pie_checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '0'
 
 	</select>
 	<select id="chkPartiMem">
-	select count(*) from checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '1'
+	select count(*) from pie_checkparticipate where mem = #{param1} and tableName = #{param2} and boardNum = #{param3} and paid = '1'
 	</select>
 	<update id="cancelBuying">
-	update checkparticipate set paid='0' where mem = #{param1} and tableName = #{param2} and boardNum = #{param3}
+	update pie_checkparticipate set paid='0' where mem = #{param1} and tableName = #{param2} and boardNum = #{param3}
 	</update>
 </mapper>

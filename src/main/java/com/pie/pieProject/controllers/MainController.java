@@ -40,15 +40,7 @@ public class MainController {
 	public String mainPage(Model model, HttpServletRequest request) {
 
 		// 대리구매 인기순 5개
-		List<ProxyBuyBoardDto> plist = Bcomp.translateProxyList(pdao.listDaoByFavorite());
-		for (ProxyBuyBoardDto dto : plist) {
-			dto.setProductImgs(Bcomp.setArraysData(dto.getProductImg(), "/"));
-			if (dto.getTag() == null || dto.getTag().equals("#")) {
-				dto.setTags(null);
-			} else {
-				dto.setTags(Bcomp.setArraysData(dto.getTag(), "#"));
-			}
-		}
+		List<ProxyBuyBoardDto> plist = pdao.listDaoByFavorite();
 		
 		if (plist.size() != 0) {
 			plist.get(0).setContent(Bcomp.parsingHtml(plist.get(0).getContent()));
@@ -65,16 +57,10 @@ public class MainController {
 
 			List<TownBuyBoardDto> tlist = tdao.bestListDao(userMainAddr);
 
-			for (TownBuyBoardDto d : tlist) {
-				d.setCategory(Bcomp.translate(d.getCategory()));
-			}
 
 			model.addAttribute("tlist", tlist);
 
 			List<TownBuyBoardDto> tlist2 = tdao.likeListDao(userMainAddr);
-			for (TownBuyBoardDto d : tlist2) {
-				d.setCategory(Bcomp.translate(d.getCategory()));
-			}
 
 			model.addAttribute("tlist2", tlist2);
 

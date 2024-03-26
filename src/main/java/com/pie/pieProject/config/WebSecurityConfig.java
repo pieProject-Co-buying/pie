@@ -42,8 +42,8 @@ public class WebSecurityConfig {
 				.authenticated()
 				.requestMatchers("/townBuySearch", "/townBuyproduct", "/updateTownProductForm", "/updateTownProduct",
 						"/deleteTownProduct", "/searchProducts", "/townBuyingCategoryChoice", "/writeTownBoard",
-						"/townBuying", "/viewProxyBoard", "/proxyWriteForm", "/uploadAction", "/updateProxyForm",
-						"/updateProxyAction", "/deleteProxyAction", "/updateShareBoardForm", "/boardList",
+						"/townBuying", "/proxyBuyProduct", "/proxyWriteForm", "/uploadAction", "/updateProxyForm",
+						"/updateProxyAction", "/deleteProxyAction", "/updateShareBoardForm", "/shareServiceProduct",
 						"/updateShareBoard", "/deleteShareService", "/writePost", "/insertBoard", "/shareServiceApply",
 						"/shareServiceFinish", "/imageUploading", "/imageUpdating", "/updateHeart", "/map",
 						"/proxyBuyApply", "/payCheck", "/townForm", "/proxyApplyForm", "/proxyApplyFormUpload",

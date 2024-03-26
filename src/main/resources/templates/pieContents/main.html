@@ -399,7 +399,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 
 											<div class="position-absolute p-4 hj-main_town_hover_text">
 												<p class="pie-c-red m-0 small"
-													th:text="${tBoard.getCategory}"></p>
+													th:text="${tBoard.getCategory_ko}"></p>
 												<h5 th:text="${tBoard.getTitle}"
 													class="font-weight-bold text-truncate"></h5>
 
@@ -461,7 +461,7 @@ secion1 #sec1 - 우리동네 공동구매 영역 - 로그인시 노출
 									</div>
 
 									<div class="position-absolute p-4 hj-main_town_hover_text">
-										<p class="pie-c-red m-0 small" th:text="${tBoard.getCategory}"></p>
+										<p class="pie-c-red m-0 small" th:text="${tBoard.getCategory_ko}"></p>
 										<h5 th:text="${tBoard.getTitle}"
 											class="font-weight-bold text-truncate"></h5>
 
@@ -575,7 +575,7 @@ secion2 #sec2 - 대리공구 영역
 							<div class="row px-5 pt-5">
 								<div class="col">
 									<p class="mb-1 pie-c-red font-weight-bolder">
-										<small id="bestCategory" th:text="${list[0].getCategory()}"></small>
+										<small id="bestCategory" th:text="${list[0].getCategory_ko()}"></small>
 									</p>
 									<h4 id="bestTitle" class="text-truncate mb-4"
 										th:text="${list[0].getTitle()}"></h4>
@@ -631,7 +631,7 @@ secion2 #sec2 - 대리공구 영역
 											<div class="hyej-cover">
 												<div>
 													<p class="small m-0 pie-c-red"
-														th:text="${board.getCategory()}"></p>
+														th:text="${board.getCategory_ko()}"></p>
 													<h6 class="text-truncate" th:text="${board.getTitle()}"></h6>
 												</div>
 

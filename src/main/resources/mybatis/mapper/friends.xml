@@ -6,31 +6,31 @@
 
 	<!-- 팔로잉 -->
 	<insert id="Following">
-		INSERT INTO friendTable VALUES (#{param1},#{param2})
+		INSERT INTO pie_friendTable VALUES (#{param1},#{param2})
 	</insert>
 	<!-- 언팔로우 -->
 	<delete id="unFollow">
-		delete friendTable where followingId = #{param1} and
+		delete pie_friendTable where followingId = #{param1} and
 		followedId = #{param2}
 	</delete>
 	<!-- 팔로잉 여부 체크하기 -->
 	<select id="checkFollow" resultType="_int">
 		select count(*) from
-		friendTable where followingId = #{param1} and followedId = #{param2}
+		pie_friendTable where followingId = #{param1} and followedId = #{param2}
 	</select>
 	<!-- 내 팔로잉 리스트 체크하기 -->
 	<select id="friendsList"
 		resultType="com.pie.pieProject.DTO.MemberDto">
-		SELECT member_user.nickname, member_user.id,
-		member_user.profile_pic
-		FROM friendTable
-		JOIN member_user ON
-		friendTable.followedId = member_user.id
-		WHERE friendTable.followingid =
+		SELECT pie_member_user.nickname, pie_member_user.id,
+		pie_member_user.profile_pic
+		FROM pie_friendTable
+		JOIN pie_member_user ON
+		pie_friendTable.followedId = pie_member_user.id
+		WHERE pie_friendTable.followingid =
 		#{param1}
 	</select>
 	<delete id="outMemberFollow">
-		delete friendTable where followingId=#{param1} or followedId = #{param2}
+		delete pie_friendTable where followingId=#{param1} or followedId = #{param2}
 	</delete>
 
 </mapper>

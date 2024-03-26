@@ -211,8 +211,8 @@ let category = $(this).attr("data-category");
 		    if (response.pay_refund === '0') {
 		        refundBadge = '<small class="badge badge-secondary">요청없음</small>';
 		    } else if (response.pay_refund === '1') {
-		        refundBadge = '<small class="badge badge-danger"><a class="text-white" href="refundPayCheck?page=1&num='
-		        		+ response.pay_Merchant_uid + '&pnum=' + response.pay_num + '">환불요청</a></small>';
+		        refundBadge = '<a class="text-white badge badge-danger small" href="refundPayCheck?page=1&num='
+		        		+ response.pay_Merchant_uid + '&pnum=' + response.pay_num + '">환불요청</a>';
 		    } else if (response.pay_refund === '2') {
 		        refundBadge = '<small class="badge badge-success">환불완료</small>';
 		    }
